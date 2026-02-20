@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Raw data (HWP, PDF, JPG originals - too large for git)
+raw_data/
+소규모환경 태양광사업 관련 자료_260219/
+
+# Extracted texts (intermediate, regenerable from raw_data)
+extracted_texts/
+
+# IDE
+.idea/
+.vscode/
+*.swp
