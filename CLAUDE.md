@@ -9,10 +9,25 @@
 
 ## 현재 상태
 
-- **Phase 1 (소음·진동)**: HWPX 템플릿 방식 PoC 진행 중
-- 텍스트 생성 PoC는 완료 (구조 일치도 100%, 변수 치환 정확도 100%, 환각 0건)
-- HWPX 파일 생성 스크립트 초안 작성 완료 (`scripts/generate_hwpx.py`)
-- **남은 핵심 문제**: 변수 매핑 데이터의 정확성 — 삽도(이미지)에서만 얻을 수 있는 변수 처리
+- **Phase 1 (소음·진동)**: PoC 거의 완료
+- 텍스트 생성 PoC 완료 (구조 일치도 100%, 변수 치환 정확도 100%, 환각 0건)
+- 삽도(이미지) 기반 데이터 추출 실험 완료 (방향 100%, 시설명 75%, 이격거리 50%)
+- Python XML 방식 HWPX 생성 시도 → **파일 무결성 문제로 중단** (ElementTree가 XML 구조를 변형)
+- **방향 전환**: Windows + 한글 프로그램 API 기반으로 자동화 시스템 개발 예정
+
+### 방향 전환 배경
+Python으로 HWPX(ZIP+XML)를 직접 조작하면 ElementTree가:
+1. 미사용 네임스페이스 선언 제거 (15개 → 3개)
+2. Self-closing 태그에 공백 추가 (`/>` → ` />`)
+3. 줄바꿈 정규화 (`\r\n` → `\n`)
+→ 한글 프로그램에서 파일이 열리지 않음. 패치로 해결 가능하나 근본적으로 불안정.
+
+**클라이언트 환경이 Windows + 한글**이므로, 한글 API(`win32com` 또는 한글 매크로)로 직접 조작하면 파일 무결성 문제 자체가 없음.
+
+### 다음 단계
+1. **PoC 완성**: Windows PC에서 한글 프로그램으로 직접 최종 HWPX 만들기
+2. **자동화 시스템**: Windows + 한글 API 기반 Python 스크립트 개발
+3. **PoC 보고서**: 결과 정리하여 클라이언트 제출
 
 ## 프로젝트 구조
 
@@ -364,44 +379,37 @@ HWPX = ZIP 파일. 내부 구조:
 </hp:tbl>
 ```
 
-### 필수 주의사항 (버그 방지)
+### ❌ Python XML 직접 조작 방식의 문제 (교훈 기록)
 
-1. **ZIP 압축 타입 보존**: `mimetype`과 이미지 파일은 `ZIP_STORED` (compress_type=0)이어야 함.
-   `ZIP_DEFLATED`로 쓰면 한글 프로그램에서 파일이 열리지 않음.
-   ```python
-   # 원본의 압축 타입을 읽어서 보존
-   compress_types = {}
-   with zipfile.ZipFile(template, 'r') as z:
-       for info in z.infolist():
-           compress_types[info.filename] = info.compress_type
-   ```
+> **이 방식은 중단됨.** 아래는 같은 실수를 반복하지 않기 위한 기록.
 
-2. **XML 네임스페이스 등록**: `ET.register_namespace()`로 모든 네임스페이스를 등록해야 함.
-   안 하면 출력 시 `ns0:`, `ns1:` 같은 프리픽스로 바뀌어 파일이 깨짐.
-   ```python
-   NAMESPACES = {
-       "hp": "http://www.hancom.co.kr/hwpml/2011/paragraph",
-       "hs": "http://www.hancom.co.kr/hwpml/2011/section",
-       # ... (generate_hwpx.py 참조)
-   }
-   for prefix, uri in NAMESPACES.items():
-       ET.register_namespace(prefix, uri)
-   ```
+Python `ElementTree`로 HWPX의 section0.xml을 파싱→수정→재직렬화하면 다음 문제 발생:
+1. **네임스페이스 제거**: 원본 15개 → 실제 사용 3개만 남김 → 한글이 파일 거부
+2. **Self-closing 태그 공백**: `/>` → ` />` 변환
+3. **줄바꿈 정규화**: `\r\n` → `\n` 변환
+4. **ZIP 엔트리 순서**: `mimetype`이 첫 번째여야 하나 `os.walk()` 순서로 밀림
 
-3. **hp:t 텍스트 분리 문제**: 하나의 문장이 여러 `<hp:run><hp:t>` 요소에 걸쳐 있을 수 있음.
-   예: `"주간 평균 "` + `"10.0"` + `"dB(V), 야간 평균 "` + `"9.0"` + `"dB(V)으로"`
-   → 단순 문자열 치환이 안 될 수 있으므로, 개별 `hp:t` 노드를 순회하며 정확한 값 매칭 필요.
+개별 패치 가능하나, 발견 안 된 차이가 더 있을 수 있어 근본적으로 불안정.
 
-4. **테이블 행 동적 추가**: P-point 수가 다르면 테이블 행을 추가/삭제해야 함.
-   ```python
-   import copy
-   last_row = rows[-1]
-   new_row = copy.deepcopy(last_row)
-   # hp:t 텍스트 설정 후
-   table.insert(list(table).index(last_row) + 1, new_row)
-   # hp:tbl의 rowCnt 속성도 업데이트
-   table.set('rowCnt', str(new_row_count))
-   ```
+### ✅ 한글 API 방식 (권장)
+
+Windows + 한글 프로그램 환경에서 `win32com.client`로 한글을 직접 제어:
+```python
+import win32com.client
+hwp = win32com.client.Dispatch("HWPFrame.HwpObject")
+hwp.Open("템플릿.hwpx")
+
+# 찾기/바꾸기
+hwp.HAction.GetDefault("AllReplace", hwp.HParameterSet.HFindReplace.HSet)
+hwp.HParameterSet.HFindReplace.FindString = "원주시 호저면"
+hwp.HParameterSet.HFindReplace.ReplaceString = "괴산군 청안면"
+hwp.HAction.Execute("AllReplace", hwp.HParameterSet.HFindReplace.HSet)
+
+# 표 조작, 셀 이동 등도 API로 가능
+hwp.SaveAs("출력.hwpx")
+hwp.Quit()
+```
+→ 한글 프로그램이 파일을 직접 읽고 쓰므로 **XML 무결성 문제 없음**
 
 5. **테이블 인덱스 매핑** (원주 무장리 템플릿 기준):
 
@@ -481,20 +489,35 @@ HWPX = ZIP 파일. 내부 구조:
 
 ## 현재 TODO
 
-### generate_hwpx.py 수정 필요 사항
+### 즉시 할 일 (Windows PC에서)
 
-1. **ZIP 압축 타입 보존 추가** — 현재 스크립트는 모든 파일을 ZIP_DEFLATED로 쓰므로 한글에서 안 열림
-2. **조사시기(Table 4) 값 재확인** — 사업개요에서 정확한 현황조사 기간 확인 필요
-3. **진동규제기준 지역 확인** — "다" 지역은 소음환경기준, 진동은 "나. 그 밖의 지역"
-4. **테이블 행 동적 추가 기능** — P-point 수가 템플릿(5개)과 다를 때 행 추가/삭제
-5. **소음 초과 분기 로직 구현** — 초과 시 확장 구조, 미초과 시 단순 구조
+1. **한글 프로그램으로 PoC HWPX 완성**
+   - 원주 템플릿 열기 → 변수 매핑표 보면서 직접 수정 → 저장
+   - 이 레포의 변수 매핑 데이터(`CLAUDE.md` "양식별 변수 매핑" 섹션) 참조
+
+2. **한글 API 기반 자동화 스크립트 개발**
+   - `win32com.client`로 한글 프로그램 제어
+   - 또는 한글 매크로(HMacro) 사용
+   - 기존 `generate_hwpx.py`의 로직(변수 추출, 계산 공식)은 재활용
+
+3. **PoC 보고서 최종 정리**
+   - `docs/poc_result_report.md` 업데이트
+   - 삽도 추출 실험 결과 통합
+
+### 완료된 작업
+
+| Phase | 내용 | 상태 |
+|-------|------|------|
+| Phase 1-1 | 소음·진동 텍스트 생성 PoC | ✅ 완료 |
+| Phase 1-2a | 삽도 기반 데이터 추출 실험 | ✅ 완료 |
+| Phase 1-2b | Python XML 방식 HWPX 생성 | ❌ 중단 (파일 무결성 문제) |
 
 ### 향후 작업
 
 | Phase | 내용 | 상태 |
 |-------|------|------|
-| Phase 1-1 | 소음·진동 텍스트 생성 PoC | 완료 |
-| Phase 1-2 | HWPX 템플릿 기반 파일 생성 | 진행 중 |
+| Phase 1-2c | Windows + 한글 API로 HWPX 자동 생성 | 🔜 다음 |
+| Phase 1-3 | PoC 보고서 최종 작성 | 대기 |
 | Phase 2 | 대기질 파트 확장 | 대기 (자료 수령 필요) |
 | Phase 3 | 전체 보고서 통합 | 미착수 |
 | Phase 4 | 웹 기반 운영 시스템 구축 | 미착수 |
