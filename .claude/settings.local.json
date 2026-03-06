@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where:*)",
+      "Bash(cmd /c \"if exist \"\"C:\\\\Program Files\\\\Hnc\"\" \\(echo FOUND\\) else \\(echo NOT_FOUND\\)\")",
+      "Bash(cmd /c \"if exist \"\"C:\\\\Program Files \\(x86\\)\\\\Hnc\"\" \\(echo FOUND\\) else \\(echo NOT_FOUND\\)\")",
+      "Bash(powershell -Command \"Get-Command python -ErrorAction SilentlyContinue | Select-Object Source\")",
+      "Bash(powershell -Command:*)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" scripts/generate_hwpx_hwpapi.py)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" -c \":*)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" scripts/test_replace.py)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" scripts/test_debug.py)",
+      "Bash(ls:*)",
+      "Bash(cmd.exe /c \"taskkill /F /IM Hwp.exe 2>nul & echo done\")",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" scripts/test_vib_replace.py)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" scripts/test_vib_replace2.py)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" -c:*)",
+      "Bash(.venvScriptspython.exe scriptsgenerate_hwpx_hwpapi.py)",
+      "Bash(.venv/Scripts/python.exe:*)",
+      "Bash(\"C:/Users/user00/AppData/Local/Programs/Python/Python312/python.exe\" \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/scripts/generate_hwpx_hwpapi.py\")",
+      "Bash(\"C:/Users/user00/AppData/Local/Programs/Python/Python312/python.exe\" -c:*)",
+      "Bash(\"C:/Users/user00/AppData/Local/Programs/Python/Python312/python.exe\" \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/scripts/verify_output.py\")",
+      "Bash(\"C:/Users/user00/AppData/Local/Programs/Python/Python312/python.exe\" -c \":*)",
+      "Bash(python:*)",
+      "Bash(.venvScriptspython.exe -c \":*)",
+      "Bash(\"C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service\\\\.venv\\\\Scripts\\\\python.exe\" -c:*)",
+      "Bash(cmd.exe /c \"C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service\\\\.venv\\\\Scripts\\\\python.exe -c \"\"import sys; print\\(sys.executable\\)\"\"\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service && .venv\\\\Scripts\\\\python.exe -c \"\"import zipfile,sys,io; sys.stdout=io.TextIOWrapper\\(sys.stdout.buffer,encoding=''utf-8''\\); zf=zipfile.ZipFile\\(r''tests\\\\소음진동\\\\output\\\\괴산_금신리_소음진동_AI생성_hwpapi.hwpx'',''r''\\); xml=zf.read\\(''Contents/section0.xml''\\).decode\\(''utf-8''\\); zf.close\\(\\); [print\\(f''  {kw}: {xml.count\\(kw\\)}''\\) for kw in [''주거지역'',''주거시설'',''가. 주거지역'']]\"\"\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service && .venv\\\\Scripts\\\\python.exe scripts\\\\check_keywords.py\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service && .venv\\\\Scripts\\\\python.exe scripts\\\\check_keywords.py 2>&1\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service && .venv\\\\Scripts\\\\python.exe scripts\\\\check_keywords.py > scripts\\\\check_result.txt 2>&1 && type scripts\\\\check_result.txt\")",
+      "Bash(powershell.exe -Command \"Set-Location ''C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service''; & ''.venv\\\\Scripts\\\\python.exe'' ''scripts\\\\check_keywords.py'' 2>&1 | Out-File -Encoding utf8 ''C:\\\\Users\\\\user00\\\\check_result.txt''\")",
+      "Bash(powershell.exe -Command \"& ''C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service\\\\.venv\\\\Scripts\\\\python.exe'' ''C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service\\\\scripts\\\\check_keywords.py'' 2>&1 | Out-File -Encoding utf8 ''C:\\\\Users\\\\user00\\\\check_result.txt''\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service\\\\.venv\\\\Scripts\\\\python*''\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem -Path ''C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service'' -Name -Directory\")",
+      "Bash(powershell.exe -Command \"Get-Command python | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -Command:*)",
+      "Bash(powershell.exe -NoProfile -Command \"& ''C:\\\\Users\\\\user00\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe'' ''C:\\\\Users\\\\user00\\\\Documents\\\\GitHub\\\\good-eng-ai-service\\\\scripts\\\\check_noise_fix.py''\")",
+      "Bash(python3:*)",
+      "Bash(\"C:/Users/user00/AppData/Local/Programs/Python/Python312/python.exe\" \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/scripts/extract_hwp.py\" \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/tests/소음진동/output/괴산_금신리_소음진동_AI생성_hwpapi.hwpx\" -o \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/tests/소음진동/output/생성결과_텍스트추출.txt\")"
+    ]
+  }
+}
