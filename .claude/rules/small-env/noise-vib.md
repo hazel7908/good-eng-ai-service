@@ -1,10 +1,9 @@
 ---
 paths:
-  - "tests/소음진동/**"
-  - "scripts/*noise*"
-  - "scripts/*소음*"
-  - "scripts/generate_hwpx*"
-  - "prompts/소음진동*"
+  - "cases/small-env/*/noise-vib/**"
+  - "cases/small-env/*/vars/noise-vib*"
+  - "templates/small-env/noise-vib*"
+  - "golden/small-env/*/noise-vib*"
 ---
 
 # 소음·진동 섹션 (7.2.7) 생성 규칙

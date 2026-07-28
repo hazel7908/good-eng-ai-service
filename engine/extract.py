@@ -6,14 +6,14 @@ HWP/HWPX 텍스트 추출 스크립트
 
 사용법:
     # 단일 파일 추출
-    python extract_hwp.py input.hwp
-    python extract_hwp.py input.hwpx
+    python engine/extract.py input.hwp
+    python engine/extract.py input.hwpx
 
     # 폴더 내 모든 HWP/HWPX 일괄 추출
-    python extract_hwp.py ./raw_data/ --output ./extracted_texts/
+    python engine/extract.py ./raw_data/ --output ./extracted_texts/
 
     # 특정 파일을 지정 경로에 저장
-    python extract_hwp.py input.hwp --output result.txt
+    python engine/extract.py input.hwp --output result.txt
 
 의존성:
     pip install olefile

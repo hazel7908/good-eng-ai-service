@@ -186,8 +186,10 @@ def replace_images_in_hwpx(hwpx_path, img_map):
 # ============================================================
 def main():
     root = Path(__file__).parent.parent
-    template = str(root / "templates" / "원주_무장리_소음진동_템플릿.hwpx")
-    output = str(root / "tests" / "소음진동" / "output" / "괴산_금신리_소음진동_AI생성_hwpapi.hwpx")
+    # TODO(5단계): 카테고리·파트·사업을 인자로 받고 사업 데이터는 vars/{파트}.json 에서 읽는다
+    # 베이스 문서는 아직 없다 — 6단계(Windows)에서 원주 무장리 골든셋에 빈칸을 뚫어 만든다
+    template = str(root / "templates" / "small-env" / "noise-vib.hwpx")
+    output = str(root / "cases" / "small-env" / "괴산_금신리" / "noise-vib" / "output.hwpx")
     os.makedirs(os.path.dirname(output), exist_ok=True)
 
     print("[1/4] 한글 시작...")

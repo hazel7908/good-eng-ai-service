@@ -1,6 +1,6 @@
 ---
 paths:
-  - "scripts/**"
+  - "engine/**"
   - "templates/**"
 ---
 

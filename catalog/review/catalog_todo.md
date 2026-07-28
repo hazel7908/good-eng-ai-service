@@ -1,6 +1,6 @@
 # NAS 카탈로그 — 검수 필요 워크리스트 (자동 생성)
 
-> `scripts/build_catalog.py`가 생성. **사람이 확정해야 하는 항목만** 모음.
+> `catalog/build_catalog.py`가 생성. **사람이 확정해야 하는 항목만** 모음.
 > 확인 후 결과를 카탈로그에 반영하면 됨. (전체 트리는 `nas_catalog_review.md`)
 
 ## ① 영역 미상 — 74건

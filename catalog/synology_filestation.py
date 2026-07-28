@@ -11,16 +11,16 @@ Synology File Station API 클라이언트 — NAS 보고서 저장소 탐색/다
 
 사용법:
   # 로그인 테스트 + 최상위 공유폴더 목록
-  python3 scripts/synology_filestation.py shares
+  python3 catalog/synology_filestation.py shares
 
   # 폴더 트리 (깊이 제한, 마크다운/JSON 출력) — 목록만 조회, 파일 안 받음
-  python3 scripts/synology_filestation.py tree "/보고서" --depth 3 --out docs/nas_tree.md
-  python3 scripts/synology_filestation.py tree "/보고서" --depth 99 --json docs/nas_index.json
+  python3 catalog/synology_filestation.py tree "/보고서" --depth 3 --out catalog/review/nas_tree.md
+  python3 catalog/synology_filestation.py tree "/보고서" --depth 99 --json catalog/data/nas_index.json
 
   # 다운로드 — 100MB 초과 시 확인 프롬프트 (용량 가드)
-  python3 scripts/synology_filestation.py download "/보고서/괴산_금신리.hwpx" --dest raw_data/nas/
-  python3 scripts/synology_filestation.py download "/보고서/2024" --dest raw_data/nas/ --max-mb 500
-  python3 scripts/synology_filestation.py download "/보고서/2024" --dest raw_data/nas/ --yes   # 확인 생략
+  python3 catalog/synology_filestation.py download "/보고서/괴산_금신리.hwpx" --dest raw_data/nas/
+  python3 catalog/synology_filestation.py download "/보고서/2024" --dest raw_data/nas/ --max-mb 500
+  python3 catalog/synology_filestation.py download "/보고서/2024" --dest raw_data/nas/ --yes   # 확인 생략
 
 SSL 인증서 이슈(사내 환경)로 기본 verify=False.
 """

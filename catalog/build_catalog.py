@@ -5,7 +5,7 @@ NAS 정본 카탈로그 빌더 — 전수 (전체 폴더 → 클러스터링 →
   1. 전체 프로젝트 후보 수집 (0.평가서 + 연도폴더; 담당자 사본은 위치경로로 연결)
   2. 클러스터링(dedup) — 강한 신호(관리번호 코어 / 위치+사업자)만 자동 병합, 약한 건 플래그
   3. 정본 선택 — 내용 우선(실물 有 > superseded 제외 > 출처·완성도)
-  4. 유니크 셋 출력 → docs/nas_catalog.json + docs/nas_catalog_review.md
+  4. 유니크 셋 출력 → catalog/data/nas_catalog.json + catalog/review/catalog_review.md
 
 설계 근거: docs/reorg_strategy.md §3 "중복 해소 & 정본 선택 규칙"
 (이전 v0는 0.평가서 166건만 척추로 삼았으나 전수 확장으로 대체됨)
@@ -15,7 +15,7 @@ from pathlib import Path
 from collections import defaultdict, Counter
 
 ROOT = Path(__file__).resolve().parent.parent
-idx = json.load(open(ROOT / "docs/nas_index.json", encoding="utf-8"))
+idx = json.load(open(ROOT / "catalog/data/nas_index.json", encoding="utf-8"))
 
 # ---------- 트리 평탄화 ----------
 ALL = []  # (name, path, node)
@@ -267,7 +267,7 @@ for e in sorted(multi, key=lambda x:-x["출처수"])[:5]:
         print(f"       {p[:78]}")
 
 # JSON 저장
-json.dump(entries, open(ROOT/"docs/nas_catalog.json","w",encoding="utf-8"), ensure_ascii=False, indent=2)
+json.dump(entries, open(ROOT/"catalog/data/nas_catalog.json","w",encoding="utf-8"), ensure_ascii=False, indent=2)
 
 # ---------- 사람용 트리 (영역 → 종류 → 정규화 이름) ----------
 def short_flags(fl):
@@ -325,7 +325,7 @@ for ai, area in enumerate(areas):
             src = "" if e["출처수"]==1 else f"  ({e['출처수']}출처)"
             L.append(f"{ac}{tc}{lb}{e['정규화이름']}{src}{short_flags(e['플래그'])}")
 L.append("```")
-open(ROOT/"docs/nas_catalog_review.md","w",encoding="utf-8").write("\n".join(L))
+open(ROOT/"catalog/review/catalog_review.md","w",encoding="utf-8").write("\n".join(L))
 
 # ---------- 검수 필요 워크리스트 (사람 판단 항목만 따로) ----------
 def has_flag(e, key): return any(f.startswith(key) for f in e["플래그"])
@@ -335,7 +335,7 @@ def has_flag(e, key): return any(f.startswith(key) for f in e["플래그"])
 혼재 = [e for e in entries if has_flag(e, "영역혼재")]
 
 W = ["# NAS 카탈로그 — 검수 필요 워크리스트 (자동 생성)", "",
-     "> `scripts/build_catalog.py`가 생성. **사람이 확정해야 하는 항목만** 모음.",
+     "> `catalog/build_catalog.py`가 생성. **사람이 확정해야 하는 항목만** 모음.",
      "> 확인 후 결과를 카탈로그에 반영하면 됨. (전체 트리는 `nas_catalog_review.md`)", ""]
 
 W.append(f"## ① 영역 미상 — {len(미분류)}건")
@@ -360,8 +360,8 @@ if 폐기 or 혼재:
         W.append(f"- [ ] {e['정규화이름'] or e['원본이름_정본']}  ‹{' '.join(e['플래그'])}›")
         W.append(f"      `{e['정본경로_추정']}`")
 
-open(ROOT/"docs/nas_catalog_todo.md","w",encoding="utf-8").write("\n".join(W))
+open(ROOT/"catalog/review/catalog_todo.md","w",encoding="utf-8").write("\n".join(W))
 
-print(f"\n[✓] docs/nas_catalog.json ({len(entries)} 유니크 사업)")
-print(f"[✓] docs/nas_catalog_review.md (전체 트리)")
-print(f"[✓] docs/nas_catalog_todo.md (검수: 미분류 {len(미분류)}·중복후보 {len(중복후보)}·기타 {len(폐기)+len(혼재)})")
+print(f"\n[✓] catalog/data/nas_catalog.json ({len(entries)} 유니크 사업)")
+print(f"[✓] catalog/review/catalog_review.md (전체 트리)")
+print(f"[✓] catalog/review/catalog_todo.md (검수: 미분류 {len(미분류)}·중복후보 {len(중복후보)}·기타 {len(폐기)+len(혼재)})")
