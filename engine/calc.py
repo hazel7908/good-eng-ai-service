@@ -31,7 +31,9 @@ EQUIP = {
 
 ATTEN = {
     "noise": {"r0": 15.0, "coef": 20.0},
-    "vib":   {"r0": 7.5,  "coef": 16.17},   # 기하감쇠정수 n = 0.81
+    # 진동 계수 = 20 × n = 20 × 0.81 = 16.2
+    #   ⚠️ 16.17 이 아니다. 골든셋 5개 사업 36개 행으로 확인 (R4, 2026-07-29)
+    "vib":   {"r0": 7.5,  "coef": 16.2},
 }
 
 # 정온시설 종류별 목표기준 (rule §2-5)
@@ -164,6 +166,16 @@ def self_test():
         g0, g1, g2 = mitigation_series(d, EX_DUMP, sub)
         for lbl, got, want in [("예측", g0, e0), ("저소음후", g1, e1), ("분산후", g2, e2)]:
             check(f"{name} {lbl}", round(got, 1), want, tol=0.001)
+
+    print("\n진동 거리감쇠 — 표 24 (원주·괴산 동일, 5/5 사업 36행 검증됨)")
+    cv = composite_vib(EX_DUMP)
+    for d, want in zip([50, 100, 150, 200, 300, 500, 1000],
+                       [23.1, 18.2, 15.3, 13.3, 10.5, 6.9, 2.0]):
+        check(f"{d}m 진동레벨", round(attenuate(cv, d, "vib"), 1), want, tol=0.001)
+    # 굴삭기만 쓰는 사업(여주)도 같은 계수로 맞는지 — 계수 오판을 거른다
+    cv1 = composite_vib(EX_ONLY)
+    for d, want in [(140, 12.9), (260, 8.6), (530, 3.5)]:
+        check(f"여주 {d}m (굴삭기만)", round(attenuate(cv1, d, "vib"), 1), want, tol=0.001)
 
     print("\n가설방음판넬 역산 — 청양 P-1 (축사, 목표 60)")
     check("감쇠량", sound_panel_reduction(72.6, 60), 12.6, tol=0.05)
