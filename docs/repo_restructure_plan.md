@@ -537,9 +537,13 @@ Mac에서 지금 가능한 것과 Windows(한글 프로그램)가 필요한 것�
 | **4** | ✅ `noise-vib.md` 를 `knowledge_architecture.md` §2의 **7장르**로 재편집 + `_category.md`·`naming.md` 신설 (+ 3단계 누락분 `_variants.md`) | Mac | `9969878` |
 | **4.5** | ✅ **계획 누락분** — 스킬 2개를 규칙 기준으로 정리 (값·계산 방식을 rule로 이관) | Mac | 커밋 D2 |
 | **8** | ✅ **앞당김** — `CLAUDE.md`·`README.md` 새 구조로 재작성 | Mac | `d0b8d6b` |
-| **5** | **← 다음** `engine/generate.py` 에서 사업 데이터 → `cases/small-env/괴산_금신리/vars/noise-vib.json` 분리 | Mac 작성 / Win 검증 | 커밋 E |
-| 6 | **원주 무장리 골든셋 → 베이스 문서 도출**(빈칸 뚫기) → `templates/small-env/noise-vib.hwpx` | **Windows** | 커밋 F |
-| 7 | `skills/distill-golden` 신설 (골든셋 → 베이스문서·변수명세 도출 절차) | Mac | 커밋 G |
+| **5** | ✅ `engine/generate.py` 에서 사업 데이터 → `vars/noise-vib.json` 분리 (+ `calc.py` 신설) | Mac | `af5b3f3` |
+| **7** | ✅ `skills/distill-golden` 신설 | Mac | 커밋 G |
+| **6** | **← 다음 · 유일한 잔여** 원주 골든셋 → 베이스 문서(빈칸 뚫기) → `templates/small-env/noise-vib.hwpx` | **Windows** | 커밋 F |
+
+> **6단계는 Mac에서 준비를 끝냈다.** `templates/small-env/noise-vib.slots.md` 가 *"원주 원본의 어느 문자열을 어느 토큰으로 바꾸는지"* 를 줄 번호까지 적은 작업 지시서다. Windows 세션에서는 찾기/바꾸기만 하면 된다.
+>
+> **6단계 이후 곧바로 할 것**: 괴산 재생성 → `/validate-report` → **2차 PoC의 44.3% 대비 얼마나 올랐는지 측정.** 지금까지의 규칙 수정은 전부 *가설*이며, 이 측정 전까지는 개선 여부를 모른다.
 
 > ### ⚠️ 4.5단계는 계획에 없던 것 — 왜 빠졌나
 >
