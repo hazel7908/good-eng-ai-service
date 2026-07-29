@@ -534,11 +534,15 @@ Mac에서 지금 가능한 것과 Windows(한글 프로그램)가 필요한 것�
 | 2 | ✅ `_archive/poc-2026-03/` 로 통째 이동 + `catalog/` 신설·이동 + §3 빈 골격 생성 | Mac | `b4ffe22` |
 | 3 | ✅ 끌어올리기(§7) — 복사 + 위치·이름 변경. **파일 내용은 손대지 않음** | Mac | `cc5cc4c` |
 | **3.5** | ✅ **경로 참조 일괄 수정** — 옮긴 파일들이 **옛 경로를 가리키는 것**을 새 경로로 (아래 표) · **검증 완료**(§1 관측 5) | Mac | `1851b6f` |
-| **4** | **← 다음** `noise-vib.md` 를 `knowledge_architecture.md` §2의 **7장르**로 재편집 + `_category.md`·`naming.md` 신설 | Mac | 커밋 D |
-| 5 | `engine/generate.py` 에서 사업 데이터 → `cases/small-env/괴산_금신리/vars/noise-vib.json` 분리 | Mac 작성 / Win 검증 | 커밋 E |
+| **4** | ✅ `noise-vib.md` 를 `knowledge_architecture.md` §2의 **7장르**로 재편집 + `_category.md`·`naming.md` 신설 (+ 3단계 누락분 `_variants.md`) | Mac | `9969878` |
+| **8** | ✅ **앞당김** — `CLAUDE.md`·`README.md` 새 구조로 재작성 | Mac | `d0b8d6b` |
+| **5** | **← 다음** `engine/generate.py` 에서 사업 데이터 → `cases/small-env/괴산_금신리/vars/noise-vib.json` 분리 | Mac 작성 / Win 검증 | 커밋 E |
 | 6 | **원주 무장리 골든셋 → 베이스 문서 도출**(빈칸 뚫기) → `templates/small-env/noise-vib.hwpx` | **Windows** | 커밋 F |
 | 7 | `skills/distill-golden` 신설 (골든셋 → 베이스문서·변수명세 도출 절차) | Mac | 커밋 G |
-| 8 | `CLAUDE.md`·`README.md` 새 구조로 재작성, `repo_structure_guide.md` 폐기·대체 | Mac | 커밋 H |
+
+> **8단계를 앞으로 당긴 이유**: `CLAUDE.md`·`README.md` 가 폐기된 PoC 구조(`scripts/` `tests/` `references/` `prompts/`)를 계속 설명하고 있었고, 실제로 **"구조가 계획대로 구현이 안 된 것 같다"는 오해를 일으켰다.** 구조 개편이 끝난 시점에 진입 문서가 낡아 있는 것은 그 자체로 비용이다. 단계 5~7과 의존 관계가 없어 순서를 바꿔도 잃는 게 없다.
+>
+> **단계 4에 남은 것**: `_category.md` 는 이번 세션에서 **새로 만든 rule 이라 스코핑 검증을 못 했다.** §1 미해소 가설("세션 도중 생성한 rule은 등록되지 않음")과 겹치고, `cases/small-env/**` 는 관측 5에서 쓴 패턴과 형태가 다르다. → **새 세션에서 `cases/small-env/괴산_금신리/input/사업개요.txt` 를 여는 요청**으로 확인할 것. 그 경로는 `_category.md` 에만 걸리고 `noise-vib.md` 에는 걸리지 않으므로, **`_category.md` 만 주입되는 것이 정답**이다 (§5 1단계 시나리오).
 
 **2·3단계를 나누는 이유**: 이동만 있는 커밋과 내용이 바뀌는 커밋을 섞으면 나중에 diff를 읽을 수 없다.
 
