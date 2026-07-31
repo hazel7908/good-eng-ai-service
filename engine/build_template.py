@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""
+베이스 문서 빌더 — 골든셋에 빈칸을 뚫어 templates/{카테고리}/{파트}.hwpx 를 만든다.
+
+  golden/{카테고리}/{기준사업}/원본.hwpx  →  templates/{카테고리}/{파트}.hwpx
+
+6단계(`docs/windows_session.md` §1)를 **재현 가능하게** 만든 것이다.
+안내서는 한글 수작업을 전제하지만, 손으로 치면 가운뎃점 3종(`·` `ㆍ` `․`)과
+스마트따옴표(`‘’` `“”`)에서 매칭이 깨진다(`_category.md` §4). 문자열을 코드에
+박아 두면 다시 만들 때 같은 결과가 나온다.
+
+⚠️ Windows + 한글 프로그램 전용.
+⚠️ 여기 적힌 `찾을 문자열` 은 **원주 무장리 골든셋 실측**이다.
+   기준 사업을 바꾸면 SPECS 를 다시 실측해야 한다.
+
+명세: templates/small-env/noise-vib.slots.md
+사용:
+    python engine/build_template.py small-env noise-vib
+    python engine/build_template.py small-env noise-vib --dry-run   # 매칭 검사만
+"""
+
+import argparse
+import shutil
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).parent.parent
+
+
+# ============================================================
+# 파트별 빈칸 명세
+# ============================================================
+# (찾을 문자열, 바꿀 문자열) — 한글 AllReplace 는 표 안쪽도 포함한다.
+NOISE_VIB_REPLACE = [
+    # --- A절 1~5 ---
+    ("원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업", "{{사업명}}"),
+    ("2025. 06. 30. ~ 2025. 07. 04.", "{{조사시기}}"),
+    ("강원특별자치도 원주시 호저면 생담길 120", "{{측정지점_주소}}"),
+    ("2025년 06월 24일 ~ 06월 25일", "{{측정일시}}"),
+    ("사업계획지구 주변 1개 지점의 소음 측정 결과", "{{측정결과_도입}}"),
+
+    # --- A절 6~9 · 숫자만 바꾸고 단위는 남긴다 ---
+    ("주간 평균 45.0dB(A), 야간 평균 39.0dB(A)",
+     "주간 평균 {{소음_주간평균}}dB(A), 야간 평균 {{소음_야간평균}}dB(A)"),
+    ("주간 평균 10.0dB(V), 야간 9.0dB(V)",
+     "주간 평균 {{진동_주간평균}}dB(V), 야간 {{진동_심야평균}}dB(V)"),
+
+    # --- A절 10 · 가운뎃점 U+2024 ---
+    ("소음․진동 측정지점도", "{{측정지점도_캡션}}"),
+
+    # --- A절 11~12 · 같은 토큰, 문맥이 다르다 ---
+    ("반경 1.0km 이내(5개 지점)", "반경 1.0km 이내({{예측지점_수}}개 지점)"),
+    ("대표 시설 5개 지점을", "대표 시설 {{예측지점_수}}개 지점을"),
+
+    # --- A절 13~16 · 최인접 거리는 소음·진동 두 곳 (AllReplace 로 동시 처리) ---
+    ("가장 인접한 정온시설은 46m 이격",
+     "가장 인접한 정온시설은 {{최인접_이격거리}}m 이격"),
+    ("정온시설의 영향이 있을 것으로", "정온시설의 영향이 {{소음영향_서술}} 것으로"),
+    ("정온시설의 진동 영향이 없을 것으로",
+     "정온시설의 진동 영향이 {{진동영향_서술}} 것으로"),
+
+    # --- A절 17~18 · 스마트따옴표 U+2018/U+2019. 목표 수치도 함께 토큰화 ---
+    ("대상지역 ‘가’ 지역의 공사장 낮 기준 65dB(A)",
+     "대상지역 ‘{{목표기준_지역문자}}’ 지역의 공사장 낮 기준 {{목표소음_주거}}dB(A)"),
+    ("상 ‘가’ 지역 의 주간 기준 65dB(V)",
+     "상 ‘{{목표기준_지역문자}}’ 지역 의 주간 기준 {{목표진동_주거}}dB(V)"),
+
+    # --- 6단계에서 추가로 발견한 자리 (slots.md §D 지시) ---
+    # 축사 목표기준 — 원주와 괴산이 같지만 사업마다 갈릴 수 있어 토큰화
+    ("가축피해 강화기준 60dB(A)", "가축피해 강화기준 {{목표소음_축사}}dB(A)"),
+    ("가축피해 강화기준 57dB(V)", "가축피해 강화기준 {{목표진동_축사}}dB(V)"),
+    # 표 5 측정지점 — 엔진이 셀 편집하지 않는다. 원주 값이 남으면 MISSING 오류
+    ("250", "{{측정지점_이격거리}}"),
+    ("축사 인근", "{{측정지점_비고}}"),
+    # 표 19 투입장비 일 작업량
+    ("201.22", "{{일작업량}}"),
+    # 표 6 소음환경기준 행 — 지역 문자. 숫자 2칸은 아래 CELL 에서 처리
+    ("소음환경기준(일반지역 “나” 지역)",
+     "소음환경기준(일반지역 “{{소음환경기준_지역}}” 지역)"),
+]
+
+# (앵커 문자열, skip, [(오른쪽으로 n칸, 넣을 값), ...])
+# 숫자 셀은 문서 전체에서 유일하지 않아 찾기/바꾸기로 못 잡는다. 셀을 짚어 넣는다.
+NOISE_VIB_CELLS = [
+    ("소음환경기준(일반지역", 0,
+     [(1, "{{소음환경기준_주간}}"), (1, "{{소음환경기준_야간}}")]),
+]
+
+SPECS = {
+    "noise-vib": {
+        "source": "원주_무장리",
+        "replace": NOISE_VIB_REPLACE,
+        "cells": NOISE_VIB_CELLS,
+        # 만들어져야 하는 토큰 (slots.md D절) — 저장 후 대조한다
+        "expect": [
+            "사업명", "조사시기", "측정일시", "측정지점_주소", "측정지점_이격거리",
+            "측정지점_비고", "소음_주간평균", "소음_야간평균", "진동_주간평균",
+            "진동_심야평균", "소음환경기준_지역", "소음환경기준_주간",
+            "소음환경기준_야간", "측정결과_도입", "측정지점도_캡션", "예측지점_수",
+            "최인접_이격거리", "일작업량", "소음영향_서술", "진동영향_서술",
+            "목표기준_지역문자", "목표소음_주거", "목표소음_축사",
+            "목표진동_주거", "목표진동_축사",
+        ],
+    },
+}
+
+
+# ============================================================
+def check(spec, golden_txt):
+    """찾을 문자열이 골든셋 텍스트에 실제로 있는지 — 한글 없이도 돌아간다."""
+    text = golden_txt.read_text(encoding="utf-8")
+    bad = 0
+    for old, new in spec["replace"]:
+        n = text.count(old)
+        mark = "OK  " if n else "MISS"
+        if not n:
+            bad += 1
+        print(f"  {mark} {n}회  {old[:52]}")
+    for anchor, _, _ in spec["cells"]:
+        n = text.count(anchor)
+        if not n:
+            bad += 1
+        print(f"  {'OK  ' if n else 'MISS'} {n}회  [셀] {anchor[:48]}")
+    return bad
+
+
+def normalize(hwp, tokens):
+    """토큰을 단일 런으로 만든다.
+
+    원본에 글자 서식 경계(형광펜 끝 표시 등)가 걸쳐 있으면 바꾼 결과가
+    `{{진동</hp:t>...<hp:t>_주간평균}}` 처럼 XML 상에서 쪼개진다. 한글 찾기/바꾸기는
+    이래도 매칭되지만 `generate.py` 의 잔여 토큰 검사(raw XML 비교)가 무력해진다.
+    찾은 자리는 선택 상태이므로 같은 문자열을 다시 넣으면 서식이 하나로 합쳐진다.
+    """
+    from generate import find_fwd
+    for t in tokens:
+        tok = "{{%s}}" % t
+        hwp.MovePos(2)
+        for _ in range(10):
+            if not find_fwd(hwp, tok):
+                break
+            hwp.HAction.GetDefault("InsertText", hwp.HParameterSet.HInsertText.HSet)
+            hwp.HParameterSet.HInsertText.Text = tok
+            hwp.HAction.Execute("InsertText", hwp.HParameterSet.HInsertText.HSet)
+
+
+def build(spec, src, dst):
+    import win32com.client
+    from generate import fr, find_in_table, set_cell, right
+
+    shutil.copy(src, dst)
+    print(f"[1/4] 복사: {dst.name}")
+
+    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
+    hwp.XHwpWindows.Item(0).Visible = False
+    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
+    hwp.Open(str(dst))
+    print("[2/4] 한글 열기 완료")
+
+    print(f"[3/4] 찾기/바꾸기 {len(spec['replace'])}건...")
+    for old, new in spec["replace"]:
+        fr(hwp, old, new)
+        print(f"  {old[:46]:48s} -> {new[:40]}")
+
+    for anchor, skip, steps in spec["cells"]:
+        print(f"  [셀] {anchor}")
+        if not find_in_table(hwp, anchor, skip=skip):
+            print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 스킵")
+            continue
+        for n, value in steps:
+            right(hwp, n)
+            set_cell(hwp, value)
+            print(f"    +{n}칸 = {value}")
+
+    print(f"  [정리] 토큰 {len(spec['expect'])}종 단일 런으로 병합")
+    normalize(hwp, spec["expect"])
+
+    print("[4/4] 저장...")
+    hwp.SaveAs(str(dst), "HWPX")
+    hwp.Quit()
+    time.sleep(2)
+
+
+def verify(spec, dst):
+    """저장된 베이스 문서의 토큰을 명세와 대조."""
+    import re
+    import zipfile
+    with zipfile.ZipFile(dst) as zf:
+        xml = zf.read("Contents/section0.xml").decode("utf-8")
+    found = set(re.findall(r"\{\{([^}]+)\}\}", xml))
+    want = set(spec["expect"])
+    print(f"\n토큰 {len(found)}종 발견")
+    for k in sorted(want & found):
+        print(f"  OK      {{{{{k}}}}}")
+    for k in sorted(want - found):
+        print(f"  MISSING {{{{{k}}}}}")
+    for k in sorted(found - want):
+        print(f"  EXTRA   {{{{{k}}}}}  <- 명세에 없다")
+    return not (want - found) and not (found - want)
+
+
+def main():
+    ap = argparse.ArgumentParser(description="베이스 문서(빈칸) 생성")
+    ap.add_argument("category")
+    ap.add_argument("part")
+    ap.add_argument("--dry-run", action="store_true", help="매칭 검사만 (한글 불필요)")
+    a = ap.parse_args()
+
+    if a.part not in SPECS:
+        sys.exit(f"ERROR: '{a.part}' 명세 없음. 지원: {list(SPECS)}")
+    spec = SPECS[a.part]
+
+    gold = ROOT / "golden" / a.category / spec["source"]
+    src = gold / "원본.hwpx"
+    if not src.exists():
+        sys.exit(f"ERROR: 골든셋 원본 없음 — {src}")
+
+    print(f"기준 사업: {spec['source']}\n찾을 문자열 검사:")
+    bad = check(spec, gold / f"{a.part}.txt")
+    if bad:
+        sys.exit(f"\nERROR: 매칭 실패 {bad}건 — 문자열을 골든셋에서 다시 실측할 것")
+    print("\n전부 매칭 ✅")
+
+    if a.dry_run:
+        return
+
+    dst = ROOT / "templates" / a.category / f"{a.part}.hwpx"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    build(spec, src, dst)
+
+    ok = verify(spec, dst)
+    print(f"\n완료: {dst} ({dst.stat().st_size:,} bytes)")
+    print("베이스 문서 준비 완료 ✅" if ok else "\n⚠️ 명세와 어긋난다 — 위 목록 확인")
+
+
+if __name__ == "__main__":
+    main()
