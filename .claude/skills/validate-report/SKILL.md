@@ -29,12 +29,18 @@ lines = []
 for s in secs:
     root = ET.fromstring(z.read(s))
     for p in root.iter():
-        if p.tag.endswith('}p'):
-            t = ''.join(e.text or '' for e in p.iter() if e.tag.endswith('}t'))
-            if t.strip(): lines.append(t.strip())
+        if not p.tag.endswith('}p'): continue
+        if any(c.tag.endswith('}p') for c in p.iter() if c is not p): continue  # 표를 품은 바깥 문단
+        t = ''.join(''.join(e.itertext()) for e in p.iter() if e.tag.endswith('}t'))
+        if t.strip(): lines.append(t.strip())
 ```
 
 > 문단(`}p`) 단위로 모아야 표 셀이 한 줄씩 떨어진다. `e.text` 만 훑으면 순서가 섞인다.
+
+⚠️ **두 줄을 빠뜨리면 오판한다** (2026-07-31 실제 발생):
+> - `itertext()` — `e.text` 만 읽으면 `<hp:markpenBegin/>`(형광펜) 같은 **인라인 개체 뒤 글자(`.tail`)를 통째로 잃는다.**
+>   `이내(8개 지점)` 이 `이내` 로 보여 **정상 출력을 MISSING 으로 오판**했다.
+> - 중첩 문단 제외 — 표를 품은 바깥 문단까지 세면 **표 전체가 한 줄로 뭉쳐** diff가 노이즈로 덮인다.
 
 ### 2단계 — 정답지와 대조
 
