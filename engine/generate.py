@@ -110,6 +110,31 @@ def fill_row(hwp, values):
         set_cell(hwp, v)
 
 
+def delete_range(hwp, start_anchor, end_anchor):
+    """start_anchor 가 있는 문단 처음부터 end_anchor 문단 직전까지 통째로 지운다.
+
+    표를 품은 구간도 함께 지워진다. 사업마다 절이 통째로 빠지는 경우가 있어 필요하다
+    (rule §4-1 — 상회 0건이면 저감 2)·3)·4) 절이 없다).
+    """
+    hwp.MovePos(2)
+    if not find_fwd(hwp, start_anchor):
+        print(f"    WARNING: 시작 앵커 '{start_anchor}' 못 찾음")
+        return False
+    hwp.HAction.Run("MoveParaBegin")
+    s = hwp.GetPos()
+    if not find_fwd(hwp, end_anchor):
+        print(f"    WARNING: 끝 앵커 '{end_anchor}' 못 찾음")
+        return False
+    hwp.HAction.Run("MoveParaBegin")
+    e = hwp.GetPos()
+    if s[0] != e[0]:
+        print(f"    WARNING: 두 앵커가 서로 다른 리스트에 있다 {s[0]}≠{e[0]}")
+        return False
+    hwp.SelectText(s[1], s[2], e[1], e[2])
+    hwp.HAction.Run("Delete")
+    return True
+
+
 def append_rows(hwp, anchor, base_rows, need):
     """표의 행 수를 need 에 맞춘다. 커서는 anchor 다음 행 첫 칸에 둔다."""
     if need > base_rows:
@@ -164,6 +189,27 @@ def replace_images(hwpx_path, img_map):
 # ============================================================
 def _fmt(v):
     return MISSING if v is None else str(v)
+
+
+WORK_HOURS = 8          # 표 19 주석 `주) 일 작업시간 : 8시간 기준` (5/5 확인)
+
+
+def _per_hour(daily):
+    """시간당 작업량 = 일 작업량 ÷ 8. 원주 201.22→25.15 · 괴산 190→23.75 · 천안 44.10→5.51"""
+    if daily is None:
+        return MISSING
+    return f"{float(daily) / WORK_HOURS:.2f}"
+
+
+def _expanded(ga):
+    """저감 확장절(2 분산투입 · 3 방음판넬 · 4 최종 저감대책 + 표 29)을 두는가.
+
+    rule §4-1 — 상회 0건이면 통째로 빠진다 (여주·천안). 괴산은 0건인데도 뒀다.
+    옛 키 `최종저감대책표_포함` 을 그대로 받는다 — 이름이 표 하나만 가리켜 오해를 샀다.
+    """
+    if "저감_확장절_포함" in ga:
+        return ga["저감_확장절_포함"]
+    return ga.get("최종저감대책표_포함", True)
 
 
 def _pred_sentence(pts, equip):
@@ -241,6 +287,10 @@ def slots_noise_vib(v):
         "최인접_이격거리": nearest,
         "공종": ye["공종"],
         "일작업량": _fmt(ye.get("일작업량_㎥")),
+        # 표 19 — `주) 일 작업시간 : 8시간 기준` (천안 대기질편에서 확인, 원주 25.15 검산 일치)
+        "시간당작업량": _per_hour(ye.get("일작업량_㎥")),
+        # rule §4-1 — 확장절이 없는 사업은 1)절 제목에 `필요시` 가 붙는다
+        "저감1_접두": "" if _expanded(ga) else "필요시 ",
 
         # rule §5-1 — 상회 여부로 갈리지 않는다. 자동 판정도 하드코딩도 하지 않는다.
         # 기본값은 베이스 문서(원주) 값 = 2/5. `미미할` 은 괴산 1건뿐이다.
@@ -288,8 +338,11 @@ def tables_noise_vib(hwp, v):
 
     print("  표 21 — 이격거리별 소음도")
     if find_in_table(hwp, "구분(m)"):
+        # rule §3-2 — 앞 두 칸은 둘 다 '도달거리'다. 둘째 칸 100 은 괴산 (1/5) 이고
+        # 원주·천안은 60dB 도달거리 101 이다. 하드코딩하지 않는다.
         first = round(distance_for_level(target("R", "noise"), c_noise))
-        ds = [first, 100, 150, 200, 300, 500, 1000]
+        second = round(distance_for_level(60, c_noise))
+        ds = [first, second, 150, 200, 300, 500, 1000]
         for d in ds:
             right(hwp); set_cell(hwp, d)
         down(hwp); col_begin(hwp); set_cell(hwp, "소음도(dB(A))")
@@ -323,8 +376,10 @@ def tables_noise_vib(hwp, v):
             fill_row(hwp, [f'P - {p["번호"]}', p["이름"], p["방향"],
                            p["이격거리_m"], pred, lim, verdict(pred, lim)])
 
-    if not ga.get("최종저감대책표_포함", True):
-        print("  표 29 — 건너뜀 (vars 에서 미포함으로 지정)")
+    if not _expanded(ga):
+        # rule §4-1 — 없어지는 것은 표 29 하나가 아니다. 2)·3)·4) 절이 통째로 빠진다.
+        print("  저감 확장절 제거 — 2) 분산투입 · 3) 방음판넬 · 4) 최종 저감대책 + 표 29")
+        delete_range(hwp, "2) 장비의 분산투입", "(다) 진동")
         return
 
     print("  표 29 — 최종 저감대책 후 예측소음도")
