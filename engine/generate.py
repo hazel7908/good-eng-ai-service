@@ -174,10 +174,7 @@ def slots_noise_vib(v):
     hd, gi, ye, ga = v["현황"], v["기준"], v["예측"], v["저감"]
     pts = ye["지점"]
     equip = ye["투입장비"]
-    c_noise = composite_noise(equip)
     nearest = min(p["이격거리_m"] for p in pts)
-    all_ok = all(attenuate(c_noise, p["이격거리_m"], "noise")
-                 <= target(p["종류"], "noise") for p in pts)
 
     # rule §4-3 — 도입 문장과 삽도 캡션이 함께 바뀐다
     borrowed = hd["측정자료_출처유형"] != "자체측정"
@@ -213,9 +210,10 @@ def slots_noise_vib(v):
         "공종": ye["공종"],
         "일작업량": _fmt(ye.get("일작업량_㎥")),
 
-        # rule §5 조건부 문구
-        "소음영향_서술": "미미할" if all_ok else "있을",
-        "진동영향_서술": "미미할",
+        # rule §5-1 — 상회 여부로 갈리지 않는다. 자동 판정도 하드코딩도 하지 않는다.
+        # 기본값은 베이스 문서(원주) 값 = 2/5. `미미할` 은 괴산 1건뿐이다.
+        "소음영향_서술": ye.get("소음영향_서술", "있을"),
+        "진동영향_서술": ye.get("진동영향_서술", "없을"),
 
         # rule §4-2 — 수치 65 는 5/5 고정, 지역 문자만 갈린다
         "목표기준_지역문자": ga["목표기준_지역문자"],
