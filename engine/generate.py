@@ -349,6 +349,14 @@ def tables_noise_vib(hwp, v):
         for x in t["주간"] + [t["주간_평균"]] + t["심야"] + [t["심야_평균"]]:
             right(hwp); set_cell(hwp, x)
 
+    # 표 5 측정지점 지점명 — 표 7 검색(`V - 1` skip=1)이 끝난 뒤에 바꾼다.
+    # 인풋은 세 사업 다 `NV - 1` 인데 원주·괴산 정답은 `N·V - 1`, 청양은 `NV - 1` 이다.
+    # 작성자 판단이라 인풋에서 유도할 수 없다 → vars (rule §2-3)
+    name = hd["측정지점"].get("지점명")
+    if name and find_in_table(hwp, "N·V - 1"):
+        print(f"  표 5 — 측정지점명 → {name}")
+        set_cell(hwp, name)
+
     print("  표 14 — 영향예측지점")
     if find_in_table(hwp, "XTM"):
         append_rows(hwp, "XTM", BASE_ROWS, n)
