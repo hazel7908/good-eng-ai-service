@@ -23,6 +23,7 @@ import argparse
 import shutil
 import sys
 import time
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -169,6 +170,52 @@ def normalize(hwp, tokens):
             hwp.HAction.Execute("InsertText", hwp.HParameterSet.HInsertText.HSet)
 
 
+def caption_paras(hwpx):
+    """표 바로 앞 문단(= 표 캡션)의 문단 번호를 돌려준다.
+
+    `hp:caption` 이 0개다 — 캡션은 표에 붙은 개체가 아니라 **별도 문단**이라
+    표가 다음 쪽으로 밀릴 때 캡션만 앞 장에 남는다 (`docs/layout_review.md` §1-1).
+    XML 은 **읽기만** 한다. 고치는 것은 한글 API 다 (`rules/hwpx.md`).
+    """
+    import xml.etree.ElementTree as ET
+    with zipfile.ZipFile(hwpx) as z:
+        root = ET.fromstring(z.read("Contents/section0.xml"))
+
+    tops = [c for c in root if c.tag.endswith("}p")]
+    out = []
+    for i, p in enumerate(tops):
+        has_tbl = any(e.tag.endswith("}tbl") for e in p.iter())
+        if has_tbl and i > 0:
+            out.append(i - 1)
+    return out, tops
+
+
+def keep_captions_with_table(dst):
+    """캡션 문단에 '다음 문단과 함께' 를 건다. 저장이 끝난 파일을 다시 열어 처리한다."""
+    import win32com.client
+
+    idxs, tops = caption_paras(dst)
+    print(f"  캡션 문단 {len(idxs)}개에 KeepWithNext 적용")
+
+    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
+    hwp.XHwpWindows.Item(0).Visible = False
+    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
+    hwp.Open(str(dst))
+
+    for i in idxs:
+        hwp.SetPos(0, i, 0)
+        # GetDefault 는 커서가 놓인 문단의 현재 모양을 읽는다 —
+        # 이것을 건너뛰면 정렬·들여쓰기가 기본값으로 덮인다.
+        hwp.HAction.GetDefault("ParagraphShape", hwp.HParameterSet.HParaShape.HSet)
+        hwp.HParameterSet.HParaShape.KeepWithNext = 1
+        hwp.HAction.Execute("ParagraphShape", hwp.HParameterSet.HParaShape.HSet)
+
+    hwp.SaveAs(str(dst), "HWPX")
+    hwp.Quit()
+    time.sleep(2)
+    return len(idxs)
+
+
 def build(spec, src, dst):
     import win32com.client
     from generate import fr, find_in_table, set_cell, right
@@ -252,6 +299,9 @@ def main():
     dst = ROOT / "templates" / a.category / f"{a.part}.hwpx"
     dst.parent.mkdir(parents=True, exist_ok=True)
     build(spec, src, dst)
+
+    print("\n[5/5] 캡션 쪽 분리 방지...")
+    keep_captions_with_table(dst)
 
     ok = verify(spec, dst)
     print(f"\n완료: {dst} ({dst.stat().st_size:,} bytes)")
