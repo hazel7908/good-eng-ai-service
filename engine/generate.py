@@ -212,6 +212,16 @@ def _expanded(ga):
     return ga.get("최종저감대책표_포함", True)
 
 
+def _dist_list(ye, kind, default):
+    """이격거리별 표(21·24)의 구분 거리. **사업마다 다르다** (rule §3-2).
+
+    청양은 150 이 빠지고 400 이 들어가며 표 24 첫 칸이 7.5(=r₀) 다.
+    둘째 칸도 101 ↔ 100 이 2:2 로 갈려 규칙이 없다 → vars 로 준다.
+    """
+    v = (ye.get("이격거리표") or {}).get(kind)
+    return list(v) if v else default
+
+
 def _pp_label(ye, kind):
     """PP 라벨 형식. **같은 사업 안에서도 표마다 다르다** (rule §4-4).
 
@@ -349,11 +359,11 @@ def tables_noise_vib(hwp, v):
 
     print("  표 21 — 이격거리별 소음도")
     if find_in_table(hwp, "구분(m)"):
-        # rule §3-2 — 앞 두 칸은 둘 다 '도달거리'다. 둘째 칸 100 은 괴산 (1/5) 이고
-        # 원주·천안은 60dB 도달거리 101 이다. 하드코딩하지 않는다.
+        # rule §3-2 — 첫 칸은 목표기준 도달거리(4/4). 둘째 칸부터는 규칙이 없다
+        # (101↔100 이 2:2, 청양은 150 대신 400). vars 로 주지 않으면 아래 기본값.
         first = round(distance_for_level(target("R", "noise"), c_noise))
         second = round(distance_for_level(60, c_noise))
-        ds = [first, second, 150, 200, 300, 500, 1000]
+        ds = _dist_list(ye, "소음", [first, second, 150, 200, 300, 500, 1000])
         for d in ds:
             right(hwp); set_cell(hwp, d)
         down(hwp); col_begin(hwp); set_cell(hwp, "소음도(dB(A))")
@@ -373,8 +383,12 @@ def tables_noise_vib(hwp, v):
     print("  표 24 — 이격거리별 진동도")
     # ⚠️ '진동레벨(dB(V))' 로 찾으면 표 23(합성진동레벨)이 먼저 걸린다 — PoC 오류
     if find_in_table(hwp, "구분(m)", skip=1):
+        # 구분 행도 덮어쓴다 — 이전에는 베이스 문서(원주) 값을 그대로 뒀다.
+        dv = _dist_list(ye, "진동", [50, 100, 150, 200, 300, 500, 1000])
+        for d in dv:
+            right(hwp); set_cell(hwp, d)
         down(hwp); col_begin(hwp); set_cell(hwp, "진동레벨(dB(V))")
-        for d in [50, 100, 150, 200, 300, 500, 1000]:
+        for d in dv:
             right(hwp); set_cell(hwp, round(attenuate(c_vib, d, "vib"), 1))
 
     print("  표 25 — 정온시설 예측진동도")
