@@ -212,6 +212,15 @@ def _expanded(ga):
     return ga.get("최종저감대책표_포함", True)
 
 
+def _pp_label(ye, kind):
+    """PP 라벨 형식. **같은 사업 안에서도 표마다 다르다** (rule §4-4).
+
+    kind: '지점표'(표 14) | '예측표'(표 22·25·29)
+    청양은 표 14 만 `P - 1` 이고 나머지는 `P-1` 이다. 다른 3건은 전부 `P - 1`.
+    """
+    return (ye.get(f"PP라벨_{kind}") or ye.get("PP라벨") or "P - {n}")
+
+
 def _pred_sentence(pts, equip):
     """예측소음도 결과 서술 — rule §5-2.
 
@@ -314,6 +323,8 @@ def tables_noise_vib(hwp, v):
     c_noise, c_vib = composite_noise(equip), composite_vib(equip)
     n = len(pts)
     BASE_ROWS = 5           # 원주 베이스 문서의 PP 행 수
+    lbl_pt = _pp_label(ye, "지점표")      # 표 14
+    lbl_pr = _pp_label(ye, "예측표")      # 표 22 · 25 · 29
 
     print("  표 6 — 소음측정결과")
     if find_in_table(hwp, "N - 1"):
@@ -333,7 +344,7 @@ def tables_noise_vib(hwp, v):
         append_rows(hwp, "XTM", BASE_ROWS, n)
         for i, p in enumerate(pts):
             if i: down(hwp); col_begin(hwp)
-            fill_row(hwp, [f'P - {p["번호"]}', p["이름"], p["방향"],
+            fill_row(hwp, [lbl_pt.format(n=p["번호"]), p["이름"], p["방향"],
                            p["이격거리_m"], "-", "-", _fmt(p["비고"])])
 
     print("  표 21 — 이격거리별 소음도")
@@ -356,7 +367,7 @@ def tables_noise_vib(hwp, v):
             if i: down(hwp); col_begin(hwp)
             pred = round(attenuate(c_noise, p["이격거리_m"], "noise"), 1)
             lim = target(p["종류"], "noise")
-            fill_row(hwp, [f'P - {p["번호"]}', p["이름"], p["방향"],
+            fill_row(hwp, [lbl_pr.format(n=p["번호"]), p["이름"], p["방향"],
                            p["이격거리_m"], pred, lim, verdict(pred, lim)])
 
     print("  표 24 — 이격거리별 진동도")
@@ -373,7 +384,7 @@ def tables_noise_vib(hwp, v):
             if i: down(hwp); col_begin(hwp)
             pred = round(attenuate(c_vib, p["이격거리_m"], "vib"), 1)
             lim = target(p["종류"], "vib")
-            fill_row(hwp, [f'P - {p["번호"]}', p["이름"], p["방향"],
+            fill_row(hwp, [lbl_pr.format(n=p["번호"]), p["이름"], p["방향"],
                            p["이격거리_m"], pred, lim, verdict(pred, lim)])
 
     if not _expanded(ga):
@@ -390,7 +401,7 @@ def tables_noise_vib(hwp, v):
             if i: down(hwp); col_begin(hwp)
             b, low, disp = mitigation_series(p["이격거리_m"], equip, sub)
             lim = float(target(p["종류"], "noise"))
-            fill_row(hwp, [f'P - {p["번호"]}', p["이름"], p["이격거리_m"],
+            fill_row(hwp, [lbl_pr.format(n=p["번호"]), p["이름"], p["이격거리_m"],
                            round(b, 1), round(low, 1), round(disp, 1),
                            round(disp, 1), lim, verdict(round(disp, 1), lim)])
 
