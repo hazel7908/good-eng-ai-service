@@ -522,6 +522,19 @@ def tables_noise_vib(hwp, v):
         delete_range(hwp, "2) 장비의 분산투입", "(다) 진동")
         return
 
+    # 표 26 환경보전목표 — 행 이름이 갈린다 (rule §2-6).
+    # `주거시설` 은 목표기준 문장에도 나와 찾기/바꾸기로는 잡을 수 없다 → 셀로 간다.
+    r_lbl = ga.get("환경보전목표_주거라벨", "주거시설")
+    l_lbl = ga.get("환경보전목표_축사라벨", "축사")
+    if (r_lbl, l_lbl) != ("주거시설", "축사"):
+        print(f"  표 26 — 환경보전목표 행 이름 → {r_lbl} · {l_lbl}")
+        # ⚠️ 헤더(`환경보전목표`)에서 내려가면 병합 셀 때문에 자리가 어긋난다.
+        #    `주거시설` 셀을 직접 잡는다 — 목표기준 문장의 `주거시설` 은 표 밖이라 걸리지 않는다.
+        if find_in_table(hwp, "주거시설"):
+            set_cell(hwp, r_lbl)
+            down(hwp)
+            set_cell(hwp, l_lbl)
+
     print("  표 29 — 최종 저감대책 후 예측소음도")
     sub = ga["분산투입_감산량"]
     path = ga.get("반올림_경로", "A")          # rule §3-3 — 1:1 이라 vars 로 준다
