@@ -195,6 +195,41 @@ def shade_row(hwp, anchor, ncells, color, skip=0, offset=0):
     return True
 
 
+def clone_para(hwp, src_anchor, dst_anchor, text):
+    """`src_anchor` 문단을 통째로 복사해 `dst_anchor` 문단 **앞**에 넣고 내용을 text 로 바꾼다.
+
+    베이스 문서에 없는 문단을 새로 넣어야 할 때 쓴다 (인용 케이스의 출처 주석 등).
+    빈 문단을 만들어 쓰면 **글자·문단 모양이 대상 문단의 것을 물려받아** 제목 서식으로 나온다.
+    같은 종류의 기존 문단을 복사하는 편이 안전하다.
+    """
+    hwp.MovePos(2)
+    if not find_fwd(hwp, src_anchor):
+        print(f"    WARNING: 복사 원본 '{src_anchor}' 못 찾음")
+        return False
+    hwp.HAction.Run("MoveParaBegin")
+    hwp.HAction.Run("MoveSelParaEnd")
+    hwp.HAction.Run("Copy")
+
+    hwp.MovePos(2)
+    if not find_fwd(hwp, dst_anchor):
+        print(f"    WARNING: 대상 '{dst_anchor}' 못 찾음")
+        return False
+    hwp.HAction.Run("MoveParaBegin")
+    # ⚠️ 순서가 중요하다. 붙여넣기를 먼저 하고 나누면 **대상 문단이 복사본 서식을 물려받아**
+    #    소제목이 작은 글씨로 바뀐다. 빈 문단을 먼저 만들고 거기에 붙인다.
+    hwp.HAction.Run("BreakPara")
+    hwp.HAction.Run("MoveUp")
+    hwp.HAction.Run("MoveParaBegin")
+    hwp.HAction.Run("Paste")
+    # 붙여넣은 내용을 원하는 문장으로 바꾼다
+    hwp.HAction.Run("MoveParaBegin")
+    hwp.HAction.Run("MoveSelParaEnd")
+    hwp.HAction.GetDefault("InsertText", hwp.HParameterSet.HInsertText.HSet)
+    hwp.HParameterSet.HInsertText.Text = text
+    hwp.HAction.Execute("InsertText", hwp.HParameterSet.HInsertText.HSet)
+    return True
+
+
 def append_rows(hwp, anchor, base_rows, need):
     """표의 행 수를 need 에 맞춘다. 커서는 anchor 다음 행 첫 칸에 둔다."""
     if need > base_rows:
@@ -396,7 +431,7 @@ def legal_tables_noise_vib(hwp, v):
     그리고 표 9 는 소음환경기준("가"~"라"), 표 10·11 은 생활소음/진동 규제기준(가·나)로
     **분류 체계가 다르다.** 하나로 통일하면 틀린다 (`common.md`).
     """
-    gi = v["기준"]
+    gi, ga = v["기준"], v["저감"]
     z9 = gi["소음환경기준_지역"]                                   # "가"~"라"
     z11 = gi["생활진동규제_지역"].strip()[:1]                       # '가' | '나'
     z10 = (gi.get("생활소음규제_지역") or gi["생활진동규제_지역"]).strip()[:1]
@@ -418,6 +453,15 @@ def legal_tables_noise_vib(hwp, v):
         shade_row(hwp, "공사장", 4, SHADE, skip=0 if z10 == "가" else 1)
     else:
         print("    표10 — 베이스와 같아 건너뜀")
+
+    # 표 10·11 지역 라벨 볼드 — 베이스(원주)에만 있다. 괴산·옥천 정답은 **보통**이다 (2:1).
+    # 텍스트 비교로는 안 잡히는 서식이라 그동안 EXTRA 로 남아 있었다.
+    # skip 으로 표 10/11 을 가르면 어긋난다 — 표마다 구분되는 앵커를 쓴다.
+    # 표 10 은 셀 안에서 `녹지지역,` 뒤에 줄이 바뀌고, 표 11 은 한 줄로 이어진다.
+    if not ga.get("법령표_라벨볼드", False):
+        for anchor in ("가. 주거지역, 녹지지역,", "가. 주거지역, 녹지지역, 관리지역"):
+            if find_in_table(hwp, anchor):
+                set_bold(hwp, False)
 
     # 표 11 생활진동 — 해당 행 전체(3칸)에 음영.
     # 앵커가 표 10 에도 있어 skip=1 로 표 11 을 잡는다.
@@ -453,6 +497,16 @@ def tables_noise_vib(hwp, v):
         t = hd["진동"]
         for x in t["주간"] + [t["주간_평균"]] + t["심야"] + [t["심야_평균"]]:
             right(hwp); set_cell(hwp, x)
+
+    # rule §4-3 — 인용 케이스는 표 5·6·7 아래에 출처 주석이 붙는다. 베이스(원주)에는 없다.
+    cite = hd.get("인용출처")
+    if hd["측정자료_출처유형"] != "자체측정" and cite:
+        note = f"자) {cite}"
+        print(f"  출처 주석 3곳 — {note[:40]}")
+        REF = "자) 건설기계류 소음특성, 국립환경과학원. 2003"
+        # 빈칸은 [2/4] 에서 이미 치환됐다 — 삽도 캡션은 치환된 문자열로 잡는다
+        for dst in ("(나) 측정일시", "2) 진동", "측정지점도(주변 사업지"):
+            clone_para(hwp, REF, dst, note)
 
     legal_tables_noise_vib(hwp, v)
 
