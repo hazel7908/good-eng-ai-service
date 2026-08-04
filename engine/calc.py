@@ -93,19 +93,31 @@ def verdict(predicted, limit):
     return "만족" if predicted <= limit else "상회"
 
 
-def mitigation_series(dist, equipment, dispersion=DISPERSION_DEFAULT):
+def mitigation_series(dist, equipment, dispersion=DISPERSION_DEFAULT, path="A"):
     """저감 단계별 예측소음도 (rule §3-3)
 
     반환: (예측치, 저소음장비 후, 분산투입 후)
-    ⚠️ 중간값을 반올림하지 않는다. 끝까지 실수로 계산하고
-       표시할 때만 반올림한다 — 괴산 P-1 은 56.04 → 55.07 → 51.77
-       로 가야 55.1 / 51.8 이 나온다.
+
+    ⚠️ **반올림 경로가 사업마다 상반된다. 1:1 이라 규칙이 없다** (rule §3-3).
+
+      path="A"  거리 감쇠를 먼저, 중간 반올림 없음
+                괴산 P-1(160m) 55.070 → 55.1 · P-4(151m) 55.573 → 55.6   (2/2)
+      path="B"  **합성값을 소수 1자리로 반올림한 뒤** 거리 감쇠
+                청양 저소음 합성 75.6 · 분산 후 70.7 에서 감쇠            (5/5)
+
+    기본값은 A 다. 사업별로 vars 의 `저감.반올림_경로` 로 지정한다.
     """
     c0 = composite_noise(equipment)
     c1 = composite_low_noise(equipment)
-    base = attenuate(c0, dist, "noise")
-    low  = attenuate(c1, dist, "noise")
-    disp = low - dispersion          # ② 는 단순 감산이 맞다
+    if path == "B":
+        c0, c1 = round(c0, 1), round(c1, 1)
+        base = attenuate(c0, dist, "noise")
+        low = attenuate(c1, dist, "noise")
+        disp = attenuate(round(c1 - dispersion, 1), dist, "noise")
+    else:
+        base = attenuate(c0, dist, "noise")
+        low = attenuate(c1, dist, "noise")
+        disp = low - dispersion      # ② 는 단순 감산이 맞다
     return base, low, disp
 
 

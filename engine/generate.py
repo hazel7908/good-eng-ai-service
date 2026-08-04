@@ -29,7 +29,7 @@ import zipfile
 from pathlib import Path
 
 from calc import (attenuate, composite_noise, composite_vib, distance_for_level,
-                  mitigation_series, target, verdict)
+                  mitigation_series, sound_panel_reduction, target, verdict)
 
 ROOT = Path(__file__).parent.parent
 PLACEHOLDER = "{{%s}}"          # 베이스 문서의 빈칸 표기
@@ -523,16 +523,42 @@ def tables_noise_vib(hwp, v):
         return
 
     print("  표 29 — 최종 저감대책 후 예측소음도")
+    sub = ga["분산투입_감산량"]
+    path = ga.get("반올림_경로", "A")          # rule §3-3 — 1:1 이라 vars 로 준다
+    show_sub = ga.get("분산후_감산량_병기", False)   # 청양은 `44.9(-4.9)` 로 쓴다
+
+    # ③ 가설방음판넬 — ②까지 해도 목표를 못 맞추는 지점이 하나라도 있으면 열이 생긴다
+    series = [mitigation_series(p["이격거리_m"], equip, sub, path) for p in pts]
+    limits = [float(target(p["종류"], "noise")) for p in pts]
+    panels = [sound_panel_reduction(s[2], l) for s, l in zip(series, limits)]
+    has_panel = any(x is not None for x in panels)
+
     if find_in_table(hwp, "최종예측치"):
+        if has_panel:
+            # 최종예측치 열 **왼쪽**에 열을 끼워 넣는다 (rule §3-3 — 청양만 10칸)
+            print(f"    가설방음판넬 열 추가 — 상회 {sum(x is not None for x in panels)}지점")
+            # ⚠️ 최종예측치 열 **왼쪽에** 넣으면 그 열의 음영을 물려받는다.
+            #    분산후 열로 옮겨 **오른쪽에** 넣어야 서식이 깨끗하다.
+            hwp.HAction.Run("TableLeftCell")
+            hwp.HAction.Run("TableInsertRightColumn")
+            find_in_table(hwp, "최종예측치")
+            hwp.HAction.Run("TableLeftCell")
+            set_cell(hwp, "가설방음\r\n판넬")
+
         append_rows(hwp, "최종예측치", BASE_ROWS, n)
-        sub = ga["분산투입_감산량"]
         for i, p in enumerate(pts):
             if i: down(hwp); col_begin(hwp)
-            b, low, disp = mitigation_series(p["이격거리_m"], equip, sub)
-            lim = float(target(p["종류"], "noise"))
-            fill_row(hwp, [lbl_pr.format(n=p["번호"]), p["이름"], p["이격거리_m"],
-                           round(b, 1), round(low, 1), round(disp, 1),
-                           round(disp, 1), lim, verdict(round(disp, 1), lim)])
+            b, low, disp = series[i]
+            lim, panel = limits[i], panels[i]
+            d1 = round(disp, 1)
+            fin = round(d1 - panel, 2) if panel is not None else d1
+            row = [lbl_pr.format(n=p["번호"]), p["이름"], p["이격거리_m"],
+                   round(b, 1), round(low, 1),
+                   f"{d1}(-{sub})" if show_sub else d1]
+            if has_panel:
+                row.append(f"-{panel}" if panel is not None else "-")
+            row += [fin, lim, verdict(fin, lim)]
+            fill_row(hwp, row)
 
 
 PART_HANDLERS = {
