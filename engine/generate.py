@@ -135,6 +135,66 @@ def delete_range(hwp, start_anchor, end_anchor):
     return True
 
 
+def set_bold(hwp, on):
+    hwp.HAction.GetDefault("CharShape", hwp.HParameterSet.HCharShape.HSet)
+    hwp.HParameterSet.HCharShape.Bold = 1 if on else 0
+    hwp.HAction.Execute("CharShape", hwp.HParameterSet.HCharShape.HSet)
+
+
+def bold_row(hwp, anchor, ncells, on, skip=0):
+    """앵커 셀부터 오른쪽으로 ncells 칸의 글자를 굵게/보통으로 바꾼다."""
+    if not find_in_table(hwp, anchor, skip=skip):
+        print(f"    WARNING: 법령표 앵커 '{anchor}' 못 찾음")
+        return False
+    for i in range(ncells):
+        if i:
+            right(hwp)
+        hwp.HAction.Run("SelectAll")
+        set_bold(hwp, on)
+    return True
+
+
+SHADE = 0xE5E5E5        # 베이스 문서 법령표의 음영 색 (header.xml winBrush faceColor)
+
+
+def cell_fill(hwp, color):
+    """현재 셀의 면 색. color=None 이면 채우기 없음.
+
+    셀 블록(`TableCellBlock`)이 잡혀 있어야 적용된다 — 커서만 있으면 무시된다.
+    """
+    hwp.HAction.GetDefault("CellBorderFill", hwp.HParameterSet.HCellBorderFill.HSet)
+    p = hwp.HParameterSet.HCellBorderFill
+    fa = p.FillAttr
+    if color is None:
+        fa.type = hwp.BrushType("NullBrush")
+        fa.WindowsBrush = 0
+    else:
+        fa.type = hwp.BrushType("NullBrush|WinBrush")
+        fa.WindowsBrush = 1
+        fa.WinBrushFaceColor = color
+        fa.WinBrushHatchColor = 0
+        fa.WinBrushFaceStyle = -1
+    p.FillAttr = fa
+    hwp.HAction.Execute("CellBorderFill", p.HSet)
+
+
+def shade_row(hwp, anchor, ncells, color, skip=0, offset=0):
+    """앵커 셀에서 offset 칸 오른쪽부터 ncells 칸에 면 색을 넣는다.
+
+    셀마다 앵커에서 다시 찾아간다 — 셀 블록을 잡으면 커서 이동이 달라져
+    한 번에 훑으면 어긋난다.
+    """
+    for i in range(ncells):
+        if not find_in_table(hwp, anchor, skip=skip):
+            print(f"    WARNING: 법령표 앵커 '{anchor}' 못 찾음")
+            return False
+        right(hwp, offset + i)
+        hwp.HAction.Run("TableCellBlock")
+        cell_fill(hwp, color)
+        hwp.HAction.Run("Cancel")
+    return True
+
+
 def append_rows(hwp, anchor, base_rows, need):
     """표의 행 수를 need 에 맞춘다. 커서는 anchor 다음 행 첫 칸에 둔다."""
     if need > base_rows:
@@ -325,6 +385,51 @@ def slots_noise_vib(v):
     }
 
 
+# 원주 베이스 문서에 표시가 걸려 있는 행 — 여기서 옮긴다
+BASE_MARK = {"표9": "나", "표10": "가", "표11": "가"}
+
+
+def legal_tables_noise_vib(hwp, v):
+    """법령표 9·10·11 의 해당 행 표시 (rule §1).
+
+    ⚠️ 표 9 는 **볼드**, 표 10·11 은 **음영**이다 — 서식이 서로 다르다.
+    그리고 표 9 는 소음환경기준("가"~"라"), 표 10·11 은 생활소음/진동 규제기준(가·나)로
+    **분류 체계가 다르다.** 하나로 통일하면 틀린다 (`common.md`).
+    """
+    gi = v["기준"]
+    z9 = gi["소음환경기준_지역"]                                   # "가"~"라"
+    z11 = gi["생활진동규제_지역"].strip()[:1]                       # '가' | '나'
+    z10 = (gi.get("생활소음규제_지역") or gi["생활진동규제_지역"]).strip()[:1]
+
+    print(f"  법령표 — 표9 “{z9}” · 표10 {z10} · 표11 {z11}")
+
+    # 표 9 소음환경기준 — 일반지역 블록. 도로변지역에도 같은 문자열이 있으나
+    # 문서 순서상 일반지역이 먼저라 skip 이 필요 없다.
+    if z9 != BASE_MARK["표9"]:
+        bold_row(hwp, f'"{BASE_MARK["표9"]}"지역', 3, False)
+        bold_row(hwp, f'"{z9}"지역', 3, True)
+    else:
+        print("    표9 — 베이스와 같아 건너뜀")
+
+    # 표 10 생활소음 — 해당 지역 블록의 `공사장` 행에 음영 (4칸).
+    # `공사장` 은 표 10 안에 두 번(가 블록 · 나 블록) 나오고 그 앞 표에는 없다.
+    if z10 != BASE_MARK["표10"]:
+        shade_row(hwp, "공사장", 4, None, skip=0 if BASE_MARK["표10"] == "가" else 1)
+        shade_row(hwp, "공사장", 4, SHADE, skip=0 if z10 == "가" else 1)
+    else:
+        print("    표10 — 베이스와 같아 건너뜀")
+
+    # 표 11 생활진동 — 해당 행 전체(3칸)에 음영.
+    # 앵커가 표 10 에도 있어 skip=1 로 표 11 을 잡는다.
+    if z11 != BASE_MARK["표11"]:
+        old = "가. 주거지역" if BASE_MARK["표11"] == "가" else "나. 그 밖의 지역"
+        new = "가. 주거지역" if z11 == "가" else "나. 그 밖의 지역"
+        shade_row(hwp, old, 3, None, skip=1)
+        shade_row(hwp, new, 3, SHADE, skip=1)
+    else:
+        print("    표11 — 베이스와 같아 건너뜀")
+
+
 def tables_noise_vib(hwp, v):
     """표 편집. 표 인덱스·구조는 rules/small-env/noise-vib.md §1 참조."""
     hd, ye, ga = v["현황"], v["예측"], v["저감"]
@@ -348,6 +453,8 @@ def tables_noise_vib(hwp, v):
         t = hd["진동"]
         for x in t["주간"] + [t["주간_평균"]] + t["심야"] + [t["심야_평균"]]:
             right(hwp); set_cell(hwp, x)
+
+    legal_tables_noise_vib(hwp, v)
 
     # 표 5 측정지점 지점명 — 표 7 검색(`V - 1` skip=1)이 끝난 뒤에 바꾼다.
     # 인풋은 세 사업 다 `NV - 1` 인데 원주·괴산 정답은 `N·V - 1`, 청양은 `NV - 1` 이다.
