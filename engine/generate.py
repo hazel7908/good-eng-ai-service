@@ -714,7 +714,7 @@ def tables_air_quality(hwp, v):
         m = hd["측정결과"]
         # 열 순서는 베이스(청주) 고정: SO2 CO NO2 PM-10 PM-2.5 O3 (slots.md B)
         for k in ("SO2", "CO", "NO2", "PM10", "PM25", "O3"):
-            right(hwp); set_cell(hwp, m[k])
+            right(hwp); set_cell(hwp, _fmt(m[k]))      # None → [확인 필요]
 
     print("  영향예측지점")
     if find_in_table(hwp, "XTM"):
@@ -724,10 +724,17 @@ def tables_air_quality(hwp, v):
             fill_row(hwp, [lbl_pt.format(n=p["번호"]), p["이름"], p["방향"],
                            p["이격거리_m"], _fmt(p.get("XTM")), _fmt(p.get("YTM")),
                            _fmt(p.get("비고", "-"))])
+        for j in range(max(0, BASE_ROWS - n)):     # 남는 행(베이스 잔재) 삭제
+            if j == 0:
+                down(hwp)
+            hwp.HAction.Run("TableDeleteRow")
 
     print("  일 작업량 산정")
-    if find_in_table(hwp, "사업계획지구"):
-        fill_row(hwp, ["사업계획지구", f'{ye["절토_㎥"]:,.2f}', f'{ye["성토_㎥"]:,.2f}',
+    # ⚠️ '사업계획지구' 는 현황조사내용 표의 '▪ 대상범위 : 사업계획지구 중심…' 셀에
+    #    부분매칭된다 (평창 1차 검증 실측) — 헤더 '절 토(㎥)' 에서 내려간다
+    if find_in_table(hwp, "절 토(㎥)"):
+        down(hwp)
+        fill_row(hwp, [f'{ye["절토_㎥"]:,.2f}', f'{ye["성토_㎥"]:,.2f}',
                        f'{ye["총토공량_㎥"]:,.2f}', ye["토공기간_일"], f"{daily:.2f}"])
 
     print("  투입장비대수")
@@ -759,11 +766,12 @@ def tables_air_quality(hwp, v):
         down(hwp)                       # 헤더 → PM-10 행 E 셀
         fill_row(hwp, [f"{ca.e_q1(P, ca.K_PM10):.4f}", f"{vkt:.2f}",
                        f"{q10:.4f}", f"{ca.g_per_sec(q10):.4f}"])
-        # PM-2.5 행 — VKT 병합 구조. g/sec 셀에서 내려가 역순으로
+        # PM-2.5 행 — g/sec 셀에서 내려가 역순으로. VKT 는 세로 병합이라
+        # left 2회째가 병합 셀에 닿는다 (2차 검증 실측 — 0.0951 이 VKT 를 덮었다). E 는 3회.
         down(hwp)
         set_cell(hwp, f"{ca.g_per_sec(q25):.4f}")
         left(hwp); set_cell(hwp, f"{q25:.4f}")
-        left(hwp); set_cell(hwp, f"{ca.e_q1(P, ca.K_PM25):.4f}")
+        left(hwp, 2); set_cell(hwp, f"{ca.e_q1(P, ca.K_PM25):.4f}")
 
     print("  q2 계수·산정")
     E2 = ye["E_q2"]
@@ -777,14 +785,15 @@ def tables_air_quality(hwp, v):
     if find_in_table(hwp, "기타 장비 운행시", skip=1):
         right(hwp, 2)
         fill_row(hwp, [E2, f"{daily:.2f}", 1.75,
-                       f"{q2_10:.4f}", f"{ca.g_per_sec(q2_10):.3f}"])
+                       f"{q2_10:.4f}", f"{ca.g_per_sec(q2_10):.4f}"])
         if find_in_table(hwp, "0.1304"):
             set_cell(hwp, f"{q2_25:.4f}")
             right(hwp); set_cell(hwp, f"{ca.g_per_sec(q2_25):.4f}")
 
     print("  q3 계수·산정")
-    E3_10, E3_25 = ye["E_q3_PM10"], ye["E_q3_PM25"]
-    q3_10, q3_25 = ca.q3_kg_day(E3_10, daily), ca.q3_kg_day(E3_25, daily)
+    E3_10, E3_25 = ye["E_q3_PM10"], ye["E_q3_PM25"]      # 표기용 (유효자리 보존 문자열 허용)
+    q3_10 = ca.q3_kg_day(float(E3_10), daily)
+    q3_25 = ca.q3_kg_day(float(E3_25), daily)
     if find_in_table(hwp, "0.00024lb"):
         set_cell(hwp, f'배출계수({ye["E_q3_PM10_lb"]}lb/ton×0.454kg/lb)')
         left(hwp); set_cell(hwp, E3_10)
@@ -794,6 +803,11 @@ def tables_air_quality(hwp, v):
         right(hwp, 2)
         fill_row(hwp, [ye.get("E_q3_산정", E3_10), f"{daily:.2f}", 1.75,
                        f"{q3_10:.4f}", f"{ca.g_per_sec(q3_10):.4f}"])
+        # PM-2.5 행 — kg·g 만 역순으로 (E25 는 daily·비중 병합 너머라 left 수가 불안정.
+        #             값이 사업마다 다르면 여기도 보정 필요 — rule §6-5)
+        down(hwp)
+        set_cell(hwp, f"{ca.g_per_sec(q3_25):.4f}")
+        left(hwp); set_cell(hwp, f"{q3_25:.4f}")
 
     print("  q4 계수·산정")
     q4 = ca.q4_kg_day(daily)
@@ -804,6 +818,9 @@ def tables_air_quality(hwp, v):
         right(hwp, 2)
         fill_row(hwp, ["0.00004", f"{daily:.2f}", 1.75, f"{q4:.4f}",
                        f"{q4_10:.4f}", f"{ca.g_per_sec(q4_10):.5f}"])
+        down(hwp)
+        set_cell(hwp, f"{ca.g_per_sec(q4_25):.5f}")
+        left(hwp); set_cell(hwp, f"{q4_25:.4f}")
 
     print("  총 배출량")
     Q1 = ye.get("Q1", {"PM10": 0.0049, "PM25": 0.0045, "NO2": 0.1655})  # 장비 4/4 고정
@@ -878,7 +895,10 @@ def tables_air_quality(hwp, v):
             if i: down(hwp); col_begin(hwp)
             w = p.get("가중치")
             if w:
-                b, half = w[key], ca.mitigated_weight(w[key])
+                # ⚠️ HALF_UP + 표시값 연쇄 — 0.99×0.5=0.495 는 0.50(실무), float round 는 0.49.
+                #    예측치도 반올림된 가중치로 더한다 (11.00+0.06=11.06)
+                b = w[key]
+                half = ca.round_half_up(ca.mitigated_weight(b), 2)
                 fill_row(hwp, [lbl_pr.format(n=p["번호"]),
                                f'{m[key]:.2f}', f"{b:.2f}", f'{m[key] + b:.2f}',
                                f'{m[key]:.2f}', f"{half:.2f}", f'{m[key] + half:.2f}'])

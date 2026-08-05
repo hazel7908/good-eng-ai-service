@@ -13,6 +13,13 @@
 """
 
 import math
+from decimal import Decimal, ROUND_HALF_UP
+
+
+def round_half_up(x, nd=2):
+    """실무 반올림(사사오입). float round 는 0.495→0.49 로 어긋난다 (평창 저감후 실측)."""
+    q = Decimal(10) ** -nd
+    return float(Decimal(str(x)).quantize(q, rounding=ROUND_HALF_UP))
 
 WORK_HOURS = 8              # 일 작업시간 (소음진동과 동일, 4/4)
 DUMP_LOAD = 10.3            # 덤프트럭 1회 적재 토량 ㎥ (4/4)
