@@ -122,7 +122,7 @@ PP 이격거리는 **텍스트 출처라 9/10 일치** (삽도 판독 평균오�
 
 | # | 내용 | 근거 |
 |:-:|---|---|
-| **0** | **★ 대기질 파트 확장 — 2026-08-05 지식 도출까지 완료.** 골든셋 4건(천안·옥천·청주·평창, 소음진동과 같은 사업) 편입 · `rules/small-env/air-quality.md` 신설 · 계산 체인 전 항목 역산 검증 · `_variants.md` §9. **다음: 기준 사업 선정 → slots 명세 → 베이스 문서(Windows)** | `_variants.md` §9 |
+| **0** | **★ 대기질 파트 확장 — 2026-08-05 Mac 준비 완료.** 골든셋 4건 편입 · `rules/small-env/air-quality.md` · 계산 역산 검증 · `_variants.md` §9 · **기준 사업 청주 확정 + `templates/small-env/air-quality.slots.md` 명세 완료.** 다음(Windows): 청주 hwp→hwpx 변환 → `build_template.py` 에 `AIR_QUALITY_REPLACE` 추가·dry-run → 베이스 문서 → `slots_air_quality()` 구현 → 생성·검증 | slots.md |
 | 1 | **천안 소음진동 PP 를 대기질편 값으로 재생성** — 삽도 오차 16건의 해법이 나왔다 (PP 는 파트 공유 자산, 80·250·306·383·413·428·712) | 〃 §9-4 |
 | 2 | ⏸ **절 삽입 기능** — 도구·조각만 만들고 **삽입 로직은 보류**. 골든셋 고유 구조 재현보다 규칙 정확도가 초안 품질에 직접 영향 (`engine/build_snippet.py`) | 청양 §5-1 |
 | 3 | 대기질 AERMOD 가중치 처리 설계 — 모델링 출력이라 계산 불가. `[모델링 필요]` 로 둘지, 결과 파일을 인풋으로 받을지 | air-quality §2-5 |
