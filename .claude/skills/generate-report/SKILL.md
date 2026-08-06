@@ -91,6 +91,18 @@ engine/generate.py
 - `engine/` 을 여는 순간 `rules/hwpx.md` 자동 주입 (한글 API 패턴·함정)
 - 실행 전 `taskkill /f /im Hwp.exe`
 
+### 6.5단계 — 채움 내역서 (플랫폼 무관, 생성 필수 산출물)
+
+```
+python engine/fill_report.py {카테고리} {파트} {사업}
+  출력: cases/{카테고리}/{사업}/{파트}/fill-report.md
+```
+
+output.hwpx 를 검토할 실무자용 지도다 — ❓ 직접 채울 것 / ⚠️ 확인할 것 / ✅ 자동 채움.
+vars 의 `_확인필요` 배열과 slots 핸들러에서 **기계적으로 렌더링**되므로, 내용이 부실하면
+이 문서가 아니라 **vars 의 `_확인필요` 를 고친다** (규약: `rules/common.md` 변수 분류 체계).
+validation.md(골든셋 채점표)와 달리 정답 없이 만들어지며, 실무 운영에서 실무자 손에 가는 것은 이쪽이다.
+
 ### 7단계 — 검증
 
 `/validate-report` 실행. **`golden/` 은 여기서 처음 열린다.**
