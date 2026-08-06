@@ -827,9 +827,14 @@ def tables_air_quality(hwp, v):
     print("  총 배출량")
     Q1 = ye.get("Q1", {"PM10": 0.0049, "PM25": 0.0045, "NO2": 0.1655})  # 장비 4/4 고정
     g = ca.g_per_sec
-    rows_q = [(g(ca.q1_kg_day(P, vkt, ca.K_PM10)), g(ca.q1_kg_day(P, vkt, ca.K_PM25))),
-              (g(q2_10), g(q2_25)), (g(q3_10), g(q3_25)), (g(q4_10), g(q4_25))]
-    sub10, sub25 = sum(r[0] for r in rows_q), sum(r[1] for r in rows_q)
+    # ⚠️ 자릿수·소계는 전부 **표시값 연쇄**다 (§6-1) — q4 만 5자리이고,
+    #    소계·합계는 표에 적힌 반올림 문자열들을 다시 합산한다 (원값 합산은 0.0001 어긋난다).
+    rows_q = [(f"{g(ca.q1_kg_day(P, vkt, ca.K_PM10)):.4f}", f"{g(ca.q1_kg_day(P, vkt, ca.K_PM25)):.4f}"),
+              (f"{g(q2_10):.4f}", f"{g(q2_25):.4f}"),
+              (f"{g(q3_10):.4f}", f"{g(q3_25):.4f}"),
+              (f"{g(q4_10):.5f}", f"{g(q4_25):.5f}")]
+    sub10 = sum(float(r[0]) for r in rows_q)
+    sub25 = sum(float(r[1]) for r in rows_q)
     if find_in_table(hwp, "장비가동시(연료사용)"):
         right(hwp)
         fill_row(hwp, [Q1["PM10"], Q1["PM25"], Q1["NO2"]])
@@ -841,7 +846,7 @@ def tables_air_quality(hwp, v):
                 rows_q):
             if find_in_table(hwp, name, skip=skip_n):
                 right(hwp)
-                fill_row(hwp, [f"{g10:.4f}", f"{g25:.4f}", "-"])
+                fill_row(hwp, [g10, g25, "-"])
         if find_in_table(hwp, "소계"):
             right(hwp)
             fill_row(hwp, [f"{sub10:.4f}", f"{sub25:.4f}", "-"])
