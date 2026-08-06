@@ -524,8 +524,10 @@ def tables_noise_vib(hwp, v):
         append_rows(hwp, "XTM", BASE_ROWS, n)
         for i, p in enumerate(pts):
             if i: down(hwp); col_begin(hwp)
+            # XTM/YTM — 대기질편(0722)에 실좌표가 있으면 vars 로 온다 (rule §2-4).
             fill_row(hwp, [lbl_pt.format(n=p["번호"]), p["이름"], p["방향"],
-                           p["이격거리_m"], "-", "-", _fmt(p["비고"])])
+                           p["이격거리_m"], p.get("XTM") or "-",
+                           p.get("YTM") or "-", _fmt(p["비고"])])
 
     print("  표 21 — 이격거리별 소음도")
     if find_in_table(hwp, "구분(m)"):
