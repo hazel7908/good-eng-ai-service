@@ -15,7 +15,16 @@ from pathlib import Path
 from collections import defaultdict, Counter
 
 ROOT = Path(__file__).resolve().parent.parent
-idx = json.load(open(ROOT / "catalog/data/nas_index.json", encoding="utf-8"))
+# 2026-08-13 부터 스냅샷은 .gz 보관 (전수 70MB+). 구경로(비압축)도 겸용.
+_p = ROOT / "catalog/data/nas_index.json.gz"
+if _p.exists():
+    import gzip
+    idx = json.load(gzip.open(_p, "rt", encoding="utf-8"))
+else:
+    idx = json.load(open(ROOT / "catalog/data/nas_index.json", encoding="utf-8"))
+
+# ⚠️ 현행 카탈로그 v1(290건)은 7/21 depth-3 제한 인덱스에서 빌드된 잠정본이다.
+#    전수 인덱스 기반 v2 재빌드는 NAS 업로드 완료(8월 말) 후 — CLAUDE.md 다음 할 일.
 
 # ---------- 트리 평탄화 ----------
 ALL = []  # (name, path, node)

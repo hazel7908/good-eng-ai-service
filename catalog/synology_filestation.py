@@ -25,9 +25,11 @@ Synology File Station API 클라이언트 — NAS 보고서 저장소 탐색/다
 SSL 인증서 이슈(사내 환경)로 기본 verify=False.
 """
 import argparse
+import concurrent.futures
 import json
 import os
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -206,6 +208,63 @@ class FileStation:
         return out_path
 
 
+def walk_tree_parallel(fs, root, depth, workers=8):
+    """병렬 BFS 크롤 — walk_tree 와 같은 트리를 만들되 동시 요청으로 왕복 지연을 숨긴다.
+
+    QuickConnect 릴레이 경유(직결 포트 닫힘 확인, 2026-08-12)라 요청당 왕복이 느리다.
+    순차 크롤은 폴더 수 × 왕복시간이 그대로 쌓여 전체 트리에 40분+ 걸렸다.
+    세션(requests.Session)은 스레드 안전을 보장하지 않으므로 스레드별로 만들고 sid 만 공유한다.
+    """
+    local = threading.local()
+
+    def tfs():
+        if not hasattr(local, "fs"):
+            f = FileStation(fs.base, fs.verify)
+            f.sid = fs.sid
+            local.fs = f
+        return local.fs
+
+    root_node = {"path": root, "files": [], "dirs": {}}
+    done = 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+        pending = {ex.submit(lambda p=root: tfs().list_folder(p)): (root_node, 0)}
+        while pending:
+            for fut in concurrent.futures.as_completed(list(pending)):
+                node, cur = pending.pop(fut)
+                done += 1
+                if done % 500 == 0:
+                    sys.stderr.write(f"[*] {done} 폴더 탐색...\n")
+                for item in fut.result():
+                    if item["isdir"]:
+                        if cur < depth:
+                            child = {"path": item["path"], "files": [], "dirs": {}}
+                            node["dirs"][item["name"]] = child
+                            pending[ex.submit(
+                                lambda p=item["path"]: tfs().list_folder(p))] = (child, cur + 1)
+                        else:
+                            node["dirs"][item["name"]] = {"path": item["path"],
+                                                          "truncated": True}
+                    else:
+                        add = item.get("additional", {})
+                        node["files"].append({
+                            "name": item["name"],
+                            "size": add.get("size"),
+                            "mtime": add.get("time", {}).get("mtime"),
+                        })
+    _sort_tree(root_node)
+    return root_node
+
+
+def _sort_tree(node):
+    """병렬 크롤은 완료 순서가 매번 달라 dict 순서가 흔들린다 — 이름순으로 고정해
+    스냅샷 diff 가 순서 노이즈 없이 내용 변화만 보게 한다."""
+    node["files"].sort(key=lambda f: f["name"])
+    node["dirs"] = dict(sorted(node["dirs"].items()))
+    for ch in node["dirs"].values():
+        if "truncated" not in ch:
+            _sort_tree(ch)
+
+
 def walk_tree(fs, root, depth, _cur=0):
     node = {"path": root, "files": [], "dirs": {}}
     for item in fs.list_folder(root):
@@ -261,6 +320,8 @@ def main():
     t.add_argument("--depth", type=int, default=3)
     t.add_argument("--out", help="마크다운 저장 경로")
     t.add_argument("--json", dest="json_out", help="JSON 저장 경로")
+    t.add_argument("--workers", type=int, default=8,
+                   help="동시 요청 수 (기본 8). 1 이면 순차 크롤")
 
     d = sub.add_parser("download", help="파일/폴더 다운로드 (용량 가드 있음)")
     d.add_argument("path", help="다운로드할 NAS 경로")
@@ -279,8 +340,12 @@ def main():
                 print(f"  📁 {sh['name']}  ({sh['path']})")
 
         elif args.cmd == "tree":
-            sys.stderr.write(f"[*] 탐색 중: {args.path} (depth={args.depth})...\n")
-            tree = walk_tree(fs, args.path, args.depth)
+            sys.stderr.write(f"[*] 탐색 중: {args.path} (depth={args.depth}, "
+                             f"workers={args.workers})...\n")
+            if args.workers > 1:
+                tree = walk_tree_parallel(fs, args.path, args.depth, args.workers)
+            else:
+                tree = walk_tree(fs, args.path, args.depth)
             md = "\n".join([f"# NAS 트리: {args.path}", ""] + tree_to_md(tree))
             if args.out:
                 Path(args.out).parent.mkdir(parents=True, exist_ok=True)
