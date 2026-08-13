@@ -59,7 +59,8 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   └── skills/                  ▓ 절차
 │       ├── distill-golden/        골든셋 → 규칙·빈칸 명세 도출
 │       ├── generate-report/       생성 워크플로우 (fill-report 포함)
-│       └── validate-report/       검증 워크플로우 (PDF 육안 확인 포함)
+│       ├── validate-report/       검증 워크플로우 (PDF 육안 확인 포함)
+│       └── nas-survey/            NAS 재조사 — 전수 크롤 → diff (주기 운영)
 │
 ├── templates/small-env/         ▓ 베이스 문서
 │   ├── noise-vib.hwpx (+.slots.md)   토큰 36종 · 빈칸 명세
