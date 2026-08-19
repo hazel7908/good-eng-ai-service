@@ -82,6 +82,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── generate.py                한글 API 생성 (Windows) — PART_HANDLERS 레지스트리
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
 │   ├── stats_extract.py          통계연보 엑셀 → 지역개황 표 (자체검증 내장)
+│   ├── map_fetch.py              좌표 → 베이스 지도 취득 (ECVAM TMS · EGIS WMS)
 │   ├── figure_overlay.py         삽도 오버레이 (마커·라벨·경계선·흐름 화살표·정온시설 배치)
 │   ├── psd_base.py               삽도 PSD → 깨끗한 베이스 지도 추출
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
@@ -140,7 +141,8 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 | [`catalog/review/nas_survey_2026-08-13.md`](catalog/review/nas_survey_2026-08-13.md) | NAS 전수 조사 — 실규모·파트별 자료 집계·신규 사업 |
 | [`catalog/review/stats_catalog.md`](catalog/review/stats_catalog.md) | **통계 원자료 지도** — 지자체 통계연보 59·전국 통계 177, 배포 형식별 자동화 가능성 |
 | [`docs/20260819_지역개황_골든셋선별.md`](docs/20260819_지역개황_골든셋선별.md) | 지역개황 골든셋 선별 — 선별 근거·통계 출처 지도 |
-| [`docs/20260819_통계원자료_소싱실증.md`](docs/20260819_통계원자료_소싱실증.md) | **통계 원자료 소재 + 매핑 실증** — NAS 통계연보 91건·배포 형식·삽도 3층 구조 |
+| [`docs/20260819_통계원자료_소싱실증.md`](docs/20260819_통계원자료_소싱실증.md) | **통계 원자료 소재 + 매핑 실증** — NAS 통계연보 91건·배포 형식 |
+| [`docs/20260819_삽도_자동화.md`](docs/20260819_삽도_자동화.md) | **삽도 자동화** — 베이스 출처 4곳·취득 실증·오버레이 자동화 등급 |
 | [`docs/repo_restructure_plan.md`](docs/repo_restructure_plan.md) · [`docs/poc_hwpx_comparison.md`](docs/poc_hwpx_comparison.md) | 구조 개편 이력 · 2차 PoC 기준선 (44.3% — 현재 대비의 출발점) |
 
 ---
