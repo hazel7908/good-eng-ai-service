@@ -83,6 +83,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
 │   ├── stats_extract.py          통계연보 엑셀 → 지역개황 표 (자체검증 내장)
 │   ├── figure_overlay.py         삽도 오버레이 (마커·라벨·경계선·흐름 화살표·정온시설 배치)
+│   ├── psd_base.py               삽도 PSD → 깨끗한 베이스 지도 추출
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
