@@ -134,7 +134,8 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 | [`docs/naming.md`](docs/naming.md) | 파트 목록·번호 체계(장·절 코드) · 한글↔영문 대응 |
 | [`golden/small-env/_variants.md`](golden/small-env/_variants.md) | 골든셋 변이 비교 (n/7 근거) + 정답지 자기모순 목록 |
 | [`catalog/review/nas_survey_2026-08-13.md`](catalog/review/nas_survey_2026-08-13.md) | NAS 전수 조사 — 실규모·파트별 자료 집계·신규 사업 |
-| [`docs/20260819_지역개황_골든셋선별.md`](docs/20260819_지역개황_골든셋선별.md) | 지역개황 골든셋 선별 — 선별 근거·통계 출처 지도·**2026년 서식 개정** |
+| [`docs/20260819_지역개황_골든셋선별.md`](docs/20260819_지역개황_골든셋선별.md) | 지역개황 골든셋 선별 — 선별 근거·통계 출처 지도 |
+| [`docs/20260819_통계원자료_소싱실증.md`](docs/20260819_통계원자료_소싱실증.md) | **통계 원자료 소재 + 매핑 실증** — NAS 통계연보 91건·배포 형식·삽도 3층 구조 |
 | [`docs/repo_restructure_plan.md`](docs/repo_restructure_plan.md) · [`docs/poc_hwpx_comparison.md`](docs/poc_hwpx_comparison.md) | 구조 개편 이력 · 2차 PoC 기준선 (44.3% — 현재 대비의 출발점) |
 
 ---
