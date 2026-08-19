@@ -81,6 +81,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 ├── engine/                      ▓ 생성 엔진 (파트 무관 본체 + 파트 핸들러)
 │   ├── generate.py                한글 API 생성 (Windows) — PART_HANDLERS 레지스트리
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
+│   ├── stats_extract.py          통계연보 엑셀 → 지역개황 표 (자체검증 내장)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
@@ -88,6 +89,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 ├── catalog/                     ▓ NAS 카탈로그 (독립 하위시스템)
 │   ├── synology_filestation.py    NAS API 클라이언트 (병렬 크롤)
 │   ├── build_catalog.py           정본 카탈로그 빌더 (290 유니크 사업, v2 예정)
+│   ├── build_stats_catalog.py     통계 원자료 카탈로그 (236건 — 지자체 통계연보·전국 통계)
 │   ├── nas_diff.py                스냅샷 변경 감지
 │   ├── data/nas_index.json.gz     전수 스냅샷 (08-13)
 │   └── review/                    검수용 트리·워크리스트·조사 리포트
@@ -134,6 +136,7 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 | [`docs/naming.md`](docs/naming.md) | 파트 목록·번호 체계(장·절 코드) · 한글↔영문 대응 |
 | [`golden/small-env/_variants.md`](golden/small-env/_variants.md) | 골든셋 변이 비교 (n/7 근거) + 정답지 자기모순 목록 |
 | [`catalog/review/nas_survey_2026-08-13.md`](catalog/review/nas_survey_2026-08-13.md) | NAS 전수 조사 — 실규모·파트별 자료 집계·신규 사업 |
+| [`catalog/review/stats_catalog.md`](catalog/review/stats_catalog.md) | **통계 원자료 지도** — 지자체 통계연보 59·전국 통계 177, 배포 형식별 자동화 가능성 |
 | [`docs/20260819_지역개황_골든셋선별.md`](docs/20260819_지역개황_골든셋선별.md) | 지역개황 골든셋 선별 — 선별 근거·통계 출처 지도 |
 | [`docs/20260819_통계원자료_소싱실증.md`](docs/20260819_통계원자료_소싱실증.md) | **통계 원자료 소재 + 매핑 실증** — NAS 통계연보 91건·배포 형식·삽도 3층 구조 |
 | [`docs/repo_restructure_plan.md`](docs/repo_restructure_plan.md) · [`docs/poc_hwpx_comparison.md`](docs/poc_hwpx_comparison.md) | 구조 개편 이력 · 2차 PoC 기준선 (44.3% — 현재 대비의 출발점) |
@@ -159,6 +162,6 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 
 - Python 3.10+, 가상환경 `.venv/`
 - **Windows + 한글 프로그램 필요**: `generate.py`(생성) · `build_template.py`(베이스 문서) · `to_pdf.py`(육안 검증)
-- **플랫폼 무관**: `calc*.py`(계산·자체검증) · `fill_report.py` · `extract.py` · `catalog/*`(NAS 조사)
+- **플랫폼 무관**: `calc*.py`(계산·자체검증) · `stats_extract.py`(통계 소싱) · `fill_report.py` · `extract.py` · `catalog/*`(NAS 조사)
 - 원본 HWP/PDF/JPG는 `raw_data/` (git 제외)
 - Python XML 직접 조작은 파일 무결성 문제로 금지 — 한글 API만 사용 (`rules/hwpx.md`)
