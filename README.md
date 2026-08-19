@@ -82,6 +82,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── generate.py                한글 API 생성 (Windows) — PART_HANDLERS 레지스트리
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
 │   ├── stats_extract.py          통계연보 엑셀 → 지역개황 표 (자체검증 내장)
+│   ├── figure_overlay.py         삽도 오버레이 (마커·라벨·경계선·흐름 화살표·정온시설 배치)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
@@ -162,6 +163,6 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 
 - Python 3.10+, 가상환경 `.venv/`
 - **Windows + 한글 프로그램 필요**: `generate.py`(생성) · `build_template.py`(베이스 문서) · `to_pdf.py`(육안 검증)
-- **플랫폼 무관**: `calc*.py`(계산·자체검증) · `stats_extract.py`(통계 소싱) · `fill_report.py` · `extract.py` · `catalog/*`(NAS 조사)
+- **플랫폼 무관**: `calc*.py`(계산·자체검증) · `stats_extract.py`(통계 소싱) · `figure_overlay.py`(삽도) · `fill_report.py` · `extract.py` · `catalog/*`(NAS 조사)
 - 원본 HWP/PDF/JPG는 `raw_data/` (git 제외)
 - Python XML 직접 조작은 파일 무결성 문제로 금지 — 한글 API만 사용 (`rules/hwpx.md`)
