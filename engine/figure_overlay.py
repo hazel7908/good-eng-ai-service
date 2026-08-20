@@ -73,9 +73,12 @@ def _font(size):
     return ImageFont.load_default()      # 한글이 깨진다 — 폰트를 설치할 것
 
 
-def _scaled(im, base=2000):
-    """요소 크기를 이미지 크기에 맞춘다. 삽도는 1,900~4,800px 로 폭이 제각각이다."""
-    return max(0.5, im.width / base)
+def _scaled(im, base=1400):
+    """요소 크기를 이미지 크기에 맞춘다. 삽도는 700~4,800px 로 폭이 제각각이다.
+
+    기준 폭을 1,400 으로 잡았다 — 골든셋 최종본이 700×450 인데 2,000 기준으로는
+    글자가 9px 까지 작아져 읽히지 않았다 (실측 후 조정)."""
+    return max(0.6, im.width / base)
 
 
 # ── ② 오버레이 ──────────────────────────────────────────────────────────────
@@ -209,38 +212,90 @@ def draw_scalebar(d, at, length_px, label, k=1.0, font=None):
         x1 = x + length_px * (i + 1) / 4
         d.rectangle([x0, y, x1, y + h], fill=(0, 0, 0) if i % 2 == 0 else (255, 255, 255),
                     outline=(0, 0, 0), width=int(max(1, 2 * k)))
+    # 라벨은 막대 **위쪽**에 — 아래 두면 등급 범례 띠와 겹친다 (골든셋도 위쪽이다)
     f = font or _font(int(26 * k))
-    d.text((x, y + h + 6 * k), "0", font=f, fill=STYLE["deco"])
-    d.text((x + length_px, y + h + 6 * k), label, font=f, fill=STYLE["deco"], anchor="ra")
+    d.text((x, y - 4 * k), "0", font=f, fill=STYLE["deco"], anchor="ld",
+           stroke_width=int(max(2, 3 * k)), stroke_fill=(255, 255, 255))
+    d.text((x + length_px, y - 4 * k), label, font=f, fill=STYLE["deco"], anchor="rd",
+           stroke_width=int(max(2, 3 * k)), stroke_fill=(255, 255, 255))
 
 
-def draw_north(d, at, k=1.0, font=None):
+def draw_north(d, at, k=1.0, font=None, style="compass"):
+    """방위표. 골든셋은 **8방향 별 나침반 + N/S/E/W 글자**를 쓴다 (실측)."""
     x, y = at
-    s = 30 * k
-    d.polygon([(x, y - s), (x - s * 0.45, y + s * 0.6), (x, y + s * 0.25)], fill=(0, 0, 0))
-    d.polygon([(x, y - s), (x + s * 0.45, y + s * 0.6), (x, y + s * 0.25)], outline=(0, 0, 0),
-              width=int(max(1, 2 * k)))
     f = font or _font(int(26 * k))
-    d.text((x, y + s + 4 * k), "N", font=f, fill=STYLE["deco"], anchor="ma")
+    if style == "arrow":                       # 단순 화살표 (예전 기본형)
+        s_ = 30 * k
+        d.polygon([(x, y - s_), (x - s_ * .45, y + s_ * .6), (x, y + s_ * .25)], fill=(0, 0, 0))
+        d.polygon([(x, y - s_), (x + s_ * .45, y + s_ * .6), (x, y + s_ * .25)],
+                  outline=(0, 0, 0), width=int(max(1, 2 * k)))
+        d.text((x, y + s_ + 4 * k), "N", font=f, fill=STYLE["deco"], anchor="ma")
+        return
+    R_, r_ = 42 * k, 13 * k                    # 별 나침반: 긴 살 4 + 짧은 살 4
+    for i in range(8):
+        a0 = math.radians(-90 + i * 45)
+        rr = R_ if i % 2 == 0 else R_ * 0.62
+        tip = (x + rr * math.cos(a0), y + rr * math.sin(a0))
+        l = (x + r_ * math.cos(a0 + math.pi / 8), y + r_ * math.sin(a0 + math.pi / 8))
+        r = (x + r_ * math.cos(a0 - math.pi / 8), y + r_ * math.sin(a0 - math.pi / 8))
+        d.polygon([tip, l, (x, y)], fill=(255, 255, 255), outline=(0, 0, 0))
+        d.polygon([tip, r, (x, y)], fill=(0, 0, 0))
+    off = R_ + 14 * k
+    for lab, (dx, dy) in (("N", (0, -1)), ("S", (0, 1)), ("E", (1, 0)), ("W", (-1, 0))):
+        d.text((x + off * dx, y + off * dy), lab, font=f, fill=(0, 0, 0), anchor="mm",
+               stroke_width=int(max(2, 3 * k)), stroke_fill=(255, 255, 255))
 
 
-def draw_legend(im, at, items, k=1.0, font=None):
-    """범례 — [(색이름 또는 RGB, 설명)] 목록."""
+def draw_legend(im, at, items, k=1.0, font=None, title=None, orient="v", swatch="fill"):
+    """범례. 골든셋에 두 형태가 있다 (실측) —
+
+    ① 세로형 + 제목 띠 : `범 례` 회색 띠 아래 [속 빈 파란 사각형] 사업계획지구
+    ② 가로형 띠        : 지도 아래 [● 1등급] [● 2등급] … 원형 견본
+
+    items 는 [(색, 설명)]. 색은 `STYLE["boundary"]` 의 이름이거나 RGB 튜플."""
     d = ImageDraw.Draw(im)
     f = font or _font(int(26 * k))
-    pad, sw, lh = int(12 * k), int(46 * k), int(38 * k)
-    w = sw + pad * 3 + max(d.textlength(t, font=f) for _, t in items)
-    h = lh * len(items) + pad * 2
+    pad, sw, lh = int(11 * k), int(46 * k), int(38 * k)
+
+    def color_of(c):
+        if isinstance(c, (list, tuple)):
+            return tuple(c)
+        return STYLE["boundary"].get(c, STYLE["zone"] if c == "cyan" else (150, 150, 150))
+
     x, y = at
+    if orient == "h":                          # ── 가로 띠 (등급 범례)
+        gap = int(18 * k)
+        widths = [d.textlength(t, font=f) + sw + gap for _, t in items]
+        w, h = sum(widths) + pad * 2, lh + pad
+        d.rectangle([x, y, x + w, y + h], fill=(255, 255, 255), outline=(0, 0, 0),
+                    width=int(max(1, 2 * k)))
+        cx = x + pad
+        for c, text in items:
+            r = int(9 * k)
+            cy = y + h / 2
+            d.ellipse([cx, cy - r, cx + 2 * r, cy + r], fill=color_of(c), outline=(80, 80, 80))
+            d.text((cx + 2 * r + 6 * k, cy), text, font=f, fill=(0, 0, 0), anchor="lm")
+            cx += 2 * r + 6 * k + d.textlength(text, font=f) + gap
+        return
+
+    # ── 세로형 (+ 선택적 제목 띠)
+    body_w = sw + pad * 3 + max(d.textlength(t, font=f) for _, t in items)
+    th = lh if title else 0
+    w, h = body_w, th + lh * len(items) + pad * 2
     d.rectangle([x, y, x + w, y + h], fill=(255, 255, 255), outline=(0, 0, 0),
                 width=int(max(1, 2 * k)))
-    for i, (col, text) in enumerate(items):
-        cy = y + pad + lh * i
-        c = STYLE["boundary"].get(col, STYLE["zone"] if col == "cyan" else col)
-        if isinstance(c, str):
-            c = (150, 150, 150)
-        d.rectangle([x + pad, cy + 6 * k, x + pad + sw, cy + lh - 8 * k], fill=c,
-                    outline=(0, 0, 0))
+    if title:
+        d.rectangle([x, y, x + w, y + th], fill=(228, 228, 228), outline=(0, 0, 0),
+                    width=int(max(1, 2 * k)))
+        d.text((x + w / 2, y + th / 2), title, font=f, fill=(0, 0, 0), anchor="mm")
+    for i, (c, text) in enumerate(items):
+        cy = y + th + pad + lh * i
+        col = color_of(c)
+        box = [x + pad, cy + 6 * k, x + pad + sw, cy + lh - 8 * k]
+        if swatch == "outline":                # 속 빈 사각형 — 경계선 범례에 쓴다
+            d.rectangle(box, outline=col, width=int(max(3, 5 * k)))
+        else:
+            d.rectangle(box, fill=col, outline=(0, 0, 0))
         d.text((x + pad * 2 + sw, cy + lh / 2), text, font=f, fill=(0, 0, 0), anchor="lm")
 
 
@@ -280,9 +335,10 @@ def render(spec, out_path=None):
         elif t == "scalebar":
             draw_scalebar(d, el["at"], el["length_px"], el.get("label", ""), k, F(26))
         elif t == "north":
-            draw_north(d, el["at"], k, F(26))
+            draw_north(d, el["at"], k, F(26), el.get("style", "compass"))
         elif t == "legend":
-            draw_legend(im, el["at"], [(c, s) for c, s in el["items"]], k, F(26))
+            draw_legend(im, el["at"], [(c, s) for c, s in el["items"]], k, F(26),
+                        el.get("title"), el.get("orient", "v"), el.get("swatch", "fill"))
             d = ImageDraw.Draw(im)
         else:
             raise ValueError(f"모르는 요소: {t}")
