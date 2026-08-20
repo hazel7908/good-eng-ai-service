@@ -97,8 +97,12 @@ def _scaled(im, base=1400):
     """요소 크기를 이미지 크기에 맞춘다. 삽도는 700~4,800px 로 폭이 제각각이다.
 
     기준 폭을 1,400 으로 잡았다 — 골든셋 최종본이 700×450 인데 2,000 기준으로는
-    글자가 9px 까지 작아져 읽히지 않았다 (실측 후 조정)."""
-    return max(0.6, im.width / base)
+    글자가 9px 까지 작아져 읽히지 않았다 (실측 후 조정).
+
+    ⚠️ **위로도 막는다.** 정답 삽도는 커진다고 글자를 비례해 키우지 않는다 —
+       지역개황도(4,449px)의 글자가 생태자연도(1,181px)와 절대 크기가 비슷하다.
+       상한이 없으면 4,352px 짜리에서 배율 3.1 이 되어 반경 라벨이 서로 붙어 버렸다."""
+    return max(0.6, min(2.0, im.width / base))
 
 
 # ── ② 오버레이 ──────────────────────────────────────────────────────────────
@@ -228,14 +232,20 @@ def _overlaps(a, b, pad=0):
 
 
 def draw_rings(im, origin, radii_m, px_per_m, k=1.0, font=None,
-               label_deg=213, color=(255, 255, 255)):
+               label_deg=213, color=(255, 255, 255), short=None):
     """사업계획지구 중심 **반경 동심원** — 위성사진 삽도의 표준 구성이다.
 
     정답 삽도(괴산)는 0.25 · 0.5 · 0.75 · 1.0km 네 겹을 두르고 원마다 라벨을 단다.
     조사할 값이 하나도 없다 — **중심 좌표와 축척만 있으면 완전히 자동으로 나온다.**
     둘 다 `map_fetch` 가 돌려주는 값(`center_px` · `px_per_m`)이다.
 
-    라벨은 원 위 `label_deg` 방향(기본 남서)에 놓는다. 정답이 그 자리를 쓴다."""
+    라벨은 원 위 `label_deg` 방향(기본 남서)에 놓는다. 정답이 그 자리를 쓴다.
+
+    ⚠️ 원이 여럿이고 라벨을 한 방향에 몰면 글자가 겹친다. 정답 지역개황도는 반경 6개를
+       동쪽 한 줄로 늘어놓는데 그때는 `반경 1km` 가 아니라 **`1.0km`** 로 줄여 쓴다.
+       `short` 를 안 주면 원 4개를 넘을 때 자동으로 줄인다."""
+    if short is None:
+        short = len(radii_m) > 4
     d = ImageDraw.Draw(im)
     f = font or _font(int(30 * k))
     ox, oy = origin
@@ -244,7 +254,7 @@ def draw_rings(im, origin, radii_m, px_per_m, k=1.0, font=None,
     for m in radii_m:
         r = m * px_per_m
         d.ellipse([ox - r, oy - r, ox + r, oy + r], outline=color, width=w)
-        txt = f"반경 {m/1000:g}km"
+        txt = f"{m/1000:.1f}km" if short else f"반경 {m/1000:g}km"
         tx, ty = ox + r * math.cos(rad), oy - r * math.sin(rad)
         tw = d.textlength(txt, font=f)
         # 원 선 위에 글자가 겹치지 않게 살짝 띄운다
@@ -556,10 +566,13 @@ def render(spec, out_path=None):
             d = ImageDraw.Draw(im)
         elif t == "rings":
             draw_rings(im, el["origin"], el["radii_m"], el["px_per_m"], k, F(30),
-                       el.get("label_deg", 213))
+                       el.get("label_deg", 213), short=el.get("short"))
             d = ImageDraw.Draw(im)
         elif t == "polar":
-            draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26))
+            # 정답 정온시설 분포도는 마커·라벨이 **초록**이다 (평창 실측).
+            # 색을 안 주면 표적 빨강을 쓴다 — 삽도 종류마다 달라 spec 에서 정한다.
+            draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26),
+                       tuple(el["dot"]) if el.get("dot") else None)
             d = ImageDraw.Draw(im)
         elif t == "watercourse":
             # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.

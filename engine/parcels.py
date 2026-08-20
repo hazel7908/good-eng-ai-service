@@ -42,11 +42,16 @@ def _n(s):
 
 
 def _cols(lines):
-    """헤더에서 **숫자 열이 몇 개인지** 읽는다.
+    """헤더에서 **숫자 열이 몇 개인지** 읽는다 — 첫 짐작일 뿐이다.
 
-    조서 서식이 사업마다 다르다 — 4열(지적면적·사업부지·진출입로·소계)이 흔하지만
+    조서 서식이 사업마다 다르다. 4열(지적면적·사업부지·진출입로·소계)이 흔하고
     여주는 2열(지적면적·편입면적)이다. 열 수를 모르면 비고의 `-` 를 숫자로 먹는다.
-    **마지막 숫자 열이 언제나 사업에 편입되는 면적**이라 그것만 쓰면 된다."""
+    **마지막 숫자 열이 언제나 사업에 편입되는 면적**이라 그것만 쓰면 된다.
+
+    ⚠️ 헤더가 다층이면 이 계산이 어긋난다 — 평창은 공동 사업이라 편입면적 아래에
+       **사업자별 열 3개 + 계**가 더 붙는데, 헤더 줄에서는 `편입면적` 다음이 바로
+       `비고` 라 2열로 보인다. 그래서 `parse_survey` 가 **합계 행과 맞는 열 수를
+       골라** 이 짐작을 바로잡는다."""
     try:
         i, j = lines.index("지목"), lines.index("비고")
     except ValueError:
@@ -54,22 +59,13 @@ def _cols(lines):
     return max(2, j - i - 1)
 
 
-def parse_survey(text):
-    """편입토지조서 → 필지 목록. HWP 표라 셀이 한 줄씩 떨어져 나온다."""
-    i = text.find("편입토지조서")
-    if i < 0:
-        return [], "편입토지조서를 찾지 못했습니다", None
-    seg = text[i:]
-    end = seg.find("합계")
-    body, tail = (seg[:end], seg[end:end + 260]) if end > 0 else (seg, "")
-    lines = [l.strip() for l in body.split("\n") if l.strip()]
-    n = _cols(lines)
-
+def _scan(lines, n):
+    """숫자 열이 n 개라고 보고 필지를 훑는다."""
     rows, k = [], 0
     while k < len(lines):
         m = JIBUN.fullmatch(lines[k])
         # 지번 → 지목(한 글자) → 숫자 n 개 → 비고
-        if m and k + n + 1 < len(lines) and re.fullmatch(r"[가-힣]", lines[k + 1]):
+        if m and k + n + 2 < len(lines) and re.fullmatch(r"[가-힣]", lines[k + 1]):
             nums = [_n(lines[k + 2 + t]) for t in range(n)]
             if all(v is not None for v in nums):
                 rows.append({
@@ -81,12 +77,48 @@ def parse_survey(text):
                 k += n + 3
                 continue
         k += 1
+    return rows
 
-    total = None
-    if tail:
-        vals = [_n(x) for x in tail.split("\n")[1:n + 2] if _n(x) is not None]
-        total = vals[n - 1] if len(vals) >= n else (vals[-1] if vals else None)
-    return rows, None if rows else "조서에서 필지를 읽지 못했습니다", total
+
+def parse_survey(text):
+    """편입토지조서 → 필지 목록. HWP 표라 셀이 한 줄씩 떨어져 나온다."""
+    i = text.find("편입토지조서")
+    if i < 0:
+        return [], "편입토지조서를 찾지 못했습니다", None
+    seg = text[i:]
+    end = seg.find("합계")     # ⚠️ `소계` 는 열 이름으로도 쓰여 끝 표시어가 못 된다
+    body, tail = (seg[:end], seg[end:end + 260]) if end > 0 else (seg, "")
+    lines = [l.strip() for l in body.split("\n") if l.strip()]
+    guess = _cols(lines)
+    tail_nums = [_n(x) for x in tail.split("\n")[1:12]] if tail else []
+    tail_nums = [v for v in tail_nums if v is not None]
+
+    def total_for(n):
+        return tail_nums[n - 1] if len(tail_nums) >= n else (
+            tail_nums[-1] if tail_nums else None)
+
+    # 짐작한 열 수부터 넓혀 가며 **합계 행과 맞는 것**을 고른다.
+    # 서식 변이를 일일이 따라가는 대신 조서가 스스로 검산하게 한다.
+    best = cand = None
+    for n in [guess] + [c for c in range(2, 8) if c != guess]:
+        rows = _scan(lines, n)
+        if not rows:
+            continue
+        t = total_for(n)
+        if t is not None and abs(sum(r["소계"] for r in rows) - t) < 2:
+            return rows, None, t              # 합계 행과 맞으면 그것으로 확정
+        if best is None:
+            best = (rows, t)
+        # 합계 행이 없는 조서도 있다 (평창은 `소계` 로 끝내고 진출입로 블록이 또 붙는다).
+        # 그럴 때는 **편입면적이 0 인 필지가 없는** 쪽을 고른다 —
+        # 편입되지 않는 필지를 조서에 올릴 이유가 없기 때문이다.
+        if cand is None and all(r["소계"] > 0 for r in rows) and len(rows) > 1:
+            cand = (rows, t)
+    if cand:
+        return cand[0], None, cand[1]
+    if best is None:
+        return [], "조서에서 필지를 읽지 못했습니다", None
+    return best[0], None, best[1]
 
 
 def survey_address(text):
