@@ -64,23 +64,29 @@ STYLE = {
 DEFAULT_POS = {
     "legend_v":  (0.726, 0.024),   # 세로 범례 — 오른쪽 위    (정답 508, 11)
     "legend_h":  (0.007, 0.924),   # 가로 등급 띠 — 왼쪽 아래 (정답 5, 416)
-    "north":     (0.927, 0.853),   # 방위표 중심 — 오른쪽 아래 (정답 649, 384)
-    "scalebar":  (0.656, 0.876),   # 축척 막대 시작 — 아래     (정답 459, 394)
+    "north":     (0.927, 0.800),   # 방위표 중심 — 축척 **위쪽** 오른쪽
+    "scalebar":  (0.530, 0.930),   # 축척 막대 시작 — 등급 띠 **오른쪽 옆**, 같은 줄
 }
 DEFAULT_SCALEBAR_RATIO = 0.200     # 축척 막대 길이 = 이미지 폭의 20% (정답 140/700)
 
+# (경로, ttc 인덱스) — 골든셋 삽도의 라벨이 굵은 글씨라 **볼드를 기본**으로 쓴다.
 FONT_CANDIDATES = [
-    "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
-    "/System/Library/Fonts/Supplemental/NanumGothic.ttf",
-    "C:/Windows/Fonts/malgun.ttf",
-    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
+    ("/System/Library/Fonts/AppleSDGothicNeo.ttc", 6),        # Apple SD Gothic Neo Bold
+    ("/System/Library/Fonts/Supplemental/NanumGothicBold.ttf", 0),
+    ("C:/Windows/Fonts/malgunbd.ttf", 0),
+    ("/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf", 0),
+    ("/System/Library/Fonts/Supplemental/AppleGothic.ttf", 0),  # 볼드가 없을 때
+    ("C:/Windows/Fonts/malgun.ttf", 0),
 ]
 
 
 def _font(size):
-    for p in FONT_CANDIDATES:
+    for p, idx in FONT_CANDIDATES:
         if Path(p).exists():
-            return ImageFont.truetype(p, size)
+            try:
+                return ImageFont.truetype(p, size, index=idx)
+            except Exception:
+                continue
     return ImageFont.load_default()      # 한글이 깨진다 — 폰트를 설치할 것
 
 
@@ -279,18 +285,21 @@ def draw_legend(im, at, items, k=1.0, font=None, title=None, orient="v", swatch=
 
     x, y = at
     if orient == "h":                          # ── 가로 띠 (등급 범례)
-        gap = int(18 * k)
-        widths = [d.textlength(t, font=f) + sw + gap for _, t in items]
-        w, h = sum(widths) + pad * 2, lh + pad
+        # 폭은 **실제 그리는 것과 같은 식**으로 계산한다. 마지막 항목 뒤 gap 은 빼야
+        # 오른쪽에 빈 여백이 남지 않는다 (정답 띠는 폭 354/700 로 짧다).
+        r = int(9 * k)
+        gap = int(13 * k)
+        tw = int(6 * k)                        # 원과 글자 사이
+        unit = [2 * r + tw + d.textlength(t, font=f) for _, t in items]
+        w = pad * 2 + sum(unit) + gap * (len(items) - 1)
+        h = lh + pad
         d.rectangle([x, y, x + w, y + h], fill=(255, 255, 255), outline=(0, 0, 0),
                     width=int(max(1, 2 * k)))
-        cx = x + pad
-        for c, text in items:
-            r = int(9 * k)
-            cy = y + h / 2
+        cx, cy = x + pad, y + h / 2
+        for (c, text), u in zip(items, unit):
             d.ellipse([cx, cy - r, cx + 2 * r, cy + r], fill=color_of(c), outline=(80, 80, 80))
-            d.text((cx + 2 * r + 6 * k, cy), text, font=f, fill=(0, 0, 0), anchor="lm")
-            cx += 2 * r + 6 * k + d.textlength(text, font=f) + gap
+            d.text((cx + 2 * r + tw, cy), text, font=f, fill=(0, 0, 0), anchor="lm")
+            cx += u + gap
         return
 
     # ── 세로형 (+ 선택적 제목 띠)
