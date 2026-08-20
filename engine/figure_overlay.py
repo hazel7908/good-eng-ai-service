@@ -62,7 +62,7 @@ STYLE = {
 # 괴산 국토환경성평가지도(700×450) 기준: 범례 (508,11) · 등급띠 (5,416).
 # 비율이라 삽도 크기가 달라져도 같은 자리에 놓인다. spec 에 `at` 을 주면 그쪽이 이긴다.
 DEFAULT_POS = {
-    "legend_v":  (0.726, 0.024),   # 세로 범례 — 오른쪽 위    (정답 508, 11)
+    "legend_v":  (0.708, 0.024),   # 세로 범례 — 오른쪽 위 (정답 508,11 · 박스가 커져 살짝 당김)
     "legend_h":  (0.007, 0.924),   # 가로 등급 띠 — 왼쪽 아래 (정답 5, 416)
     "north":     (0.927, 0.800),   # 방위표 중심 — 축척 **위쪽** 오른쪽
     "scalebar":  (0.530, 0.930),   # 축척 막대 시작 — 등급 띠 **오른쪽 옆**, 같은 줄
@@ -275,8 +275,14 @@ def draw_legend(im, at, items, k=1.0, font=None, title=None, orient="v", swatch=
 
     items 는 [(색, 설명)]. 색은 `STYLE["boundary"]` 의 이름이거나 RGB 튜플."""
     d = ImageDraw.Draw(im)
-    f = font or _font(int(26 * k))
-    pad, sw, lh = int(11 * k), int(46 * k), int(38 * k)
+    # 세로 범례는 **가로 띠보다 크게** 그린다 — 정답 박스가 184×73(700px 기준)인데
+    # 띠와 같은 치수로 그리면 120×32 로 절반밖에 안 됐다 (실측 후 조정).
+    if orient == "h":
+        f = font or _font(int(26 * k))
+        pad, sw, lh = int(11 * k), int(46 * k), int(38 * k)
+    else:
+        f = _font(int(38 * k))
+        pad, sw, lh = int(16 * k), int(88 * k), int(64 * k)
 
     def color_of(c):
         if isinstance(c, (list, tuple)):
