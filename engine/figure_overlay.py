@@ -371,7 +371,16 @@ def render(spec, out_path=None):
             draw_place(d, el["at"], el["text"], k, F(38))
         elif t == "scalebar":
             length = el.get("length_px") or round(im.width * DEFAULT_SCALEBAR_RATIO)
-            draw_scalebar(d, pos(el, "scalebar"), length, el.get("label", ""), k, F(26))
+            label = el.get("label")
+            if not label and el.get("px_per_m"):
+                # `px_per_m` 을 주면 라벨을 계산한다 — map_fetch 가 돌려주는 그 값이다.
+                # 막대 길이에 해당하는 실제 거리를 **읽기 좋은 눈금**으로 내린다.
+                raw = length / float(el["px_per_m"])
+                nice = [10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000]
+                pick = max([n for n in nice if n <= raw], default=nice[0])
+                length = round(pick * float(el["px_per_m"]))       # 눈금에 맞춰 막대도 줄인다
+                label = f"{pick}m" if pick < 1000 else f"{pick/1000:g}km"
+            draw_scalebar(d, pos(el, "scalebar"), length, label or "", k, F(26))
         elif t == "north":
             draw_north(d, pos(el, "north"), k, F(26), el.get("style", "compass"))
         elif t == "legend":

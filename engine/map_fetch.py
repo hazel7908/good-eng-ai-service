@@ -141,6 +141,27 @@ def resolution(lat, z):
     return 156543.03392804097 * math.cos(math.radians(lat)) / (2 ** z)
 
 
+def pick_zoom(source, lat, radius_m, span=3, size=768, margin=1.25):
+    """**반경 radius_m 이 화면에 들어오는 가장 상세한 축척**을 고른다.
+
+    정온시설 표의 가장 먼 지점을 넣으면 된다 — 지도를 너무 넓게 잡아 지점이 한 덩어리로
+    뭉치거나, 너무 좁게 잡아 지점이 잘리는 일을 막는다.
+    `margin` 은 라벨이 가장자리에서 잘리지 않게 두는 여유다."""
+    need = radius_m * margin
+    if SOURCES[source]["kind"] == "wmts5179":
+        half_px = span * TILE / 2
+        ok = [(lvl, r) for lvl, r in NGII_LEVELS.items() if half_px * r >= need]
+        if not ok:
+            return max(NGII_LEVELS, key=lambda k: NGII_LEVELS[k])   # 가장 넓은 축척
+        return min(ok, key=lambda t: t[1])[0]                        # 그중 가장 상세한 것
+    # 웹 메르카토르 계열(ECVAM/EGIS) — 줌이 1 오르면 해상도가 절반
+    half_px = (span * TILE if SOURCES[source]["kind"] == "tms" else size) / 2
+    for z in range(19, 4, -1):
+        if half_px * resolution(lat, z) >= need:
+            return z
+    return 10
+
+
 # ── 취득 ────────────────────────────────────────────────────────────────────
 def fetch_tms(src, key, z, tx, ty, span):
     """타일 span×span 장을 받아 이어붙인다. 실무자가 손으로 하던 그 작업이다."""
@@ -210,7 +231,7 @@ def fetch(source, mx, my, z=15, span=3, size=768, layer=None):
 
     if src["kind"] == "wmts5179":
         key = load_key(src["key_env"])
-        level = f"L{z:02d}" if isinstance(z, int) else z
+        level = f"L{z:02d}" if isinstance(z, int) else str(z)
         if level not in NGII_LEVELS:
             sys.exit(f"레벨은 L05~L18 입니다 (받은 값: {level})")
         img, got, res, (cx, cy) = fetch_ngii(src, key, level, mx, my, span)
@@ -253,6 +274,9 @@ def main():
     ap.add_argument("--layer", help="WMS 레이어 (egis 전용)")
     ap.add_argument("--zoom", type=int, default=15,
                     help="ecvam/egis 는 웹 줌(0~19), ngii 는 5~18 (L05~L18)")
+    ap.add_argument("--fit", type=float, metavar="M",
+                    help="이 반경(m)이 들어오도록 축척을 자동으로 고른다 — "
+                         "정온시설 표의 가장 먼 거리를 넣으면 된다")
     ap.add_argument("--span", type=int, default=3, help="타일 격자 크기 (홀수)")
     ap.add_argument("--size", type=int, default=768, help="WMS 출력 크기")
     ap.add_argument("-o", "--out")
@@ -270,7 +294,13 @@ def main():
             print(f"  {k:<8} {v['kind'].upper():<4} {auth:<8} {v['note']}")
         return
 
-    img, meta = fetch(a.source, a.xy[0], a.xy[1], a.zoom, a.span, a.size, a.layer)
+    zoom = a.zoom
+    if a.fit:
+        lon, lat = merc_to_lonlat(a.xy[0], a.xy[1])
+        picked = pick_zoom(a.source, lat, a.fit, a.span, a.size)
+        zoom = picked if isinstance(picked, str) else picked
+        print(f"축척 자동 선택: 반경 {a.fit:.0f}m → {picked}")
+    img, meta = fetch(a.source, a.xy[0], a.xy[1], zoom, a.span, a.size, a.layer)
     out = a.out or f"map_{a.source}.png"
     img.save(out)
     print(f"→ {out}  {img.size}")
