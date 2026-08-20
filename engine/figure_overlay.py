@@ -57,6 +57,9 @@ STYLE = {
     "flow":         (108, 190, 237),   # 하천 흐름 화살표 — 하늘색
     "place":        (31, 73, 177),     # 지명 — 파랑
     "deco":         (0, 0, 0),
+    # 수계흐름모식도 — 괴산 골든셋 픽셀 실측
+    "flow_site":    (28, 226, 255),    # 사업계획지구 박스 — 하늘색
+    "flow_river":   (63, 106, 247),    # 하천 박스 — 파랑
 }
 # ── 기본 배치 — **골든셋 정답에서 실측한 위치**를 비율로 환산 ──────────────────
 # 괴산 국토환경성평가지도(700×450) 기준: 범례 (508,11) · 등급띠 (5,416).
@@ -369,13 +372,78 @@ def draw_legend(im, at, items, k=1.0, font=None, title=None, orient="v", swatch=
         d.text((x + pad * 2 + sw, cy + lh / 2), text, font=f, fill=(0, 0, 0), anchor="lm")
 
 
+# ── 수계흐름모식도 (지도가 아니라 도식) ─────────────────────────────────────
+def draw_watercourse(im, nodes, links, total=None, k=1.0):
+    """**수계흐름모식도** — 지역개황 그림 2.8-3.
+
+    `사업계획지구 → 미호강(국가) → 금강(국가)` 처럼 물이 흘러가는 순서를 박스와 화살표로
+    보인다. 지도가 아니라 **직접 작도하는 도식**이라 외부 지도가 필요 없다.
+
+    입력은 본문 서술에 이미 있는 값 그대로다 —
+    *"구거를 따라 약 1.93km 유하하여 섬강(국가)에 합류… 총 유하거리는 약 34.54km"*
+
+      nodes = ["사업계획지구", "미 호 강 (국 가)", "금 강 (국 가)"]
+      links = ["15.96km", "21.56km"]        # 노드 사이 구간 거리
+      total = "총 유하거리 54.08km"
+
+    색·모양은 괴산 골든셋에서 실측했다 (사업지 하늘색 · 하천 파랑 · 검은 굵은 테두리)."""
+    d = ImageDraw.Draw(im)
+    f = _font(int(44 * k))
+    fs = _font(int(40 * k))
+    W, H = im.size
+    pad = int(26 * k)
+    bw = [d.textlength(n, font=f) + pad * 2 for n in nodes]
+    arrow = int(110 * k)
+    total_w = sum(bw) + arrow * (len(nodes) - 1)
+    x = (W - total_w) / 2
+    bh = int(120 * k)
+    y = int(H * 0.20)
+    lw = int(max(3, 6 * k))
+
+    centers = []
+    for i, (n, w) in enumerate(zip(nodes, bw)):
+        fill = STYLE["flow_site"] if i == 0 else STYLE["flow_river"]
+        d.rounded_rectangle([x, y, x + w, y + bh], radius=int(18 * k),
+                            fill=fill, outline=(0, 0, 0), width=lw)
+        d.text((x + w / 2, y + bh / 2), n, font=f, fill=(0, 0, 0), anchor="mm")
+        centers.append((x, x + w))
+        if i < len(nodes) - 1:                      # → 화살표와 구간 거리
+            ax0, ax1 = x + w + arrow * 0.18, x + w + arrow * 0.82
+            ay = y + bh / 2
+            th = int(14 * k)
+            d.rectangle([ax0, ay - th / 2, ax1 - th, ay + th / 2], fill=(0, 0, 0))
+            d.polygon([(ax1 + th, ay), (ax1 - th, ay - th * 1.7),
+                       (ax1 - th, ay + th * 1.7)], fill=(0, 0, 0))
+            if i < len(links):
+                d.text(((ax0 + ax1) / 2, y - int(18 * k)), links[i], font=fs,
+                       fill=(0, 0, 0), anchor="mb")
+        x += w + arrow
+
+    if total:                                        # ↔ 총 유하거리
+        lx, rx = centers[0][0] + int(20 * k), centers[-1][1] - int(20 * k)
+        ty = y + bh + int(70 * k)
+        cap = int(52 * k)
+        for px in (lx, rx):
+            d.rectangle([px - lw, ty - cap / 2, px + lw, ty + cap / 2], fill=(0, 0, 0))
+        th = int(12 * k)
+        d.rectangle([lx + th * 2, ty - th / 2, rx - th * 2, ty + th / 2], fill=(0, 0, 0))
+        for px, sgn in ((lx, 1), (rx, -1)):
+            d.polygon([(px, ty), (px + sgn * th * 2.6, ty - th * 1.8),
+                       (px + sgn * th * 2.6, ty + th * 1.8)], fill=(0, 0, 0))
+        d.text(((lx + rx) / 2, ty + int(26 * k)), total, font=f, fill=(0, 0, 0), anchor="ma")
+
+
 # ── 렌더 ────────────────────────────────────────────────────────────────────
 DISPATCH_NEEDS_IMAGE = {"zone", "legend"}
 
 
 def render(spec, out_path=None):
-    base = Path(spec["base"])
-    im = Image.open(base).convert("RGBA")
+    if spec.get("base"):
+        im = Image.open(Path(spec["base"])).convert("RGBA")
+    else:
+        # 지도가 없는 도식(수계흐름모식도 등) — 빈 캔버스에 그린다
+        w, h = spec.get("canvas", [1600, 500])
+        im = Image.new("RGBA", (int(w), int(h)), (255, 255, 255, 255))
     k = _scaled(im)
     d = ImageDraw.Draw(im)
     font_cache = {}
@@ -406,6 +474,9 @@ def render(spec, out_path=None):
             draw_flow(d, el["path"], el.get("count", 5), k)
         elif t == "polar":
             draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26))
+            d = ImageDraw.Draw(im)
+        elif t == "watercourse":
+            draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), k)
             d = ImageDraw.Draw(im)
         elif t == "place":
             draw_place(d, el["at"], el["text"], k, F(38))
