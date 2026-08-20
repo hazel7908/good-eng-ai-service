@@ -36,6 +36,17 @@ ROOT = Path(__file__).resolve().parent.parent
 TILE = 256
 R = 20037508.342789244          # Web Mercator 반지름 (EPSG:3857 경계)
 
+# 국토지리정보원 WMTS 는 **EPSG:5179(UTM-K)** 를 쓴다 — Web Mercator 가 아니다.
+# 격자 정의는 국토정보맵의 OpenLayers 객체에서 직접 읽어 확인했다 (2026-08-20).
+NGII_ORIGIN = (-200000.0, 4000000.0)
+NGII_RES = [2088.96, 1044.48, 522.24, 261.12, 130.56, 65.28, 32.64,
+            16.32, 8.16, 4.08, 2.04, 1.02, 0.51, 0.255]        # L05 … L18
+NGII_LEVELS = {f"L{5 + i:02d}": r for i, r in enumerate(NGII_RES)}
+
+# ⚠️ 서버가 **Referer 와 User-Agent 를 둘 다 요구**한다. 하나라도 없으면
+#    `Access_Denied` 15바이트 또는 HTTP 400 이 온다 (실측).
+NGII_HEADERS = {"Referer": "https://QGIS", "User-Agent": "Mozilla/5.0"}
+
 # ── 출처 정의 ────────────────────────────────────────────────────────────────
 # 어느 삽도에 쓰는지는 docs/20260819_삽도_자동화.md §2 의 표와 짝을 이룬다.
 SOURCES = {
@@ -45,6 +56,15 @@ SOURCES = {
         "layer": "ECVAM_nem_ecvam",     # TMS 매뉴얼 실측 — 접두어 `ECVAM_` 이 붙는다
         "key_env": ("~/.ecvam.env", "ECVAM_API_KEY"),
         "note": "국토환경성평가지도 (타 파트 삽도)",
+    },
+    "ngii": {
+        "kind": "wmts5179",
+        "url": ("https://map.ngii.go.kr/openapi/Gettile.do?apikey={key}&layer={layer}"
+                "&style=korean&tilematrixset=EPSG%3A5179&Service=WMTS&Request=GetTile"
+                "&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"),
+        "layer": "korean_map",          # 그 밖: white_map(백지도) · satellite_map · air_map(영상)
+        "key_env": ("~/.ngii.env", "NGII_API_KEY"),
+        "note": "국토지리정보원 지형도 — 지역개황도·수계도 베이스",
     },
     "egis": {
         "kind": "wms",
@@ -107,6 +127,38 @@ def fetch_tms(src, key, z, tx, ty, span):
     return canvas, got
 
 
+def fetch_ngii(src, key, level, mx, my, span):
+    """국토지리정보원 지형도 — EPSG:5179 타일을 span×span 받아 합성한다."""
+    try:
+        from pyproj import Transformer
+    except ImportError:
+        sys.exit("pyproj 가 필요합니다: .venv/bin/pip install pyproj")
+    tr = Transformer.from_crs("EPSG:3857", "EPSG:5179", always_xy=True)
+    X, Y = tr.transform(mx, my)
+    res = NGII_LEVELS[level]
+    ox, oy = NGII_ORIGIN
+    fx, fy = (X - ox) / (TILE * res), (oy - Y) / (TILE * res)
+    c0, r0 = int(fx), int(fy)
+    half = span // 2
+    canvas = Image.new("RGB", (TILE * span, TILE * span), (255, 255, 255))
+    got = 0
+    for dx in range(-half, half + 1):
+        for dy in range(-half, half + 1):
+            url = src["url"].format(key=key, layer=src["layer"], z=level,
+                                    x=c0 + dx, y=r0 + dy)
+            try:
+                req = urllib.request.Request(url, headers=NGII_HEADERS)
+                data = urllib.request.urlopen(req, timeout=30).read()
+                im = Image.open(io.BytesIO(data)).convert("RGB")
+                canvas.paste(im, ((dx + half) * TILE, (dy + half) * TILE))
+                got += 1
+            except Exception as e:
+                print(f"  [warn] 타일 {level}/{c0+dx}/{r0+dy} — {type(e).__name__}", file=sys.stderr)
+    cx = (fx - c0 + half) * TILE
+    cy = (fy - r0 + half) * TILE
+    return canvas, got, res, (cx, cy)
+
+
 def fetch_wms(src, layer, mx, my, half_m, size):
     """BBOX 로 한 장을 받는다. WMS 는 타일을 이어붙일 필요가 없다."""
     bbox = f"{mx-half_m},{my-half_m},{mx+half_m},{my+half_m}"
@@ -121,6 +173,18 @@ def fetch(source, mx, my, z=15, span=3, size=768, layer=None):
     """→ (이미지, 메타). 메타의 `px_per_m` 은 figure_overlay 의 `polar` 에 그대로 넣는다."""
     src = SOURCES[source]
     lon, lat = merc_to_lonlat(mx, my)
+
+    if src["kind"] == "wmts5179":
+        key = load_key(src["key_env"])
+        level = f"L{z:02d}" if isinstance(z, int) else z
+        if level not in NGII_LEVELS:
+            sys.exit(f"레벨은 L05~L18 입니다 (받은 값: {level})")
+        img, got, res, (cx, cy) = fetch_ngii(src, key, level, mx, my, span)
+        meta = {"source": source, "layer": src["layer"], "level": level,
+                "tiles": f"{got}/{span*span}", "px_per_m": round(1 / res, 6),
+                "m_per_px": round(res, 4), "center_px": [round(cx, 1), round(cy, 1)],
+                "lonlat": [round(lon, 6), round(lat, 6)]}
+        return img, meta
 
     if src["kind"] == "tms":
         key = load_key(src["key_env"])
@@ -152,7 +216,8 @@ def main():
                     help="EPSG:3857 좌표 (ECVAM 주소검색이 돌려주는 그 좌표)")
     ap.add_argument("--source", default="ecvam", choices=list(SOURCES))
     ap.add_argument("--layer", help="WMS 레이어 (egis 전용)")
-    ap.add_argument("--zoom", type=int, default=15)
+    ap.add_argument("--zoom", type=int, default=15,
+                    help="ecvam/egis 는 웹 줌(0~19), ngii 는 5~18 (L05~L18)")
     ap.add_argument("--span", type=int, default=3, help="타일 격자 크기 (홀수)")
     ap.add_argument("--size", type=int, default=768, help="WMS 출력 크기")
     ap.add_argument("-o", "--out")
