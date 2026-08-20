@@ -104,7 +104,9 @@ def draw_label(d, at, text, k=1.0, frm=None, font=None):
 def draw_boundary(d, points, color="yellow", k=1.0):
     """사업계획지구 경계선. 설계도서 경계 좌표가 있으면 그대로 들어온다."""
     c = STYLE["boundary"].get(color, STYLE["boundary"]["yellow"])
-    d.line([tuple(p) for p in points] + [tuple(points[0])], fill=c, width=int(max(3, 9 * k)),
+    # 최소 굵기 5 — 삽도가 700px 급으로 작으면 비례 굵기가 1~3px 로 얇아진다.
+    # 골든셋 실측(국토환경성평가지도)의 경계선이 4~5px 였다.
+    d.line([tuple(p) for p in points] + [tuple(points[0])], fill=c, width=int(max(5, 9 * k)),
            joint="curve")
 
 
