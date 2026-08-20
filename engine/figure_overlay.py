@@ -373,6 +373,15 @@ def draw_legend(im, at, items, k=1.0, font=None, title=None, orient="v", swatch=
 
 
 # ── 수계흐름모식도 (지도가 아니라 도식) ─────────────────────────────────────
+def watercourse_size(nodes, k=1.0):
+    """모식도가 필요로 하는 캔버스 크기. `canvas` 를 안 주면 이 값으로 만든다."""
+    f = _font(int(44 * k))
+    probe = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+    pad, arrow = int(26 * k), int(110 * k)
+    w = sum(probe.textlength(n, font=f) + pad * 2 for n in nodes) + arrow * (len(nodes) - 1)
+    return int(w + 120 * k), int(440 * k)
+
+
 def draw_watercourse(im, nodes, links, total=None, k=1.0):
     """**수계흐름모식도** — 지역개황 그림 2.8-3.
 
@@ -441,8 +450,13 @@ def render(spec, out_path=None):
     if spec.get("base"):
         im = Image.open(Path(spec["base"])).convert("RGBA")
     else:
-        # 지도가 없는 도식(수계흐름모식도 등) — 빈 캔버스에 그린다
-        w, h = spec.get("canvas", [1600, 500])
+        # 지도가 없는 도식(수계흐름모식도 등) — 빈 캔버스에 그린다.
+        # `canvas` 를 안 주면 **내용에 맞춰 크기를 잡는다** (노드가 많으면 옆이 잘린다).
+        if spec.get("canvas"):
+            w, h = spec["canvas"]
+        else:
+            wc = next((e for e in spec.get("elements", []) if e["type"] == "watercourse"), None)
+            w, h = watercourse_size(wc["nodes"]) if wc else (1600, 500)
         im = Image.new("RGBA", (int(w), int(h)), (255, 255, 255, 255))
     k = _scaled(im)
     d = ImageDraw.Draw(im)
@@ -476,7 +490,9 @@ def render(spec, out_path=None):
             draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26))
             d = ImageDraw.Draw(im)
         elif t == "watercourse":
-            draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), k)
+            # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.
+            # 캔버스 크기를 내용에서 잡는데 그 크기로 다시 배율을 매기면 서로 물려 넘친다.
+            draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), 1.0)
             d = ImageDraw.Draw(im)
         elif t == "place":
             draw_place(d, el["at"], el["text"], k, F(38))
