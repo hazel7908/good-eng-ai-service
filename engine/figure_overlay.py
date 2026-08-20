@@ -187,19 +187,31 @@ BEARING = {"북": -90, "북북동": -67.5, "북동": -45, "동북동": -22.5, "�
            "북서": 225, "북북서": 247.5}
 
 
+def _overlaps(a, b, pad=0):
+    return not (a[2] + pad < b[0] or b[2] + pad < a[0] or
+                a[3] + pad < b[1] or b[3] + pad < a[1])
+
+
 def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None):
     """**정온시설 표를 그대로 그림으로 옮긴다.**
 
-    지역개황 §2.9.1 · 소음진동·대기질의 영향예측지점 표는 `라벨 | 방향 | 이격거리(m)` 형태다.
-    사업계획지구 중심 좌표와 축척만 주면 **표에서 바로 마커 위치가 나온다** — 실무자가
-    지점마다 좌표를 찍을 필요가 없다.
+    지역개황 「정온 및 개발시설 현황」 표(2.9.1)와 소음진동·대기질의 영향예측지점 표는
+    `라벨 | 방향 | 이격거리(m)` 형태다. 사업계획지구 중심 좌표와 축척만 주면 **표에서 바로
+    마커 위치가 나온다** — 지점마다 좌표를 찍을 필요가 없다.
 
     ⚠️ 방향이 16방위라 실제 방위각과 최대 ±11°차가 난다. **정확한 위치가 필요하면
-    좌표를 받아야 한다** — 이 배치는 분포를 보여주는 용도다."""
+    좌표를 받아야 한다** — 이 배치는 분포를 보여주는 용도다.
+
+    **라벨은 겹치면 자리를 옮긴다** — 같은 방향에 지점이 몰리면(괴산 서쪽 258m·335m 처럼)
+    글자가 포개져 읽을 수 없기 때문이다. 마커는 데이터라 옮기지 않고 라벨만 피한다."""
     d = ImageDraw.Draw(im)
     f = font or _font(int(26 * k))
     ox, oy = origin
-    placed = []
+    r = 9 * k
+    color = dot or STYLE["target"]
+
+    # ① 마커 좌표부터 다 계산한다 (라벨 배치가 서로를 알아야 하므로)
+    pts = []
     for it in items:
         deg = BEARING.get(it["dir"])
         if deg is None:
@@ -208,15 +220,43 @@ def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None):
         if not isinstance(dist, (int, float)):
             continue                       # `인접` 같은 비수치 값 — 평창 사례
         rad = math.radians(deg)
-        x = ox + dist * px_per_m * math.cos(rad)
-        y = oy + dist * px_per_m * math.sin(rad)
-        r = 9 * k
-        color = dot or STYLE["target"]
+        pts.append((ox + dist * px_per_m * math.cos(rad),
+                    oy + dist * px_per_m * math.sin(rad), it["label"]))
+
+    # ② 마커를 먼저 그리고, 그 상자를 라벨 회피 대상에 넣는다
+    boxes = []
+    for x, y, _ in pts:
         d.ellipse([x - r, y - r, x + r, y + r], fill=color, outline=(255, 255, 255),
                   width=int(max(1, 2 * k)))
-        d.text((x + 14 * k, y), it["label"], font=f, fill=(0, 0, 0), anchor="lm",
+        boxes.append((x - r, y - r, x + r, y + r))
+
+    # ③ 라벨 — 오른쪽이 기본, 겹치면 시계 방향으로 자리를 옮긴다
+    gap = 14 * k
+    placed = []
+    for x, y, label in pts:
+        tw = d.textlength(label, font=f)
+        th = 26 * k
+        cands = [(x + gap, y, "lm"), (x - gap - tw, y, "lm"),
+                 (x - tw / 2, y - gap - th / 2, "lm"), (x - tw / 2, y + gap + th / 2, "lm"),
+                 (x + gap, y - gap, "lm"), (x + gap, y + gap, "lm"),
+                 (x - gap - tw, y - gap, "lm"), (x - gap - tw, y + gap, "lm")]
+        spot = None
+        for push in range(4):              # 다 겹치면 조금씩 더 밀어 본다
+            for lx, ly, anchor in cands:
+                bx = (lx, ly - th / 2 - push * 2 * k, lx + tw, ly + th / 2 + push * 2 * k)
+                shifted = (bx[0], bx[1] - push * th * 0.8, bx[2], bx[3] - push * th * 0.8)
+                if not any(_overlaps(shifted, b, 2 * k) for b in boxes):
+                    spot = (lx, ly - push * th * 0.8, shifted)
+                    break
+            if spot:
+                break
+        if spot is None:                   # 끝내 자리가 없으면 기본 위치에 그냥 둔다
+            spot = (x + gap, y, (x + gap, y - th / 2, x + gap + tw, y + th / 2))
+        lx, ly, box = spot
+        d.text((lx, ly), label, font=f, fill=(0, 0, 0), anchor="lm",
                stroke_width=int(max(2, 3 * k)), stroke_fill=(255, 255, 255))
-        placed.append(it["label"])
+        boxes.append(box)
+        placed.append(label)
     return placed
 
 
