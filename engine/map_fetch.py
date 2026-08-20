@@ -65,7 +65,12 @@ SOURCES = {
         "url": ("https://map.ngii.go.kr/openapi/Gettile.do?apikey={key}&layer={layer}"
                 "&style=korean&tilematrixset=EPSG%3A5179&Service=WMTS&Request=GetTile"
                 "&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"),
-        "layer": "korean_map",          # 그 밖: white_map(백지도) · satellite_map · air_map(영상)
+        # 실측한 레이어 이름 — 지도 뷰어 JS 에서 확인했다.
+        #   korean_map 일반지도 · satellite_map 위성영상 · hybrid_map 라벨(투명)
+        #   white_map/white_edu_map 백지도 · night_map · color_map_red/green/blue(색각)
+        # ⚠️ `airmap` 은 이름은 있는데 **빈 응답**이 온다. 위성영상은 satellite_map 이다.
+        # 위성 + 라벨은 `--layer satellite_map+hybrid_map` 처럼 `+` 로 겹쳐 받는다.
+        "layer": "korean_map",
         "key_env": ("~/.ngii.env", "NGII_API_KEY"),
         "note": "국토지리정보원 지형도 — 지역개황도·수계도 베이스",
     },
@@ -197,18 +202,33 @@ def fetch_ngii(src, key, level, mx, my, span):
     half = span // 2
     canvas = Image.new("RGB", (TILE * span, TILE * span), (255, 255, 255))
     got = 0
+    # `satellite_map+hybrid_map` — 뒤 레이어를 앞 레이어 위에 겹친다 (라벨은 투명 PNG).
+    layers = src["layer"].split("+")
     for dx in range(-half, half + 1):
         for dy in range(-half, half + 1):
-            url = src["url"].format(key=key, layer=src["layer"], z=level,
-                                    x=c0 + dx, y=r0 + dy)
-            try:
-                req = urllib.request.Request(url, headers=NGII_HEADERS)
-                data = urllib.request.urlopen(req, timeout=30).read()
-                im = Image.open(io.BytesIO(data)).convert("RGB")
-                canvas.paste(im, ((dx + half) * TILE, (dy + half) * TILE))
+            urls = [src["url"].format(key=key, layer=L, z=level,
+                                      x=c0 + dx, y=r0 + dy) for L in layers]
+            tile = None
+            for url in urls:
+                try:
+                    req = urllib.request.Request(url, headers=NGII_HEADERS)
+                    im = Image.open(io.BytesIO(
+                        urllib.request.urlopen(req, timeout=30).read()))
+                except Exception as e:
+                    print(f"  [warn] 타일 {level}/{c0+dx}/{r0+dy} — {type(e).__name__}",
+                          file=sys.stderr)
+                    continue
+                if tile is None:
+                    tile = im.convert("RGB")
+                else:
+                    # 라벨층 — 투명도를 살려 겹친다. hybrid_map 은 **팔레트+투명** PNG 라
+                    # 그냥 붙이면 배경까지 덮어 위성이 사라진다. RGBA 로 펴서 마스크를 쓴다.
+                    if im.mode == "P" and "transparency" in im.info:
+                        im = im.convert("RGBA")
+                    tile.paste(im, (0, 0), im if im.mode in ("RGBA", "LA") else None)
+            if tile is not None:
+                canvas.paste(tile, ((dx + half) * TILE, (dy + half) * TILE))
                 got += 1
-            except Exception as e:
-                print(f"  [warn] 타일 {level}/{c0+dx}/{r0+dy} — {type(e).__name__}", file=sys.stderr)
     cx = (fx - c0 + half) * TILE
     cy = (fy - r0 + half) * TILE
     return canvas, got, res, (cx, cy)
@@ -230,6 +250,7 @@ def fetch(source, mx, my, z=15, span=3, size=768, layer=None):
     lon, lat = merc_to_lonlat(mx, my)
 
     if src["kind"] == "wmts5179":
+        src = dict(src, layer=layer or src["layer"])
         key = load_key(src["key_env"])
         level = f"L{z:02d}" if isinstance(z, int) else str(z)
         if level not in NGII_LEVELS:

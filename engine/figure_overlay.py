@@ -195,6 +195,31 @@ def _overlaps(a, b, pad=0):
                 a[3] + pad < b[1] or b[3] + pad < a[1])
 
 
+def draw_rings(im, origin, radii_m, px_per_m, k=1.0, font=None,
+               label_deg=213, color=(255, 255, 255)):
+    """사업계획지구 중심 **반경 동심원** — 위성사진 삽도의 표준 구성이다.
+
+    정답 삽도(괴산)는 0.25 · 0.5 · 0.75 · 1.0km 네 겹을 두르고 원마다 라벨을 단다.
+    조사할 값이 하나도 없다 — **중심 좌표와 축척만 있으면 완전히 자동으로 나온다.**
+    둘 다 `map_fetch` 가 돌려주는 값(`center_px` · `px_per_m`)이다.
+
+    라벨은 원 위 `label_deg` 방향(기본 남서)에 놓는다. 정답이 그 자리를 쓴다."""
+    d = ImageDraw.Draw(im)
+    f = font or _font(int(30 * k))
+    ox, oy = origin
+    w = max(2, round(2.5 * k))
+    rad = math.radians(label_deg)
+    for m in radii_m:
+        r = m * px_per_m
+        d.ellipse([ox - r, oy - r, ox + r, oy + r], outline=color, width=w)
+        txt = f"반경 {m/1000:g}km"
+        tx, ty = ox + r * math.cos(rad), oy - r * math.sin(rad)
+        tw = d.textlength(txt, font=f)
+        # 원 선 위에 글자가 겹치지 않게 살짝 띄운다
+        d.text((tx - tw / 2, ty - 20 * k), txt, font=f, fill=color,
+               stroke_width=max(1, round(3 * k)), stroke_fill=(60, 60, 60))
+
+
 def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None):
     """**정온시설 표를 그대로 그림으로 옮긴다.**
 
@@ -466,9 +491,16 @@ def render(spec, out_path=None):
         return font_cache.setdefault(sz, _font(int(sz * k)))
 
     def pos(el, key):
-        """`at` 이 있으면 그대로, 없으면 정답 실측 비율로 계산한다."""
-        if el.get("at"):
-            return el["at"]
+        """`at` 이 있으면 그대로, 없으면 정답 실측 비율로 계산한다.
+
+        ⚠️ 0~1 값은 **비율**로 본다. 픽셀 좌표가 1 이하일 일은 없는데, 기본값이
+           비율이라 그 형식으로 넣기 쉽다 — 픽셀로 읽으면 조용히 모서리에 붙는다."""
+        at = el.get("at")
+        if at:
+            x, y = at
+            if 0 <= x <= 1 and 0 <= y <= 1:
+                return [round(im.width * x), round(im.height * y)]
+            return at
         rx, ry = DEFAULT_POS[key]
         return [round(im.width * rx), round(im.height * ry)]
 
@@ -486,6 +518,10 @@ def render(spec, out_path=None):
             d = ImageDraw.Draw(im)          # alpha_composite 후 draw 재생성
         elif t == "flow":
             draw_flow(d, el["path"], el.get("count", 5), k)
+        elif t == "rings":
+            draw_rings(im, el["origin"], el["radii_m"], el["px_per_m"], k, F(30),
+                       el.get("label_deg", 213))
+            d = ImageDraw.Draw(im)
         elif t == "polar":
             draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26))
             d = ImageDraw.Draw(im)
