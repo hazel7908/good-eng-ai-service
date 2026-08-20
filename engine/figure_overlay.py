@@ -58,6 +58,17 @@ STYLE = {
     "place":        (31, 73, 177),     # 지명 — 파랑
     "deco":         (0, 0, 0),
 }
+# ── 기본 배치 — **골든셋 정답에서 실측한 위치**를 비율로 환산 ──────────────────
+# 괴산 국토환경성평가지도(700×450) 기준: 범례 (508,11) · 등급띠 (5,416).
+# 비율이라 삽도 크기가 달라져도 같은 자리에 놓인다. spec 에 `at` 을 주면 그쪽이 이긴다.
+DEFAULT_POS = {
+    "legend_v":  (0.726, 0.024),   # 세로 범례 — 오른쪽 위
+    "legend_h":  (0.007, 0.924),   # 가로 등급 띠 — 왼쪽 아래
+    "north":     (0.936, 0.756),   # 방위표 — 오른쪽 아래
+    "scalebar":  (0.545, 0.889),   # 축척 막대 — 아래 가운데. 오른쪽 끝은 방위표와 겹친다
+}
+DEFAULT_SCALEBAR_RATIO = 0.230     # 축척 막대 길이 = 이미지 폭의 23%
+
 FONT_CANDIDATES = [
     "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
     "/System/Library/Fonts/Supplemental/NanumGothic.ttf",
@@ -313,6 +324,13 @@ def render(spec, out_path=None):
     def F(sz):
         return font_cache.setdefault(sz, _font(int(sz * k)))
 
+    def pos(el, key):
+        """`at` 이 있으면 그대로, 없으면 정답 실측 비율로 계산한다."""
+        if el.get("at"):
+            return el["at"]
+        rx, ry = DEFAULT_POS[key]
+        return [round(im.width * rx), round(im.height * ry)]
+
     drawn = []
     for el in spec.get("elements", []):
         t = el["type"]
@@ -333,12 +351,15 @@ def render(spec, out_path=None):
         elif t == "place":
             draw_place(d, el["at"], el["text"], k, F(38))
         elif t == "scalebar":
-            draw_scalebar(d, el["at"], el["length_px"], el.get("label", ""), k, F(26))
+            length = el.get("length_px") or round(im.width * DEFAULT_SCALEBAR_RATIO)
+            draw_scalebar(d, pos(el, "scalebar"), length, el.get("label", ""), k, F(26))
         elif t == "north":
-            draw_north(d, el["at"], k, F(26), el.get("style", "compass"))
+            draw_north(d, pos(el, "north"), k, F(26), el.get("style", "compass"))
         elif t == "legend":
-            draw_legend(im, el["at"], [(c, s) for c, s in el["items"]], k, F(26),
-                        el.get("title"), el.get("orient", "v"), el.get("swatch", "fill"))
+            orient = el.get("orient", "v")
+            draw_legend(im, pos(el, "legend_h" if orient == "h" else "legend_v"),
+                        [(c, s) for c, s in el["items"]], k, F(26),
+                        el.get("title"), orient, el.get("swatch", "fill"))
             d = ImageDraw.Draw(im)
         else:
             raise ValueError(f"모르는 요소: {t}")
