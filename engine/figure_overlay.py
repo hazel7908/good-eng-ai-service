@@ -133,6 +133,38 @@ def draw_boundary(d, points, color="yellow", k=1.0):
            joint="curve")
 
 
+def draw_parcels(im, polygons, color="red", k=1.0, width=None, fill=0):
+    """여러 필지를 **한 덩어리로 합쳐** 바깥 선만 그린다.
+
+    정답 삽도는 필지 경계를 보여주지 않는다 — 사업지 외곽선 하나다. 필지별로 선을 그으면
+    안쪽에 격자가 생겨 실제와 달라진다.
+
+    합집합을 마스크로 낸다. 폴리곤을 마스크에 채우고, 안쪽을 깎아낸 것과의 차이가 곧
+    테두리다 — 기하 라이브러리 없이 Pillow 만으로 된다.
+
+    `fill` 을 주면 안쪽을 그 투명도로 칠한다 (정답의 노란 신규부지가 그렇다)."""
+    from PIL import ImageChops, ImageFilter
+    c = STYLE["boundary"].get(color, STYLE["boundary"]["yellow"])
+    w = width or int(max(4, 6 * k))
+
+    mask = Image.new("L", im.size, 0)
+    md = ImageDraw.Draw(mask)
+    for poly in polygons:
+        if len(poly) >= 3:
+            md.polygon([tuple(p) for p in poly], fill=255)
+
+    if fill:
+        tint = Image.new("RGB", im.size, c)
+        im.paste(Image.blend(im.convert("RGB"), tint, fill), mask=mask)
+
+    # 안쪽을 w 만큼 깎아 낸 것과의 차이 = 두께 w 의 테두리
+    inner = mask
+    for _ in range(max(1, w // 2)):
+        inner = inner.filter(ImageFilter.MinFilter(3))
+    edge = ImageChops.subtract(mask, inner)
+    im.paste(Image.new("RGB", im.size, c), mask=edge)
+
+
 def draw_zone(im, points, label=None, k=1.0, font=None):
     """구역 채색 — 반투명 폴리곤. 상수원보호구역·수변구역 같은 지정 구역."""
     layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
@@ -518,6 +550,10 @@ def render(spec, out_path=None):
             d = ImageDraw.Draw(im)          # alpha_composite 후 draw 재생성
         elif t == "flow":
             draw_flow(d, el["path"], el.get("count", 5), k)
+        elif t == "parcels":
+            draw_parcels(im, el["polygons"], el.get("color", "red"), k,
+                         el.get("width"), el.get("fill", 0))
+            d = ImageDraw.Draw(im)
         elif t == "rings":
             draw_rings(im, el["origin"], el["radii_m"], el["px_per_m"], k, F(30),
                        el.get("label_deg", 213))
