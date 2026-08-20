@@ -62,12 +62,12 @@ STYLE = {
 # 괴산 국토환경성평가지도(700×450) 기준: 범례 (508,11) · 등급띠 (5,416).
 # 비율이라 삽도 크기가 달라져도 같은 자리에 놓인다. spec 에 `at` 을 주면 그쪽이 이긴다.
 DEFAULT_POS = {
-    "legend_v":  (0.726, 0.024),   # 세로 범례 — 오른쪽 위
-    "legend_h":  (0.007, 0.924),   # 가로 등급 띠 — 왼쪽 아래
-    "north":     (0.936, 0.756),   # 방위표 — 오른쪽 아래
-    "scalebar":  (0.545, 0.889),   # 축척 막대 — 아래 가운데. 오른쪽 끝은 방위표와 겹친다
+    "legend_v":  (0.726, 0.024),   # 세로 범례 — 오른쪽 위    (정답 508, 11)
+    "legend_h":  (0.007, 0.924),   # 가로 등급 띠 — 왼쪽 아래 (정답 5, 416)
+    "north":     (0.927, 0.853),   # 방위표 중심 — 오른쪽 아래 (정답 649, 384)
+    "scalebar":  (0.656, 0.876),   # 축척 막대 시작 — 아래     (정답 459, 394)
 }
-DEFAULT_SCALEBAR_RATIO = 0.230     # 축척 막대 길이 = 이미지 폭의 23%
+DEFAULT_SCALEBAR_RATIO = 0.200     # 축척 막대 길이 = 이미지 폭의 20% (정답 140/700)
 
 FONT_CANDIDATES = [
     "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
@@ -216,6 +216,9 @@ def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None):
 
 # ── ③ 장식 ─────────────────────────────────────────────────────────────────
 def draw_scalebar(d, at, length_px, label, k=1.0, font=None):
+    """축척 막대. 골든셋 형식은 **`200m ─ 0 ─ 200m`** — 가운데가 0이고 양쪽에 거리다 (실측).
+
+    at 은 막대의 왼쪽 끝. 라벨은 막대 **위쪽**에 둔다 (아래는 등급 범례 띠와 겹친다)."""
     x, y = at
     h = int(14 * k)
     for i in range(4):                       # 흑백 교대 4칸
@@ -223,12 +226,13 @@ def draw_scalebar(d, at, length_px, label, k=1.0, font=None):
         x1 = x + length_px * (i + 1) / 4
         d.rectangle([x0, y, x1, y + h], fill=(0, 0, 0) if i % 2 == 0 else (255, 255, 255),
                     outline=(0, 0, 0), width=int(max(1, 2 * k)))
-    # 라벨은 막대 **위쪽**에 — 아래 두면 등급 범례 띠와 겹친다 (골든셋도 위쪽이다)
     f = font or _font(int(26 * k))
-    d.text((x, y - 4 * k), "0", font=f, fill=STYLE["deco"], anchor="ld",
-           stroke_width=int(max(2, 3 * k)), stroke_fill=(255, 255, 255))
-    d.text((x + length_px, y - 4 * k), label, font=f, fill=STYLE["deco"], anchor="rd",
-           stroke_width=int(max(2, 3 * k)), stroke_fill=(255, 255, 255))
+    st = dict(font=f, fill=STYLE["deco"], stroke_width=int(max(2, 3 * k)),
+              stroke_fill=(255, 255, 255))
+    ly = y - 4 * k
+    d.text((x, ly), label, anchor="md", **st)                       # 왼쪽 끝
+    d.text((x + length_px / 2, ly), "0", anchor="md", **st)         # 가운데
+    d.text((x + length_px, ly), label, anchor="md", **st)           # 오른쪽 끝
 
 
 def draw_north(d, at, k=1.0, font=None, style="compass"):
