@@ -12,6 +12,7 @@
 그대로 쓰는 값이라, 지도 취득과 오버레이가 한 줄로 이어진다.
 
 사용:
+    python engine/map_fetch.py --address "괴산군 청안면 금신리 155-1" --source ngii -o base.png
     python engine/map_fetch.py --xy 14208655.63 4406482.02 --source ecvam -o base.png
     python engine/map_fetch.py --xy ... --source egis --layer me:na_plg_conservation -o base.png
     python engine/map_fetch.py --list-sources
@@ -19,6 +20,8 @@
 인증:
     ECVAM 은 API 키가 필요하다 → `~/.ecvam.env` 의 `ECVAM_API_KEY`
       (신청: ecvam.neins.go.kr → 오픈API → 신청. **사용 URL 은 `QGIS` 로 등록**한다)
+    NGII(국토지리정보원) 는 `~/.ngii.env` 의 `NGII_API_KEY` — 회원가입 + 관리자 승인이 필요하다
+    VWorld 는 `~/.vworld.env` 의 `VWORLD_API_KEY` — **지오코딩(주소→좌표)에 쓴다**
     EGIS 는 키가 필요 없다 (2026-08-19 실측).
 
 ⚠️ 출처마다 이용 조건이 다르다. 보고서 납품에 쓰기 전 약관을 확인할 것
@@ -86,6 +89,37 @@ def load_key(spec):
         if line.strip().startswith(var + "="):
             return line.split("=", 1)[1].strip()
     sys.exit(f"{p} 안에 {var} 가 없습니다")
+
+
+# ── 지오코딩 (주소 → 좌표) ──────────────────────────────────────────────────
+VWORLD_SEARCH = "https://api.vworld.kr/req/search"
+VWORLD_KEY_ENV = ("~/.vworld.env", "VWORLD_API_KEY")
+VWORLD_DOMAIN = "http://localhost"      # 키 신청 때 등록한 서비스URL 과 같아야 한다
+
+
+def geocode(address, domain=VWORLD_DOMAIN):
+    """주소 → EPSG:3857 좌표. **사업 주소 한 줄에서 삽도까지 이어지는 첫 칸이다.**
+
+    ECVAM 사이트도 내부적으로 이 API 를 부른다 — 그 화면에서 읽던 좌표와 소수점까지 같다.
+    지번이면 `parcel`, 도로명(`…로`·`…길`)이면 `road` 로 분류가 갈린다."""
+    import json as _json
+    import urllib.parse
+    key = load_key(VWORLD_KEY_ENV)
+    last = address.strip().split()[-1] if address.strip() else ""
+    category = "road" if last and last[-1] in "로길" else "parcel"
+    q = urllib.parse.urlencode({
+        "service": "search", "version": "2.0", "request": "search",
+        "size": 5, "page": 1, "crs": "EPSG:3857", "format": "json",
+        "type": "address", "category": category,
+        "apiKey": key, "domain": domain, "query": address,
+    })
+    data = _json.loads(urllib.request.urlopen(f"{VWORLD_SEARCH}?{q}", timeout=30).read())
+    res = data.get("response", {})
+    if res.get("status") != "OK" or res.get("record", {}).get("total") in ("0", 0, None):
+        raise LookupError(f"주소를 찾지 못했습니다: {address} (category={category})")
+    it = res["result"]["items"][0]
+    return (float(it["point"]["x"]), float(it["point"]["y"]),
+            it["address"].get("parcel") or it["address"].get("road") or address)
 
 
 # ── 좌표 변환 ────────────────────────────────────────────────────────────────
@@ -213,7 +247,8 @@ def fetch(source, mx, my, z=15, span=3, size=768, layer=None):
 def main():
     ap = argparse.ArgumentParser(description="베이스 지도 취득 (좌표 → 지도 이미지)")
     ap.add_argument("--xy", nargs=2, type=float, metavar=("X", "Y"),
-                    help="EPSG:3857 좌표 (ECVAM 주소검색이 돌려주는 그 좌표)")
+                    help="EPSG:3857 좌표")
+    ap.add_argument("--address", help="사업 주소 — 지오코딩해서 좌표를 얻는다 (VWorld 키 필요)")
     ap.add_argument("--source", default="ecvam", choices=list(SOURCES))
     ap.add_argument("--layer", help="WMS 레이어 (egis 전용)")
     ap.add_argument("--zoom", type=int, default=15,
@@ -223,6 +258,11 @@ def main():
     ap.add_argument("-o", "--out")
     ap.add_argument("--list-sources", action="store_true")
     a = ap.parse_args()
+
+    if not a.xy and a.address:
+        x, y, matched = geocode(a.address)
+        print(f"지오코딩: {matched}\n   → EPSG:3857 ({x:.2f}, {y:.2f})")
+        a.xy = [x, y]
 
     if a.list_sources or not a.xy:
         for k, v in SOURCES.items():
