@@ -86,6 +86,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── figure_overlay.py         삽도 오버레이 13종 (마커·경계·반경원·정온시설·모식도)
 │   ├── parcels.py                편입토지조서 → 사업지 경계 폴리곤 (연속지적도)
 │   ├── watercourse.py            수계 서술 → 수계흐름모식도 입력
+│   ├── ecology.py                생태·자연도 베이스 + 등급 판정 (EcoBank)
 │   ├── hydro.py                  하천망 조회 (자료가 면형이라 아직 실전 불가)
 │   ├── psd_base.py               삽도 PSD → 깨끗한 베이스 지도 추출
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
