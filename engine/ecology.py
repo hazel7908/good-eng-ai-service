@@ -106,7 +106,10 @@ def wfs(lon, lat, half_m=900):
             rec[k] = m.group(1).strip() if m else ""
         rec["rings"] = [
             [tuple(map(float, p.split(",")[:2])) for p in co.split()]
-            for co in re.findall(r"<gml:coordinates>(.*?)</gml:coordinates>", f, re.S)]
+            # ⚠️ 태그에 속성이 붙어 온다 — `<gml:coordinates xmlns:gml=… cs="," ts=" ">`.
+            #    닫힌 꺾쇠만 찾으면 그런 피처의 지오메트리를 통째로 놓친다
+            #    (별도관리지역이 전부 그렇게 와서 폴리곤이 0 개로 잡혔다).
+            for co in re.findall(r"<gml:coordinates[^>]*>(.*?)</gml:coordinates>", f, re.S)]
         out.append(rec)
     return out
 
@@ -195,11 +198,15 @@ def self_test(root="golden/small-env"):
     for f in files:
         name = os.path.basename(os.path.dirname(f))
         txt = open(f, encoding="utf-8").read()
-        a, g = ADDR.search(txt), GRADE.search(txt)
+        g = GRADE.search(txt)
         want = (g.group(1) or g.group(2)) if g else None
+        # ⚠️ 본문 첫 지번이 사업지라는 보장이 없다 — 문화재·보호수 위치가 먼저 나온다.
+        #    폴더 이름의 **리 이름과 맞는 주소만** 쓴다 (옥천 사양리인데 우산리를 잡았다).
+        ri = name.split("_")[-1]
+        a = next((m for m in ADDR.finditer(txt) if ri in m.group(0)), None)
         if not a or not want:
             print(f"  [skip] {name:<12} 본문에서 "
-                  f"{'주소' if not a else '등급'}를 못 찾았습니다")
+                  f"{'사업지 주소(' + ri + ')' if not a else '등급'}를 못 찾았습니다")
             continue
         try:
             mx, my, _ = M.geocode(a.group(0))

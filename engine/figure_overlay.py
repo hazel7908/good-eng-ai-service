@@ -212,6 +212,27 @@ def draw_flow(d, path, count=5, k=1.0):
             acc += sl
 
 
+def draw_admin(im, at, text, k=1.0, size=None):
+    """행정구역명 — **낱자를 하나씩 박스에 담아** 벌려 놓는다.
+
+    정답 지역개황도가 `평 창 군` 처럼 글자마다 회색 박스를 씌운다. 지도에 인쇄된
+    지명과 구별되라고 그렇게 쓴다 — 붙여 쓰면 배경 글자에 묻힌다."""
+    d = ImageDraw.Draw(im)
+    px = size or int(52 * k)
+    f = _font(px)
+    pad = max(4, round(px * 0.12))
+    box = px + pad * 2
+    gap = round(px * 0.14)
+    total = len(text) * box + (len(text) - 1) * gap
+    x = at[0] - total / 2
+    y = at[1] - box / 2
+    for ch in text:
+        d.rectangle([x, y, x + box, y + box], fill=(238, 238, 238),
+                    outline=(90, 90, 90), width=max(2, round(px * 0.045)))
+        d.text((x + box / 2, y + box / 2), ch, font=f, fill=(20, 20, 20), anchor="mm")
+        x += box + gap
+
+
 def draw_place(d, at, text, k=1.0, font=None):
     """지명 — 흰 테두리를 두른 파란 글자. 지도 위에서 읽히게 하는 표준 처리다."""
     f = font or _font(int(38 * k))
@@ -578,6 +599,10 @@ def render(spec, out_path=None):
             # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.
             # 캔버스 크기를 내용에서 잡는데 그 크기로 다시 배율을 매기면 서로 물려 넘친다.
             draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), 1.0)
+            d = ImageDraw.Draw(im)
+        elif t == "admin":
+            draw_admin(im, pos(el, "north") if not el.get("at") else el["at"],
+                       el["text"], k, el.get("size"))
             d = ImageDraw.Draw(im)
         elif t == "place":
             draw_place(d, el["at"], el["text"], k, F(38))
