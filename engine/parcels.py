@@ -213,18 +213,21 @@ def fetch(rows, code, expand=False):
     return out, warn
 
 
-def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05):
+def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
+                crs="EPSG:3857"):
     """필지 폴리곤 → figure_overlay 의 `boundary` 요소들.
 
     색은 조서의 `비고` 를 따른다 — 정답 삽도가 기허가지를 빨강, 금회 신규부지를 노랑으로
     칠한다. 그 구분이 이미 표에 적혀 있다."""
+    import math
     from pyproj import Transformer
-    tr = Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
+    tr = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
     cx_m, cy_m = tr.transform(*origin_lonlat)
     ox, oy = center_px
-    # Web Mercator 는 위도가 올라갈수록 늘어난다 — 그 배율을 빼야 실제 거리와 맞는다
-    import math
-    k = px_per_m / math.cos(math.radians(origin_lonlat[1]))
+    # Web Mercator 는 위도가 올라갈수록 늘어난다 — 그 배율을 빼야 실제 거리와 맞는다.
+    # EPSG:5186 같은 **평면 직각좌표계는 이미 미터**라 보정하지 않는다.
+    k = (px_per_m / math.cos(math.radians(origin_lonlat[1]))
+         if crs == "EPSG:3857" else px_per_m)
 
     def px(ring):
         out = []
