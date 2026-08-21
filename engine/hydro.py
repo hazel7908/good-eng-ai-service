@@ -311,6 +311,52 @@ def river_labels(lon, lat, half_deg, center_px, px_per_m, canvas,
     return els, None
 
 
+# ── 보호구역 채색 ───────────────────────────────────────────────────────────
+# VWorld 데이터 API 158종을 전수로 훑어 찾은 보호구역 계열. 지오메트리가 면으로 온다.
+# ⚠️ **생태·경관보전지역은 여기 없다** — 158종 어디에도 없어 F-10 으로 남는다.
+ZONE_LAYERS = {
+    "상수원보호구역": "LT_C_UM710",
+    "야생동식물보호구역": "LT_C_UM221",
+    "산림보호구역": "LT_C_UF151",
+    "습지보호지역": "LT_C_UM901",         # 평창 범위에서는 0건 — 지역에 따라 다르다
+    "백두대간보호지역": "LT_C_UF901",     # 〃
+}
+
+
+def protected_zones(lon, lat, half_deg, center_px, px_per_m, kinds=("상수원보호구역",)):
+    """보호구역 → `zone` 요소(채색 + 라벨). 종류마다 라벨은 첫 폴리곤에만 단다."""
+    import math
+    from pyproj import Transformer
+    tr = Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
+    cx, cy = tr.transform(lon, lat)
+    ox, oy = center_px
+    k = px_per_m / math.cos(math.radians(lat))
+    box = f"BOX({lon-half_deg},{lat-half_deg},{lon+half_deg},{lat+half_deg})"
+
+    els = []
+    for kind in kinds:
+        data = ZONE_LAYERS.get(kind)
+        if not data:
+            continue
+        fs, err = P._get(data=data, geomFilter=box, geometry="true", size="50")
+        if err:
+            continue
+        first = True
+        for f in fs:
+            for ring in P._rings(f["geometry"]):
+                pts = []
+                for lo, la in ring:
+                    x, y = tr.transform(lo, la)
+                    pts.append([round(ox + (x - cx) * k, 1),
+                                round(oy - (y - cy) * k, 1)])
+                el = {"type": "zone", "points": pts}
+                if first:
+                    el["label"] = kind
+                    first = False
+                els.append(el)
+    return els
+
+
 def main():
     ap = argparse.ArgumentParser(description="하천망 → 수계도 흐름선")
     ap.add_argument("--lonlat", nargs=2, type=float, required=True)
