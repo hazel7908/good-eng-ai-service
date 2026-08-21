@@ -82,14 +82,15 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── generate.py                한글 API 생성 (Windows) — PART_HANDLERS 레지스트리
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
 │   ├── stats_extract.py          통계연보 엑셀 → 지역개황 표 (자체검증 내장)
+│   │  ▸ 삽도 — 실행 경로
 │   ├── map_fetch.py              주소·좌표 → 베이스 지도 (NGII 지형도·위성 · ECVAM · EGIS)
-│   ├── figure_overlay.py         삽도 오버레이 14종 (마커·경계·반경원·행정구역명·정온시설)
 │   ├── parcels.py                편입토지조서 → 사업지 경계 폴리곤 (연속지적도)
-│   ├── watercourse.py            수계 서술 → 수계흐름모식도 입력
 │   ├── ecology.py                생태·자연도 베이스 + 등급 판정 (EcoBank)
 │   ├── admin.py                  행정구역명 라벨 (VWorld 행정경계)
-│   ├── hydro.py                  하천망 조회 (자료가 면형이라 아직 실전 불가)
-│   ├── psd_base.py               삽도 PSD → 깨끗한 베이스 지도 추출
+│   ├── watercourse.py            수계 서술 → 수계흐름모식도 입력
+│   ├── figure_overlay.py         삽도 오버레이 14종 (마커·경계·반경원·행정구역명·정온시설)
+│   ├── hydro.py                  ⛔ 하천망 — 자료가 면형이라 아직 실전 불가
+│   ├── psd_base.py               ⚙ 검증 전용 — 정답 PSD 레이어 추출 (파이프라인 아님)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
