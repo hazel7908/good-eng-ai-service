@@ -233,6 +233,32 @@ def draw_admin(im, at, text, k=1.0, size=None):
         x += box + gap
 
 
+def draw_river(im, at, text, k=1.0, size=None, vertical=True):
+    """하천명 — **낱자를 원 안에** 담아 늘어놓는다.
+
+    정답 수계도가 `창` `리` `천` 을 하늘색 원에 하나씩 넣어 물길을 따라 세운다.
+    행정구역명(네모 박스)과 모양을 달리해 **한눈에 구분되게** 하는 장치다."""
+    d = ImageDraw.Draw(im)
+    px = size or int(46 * k)
+    f = _font(px)
+    r = px * 0.72
+    gap = r * 2 + max(3, px * 0.10)
+    n = len(text)
+    x, y = at
+    if vertical:
+        y -= gap * (n - 1) / 2
+    else:
+        x -= gap * (n - 1) / 2
+    for ch in text:
+        d.ellipse([x - r, y - r, x + r, y + r], fill=(176, 224, 245),
+                  outline=(28, 78, 150), width=max(2, round(px * 0.06)))
+        d.text((x, y), ch, font=f, fill=(20, 40, 90), anchor="mm")
+        if vertical:
+            y += gap
+        else:
+            x += gap
+
+
 def draw_place(d, at, text, k=1.0, font=None):
     """지명 — 흰 테두리를 두른 파란 글자. 지도 위에서 읽히게 하는 표준 처리다."""
     f = font or _font(int(38 * k))
@@ -603,6 +629,10 @@ def render(spec, out_path=None):
         elif t == "admin":
             draw_admin(im, pos(el, "north") if not el.get("at") else el["at"],
                        el["text"], k, el.get("size"))
+            d = ImageDraw.Draw(im)
+        elif t == "river":
+            draw_river(im, el["at"], el["text"], k, el.get("size"),
+                       el.get("vertical", True))
             d = ImageDraw.Draw(im)
         elif t == "place":
             draw_place(d, el["at"], el["text"], k, F(38))

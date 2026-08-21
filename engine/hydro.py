@@ -254,6 +254,60 @@ def arrows_to_elements(cells, length=90, reverse=False):
     return els
 
 
+def river_labels(lon, lat, half_deg, center_px, px_per_m, canvas,
+                 names=None, size=None, gap=260, min_pts=40, avoid=()):
+    """하천명 라벨 — 이름은 **자료에서**, 자리는 **화면 안 물길 위**에서.
+
+    하천망 자료는 지오메트리가 면형이라 물길로는 못 쓰지만 **이름은 정확하다.**
+    면 안의 점을 고르면 그 자리는 물 위이므로 라벨 자리로 충분하다.
+
+    `avoid` 에 이미 놓인 라벨 자리(행정구역명 등)를 주면 그 둘레를 피한다."""
+    import math
+    from pyproj import Transformer
+    import admin as A
+
+    streams, err = fetch_streams(lon, lat, half_deg, names)
+    if err:
+        return [], err
+    tr = Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
+    cx_m, cy_m = tr.transform(lon, lat)
+    ox, oy = center_px
+    k = px_per_m / math.cos(math.radians(lat))
+    w, h = canvas
+
+    by = {}
+    for s in streams:
+        if len(s["path"]) < min_pts:
+            continue
+        pts = by.setdefault(s["name"], [])
+        for lo, la in s["path"]:
+            x, y = tr.transform(lo, la)
+            pts.append((ox + (x - cx_m) * k, oy - (y - cy_m) * k))
+
+    els = []
+    for nm, pts in sorted(by.items(), key=lambda kv: -len(kv[1])):
+        at = A._visible_center(pts, w, h)
+        if at is None:
+            continue
+        # 이미 놓인 것(다른 하천명·행정구역명·장식)과 겹치면 **물길 위 다른 점**으로 옮긴다.
+        # 그냥 버리면 큰 하천이 좋은 자리를 차지하고 작은 하천이 사라진다.
+        block = [e["at"] for e in els] + list(avoid)
+        if block and min(math.dist(at, b) for b in block) < gap:
+            mx, my = w * 0.10, h * 0.10          # 가장자리에 붙으면 글자가 잘린다
+            inside = [p for p in pts if mx <= p[0] <= w - mx and my <= p[1] <= h - my]
+            if not inside:
+                continue
+            at = list(max(inside, key=lambda p: min(math.dist(p, b) for b in block)))
+            if min(math.dist(at, b) for b in block) < gap * 0.5:
+                continue                          # 그래도 붙으면 포기한다
+
+        el = {"type": "river", "at": [round(at[0], 1), round(at[1], 1)], "text": nm}
+        if size:
+            el["size"] = size
+        els.append(el)
+    return els, None
+
+
 def main():
     ap = argparse.ArgumentParser(description="하천망 → 수계도 흐름선")
     ap.add_argument("--lonlat", nargs=2, type=float, required=True)
