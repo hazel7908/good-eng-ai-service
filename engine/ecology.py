@@ -182,6 +182,62 @@ def assess(lon, lat, half_m=900, site_rings=None):
     }
 
 
+# ── 삽도 조립 — 정답과 같은 3층 ────────────────────────────────────────────
+def compose(lon, lat, topo_png, res, center_px, alpha=0.45):
+    """지형도 + 등급 채색 반투명 + 군락기호 → (합성 이미지, 라벨 요소들).
+
+    정답 생태자연도가 이 3층이다. 채색만 있으면 등고선·마을이 안 보이고,
+    지형도만 있으면 등급이 없다.
+
+    ⚠️ 좌표계 정합이 관건이다 — 지형도는 EPSG:5179 타일인데 EcoBank 는 5186 이 기본이다.
+       **WMS 가 5179 bbox 도 받아 준다.** 지형도 캔버스의 5179 bbox 를 역산해 같은
+       크기로 받으면 픽셀이 정확히 맞는다. 근사 재투영이 필요 없다.
+
+    `topo_png`/`res`/`center_px` 는 map_fetch 가 지형도를 줄 때 나온 값 그대로다
+    (res = m_per_px)."""
+    import math, urllib.request
+    from PIL import Image
+    from pyproj import Transformer
+
+    base = Image.open(topo_png).convert("RGBA")
+    W, H = base.size
+    cx_px, cy_px = center_px
+    X, Y = Transformer.from_crs("EPSG:4326", "EPSG:5179",
+                                always_xy=True).transform(lon, lat)
+    left, top = X - cx_px * res, Y + cy_px * res
+
+    q = {"ServiceKey": _key(), "srs": "EPSG:5179",
+         "bbox": f"{left},{top - H * res},{left + W * res},{top}",
+         "width": str(W), "height": str(H), "format": "image/png",
+         "transparent": "true"}
+    d = urllib.request.urlopen(f"{BASE}/wms/getEcologyzmpWMS?"
+                               + urllib.parse.urlencode(q), timeout=60).read()
+    ov = Image.open(io.BytesIO(d)).convert("RGBA")
+    ov.putalpha(ov.getchannel("A").point(lambda v: int(v * alpha)))
+    base.alpha_composite(ov)
+
+    # 군락기호 라벨 — WFS(5186) 폴리곤 중심을 5179 픽셀로 옮긴다
+    tr = Transformer.from_crs("EPSG:5186", "EPSG:5179", always_xy=True)
+    els, seen = [], []
+    half = max(W, H) * res / 2 + 200
+    for f in wfs(lon, lat, half):
+        sym = f["cln_symbl"]
+        ring = max(f["rings"], key=len, default=None)
+        if not sym or not ring or len(ring) < 8:
+            continue
+        cx = sum(p[0] for p in ring) / len(ring)
+        cy = sum(p[1] for p in ring) / len(ring)
+        x, y = tr.transform(cx, cy)
+        px, py = (x - left) / res, (top - y) / res
+        if not (40 < px < W - 40 and 40 < py < H - 40):
+            continue
+        if any(math.dist((px, py), s) < 150 for s in seen):
+            continue
+        seen.append((px, py))
+        els.append({"type": "place", "at": [round(px, 1), round(py, 1)], "text": sym})
+    return base.convert("RGB"), els
+
+
 # ── 자체 검증 — 골든셋 ──────────────────────────────────────────────────────
 # 사업지 주소 표기가 사업마다 다르다 —
 #   `천안시 동남구 동면 화덕리 31-1`  ← 시와 읍면 사이에 **구**가 낀다
