@@ -187,6 +187,12 @@ def assess(lon, lat, half_m=900, site_rings=None):
         # "분포하는가"(1등급·별도관리 경고)는 2% 부터 잡는다.
         on_site = [f for frac, f in cover if frac >= 0.25]
         present = [f for frac, f in cover]
+        # 다등급 — 정답 문장은 "2, 3등급으로 지정" 처럼 **걸리는 등급을 다 나열한다**
+        # (후평리 65% · 평창 15% 모두 2등급을 적었다). 나열 문턱은 "분포" 와 같은 2%.
+        # 안 덮인 부분이 25% 넘으면 3등급(미지정)도 함께 적는다.
+        grades = sorted({f["eczm_grad"] for frac, f in cover})
+        if 1 - sum(frac for frac, _ in cover) >= 0.25 or not grades:
+            grades = sorted(set(grades) | {GRADE_UNSET})
     else:
         on_site = [f for f in feats
                    if any(len(r) >= 3 and _inside(r, x, y) for r in f["rings"])]
@@ -201,7 +207,10 @@ def assess(lon, lat, half_m=900, site_rings=None):
         return dict(sorted(d.items()))
 
     site = tally(present)
+    if not site_rings:
+        grades = [(hit or {}).get("eczm_grad") or GRADE_UNSET]
     return {
+        "등급들": grades,
         "등급": (hit or {}).get("eczm_grad") or GRADE_UNSET,
         "등급명": GRADE_LABEL.get((hit or {}).get("eczm_grad") or GRADE_UNSET, "?"),
         "폴리곤에_걸림": hit is not None,
@@ -281,7 +290,11 @@ def compose(lon, lat, topo_png, res, center_px, alpha=0.45):
 #   `천안시 동남구 동면 화덕리 31-1`  ← 읍면 이름이 **한 글자**일 수 있다 (동면)
 ADDR = re.compile(r"[가-힣]{1,5}(?:시|군)\s?(?:[가-힣]{1,3}구\s?)?"
                   r"[가-힣]{1,5}(?:읍|면|동)\s?[가-힣]{1,5}리\s?(?:산\s?)?\d+(?:-\d+)?")
-GRADE = re.compile(r"생태[·・]?자연도\s*(\d)\s*등급|(\d)\s*등급으로\s*지정")
+# ⚠️ 등급이 **여러 개**일 수 있다 — 후평리 정답은 "2, 3등급으로 지정" 이다.
+#    한 자리만 집는 정규식은 뒤의 3만 가져와 정답을 왜곡한다. 실제로 그 함정에 빠져
+#    후평리를 "정답 3등급" 으로 잘못 읽고 자료 차수 문제를 의심했었다.
+#    문구 변형도 있다 — "3등급으로 지정"(대부분) · "3등급 권역으로 확인"(충주).
+GRADE = re.compile(r"생태[·・]?자연도[는은]?\s*([\d,\s]+?)\s*등급(?:으로\s*지정|\s*권역으로)")
 
 
 def _site_rings(name, lon, lat):
@@ -320,7 +333,7 @@ def self_test(root="golden/small-env"):
         name = os.path.basename(os.path.dirname(f))
         txt = open(f, encoding="utf-8").read()
         g = GRADE.search(txt)
-        want = (g.group(1) or g.group(2)) if g else None
+        want = set(re.findall(r"\d", g.group(1))) if g else None
         # ⚠️ 본문 첫 지번이 사업지라는 보장이 없다 — 문화재·보호수 위치가 먼저 나온다.
         #    폴더 이름의 **리 이름과 맞는 주소만** 쓴다 (옥천 사양리인데 우산리를 잡았다).
         ri = name.split("_")[-1]
@@ -340,10 +353,11 @@ def self_test(root="golden/small-env"):
         site = _site_rings(name, lon, lat)
         r = assess(lon, lat, site_rings=site)
         n += 1
-        good = r["등급"] == want
+        got = set(r["등급들"])
+        good = got == want
         ok += good
-        print(f"  [{'OK  ' if good else 'MISS'}] {name:<12} 정답 {want}등급 · 판정 "
-              f"{r['등급']}등급 ({r['판정범위']})"
+        print(f"  [{'OK  ' if good else 'MISS'}] {name:<12} 정답 {','.join(sorted(want))}등급"
+              f" · 판정 {','.join(sorted(got))}등급 ({r['판정범위']})"
               f" · 주변 {r['주변_등급분포']}")
     print(f"\n{ok}/{n} 일치")
     return ok == n
