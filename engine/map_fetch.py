@@ -244,6 +244,55 @@ def fetch_wms(src, layer, mx, my, half_m, size):
     return Image.open(io.BytesIO(data)).convert("RGB")
 
 
+def sheet25k(lon, lat):
+    """경위도 → 1:25,000 도엽번호 (예: 미탄 378113).
+
+    도엽은 이름이 곧 격자다 — 번호만 알면 네 모서리 경위도가 나온다.
+    `위도2 + 경도1 + 1:50,000 칸2 + 1:25,000 사분면1` 여섯 자리.
+
+      37 8 11 3  =  북위 37°대 · 동경 128°대 · 1°×1° 를 4×4 로 쪼갠 11번 칸(북서부터
+                    동쪽으로) · 그 칸을 다시 넷으로 쪼갠 남서(3) 사분면
+
+    골든셋 8건의 본문 도엽번호(진천 367024 · 미탄 378113 등)로 검증했다."""
+    d_lat, d_lon = int(lat), int(lon)
+    row50 = int((d_lat + 1 - lat) / 0.25)         # 북쪽부터 0..3
+    col50 = int((lon - d_lon) / 0.25)
+    n50 = row50 * 4 + col50 + 1
+    top = d_lat + 1 - row50 * 0.25
+    left = d_lon + col50 * 0.25
+    quad = (1 if lat > top - 0.125 else 3) + (0 if lon < left + 0.125 else 1)
+    return f"{d_lat}{d_lon % 10}{n50:02d}{quad}"
+
+
+def sheets25k(lon, lat, half_m=0):
+    """반경 안에 걸치는 도엽 전부 — 사업지가 도엽 경계에 걸칠 수 있다.
+
+    옥천 정답은 `대전 367104, 옥천 367113` 처럼 **둘을 병기**한다. 삽도 범위(반경)를
+    주면 네 귀퉁이가 밟는 도엽을 모아 온다."""
+    dd = half_m / 111320.0
+    out = []
+    for dx in (-dd, dd):
+        for dy in (-dd, dd):
+            no = sheet25k(lon + dx, lat + dy)
+            if no not in out:
+                out.append(no)
+    return sorted(out)
+
+
+def sheet25k_corners(no):
+    """도엽번호 → (서, 남, 동, 북) 경위도. 도엽 스캔의 좌표 맞춤(georeferencing)에 쓴다."""
+    d_lat, d_lon10, n50, quad = int(no[:2]), int(no[2]), int(no[3:5]), int(no[5])
+    d_lon = 120 + d_lon10 if d_lon10 >= 4 else 130 + d_lon10   # 한국은 124~131°E
+    row50, col50 = divmod(n50 - 1, 4)
+    top = d_lat + 1 - row50 * 0.25
+    left = d_lon + col50 * 0.25
+    if quad in (3, 4):
+        top -= 0.125
+    if quad in (2, 4):
+        left += 0.125
+    return (left, top - 0.125, left + 0.125, top)
+
+
 def fetch(source, mx, my, z=15, span=3, size=768, layer=None):
     """→ (이미지, 메타). 메타의 `px_per_m` 은 figure_overlay 의 `polar` 에 그대로 넣는다."""
     src = SOURCES[source]
