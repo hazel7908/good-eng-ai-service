@@ -98,6 +98,30 @@ def to_elements(regions, origin_lonlat, center_px, px_per_m, canvas, size=None,
     return els
 
 
+def settlement_anchor(name, lon, lat, half_deg, to_px):
+    """리명 라벨의 **마을 자리** 찾기 — 국가지명(자연부락 점)에서.
+
+    행정구역의 기하 중심은 마을과 무관한 산속일 수 있다. 정답 삽도는 리명을
+    **본마을 자리**에 붙인다. 국가지명 점 중 리명 어간을 품은 부락(수청리 → `상수청`)이
+    있으면 그 자리를 쓴다. 없으면 None — 기하 중심으로 떨어진다.
+
+    ⚠️ 어간 매칭 휴리스틱이다. 본마을 이름이 리명과 무관한 리에서는 못 찾는다."""
+    stem = name[:-1] if name.endswith(("리", "동")) else name
+    if len(stem) < 2:
+        return None
+    box = f"BOX({lon-half_deg},{lat-half_deg},{lon+half_deg},{lat+half_deg})"
+    fs, err = P._get(data="LT_P_NSNMSSITENM", geomFilter=box, geometry="true",
+                     size="100")
+    if err:
+        return None
+    for f in fs:
+        nm = f["properties"].get("land_kpyo", "")
+        if stem in nm:
+            lo, la = f["geometry"]["coordinates"]
+            return to_px(lo, la)
+    return None
+
+
 def _avoid(els, gap=170):
     """라벨끼리 너무 붙으면 뒤엣것을 버린다 — 광역 삽도는 구역이 촘촘하다."""
     out = []
