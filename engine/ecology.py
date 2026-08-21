@@ -234,11 +234,15 @@ def assess(lon, lat, half_m=900, site_rings=None, site_probes=()):
 
 
 # ── 삽도 조립 — 정답과 같은 3층 ────────────────────────────────────────────
-def compose(lon, lat, topo_png, res, center_px, alpha=0.45):
+def compose(lon, lat, topo_png, res, center_px, alpha=0.34):
     """지형도 + 등급 채색 반투명 + 군락기호 → (합성 이미지, 라벨 요소들).
 
     정답 생태자연도가 이 3층이다. 채색만 있으면 등고선·마을이 안 보이고,
     지형도만 있으면 등급이 없다.
+
+    ⚠️ 채색 투명도를 45% 로 하니 **등고선·지명이 눌려 죽었다** — 34% 가 정답의 느낌이다.
+       군락기호도 지명보다 크면 코드가 지도를 덮은 것처럼 보인다. 기호는 작게(26),
+       지명은 `admin` 낱자 박스로 따로 얹는 것이 정답 구성이다.
 
     ⚠️ 좌표계 정합이 관건이다 — 지형도는 EPSG:5179 타일인데 EcoBank 는 5186 이 기본이다.
        **WMS 가 5179 bbox 도 받아 준다.** 지형도 캔버스의 5179 bbox 를 역산해 같은
@@ -285,7 +289,8 @@ def compose(lon, lat, topo_png, res, center_px, alpha=0.45):
         if any(math.dist((px, py), s) < 150 for s in seen):
             continue
         seen.append((px, py))
-        els.append({"type": "place", "at": [round(px, 1), round(py, 1)], "text": sym})
+        els.append({"type": "place", "at": [round(px, 1), round(py, 1)],
+                    "text": sym, "size": 26})
     return base.convert("RGB"), els
 
 

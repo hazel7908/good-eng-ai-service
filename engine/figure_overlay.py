@@ -643,7 +643,7 @@ def render(spec, out_path=None):
                        el.get("vertical", True))
             d = ImageDraw.Draw(im)
         elif t == "place":
-            draw_place(d, el["at"], el["text"], k, F(38))
+            draw_place(d, el["at"], el["text"], k, F(el.get("size", 38)))
         elif t == "scalebar":
             length = el.get("length_px") or round(im.width * DEFAULT_SCALEBAR_RATIO)
             label = el.get("label")
