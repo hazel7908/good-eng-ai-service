@@ -309,7 +309,8 @@ def draw_rings(im, origin, radii_m, px_per_m, k=1.0, font=None,
                stroke_width=max(1, round(3 * k)), stroke_fill=(60, 60, 60))
 
 
-def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None):
+def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None,
+               adjacent_m=None):
     """**정온시설 표를 그대로 그림으로 옮긴다.**
 
     지역개황 「정온 및 개발시설 현황」 표(2.9.1)와 소음진동·대기질의 영향예측지점 표는
@@ -335,7 +336,13 @@ def draw_polar(im, origin, items, px_per_m, k=1.0, font=None, dot=None):
             continue                       # 모르는 방위는 건너뛴다 (환각 금지)
         dist = it.get("dist_m")
         if not isinstance(dist, (int, float)):
-            continue                       # `인접` 같은 비수치 값 — 평창 사례
+            # `인접` 같은 비수치 값(평창 농막1) — **숫자를 지어내지 않는다.**
+            # 대신 `adjacent_m`(사업지 등가반경 √(면적/π) — 조서에서 유도되는 값)을
+            # 주면 그 거리에 놓는다: "경계에 붙어 있다"는 뜻을 그림으로 옮긴 것이다.
+            # 없으면 건너뛴다 — 빠지는 것이 지어내는 것보다 낫다.
+            if adjacent_m is None:
+                continue
+            dist = adjacent_m
         rad = math.radians(deg)
         pts.append((ox + dist * px_per_m * math.cos(rad),
                     oy + dist * px_per_m * math.sin(rad), it["label"]))
@@ -619,7 +626,8 @@ def render(spec, out_path=None):
             # 정답 정온시설 분포도는 마커·라벨이 **초록**이다 (평창 실측).
             # 색을 안 주면 표적 빨강을 쓴다 — 삽도 종류마다 달라 spec 에서 정한다.
             draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26),
-                       tuple(el["dot"]) if el.get("dot") else None)
+                       tuple(el["dot"]) if el.get("dot") else None,
+                       el.get("adjacent_m"))
             d = ImageDraw.Draw(im)
         elif t == "watercourse":
             # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.
