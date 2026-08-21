@@ -17,7 +17,7 @@ NAS 의 삽도 PSD 안에 쌓여 있다** — 배경 레이어로. 오버레이(
    안 맞는다. 같은 지역 삽도의 베이스로 쓰려면 좌표 맞춤(georeferencing)이 필요하다.
    미해결 → docs/20260819_삽도_자동화.md 미해결 10번.
 
-경로를 아는 사업만 SITES 에 있다. 나머지는 카탈로그 v2(/nas-survey 재실행) 후 채운다.
+골든셋 8개 사업 전부 등록 (경로는 2026-08-21 라이브 확인).
 """
 import os, sys, time
 
@@ -35,6 +35,11 @@ SITES = {
     "평창_수청리": "/backupenv/2024/24-17 평창군 미탄면 수청리 73번지 일원 태양광시설 조성사업(완)/3. 삽도",
     "청주_호명리": "/backupenv/2024/24-1 청주 청원구 북이면 호명리 430 일원 태양광(솔랩) (완)/3. 삽도",
     "괴산_후평리": "/backupenv/0. 평가서/환경/환26-14 괴산 청천면 후평리 일원 근린생활(단독주택)단지 조성사업 소규모환경 및 소규모재해영향평가(태양측량)/3. 삽도",
+    "원주_무장리": "/backupenv/0. 평가서/환경/환25-09 원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 소규모환경영향평가(㈜썬파워)/3. 삽도",
+    "천안_화덕리": "/backupenv/0. 평가서/환경/환25-05 천안시 동남구 동면 화덕리 30번지 일원 태양광발전시설 조성사업 소규모환경영향평가(SolLab)/3. 삽도",
+    "옥천_사양리": "/backupenv/2024/24-25 옥천군 군서면 사양리 산39-1번지 일원 야영장시설 부지조성사업(완)/3. 삽도",
+    "충주_율능리": "/backupenv/0. 평가서/환경/환25-19 충주시 엄정면 율능리 91-2번지 일원 태양광발전시설 조성사업(㈜현화)/3. 삽도",
+    "괴산_금신리": "/backupenv/0. 평가서/환경/환25-18 괴산군 청안면 금신리 155-1번지 일원 태양광발전시설 조성사업(동남이엔지)/3. 삽도",
 }
 
 
@@ -46,22 +51,45 @@ def extract_base(psd_path, out_png, min_frac=0.25):
     W, H = psd.width, psd.height
     canvas = Image.new("RGB", (W, H), (255, 255, 255))
     n = 0
-    for layer in psd:
+
+    def walk(layers):
+        """그룹 안까지 — 생태자연도 PSD 는 베이스가 그룹 폴더 안에 있었다."""
+        for l in layers:
+            if l.is_group():
+                yield from walk(l)
+            else:
+                yield l
+
+    for layer in walk(psd):
         if not layer.is_visible():
             continue
-        if layer.width * layer.height < W * H * min_frac:
+        # ⚠️ 모든 판정은 **문서 창 기준**이다. 베이스 스캔이 문서보다 훨씬 클 수 있는데
+        #    (평창 생태자연도: 문서 1181² ↔ 레이어 6247×9478), 레이어 전체로 재면
+        #    창 밖 빈 영역 때문에 불투명도가 낮게 나와 베이스가 걸러진다.
+        l, t, r, b = layer.bbox
+        ix = max(0, min(r, W) - max(l, 0))
+        iy = max(0, min(b, H) - max(t, 0))
+        if ix * iy < W * H * min_frac:
             continue
-        im = layer.composite()
+        im = layer.composite(viewport=(0, 0, W, H))
         if im is None:
             continue
         mask = im.getchannel("A") if "A" in im.getbands() else None
         if mask is not None:
-            # 크지만 **성긴** 레이어(반경원·화살표 묶음)는 오버레이다.
-            # 베이스 스캔은 불투명이 꽉 차 있다.
             small = mask.resize((64, 64))
             if sum(small.getdata()) / (64 * 64 * 255) < 0.6:
-                continue
-        canvas.paste(im.convert("RGB"), (layer.left, layer.top), mask)
+                continue                    # 성긴 레이어(반경원·화살표 묶음) = 오버레이
+        thumb = im.convert("RGB").resize((64, 64))
+        gray = thumb.convert("L")
+        vals = list(gray.getdata())
+        mean = sum(vals) / len(vals)
+        std = (sum((v - mean) ** 2 for v in vals) / len(vals)) ** 0.5
+        if std < 12:
+            continue                        # 균일색(흰 패널) = 오버레이
+        sat = thumb.convert("HSV").getchannel("S")
+        if sum(sat.getdata()) / (64 * 64) < 18:
+            continue                        # 무채색(음영 링·딤 패널) = 오버레이
+        canvas.paste(im.convert("RGB"), (0, 0), mask)
         n += 1
     if n:
         canvas.save(out_png)
@@ -96,7 +124,8 @@ def main():
                 if not os.path.exists(local):
                     fs.download(f"{folder}/{name}", dest)
                 n, wh = extract_base(local, png)
-                os.remove(local)                      # PSD 원본은 크다 — PNG 만 남긴다
+                if False:                              # 필터를 다듬는 동안은 PSD 를 지우지 않는다 — 재다운로드 수업료가 크다
+                    os.remove(local)
                 rows.append((site, name, human(size), n, wh))
                 print(f"  [수확] {site}/{name} ({human(size)}) → 조각 {n} · "
                       f"{wh[0]}×{wh[1]} · {time.time()-t0:.0f}s")
