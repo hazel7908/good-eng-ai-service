@@ -135,6 +135,25 @@ def _overlaps(a, b):
             or any(_inside(a, x, y) for x, y in b))
 
 
+def _site_samples(site_rings, n=18):
+    """사업지 안에 격자 표본점을 뿌린다 — 겹침을 '면적 비율' 로 재기 위해서.
+
+    꼭짓점 포함 여부로 겹침을 판정하면 **경계가 스치기만 해도 걸린다.** 사업지(농경지)가
+    숲(2등급) 가장자리에 붙어 있는 것이 보통이라, 지적도와 생태자연도의 경계선이 조금만
+    어긋나도 가짜 겹침이 난다 (천안 실측). 표본점 비율이면 스침은 0~2% 로 떨어진다."""
+    xs = [p[0] for r in site_rings for p in r]
+    ys = [p[1] for r in site_rings for p in r]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    pts = []
+    for i in range(n):
+        for j in range(n):
+            x = x0 + (x1 - x0) * (i + 0.5) / n
+            y = y0 + (y1 - y0) * (j + 0.5) / n
+            if any(len(r) >= 3 and _inside(r, x, y) for r in site_rings):
+                pts.append((x, y))
+    return pts
+
+
 def assess(lon, lat, half_m=900, site_rings=None):
     """사업지 등급과 주변 분포 → 본문 서술에 그대로 들어가는 값.
 
@@ -148,13 +167,30 @@ def assess(lon, lat, half_m=900, site_rings=None):
     x, y = to_5186(lon, lat)
     feats = wfs(lon, lat, half_m)
 
-    def touches(f):
-        if site_rings:
-            return any(len(r) >= 3 and len(sr) >= 3 and _overlaps(sr, r)
-                       for r in f["rings"] for sr in site_rings)
-        return any(len(r) >= 3 and _inside(r, x, y) for r in f["rings"])
-
-    on_site = [f for f in feats if touches(f)]
+    if site_rings:
+        # 사업지 표본점 중 몇 % 가 등급 폴리곤에 덮이는가 — 스침(<10%)은 무시한다.
+        # "분포하는가" 는 더 민감하게 본다 (2% — 일부라도 실제로 물리면 분포다).
+        samples = _site_samples(site_rings)
+        cover = []
+        for f in feats:
+            if not samples:
+                break
+            c = sum(1 for pt in samples
+                    if any(len(r) >= 3 and _inside(r, *pt) for r in f["rings"]))
+            frac = c / len(samples)
+            if frac >= 0.02:
+                cover.append((frac, f))
+        cover.sort(key=lambda t: -t[0])
+        # 판정 등급의 문턱은 25% — "사업지구는 N등급" 은 **주된 등급**을 말한다.
+        # 정답들이 그렇게 판단한다: 평창은 2등급이 15% 덮여도 3등급으로 적었다.
+        # (경계 디지털화 오차로 좁은 부지는 이웃 폴리곤이 10%대까지 침범해 보인다)
+        # "분포하는가"(1등급·별도관리 경고)는 2% 부터 잡는다.
+        on_site = [f for frac, f in cover if frac >= 0.25]
+        present = [f for frac, f in cover]
+    else:
+        on_site = [f for f in feats
+                   if any(len(r) >= 3 and _inside(r, x, y) for r in f["rings"])]
+        present = on_site
     hit = on_site[0] if on_site else None
 
     def tally(fs):
@@ -164,7 +200,7 @@ def assess(lon, lat, half_m=900, site_rings=None):
             d[g] = d.get(g, 0) + 1
         return dict(sorted(d.items()))
 
-    site = tally(on_site)
+    site = tally(present)
     return {
         "등급": (hit or {}).get("eczm_grad") or GRADE_UNSET,
         "등급명": GRADE_LABEL.get((hit or {}).get("eczm_grad") or GRADE_UNSET, "?"),
@@ -248,6 +284,30 @@ ADDR = re.compile(r"[가-힣]{1,5}(?:시|군)\s?(?:[가-힣]{1,3}구\s?)?"
 GRADE = re.compile(r"생태[·・]?자연도\s*(\d)\s*등급|(\d)\s*등급으로\s*지정")
 
 
+def _site_rings(name, lon, lat):
+    """사업개요의 편입토지조서로 사업지 폴리곤(EPSG:5186)을 만든다. 없으면 None."""
+    import parcels as P
+    from pyproj import Transformer
+    for path in (f"cases/small-env/{name}/input/사업개요.txt",
+                 f"raw_data/{name}/사업개요.txt"):
+        if not os.path.exists(path):
+            continue
+        rows, err, _ = P.parse_survey(open(path, encoding="utf-8").read())
+        if err:
+            return None
+        code, e2 = P.bjd_code(lon, lat)
+        if not code:
+            return None
+        pc, _ = P.fetch(rows, code)
+        tr = Transformer.from_crs("EPSG:4326", "EPSG:5186", always_xy=True)
+        # ⚠️ 편입률이 낮은 필지는 뺀다 — 원주 산59-1 은 임야 184,166㎡ 중 23㎡(0.01%)만
+        #    편입인데, 필지 전체 링을 쓰면 사업지가 거대한 숲으로 둔갑해 등급이 뒤집힌다.
+        rings = [[tr.transform(x, y) for x, y in ring]
+                 for p in pc if p["편입률"] >= 0.5 for ring in p["rings"]]
+        return rings or None
+    return None
+
+
 def self_test(root="golden/small-env"):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import map_fetch as M
@@ -274,12 +334,16 @@ def self_test(root="golden/small-env"):
         except Exception as e:
             print(f"  [skip] {name:<12} 지오코딩 실패 ({a.group(0)}) {e}")
             continue
-        r = assess(*M.merc_to_lonlat(mx, my))
+        lon, lat = M.merc_to_lonlat(mx, my)
+        # 사업개요(편입토지조서)가 있으면 **사업지 폴리곤 겹침**으로 판정한다 —
+        # 실전 경로와 같다. 없으면 중심점 하나로 떨어진다.
+        site = _site_rings(name, lon, lat)
+        r = assess(lon, lat, site_rings=site)
         n += 1
         good = r["등급"] == want
         ok += good
         print(f"  [{'OK  ' if good else 'MISS'}] {name:<12} 정답 {want}등급 · 판정 "
-              f"{r['등급']}등급{'' if r['폴리곤에_걸림'] else ' (폴리곤 밖)'}"
+              f"{r['등급']}등급 ({r['판정범위']})"
               f" · 주변 {r['주변_등급분포']}")
     print(f"\n{ok}/{n} 일치")
     return ok == n
