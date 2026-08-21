@@ -150,6 +150,110 @@ def to_elements(streams, origin_lonlat, center_px, px_per_m, label=True, reverse
     return els
 
 
+# ── 지도에서 직접 물길 읽기 ─────────────────────────────────────────────────
+# 하천망 자료가 면형이라 물길을 못 뽑는다. 그런데 **지형도에는 이미 하천이 파란 선으로
+# 그려져 있다.** 그 색을 짚어 내면 경로를 자료 없이 얻는다.
+# 국토지리정보원 `korean_map` 실측색 (평창 L14).
+RIVER_RGB = (176, 211, 228)
+
+
+def river_mask(im, rgb=RIVER_RGB, tol=20):
+    """지도 이미지에서 하천 픽셀만 남긴 마스크."""
+    from PIL import Image
+    px = im.convert("RGB").load()
+    w, h = im.size
+    m = Image.new("1", (w, h), 0)
+    mp = m.load()
+    r0, g0, b0 = rgb
+    for y in range(h):
+        for x in range(w):
+            r, g, b = px[x, y]
+            if abs(r - r0) <= tol and abs(g - g0) <= tol and abs(b - b0) <= tol:
+                mp[x, y] = 1
+    return m
+
+
+def flow_arrows(mask, origin_px, grid=300, min_frac=0.05, top=8, step=6):
+    """하천 마스크 → 화살표 지점과 방향.
+
+    정답 수계도를 보면 화살표가 **하천 굽이를 따라가지 않는다.** 주요 지점 6~7 개에
+    방향만 맞게 찍혀 있다. 그러니 물길 전체를 복원할 필요가 없다 —
+    격자로 잘라 칸마다 **하천 픽셀이 뻗은 쪽(주축)** 만 구하면 된다.
+
+    ⚠️ 주축은 방향이 두 갈래다(±180°). **하천이 넓어지는 쪽을 하류로 본다** —
+       물은 아래로 갈수록 모여 넓어지기 때문이다. 폭 차이가 뚜렷하지 않으면
+       사업지에서 멀어지는 쪽으로 둔다 (사업지에서 물이 빠져나가는 그림이라).
+       본문 유하 순서와 어긋나면 `--reverse` 로 뒤집는다."""
+    import math
+    w, h = mask.size
+    mp = mask.load()
+    ox, oy = origin_px
+    cells = []
+    for gy in range(0, h, grid):
+        for gx in range(0, w, grid):
+            xs = ys = n = 0
+            pts = []
+            for y in range(gy, min(gy + grid, h), step):
+                for x in range(gx, min(gx + grid, w), step):
+                    if mp[x, y]:
+                        pts.append((x, y))
+                        xs += x
+                        ys += y
+                        n += 1
+            if n < (grid / step) ** 2 * min_frac:
+                continue
+            mx, my = xs / n, ys / n
+            sxx = sum((x - mx) ** 2 for x, _ in pts) / n
+            syy = sum((y - my) ** 2 for _, y in pts) / n
+            sxy = sum((x - mx) * (y - my) for x, y in pts) / n
+            theta = 0.5 * math.atan2(2 * sxy, sxx - syy)     # 주축 각도
+            dx, dy = math.cos(theta), math.sin(theta)
+
+            def width_at(sx, sy, rad=grid // 3):
+                """(sx,sy) 둘레의 하천 픽셀 수 — 하천이 얼마나 넓은지."""
+                c = 0
+                for yy in range(max(0, int(sy - rad)), min(h, int(sy + rad)), step):
+                    for xx in range(max(0, int(sx - rad)), min(w, int(sx + rad)), step):
+                        if mp[xx, yy]:
+                            c += 1
+                return c
+
+            reach = grid * 0.8
+            fwd = width_at(mx + dx * reach, my + dy * reach)
+            bwd = width_at(mx - dx * reach, my - dy * reach)
+            if abs(fwd - bwd) >= max(3, (fwd + bwd) * 0.15):
+                if fwd < bwd:                       # 넓어지는 쪽이 하류다
+                    dx, dy = -dx, -dy
+            elif (mx - ox) * dx + (my - oy) * dy < 0:
+                dx, dy = -dx, -dy                   # 폭이 비슷하면 사업지에서 멀어지는 쪽
+            spread = max(sxx, syy)                            # 길쭉할수록 물길답다
+            # 정답은 **사업지에서 물이 빠져나가는 쪽에 화살표를 몰아 준다.**
+            # 굵기만 보고 고르면 멀리 있는 큰 강에만 찍힌다 — 거리로 눌러 준다.
+            dist = math.hypot(mx - ox, my - oy)
+            score = spread * n / (1 + dist / grid)
+            cells.append({"at": [round(mx, 1), round(my, 1)],
+                          "dir": [round(dx, 4), round(dy, 4)],
+                          "n": n, "spread": round(spread, 1),
+                          "score": round(score, 1)})
+    cells.sort(key=lambda c: -c["score"])
+    return cells[:top]
+
+
+def arrows_to_elements(cells, length=90, reverse=False):
+    """화살표 지점 → figure_overlay 의 `flow` 요소 (짧은 두 점짜리 경로)."""
+    els = []
+    for c in cells:
+        dx, dy = c["dir"]
+        if reverse:
+            dx, dy = -dx, -dy
+        x, y = c["at"]
+        els.append({"type": "flow",
+                    "path": [[x - dx * length / 2, y - dy * length / 2],
+                             [x + dx * length / 2, y + dy * length / 2]],
+                    "count": 1})
+    return els
+
+
 def main():
     ap = argparse.ArgumentParser(description="하천망 → 수계도 흐름선")
     ap.add_argument("--lonlat", nargs=2, type=float, required=True)
