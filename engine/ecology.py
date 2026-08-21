@@ -154,7 +154,7 @@ def _site_samples(site_rings, n=18):
     return pts
 
 
-def assess(lon, lat, half_m=900, site_rings=None):
+def assess(lon, lat, half_m=900, site_rings=None, site_probes=()):
     """사업지 등급과 주변 분포 → 본문 서술에 그대로 들어가는 값.
 
     정답 문장은 이렇게 쓴다:
@@ -191,6 +191,12 @@ def assess(lon, lat, half_m=900, site_rings=None):
         # (후평리 65% · 평창 15% 모두 2등급을 적었다). 나열 문턱은 "분포" 와 같은 2%.
         # 안 덮인 부분이 25% 넘으면 3등급(미지정)도 함께 적는다.
         grades = sorted({f["eczm_grad"] for frac, f in cover})
+        # 저편입 필지 탐침 — 나열에만 넣고 주된 판정에는 안 넣는다
+        for X, Y in site_probes:
+            for f in feats:
+                if any(len(r) >= 3 and _inside(r, X, Y) for r in f["rings"]):
+                    grades = sorted(set(grades) | {f["eczm_grad"]})
+                    break
         if 1 - sum(frac for frac, _ in cover) >= 0.25 or not grades:
             grades = sorted(set(grades) | {GRADE_UNSET})
     else:
@@ -307,17 +313,37 @@ def _site_rings(name, lon, lat):
             continue
         rows, err, _ = P.parse_survey(open(path, encoding="utf-8").read())
         if err:
-            return None
+            return None, []
         code, e2 = P.bjd_code(lon, lat)
         if not code:
-            return None
+            return None, []
         pc, _ = P.fetch(rows, code)
         tr = Transformer.from_crs("EPSG:4326", "EPSG:5186", always_xy=True)
-        # ⚠️ 편입률이 낮은 필지는 뺀다 — 원주 산59-1 은 임야 184,166㎡ 중 23㎡(0.01%)만
-        #    편입인데, 필지 전체 링을 쓰면 사업지가 거대한 숲으로 둔갑해 등급이 뒤집힌다.
+        # ⚠️ 편입률이 낮은 필지는 **모양에서 뺀다** — 원주 산59-1 은 임야 184,166㎡ 중
+        #    23㎡(0.01%)만 편입인데, 필지 전체 링을 쓰면 사업지가 거대한 숲으로 둔갑한다.
         rings = [[tr.transform(x, y) for x, y in ring]
                  for p in pc if p["편입률"] >= 0.5 for ring in p["rings"]]
-        return rings or None
+        # 대신 그 필지의 **사업지와 맞닿은 경계 지점**을 탐침으로 남긴다.
+        # 편입 조각은 반드시 사업지에 붙어 있으므로, 접점의 등급이 곧 조각의 등급이다.
+        #
+        # ⚠️ 단, **임야 조각만** 본다. 골든셋이 여기서 갈린다(1:1) — 원주는 임야 23㎡
+        #    조각의 2등급을 나열했고, 천안은 구거 15㎡ 조각의 등급을 나열하지 않았다.
+        #    임야는 숲이라 등급이 있을 소지가 크고 구거·도로 조각은 등급성이 없다는
+        #    기제로 가르지만, 관측이 1:1 이라 규칙으로 굳힌 것은 아니다.
+        # 조각이 본체와 **직접 안 닿을 수도 있다** — 원주는 사이에 또 다른 조각(579-1 전)이
+        # 끼어 산59-1 이 본체에서 40m 넘게 떨어져 보였다. 반경 컷 대신
+        # **본체에 가장 가까운 꼭짓점 몇 개**를 짚으면 연쇄 조각도 덮는다.
+        import math
+        probes = []
+        body = [pt for r in rings for pt in r]
+        for p_ in pc:
+            if p_["편입률"] >= 0.5 or not p_["소계"] or p_["지목"] != "임":
+                continue
+            verts = [tr.transform(x, y) for ring in p_["rings"] for x, y in ring]
+            verts.sort(key=lambda v: min(math.dist(v, b) for b in body))
+            probes += verts[:5]
+        return (rings or None), probes
+    return None, []
     return None
 
 
@@ -350,8 +376,8 @@ def self_test(root="golden/small-env"):
         lon, lat = M.merc_to_lonlat(mx, my)
         # 사업개요(편입토지조서)가 있으면 **사업지 폴리곤 겹침**으로 판정한다 —
         # 실전 경로와 같다. 없으면 중심점 하나로 떨어진다.
-        site = _site_rings(name, lon, lat)
-        r = assess(lon, lat, site_rings=site)
+        site, probes = _site_rings(name, lon, lat)
+        r = assess(lon, lat, site_rings=site, site_probes=probes)
         n += 1
         got = set(r["등급들"])
         good = got == want
