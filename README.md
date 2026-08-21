@@ -88,7 +88,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── ecology.py                생태·자연도 베이스 + 등급 판정 (EcoBank)
 │   ├── admin.py                  행정구역명 라벨 (VWorld 행정경계)
 │   ├── watercourse.py            수계 서술 → 수계흐름모식도 입력
-│   ├── figure_overlay.py         삽도 오버레이 14종 (마커·경계·반경원·행정구역명·정온시설)
+│   ├── figure_overlay.py         삽도 오버레이 15종 (마커·경계·반경원·행정구역명·정온시설)
 │   ├── hydro.py                  ⛔ 하천망 — 자료가 면형이라 아직 실전 불가
 │   ├── psd_base.py               ⚙ 검증 전용 — 정답 PSD 레이어 추출 (파이프라인 아님)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
