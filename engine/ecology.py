@@ -107,8 +107,8 @@ def wfs(lon, lat, half_m=900):
         rec["rings"] = [
             [tuple(map(float, p.split(",")[:2])) for p in co.split()]
             # ⚠️ 태그에 속성이 붙어 온다 — `<gml:coordinates xmlns:gml=… cs="," ts=" ">`.
-            #    닫힌 꺾쇠만 찾으면 그런 피처의 지오메트리를 통째로 놓친다
-            #    (별도관리지역이 전부 그렇게 와서 폴리곤이 0 개로 잡혔다).
+            #    닫힌 꺾쇠만 찾으면 그런 피처의 지오메트리를 통째로 놓친다 —
+            #    별도관리지역이 전부 그 형태라 폴리곤이 하나도 안 잡힌다.
             for co in re.findall(r"<gml:coordinates[^>]*>(.*?)</gml:coordinates>", f, re.S)]
         out.append(rec)
     return out
