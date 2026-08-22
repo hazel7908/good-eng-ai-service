@@ -77,18 +77,25 @@ def extract_base(psd_path, out_png, min_frac=0.25):
         mask = im.getchannel("A") if "A" in im.getbands() else None
         if mask is not None:
             small = mask.resize((64, 64))
-            if sum(small.getdata()) / (64 * 64 * 255) < 0.6:
-                continue                    # 성긴 레이어(반경원·화살표 묶음) = 오버레이
+            # 문턱 30% — 베이스가 **띠 여러 장**일 수 있다 (괴산 위성: 캡처 4장이
+            # 각각 문서의 ~48% 만 덮는다). 성긴 오버레이(반경원 묶음)는 10~20% 라
+            # 여전히 걸러진다.
+            if sum(small.getdata()) / (64 * 64 * 255) < 0.30:
+                continue
         thumb = im.convert("RGB").resize((64, 64))
         gray = thumb.convert("L")
         vals = list(gray.getdata())
         mean = sum(vals) / len(vals)
         std = (sum((v - mean) ** 2 for v in vals) / len(vals)) ** 0.5
-        if std < 12:
-            continue                        # 균일색(흰 패널) = 오버레이
         sat = thumb.convert("HSV").getchannel("S")
-        if sum(sat.getdata()) / (64 * 64) < 18:
-            continue                        # 무채색(음영 링·딤 패널) = 오버레이
+        sv = sum(sat.getdata()) / (64 * 64)
+        # 균일색·무채색 = 오버레이(흰 패널·음영 링·딤).
+        # ⚠️ **둘을 따로 쓰면 진짜 베이스가 걸린다** — 평창 위성은 어두운 숲 위주라
+        #    명암 std 10.8 로 균일색 문턱(12)에 걸렸다. 채도가 있으면 지도다.
+        if std < 12 and sv < 40:
+            continue
+        if sv < 18:
+            continue
         canvas.paste(im.convert("RGB"), (0, 0), mask)
         n += 1
     if n:
@@ -116,7 +123,12 @@ def main():
             size = it.get("additional", {}).get("size", 0)
             local = os.path.join(dest, name)
             png = os.path.splitext(local)[0] + ".png"
-            if os.path.exists(png):
+            # 받다 만 PSD(세션 끊김)는 크기가 다르다 — 지우고 다시 받는다
+            if os.path.exists(local) and size and os.path.getsize(local) != size:
+                print(f"  [부분] {site}/{name} {os.path.getsize(local)}≠{size} → 재다운로드")
+                os.remove(local)
+            # PNG 는 필터가 바뀌었을 수 있으니 PSD 가 있으면 다시 뽑는다
+            if os.path.exists(png) and not os.path.exists(local):
                 print(f"  [있음] {site}/{name}")
                 continue
             t0 = time.time()
