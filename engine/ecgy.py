@@ -31,16 +31,21 @@
 import argparse, json, math, os, re, sys, urllib.parse, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# 지정 주체가 둘이라 데이터셋도 둘이다 — 환경부 지정현황 33개소가 이 둘로 갈린다.
-# 이름이 해양수산부인데 내용은 내륙 구역(동강유역·지리산…)까지 담고 있다.
-SOURCES = {
-    "국가": "https://apis.data.go.kr/1192000/apVhdService_EcgyScenePresvArea"
-            "/getOpnEcgyScenePresvAreaWFS",
-    "시도": "https://apis.data.go.kr/1192000/apVhdService_SidoEcolandscape"
-            "/getOpnSidoEcolandscapeWFS",
-}
+# ⚠️ 데이터셋이 둘인데 **`생태경관보전지역` 하나가 전국 33개소 전량**이다 —
+#    이름은 국가분 같지만 시·도 지정분(관악산·남산·태화강…)까지 다 들어 있고,
+#    환경부 "생태·경관보전지역 지정 현황" 33개소와 건수가 맞는다.
+#    `시도생태경관보전지역`(24건, `apVhdService_SidoEcolandscapeV2`)은 **쓰지 않는다** —
+#    그 33건의 부분집합이라 합치면 같은 구역을 두 번 세고, 속성도 못 쓴다
+#    (지정연도가 전부 `1892`, 관리기관이 광양백운산인데 서울시). 다시 뒤지지 말 것.
+URL = ("https://apis.data.go.kr/1192000/apVhdService_EcgyScenePresvArea"
+       "/getOpnEcgyScenePresvAreaWFS")
 CACHE_DIR = os.path.join(ROOT, "raw_data/cache")
 CRS = "EPSG:5179"                                   # WFS 가 이 좌표계로 준다
+
+# ⚠️ **`maxFeatures` 를 빠뜨리면 조용히 10건만 온다.** 기본 상한이 10 이고 경고가 없다 —
+#    처음에 이걸 모르고 10건으로 검증해 8/8 을 받았다. 33건으로 다시 재도 8/8 이었지만,
+#    맞은 것은 우연에 가깝다. `numOfRows`·`pageNo` 는 이 API 에서 아무 효과가 없다.
+MAX_FEATURES = "1000"
 
 
 def _key():
@@ -68,7 +73,10 @@ def _parse(xml, kind):
         if end < 0:
             continue
         f = xml[m.end():end]
-        nm = re.search(r"<ofbd-DB:\w*(?:area_nm|nm|name)\w*>(.*?)</ofbd-DB:", f, re.S)
+        # 이름 필드가 데이터셋마다 다르다 — `area_nm` ↔ `..._krnm`(한글명).
+        # ⚠️ 영문명(`..._ennm`)이 먼저 나오는 자리가 있어 **한글명을 먼저 찾는다**.
+        nm = (re.search(r"<ofbd-DB:(?:\w*krnm|area_nm)>(.*?)</ofbd-DB:", f, re.S)
+              or re.search(r"<ofbd-DB:\w*nm>(.*?)</ofbd-DB:", f, re.S))
         rec = {"name": nm.group(1).strip() if nm else "", "kind": kind,
                "rings": [], "holes": []}
         for gk, key in (("exterior", "rings"), ("interior", "holes")):
@@ -82,31 +90,20 @@ def _parse(xml, kind):
     return out
 
 
-def fetch(refresh=False, strict=False):
-    """전량 조회 — 두 데이터셋을 합친다.
+def _wfs(url, cache, refresh):
+    if refresh or not os.path.exists(cache):
+        q = {"ServiceKey": _key(), "maxFeatures": MAX_FEATURES}
+        d = urllib.request.urlopen(url + "?" + urllib.parse.urlencode(q),
+                                   timeout=200).read().decode("utf-8", "replace")
+        os.makedirs(CACHE_DIR, exist_ok=True)
+        open(cache, "w", encoding="utf-8").write(d)
+        return d
+    return open(cache, encoding="utf-8").read()
 
-    `strict` 면 한쪽이라도 못 받을 때 멈춘다. 기본은 경고만 하고 받은 것으로 간다 —
-    ⚠️ 그 경우 **"지정현황 없음" 판정이 불완전**하다."""
-    out = []
-    for kind, url in SOURCES.items():
-        cache = os.path.join(CACHE_DIR, f"ecgy_{kind}.xml")
-        if refresh or not os.path.exists(cache):
-            q = {"ServiceKey": _key(), "numOfRows": "500", "pageNo": "1"}
-            try:
-                d = urllib.request.urlopen(url + "?" + urllib.parse.urlencode(q),
-                                           timeout=180).read().decode("utf-8", "replace")
-            except Exception as e:
-                msg = f"{kind} 지정분을 받지 못했습니다 — {e}"
-                if strict:
-                    sys.exit(msg)
-                print(f"  [warn] {msg}", file=sys.stderr)
-                continue
-            os.makedirs(CACHE_DIR, exist_ok=True)
-            open(cache, "w", encoding="utf-8").write(d)
-        else:
-            d = open(cache, encoding="utf-8").read()
-        out += _parse(d, kind)
-    return out
+
+def fetch(refresh=False):
+    """전국 지정구역 33개소 → [{'name', 'kind', 'rings'(외곽), 'holes'(구멍)}]."""
+    return _parse(_wfs(URL, os.path.join(CACHE_DIR, "ecgy.xml"), refresh), "전국")
 
 
 def _seg_dist(p, a, b):
