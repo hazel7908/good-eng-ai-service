@@ -31,9 +31,15 @@
 import argparse, json, math, os, re, sys, urllib.parse, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-URL = ("https://apis.data.go.kr/1192000/apVhdService_EcgyScenePresvArea"
-       "/getOpnEcgyScenePresvAreaWFS")
-CACHE = os.path.join(ROOT, "raw_data/cache/ecgy_wfs.xml")
+# 지정 주체가 둘이라 데이터셋도 둘이다 — 환경부 지정현황 33개소가 이 둘로 갈린다.
+# 이름이 해양수산부인데 내용은 내륙 구역(동강유역·지리산…)까지 담고 있다.
+SOURCES = {
+    "국가": "https://apis.data.go.kr/1192000/apVhdService_EcgyScenePresvArea"
+            "/getOpnEcgyScenePresvAreaWFS",
+    "시도": "https://apis.data.go.kr/1192000/apVhdService_SidoEcolandscape"
+            "/getOpnSidoEcolandscapeWFS",
+}
+CACHE_DIR = os.path.join(ROOT, "raw_data/cache")
 CRS = "EPSG:5179"                                   # WFS 가 이 좌표계로 준다
 
 
@@ -47,31 +53,59 @@ def _key():
     sys.exit("~/.ecobank.env 에 ECOBANK_API_KEY 가 없습니다")
 
 
-def fetch(refresh=False):
-    """전량 조회 → [{'name', 'rings'(외곽), 'holes'(구멍)}]. 좌표는 EPSG:5179."""
-    if refresh or not os.path.exists(CACHE):
-        q = {"ServiceKey": _key(), "numOfRows": "500", "pageNo": "1"}
-        d = urllib.request.urlopen(URL + "?" + urllib.parse.urlencode(q),
-                                   timeout=180).read().decode("utf-8", "replace")
-        os.makedirs(os.path.dirname(CACHE), exist_ok=True)
-        open(CACHE, "w", encoding="utf-8").write(d)
-    else:
-        d = open(CACHE, encoding="utf-8").read()
+def _parse(xml, kind):
+    """WFS GML → [{'name', 'kind', 'rings'(외곽), 'holes'(구멍)}]. 좌표는 EPSG:5179.
 
+    ⚠️ 피처 태그가 곧 레이어 이름이라 **데이터셋마다 다르다** (`opn_ecgy_scene_presv_area_a`
+       ↔ 시도판). featureMember 로 싸여 오지도 않는다. 그래서 태그를 고정하지 않고
+       `ofbd-DB:*` 중 **이름 필드를 가진 것**을 피처로 본다."""
     out = []
-    # 피처 태그가 곧 레이어 이름이다 — featureMember 로 싸여 오지 않는다
-    for f in re.findall(r"<ofbd-DB:opn_ecgy_scene_presv_area_a\b"
-                        r"(?:(?!</ofbd-DB:opn_ecgy).)*"
-                        r"</ofbd-DB:opn_ecgy_scene_presv_area_a>", d, re.S):
-        m = re.search(r"<ofbd-DB:area_nm>(.*?)</ofbd-DB:area_nm>", f, re.S)
-        rec = {"name": m.group(1).strip() if m else "", "rings": [], "holes": []}
-        for kind, key in (("exterior", "rings"), ("interior", "holes")):
-            for blk in re.findall(rf"<gml:{kind}>(.*?)</gml:{kind}>", f, re.S):
+    for m in re.finditer(r"<ofbd-DB:([a-zA-Z_]+)[\s>]", xml):
+        tag = m.group(1)
+        if not tag.endswith("_a"):                  # 면 레이어만 (`_a` = area)
+            continue
+        end = xml.find(f"</ofbd-DB:{tag}>", m.end())
+        if end < 0:
+            continue
+        f = xml[m.end():end]
+        nm = re.search(r"<ofbd-DB:\w*(?:area_nm|nm|name)\w*>(.*?)</ofbd-DB:", f, re.S)
+        rec = {"name": nm.group(1).strip() if nm else "", "kind": kind,
+               "rings": [], "holes": []}
+        for gk, key in (("exterior", "rings"), ("interior", "holes")):
+            for blk in re.findall(rf"<gml:{gk}>(.*?)</gml:{gk}>", f, re.S):
                 for pl in re.findall(r"<gml:posList[^>]*>(.*?)</gml:posList>",
                                      blk, re.S):
                     v = [float(t) for t in pl.split()]
                     rec[key].append(list(zip(v[0::2], v[1::2])))
-        out.append(rec)
+        if rec["rings"]:
+            out.append(rec)
+    return out
+
+
+def fetch(refresh=False, strict=False):
+    """전량 조회 — 두 데이터셋을 합친다.
+
+    `strict` 면 한쪽이라도 못 받을 때 멈춘다. 기본은 경고만 하고 받은 것으로 간다 —
+    ⚠️ 그 경우 **"지정현황 없음" 판정이 불완전**하다."""
+    out = []
+    for kind, url in SOURCES.items():
+        cache = os.path.join(CACHE_DIR, f"ecgy_{kind}.xml")
+        if refresh or not os.path.exists(cache):
+            q = {"ServiceKey": _key(), "numOfRows": "500", "pageNo": "1"}
+            try:
+                d = urllib.request.urlopen(url + "?" + urllib.parse.urlencode(q),
+                                           timeout=180).read().decode("utf-8", "replace")
+            except Exception as e:
+                msg = f"{kind} 지정분을 받지 못했습니다 — {e}"
+                if strict:
+                    sys.exit(msg)
+                print(f"  [warn] {msg}", file=sys.stderr)
+                continue
+            os.makedirs(CACHE_DIR, exist_ok=True)
+            open(cache, "w", encoding="utf-8").write(d)
+        else:
+            d = open(cache, encoding="utf-8").read()
+        out += _parse(d, kind)
     return out
 
 
@@ -299,7 +333,7 @@ def main():
     if a.self_test:
         sys.exit(0 if self_test() else 1)
     if a.refresh and not a.lonlat:
-        print(f"지정구역 {len(fetch(True))}건 → {CACHE}")
+        print(f"지정구역 {len(fetch(True))}건 → {CACHE_DIR}")
         return
     if not (a.lonlat and a.sigungu):
         ap.error("--lonlat 과 --sigungu 가 필요합니다")
