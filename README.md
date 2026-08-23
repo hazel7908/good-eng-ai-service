@@ -89,7 +89,8 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── admin.py                  행정구역명 라벨 (VWorld 행정경계)
 │   ├── watercourse.py            수계 서술 → 수계흐름모식도 입력
 │   ├── figure_overlay.py         삽도 오버레이 15종 (마커·경계·반경원·행정구역명·정온시설)
-│   ├── hydro.py                  ⛔ 하천망 — 자료가 면형이라 아직 실전 불가
+│   ├── ecgy.py                   생태·경관보전지역 판정·이격거리·채색 (해수부 WFS)
+│   ├── hydro.py                  수계도 — 흐름 화살표·하천명·보호구역 채색
 │   ├── psd_base.py               ⚙ 검증 전용 — 정답 PSD 레이어 추출 (파이프라인 아님)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
