@@ -12,10 +12,15 @@ NAS 에서 무엇을 받았는지 알 수 없다.
 
     python catalog/index_sheets.py            # 목록만
     python catalog/index_sheets.py --rename    # 실제로 이름을 바꾼다
+    python catalog/index_sheets.py --restore   # 목록 → `_source.json` 복원
 
 ⚠️ 이미지는 **커밋하지 않는다** (`raw_data/` 는 git 제외). NAS 에서 언제든 다시
    수확되고, 지금도 1.5GB 다. 커밋하는 것은 이 목록과 `sheet_georef.json` 의
    **실측 좌표** — 그것만이 다시 만들 수 없는 값이다.
+
+⚠️ 따라서 **목록은 이 PC 의 `raw_data/` 스냅샷**이다. 새로 clone 한 곳에는 표에 적힌
+   파일이 하나도 없다. 되살리는 길은 `harvest_sheets.py`(NAS 접근 필요) →
+   `index_sheets.py --restore --rename` 이다. 목록 자체가 복원 근거라 커밋한다.
 """
 import argparse, json, os, re, sys
 
@@ -96,10 +101,43 @@ def scan():
     return rows
 
 
+def restore():
+    """커밋된 목록에서 `_source.json` 을 되살린다.
+
+    사이드카도 `raw_data/` 안이라 git 에 없다. 유실된 채 `harvest_sheets.py` 를 돌리면
+    이미 정리한 것을 **원래 이름으로 다시 만들어** 중복이 생긴다."""
+    if not os.path.exists(MD):
+        print("목록이 없습니다 — 복원할 근거가 없습니다")
+        return
+    maps = {}
+    for line in open(MD, encoding="utf-8"):
+        m = re.match(r"\|\s*([^|]+?)\s*\|\s*[^|]*\|\s*`([^`]+)`\s*\|\s*([^|]*?)\s*\|",
+                     line)
+        if not m:
+            continue
+        site, cur, orig = m.group(1), m.group(2), m.group(3)
+        if not cur.endswith(".png"):
+            continue
+        maps.setdefault(site, {})[cur] = orig or cur
+    for site, m in maps.items():
+        d = os.path.join(SHEETS, site)
+        if not os.path.isdir(d):
+            print(f"  [없음] {site} — 이미지를 아직 수확하지 않았습니다")
+            continue
+        json.dump(m, open(os.path.join(d, SIDECAR), "w", encoding="utf-8"),
+                  ensure_ascii=False, indent=1)
+        print(f"  {site} — {len(m)}건 복원")
+
+
 def main():
     ap = argparse.ArgumentParser(description="수확 베이스 정리·목록")
     ap.add_argument("--rename", action="store_true", help="종류 이름으로 실제 변경")
+    ap.add_argument("--restore", action="store_true",
+                    help="목록(sheets_harvest.md)에서 `_source.json` 을 되살린다")
     a = ap.parse_args()
+
+    if a.restore:
+        restore()
 
     rows = scan()
     georef = json.load(open(GEOREF, encoding="utf-8")) if os.path.exists(GEOREF) else {}
@@ -131,8 +169,16 @@ def main():
     lines = ["# NAS 도엽 베이스 수확\n",
              "삽도 PSD 의 배경 레이어만 합성한 깨끗한 지도 — 오버레이(사업계획지구·반경원·라벨) 없음.",
              "판별 기준은 `catalog/harvest_sheets.py` 의 `extract_base` 세 줄.\n",
-             "⚠️ **이미지는 커밋하지 않는다** (`raw_data/` 는 git 제외, 현재 1.5GB).",
-             "다시 만들 수 없는 값은 `catalog/data/sheet_georef.json` 의 **실측 좌표**뿐이라 그것만 커밋한다.\n",
+             "> ⚠️ **이 표는 파일 목록이 아니라 한 PC 의 `raw_data/nas/sheets/` 스냅샷이다.**",
+             "> 이미지는 git 에 없다 (`raw_data/` 는 제외, 현재 1.5GB). **새로 clone 한 곳에는",
+             "> 표에 적힌 파일이 하나도 없다.** 되살리려면:",
+             ">",
+             "> ```bash",
+             "> python catalog/harvest_sheets.py                    # NAS → PSD → 수확",
+             "> python catalog/index_sheets.py --restore --rename   # 이름·매핑 복원",
+             "> ```",
+             "> 다시 만들 수 없는 값은 `catalog/data/sheet_georef.json` 의 **실측 좌표**와",
+             "> 이 표의 **원래 이름 열**뿐이라, 그 둘만 커밋한다.\n",
              "| 사업 | 종류 | 파일 | 원래 이름 | 크기 | 좌표 | 상태 |",
              "|---|---|---|---|--:|:--:|:--:|"]
     for site, k, f, size, target, st in rows:
