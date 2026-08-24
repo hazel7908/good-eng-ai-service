@@ -23,6 +23,7 @@ import argparse
 import io
 import json
 import os
+import re
 import sys
 import time
 import zipfile
@@ -921,9 +922,118 @@ def tables_air_quality(hwp, v):
             hwp.HAction.Run("TableDeleteRow")
 
 
+
+# ============================================================
+# 지역개황 (regional-overview)
+# ============================================================
+CHECK = "[확인 필요]"
+
+
+def _pct(part, total):
+    """구성비(%) — 소수 2자리. rule §3-1 (골든셋 16행 중 15행 역산 일치)."""
+    if not total:
+        return CHECK
+    return f"{part / total * 100:.2f}"
+
+
+def slots_regional_overview(v):
+    """vars → 베이스 문서 빈칸 (토큰 28종). 키는 `regional-overview.slots.md` A절과 일치.
+
+    ⚠️ 이 파트는 **채워지지 않는 자리가 많은 것이 정상**이다 — 개황 문단·지구 지목 구성처럼
+    인풋에 없는 값이 여럿이라 `[확인 필요]` 로 남는다. `fill_report.py` 가 그것을 모아
+    실무자에게 넘긴다. **지어내지 않는다** (`common.md` 환각 금지).
+    """
+    biz, st = v["사업"], v.get("통계", {})
+    ybk = v.get("_통계판", {}).get("지자체 통계연보", {})
+
+    out = {
+        "사업명": biz.get("사업명", CHECK),
+        "시군": biz.get("시군", CHECK),
+        "하위행정구역": biz.get("하위행정구역", CHECK),
+        "리": biz.get("리", CHECK),
+        "지구_면적": biz.get("지구_면적", CHECK),
+        # 인풋에 없다 — 실무자 입력 (slots.md A절 5·6·7·9·13·15·17·18·19)
+        "시군_개황": CHECK,
+        "하위행정구역_개황": CHECK,
+        "시군청_주소": CHECK,
+        "지구_지목구성": CHECK,
+        "지구_지목_서술": CHECK,
+        "지구_용도지역": CHECK,
+        "폐수_지역등급": CHECK,
+    }
+
+    # ── 좌표에서 나오는 값 둘 (vars 빌더가 `공간` 에 채워 둔다) ──────────
+    sp = v.get("공간", {})
+    # ⚠️ 도엽은 **이름‧번호** 형태로 쓴다 (`횡성‧377122`, 이음표 U+2027).
+    #    번호는 계산되지만 **도엽 이름은 도엽 색인에서 와야** 한다 → 없으면 번호만
+    번호 = sp.get("도엽번호", CHECK)
+    이름 = sp.get("도엽명")
+    out["도엽명_번호"] = f"{이름}‧{번호}" if 이름 and 번호 != CHECK else (
+        번호 if 번호 != CHECK else CHECK)
+    # `2, 3` 처럼 나열될 수 있다 — 부지가 두 등급에 걸치면 둘 다 적는다 (rule 3/8)
+    out["생태자연도_등급"] = sp.get("생태자연도_등급", CHECK)
+
+    # 지구 소재지 — 사업명에서 조립한다 (`{시군} {면} {리} {지번}`)
+    m = re.search(r"^(.+?번지)\s*일원", str(biz.get("사업명", "")))
+    out["지구_소재지"] = m.group(1) if m else CHECK
+
+    # 출처 주석 — 그 지자체 통계연보의 **실제 제목**을 따른다 (rule §2-1, 통일하지 않는다)
+    out["통계연보_표기"] = ybk.get("표기") or (
+        Path(ybk["파일"]).stem if ybk.get("파일") else CHECK)
+
+    # ── 2.2.1 지목별 — 구성비를 계산한다 (rule §3-1) ────────────────────
+    land = st.get("2.2.1 지목별 토지이용")
+    for scope, pre in (("시군", "시군"), ("면", "면")):
+        d = land.get(scope) if isinstance(land, dict) else None
+        if not isinstance(d, dict):
+            for k in ("전체면적", "임야_구성비", "임야_면적", "경작지_구성비", "경작지_면적"):
+                out[f"{pre}_{k}"] = CHECK
+            continue
+        tot = d.get("합계")
+        임야 = d.get("임야")
+        경작 = (d.get("전") or 0) + (d.get("답") or 0)
+        out[f"{pre}_전체면적"] = f"{tot:,.2f}" if tot else CHECK
+        out[f"{pre}_임야_면적"] = f"{임야:,.2f}" if 임야 else CHECK
+        out[f"{pre}_임야_구성비"] = _pct(임야, tot) if 임야 else CHECK
+        out[f"{pre}_경작지_면적"] = f"{경작:,.2f}" if 경작 else CHECK
+        out[f"{pre}_경작지_구성비"] = _pct(경작, tot) if 경작 else CHECK
+
+    # rule §5-1 — A형 문장의 `비교적 높은/낮은` 은 **경작지 비율에 따라 갈린다**
+    #   (평창 9.40% → `낮은`). 문턱이 골든셋에 명시돼 있지 않아 10% 를 기준으로 둔다
+    try:
+        out["높낮"] = "높은" if float(out["시군_경작지_구성비"]) >= 10 else "낮은"
+    except (TypeError, ValueError):
+        out["높낮"] = CHECK
+
+    # ── 2.2.2 용도지역 서술 ────────────────────────────────────────────
+    z = st.get("2.2.2 용도지역")
+    if isinstance(z, dict) and z.get("합계"):
+        tot, do, bi = z["합계"], z.get("도시지역계"), z.get("비도시지역계")
+        if do and bi:
+            out["시군_용도지역_서술"] = (
+                f"전체면적 {tot:,.2f}㎢ 중 비도시지역 {_pct(bi, tot)}%({bi:,.2f}㎢), "
+                f"도시지역 {_pct(do, tot)}%({do:,.2f}㎢)")
+        else:
+            out["시군_용도지역_서술"] = CHECK
+    else:
+        out["시군_용도지역_서술"] = CHECK
+    return out
+
+
+def tables_regional_overview(hwp, v):
+    """§B 17개 표 — **Windows 에서 만든다.** 지금은 자리만 잡아 둔다.
+
+    표마다 행 수가 다르고(시군마다 시설 개수가 다르다) 한글 API 로 행을 늘려야 해서,
+    실제 문서를 열어 보며 짜야 한다. vars 의 `통계` 는 이미 값이 채워져 있다.
+    """
+    raise NotImplementedError(
+        "§B 표 편집은 Windows 세션에서 작성한다 — vars['통계'] 에 값은 준비돼 있다")
+
+
 PART_HANDLERS = {
     "noise-vib": (slots_noise_vib, tables_noise_vib),
     "air-quality": (slots_air_quality, tables_air_quality),
+    "regional-overview": (slots_regional_overview, tables_regional_overview),
 }
 
 
