@@ -13,7 +13,16 @@
 
     주소 → 지오코딩 → 좌표 → 필지 1건 조회 → **법정동코드** → 조서 지번과 붙여 PNU → 폴리곤
 
-`비고` 열이 정답 삽도의 **색 구분**이다 — 기허가지는 빨강, 금회 신규부지는 노랑.
+`비고` 열이 정답 삽도의 **구역 구분**이다. 증설 사업은 기허가지와 금회 부지를 다른 색으로
+그린다 (증설·변경 7건 중 6건).
+
+⚠️ **색과 이름은 회사 표준이 없다 — 사업마다 다르다.** 기허가지가 파랑 3 : 빨강 1,
+   범례 문구는 6건이 전부 다르다 (`금회사업부지`·`금회증설 부지`·`공장증설부지`…).
+   그래서 여기서 정하지 않고 **`vars` 에서 받는다.** 기본값은 다수를 따라 금회 빨강 ·
+   기허가 파랑이다. → `docs/20260819_삽도_자동화.md` §4-3 표
+
+   구분을 유지해야 하는 진짜 이유는 색이 아니라 **계산**이다. 증설 3건 모두 이격거리와
+   작업량을 **금회 부지 기준**으로 낸다 (3/3). 두 폴리곤은 따로 나와야 한다.
 
 ⚠️ **필지 경계는 사업지 경계와 같지 않다.** 조서의 `사업부지` 면적이 `지적면적` 보다 작으면
    필지 일부만 들어간다는 뜻이라, 필지 전체를 그리면 **실제보다 넓게** 그려진다.
@@ -245,12 +254,53 @@ def fetch(rows, code, expand=False):
     return out, warn
 
 
-def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
-                crs="EPSG:3857"):
-    """필지 폴리곤 → figure_overlay 의 `boundary` 요소들.
+# 증설 사업의 두 구역 — 기본 색·이름. **회사 표준이 아니라 다수값이다.**
+# 기허가지 파랑 3 : 빨강 1, 범례 문구는 7건이 전부 달랐다. 사업별로 vars 가 덮어쓴다.
+# → docs/20260819_삽도_자동화.md §4-3
+ZONE_DEFAULT = {
+    "사업계획지구": {"color": "red",  "label": "사업계획지구"},
+    "금회":        {"color": "red",  "label": "금회사업부지"},
+    "기허가":      {"color": "blue", "label": "기허가지"},
+}
 
-    색은 조서의 `비고` 를 따른다 — 정답 삽도가 기허가지를 빨강, 금회 신규부지를 노랑으로
-    칠한다. 그 구분이 이미 표에 적혀 있다."""
+
+def is_expansion(parcels):
+    """증설 사업인가 — 조서에 금회 부지가 따로 적혀 있으면 그렇다."""
+    return any("금회" in (p.get("비고") or "") for p in parcels)
+
+
+def zone_of(비고, expansion):
+    """조서 `비고` → 구역 키.
+
+    ⚠️ **비증설 사업은 나누지 않는다.** 정답도 `사업계획지구` 한 덩어리 빨강이다 (2/2).
+       나누면 `공유수면`·`-` 같은 비고가 기허가지로 잘못 묶여 파랗게 나온다 (천안 586).
+
+    증설이면 `금회` 가 든 것만 금회, 나머지가 기허가다. 표기는 사업마다 다르다
+    (`금회증설`·`금회 신규`·`금회사업`)."""
+    if not expansion:
+        return "사업계획지구"
+    return "금회" if "금회" in (비고 or "") else "기허가"
+
+
+def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
+                crs="EPSG:3857", zones=None, legend=False):
+    """필지 폴리곤 → figure_overlay 요소들.
+
+    구역은 조서의 `비고` 로 나눈다 — 증설 사업은 기허가지와 금회 부지를 다른 색으로
+    그린다 (증설·변경 7건 중 6건).
+
+    ⚠️ **색과 이름은 여기서 정하지 않는다.** 회사 표준이 없어 사업마다 다르다.
+       `zones` 로 덮어쓴다 — `{"금회": {"color": "yellow", "label": "금회 신규부지"}}`.
+       기본값은 다수를 따른다 (`ZONE_DEFAULT`).
+
+    `legend=True` 면 범례 요소를 함께 낸다. **구역이 둘일 때만** 붙는다 —
+    비증설 사업은 정답도 `사업계획지구` 한 항목이라 여기서 만들지 않는다 (2/2).
+
+    지도 위 지시선 라벨(`금회 신규부지` → 화살표)은 **만들지 않는다.** 괴산 1건뿐이고
+    (1/7) 나머지는 전부 범례에 넣는다."""
+    z = {k: dict(v) for k, v in ZONE_DEFAULT.items()}
+    for k, v in (zones or {}).items():
+        z.setdefault(k, {}).update(v)
     import math
     from pyproj import Transformer
     tr = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
@@ -268,15 +318,23 @@ def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
             out.append([round(ox + (x - cx_m) * k, 1), round(oy - (y - cy_m) * k, 1)])
         return out
 
-    # 색은 조서의 `비고` 를 따르고, **같은 색끼리 한 덩어리로 합친다.**
-    # 필지마다 선을 그으면 안쪽에 격자가 생긴다 — 정답에는 외곽선 하나뿐이다.
+    # 구역끼리 **한 덩어리로 합친다.** 필지마다 선을 그으면 안쪽에 격자가 생긴다 —
+    # 정답에는 외곽선 하나뿐이다.
+    expansion = is_expansion(parcels)
     groups = {}
     for p in parcels:
         if p["편입률"] < min_ratio:          # 스치듯 지나가는 필지는 그리지 않는다
             continue
-        groups.setdefault("yellow" if "금회" in p["비고"] else "red", []).extend(
-            px(r) for r in p["rings"])
-    return [{"type": "parcels", "polygons": v, "color": c} for c, v in groups.items()]
+        groups.setdefault(zone_of(p["비고"], expansion), []).extend(px(r) for r in p["rings"])
+
+    # 금회를 나중에 그린다 — 겹치면 금회 선이 위로 올라와야 한다.
+    order = [k for k in ("사업계획지구", "기허가", "금회") if k in groups]
+    els = [{"type": "parcels", "polygons": groups[k], "color": z[k]["color"], "zone": k}
+           for k in order]
+    if legend and len(order) > 1:
+        els.append({"type": "legend", "swatch": "outline", "title": "범 례",
+                    "items": [[z[k]["color"], z[k]["label"]] for k in reversed(order)]})
+    return els
 
 
 # ── 자체 검증 — 골든셋 ──────────────────────────────────────────────────────
