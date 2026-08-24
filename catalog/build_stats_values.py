@@ -42,6 +42,26 @@ MANIFEST = ROOT / "catalog/data/stats_values.manifest.json"
 
 # 발행처 — 새 판을 어디서 받는지. 목록 URL 은 규칙적이라 신판 감시에도 쓴다.
 PUBLISHER = {
+    "전국 폐기물 발생 및 처리현황": {
+        "기관": "기후에너지환경부·한국환경공단 / 자원순환정보시스템",
+        "목록": "https://www.recycling-info.or.kr/rrs/stat/envStatList.do"
+                "?bbsId=BBSMSTR_000000000002&s_nttSj=KEC006",
+        "상세": "https://www.recycling-info.or.kr/rrs/stat/envStatDetail.do?nttId={id}",
+    },
+    "전국산업단지현황통계": {
+        "기관": "한국산업단지공단 (국가승인통계 399003호)",
+        "목록": "https://www.data.go.kr/data/3041272/fileData.do",
+        "받기": "POST /tcs/dss/selectFileDataDownload.do → "
+                "GET /cmm/cmm/fileDownload.do?atchFileId=..&fileDetailSn=..",
+    },
+    "상수원보호구역 지정현황": {
+        "기관": "기후에너지환경부",
+        "목록": None,          # ❓ 발행처 경로 미확인 — NAS 창고 사본으로 쓴다
+    },
+    "음식물류 폐기물 처리시설 현황": {
+        "기관": "기후에너지환경부",
+        "목록": None,          # ❓ 발행처 경로 미확인 — NAS 창고 사본으로 쓴다
+    },
     "상수도통계": {
         "기관": "환경부(기후에너지환경부) / 국가상수도정보시스템",
         "목록": "https://www.waternow.go.kr/web/board/STAT?pMENUID=9",
@@ -55,14 +75,29 @@ PUBLISHER = {
 }
 
 
+# 파일명 → 자료. 폐기물은 **결과표 zip 안의 특정 엑셀**이라 파일명이 길다.
+NAME_TO_SRC = [
+    (r"상수도통계", "상수도통계"),
+    (r"하수도통계", "하수도통계"),
+    (r"처리업체현황_Ⅰ", "전국 폐기물 발생 및 처리현황"),
+    (r"음식물류", "음식물류 폐기물 처리시설 현황"),
+    (r"상수원보호구역", "상수원보호구역 지정현황"),
+    (r"산업단지현황조사", "전국산업단지현황통계"),
+]
+
+
 def edition_of(path):
     """파일명에서 (자료, 판) 을 읽는다. 판은 **기준연도**다 (공표연도가 아니다)."""
     name = path.name
     m = re.search(r"(20\d\d)", name)
     if not m:
-        return None
-    for src in ("상수도통계", "하수도통계"):
-        if src in name.replace(" ", ""):
+        m2 = re.search(r"[\'\(](\d{2})[\.\-]\d{1,2}월", name)
+        if not m2:
+            return None
+        m = m2
+        m = type("M", (), {"group": lambda self, i: str(2000 + int(m2.group(1)))})()
+    for pat, src in NAME_TO_SRC:
+        if re.search(pat, name.replace(" ", "")):
             return src, int(m.group(1))
     return None
 
@@ -146,7 +181,7 @@ def main():
         return show(a.show)
 
     found = {}
-    for p in sorted(RAW.glob("*.xlsx")):
+    for p in sorted(list(RAW.glob("*.xlsx")) + list(RAW.glob("*/*.xlsx"))):
         ed = edition_of(p)
         if ed:
             found[ed] = p

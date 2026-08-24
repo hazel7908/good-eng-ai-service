@@ -101,8 +101,13 @@ def _scaled(im, base=1400):
 
     ⚠️ **위로도 막는다.** 정답 삽도는 커진다고 글자를 비례해 키우지 않는다 —
        지역개황도(4,449px)의 글자가 생태자연도(1,181px)와 절대 크기가 비슷하다.
-       상한이 없으면 4,352px 짜리에서 배율 3.1 이 되어 반경 라벨이 서로 붙어 버렸다."""
-    return max(0.6, min(2.0, im.width / base))
+       상한이 없으면 4,352px 짜리에서 배율 3.1 이 되어 반경 라벨이 서로 붙어 버렸다.
+
+    상한 **1.2** 는 짐작이 아니라 실측이다 — 정답 지역개황도의 `1.0km` 텍스트 레이어가
+    95×36px 이다 (평창·청주 PSD). 기준 폰트 30px 이니 36/30 = 1.2. 처음에 2.0 으로
+    뒀더니 4,449px 판에서 글자가 60px 이 되어 반경 라벨 여섯이 서로 붙었다 —
+    상한을 두고도 같은 증상이 남아 있었다."""
+    return max(0.6, min(1.2, im.width / base))
 
 
 # ── ② 오버레이 ──────────────────────────────────────────────────────────────
@@ -279,8 +284,8 @@ def _overlaps(a, b, pad=0):
 
 
 def draw_rings(im, origin, radii_m, px_per_m, k=1.0, font=None,
-               label_deg=213, color=(255, 255, 255), short=None):
-    """사업계획지구 중심 **반경 동심원** — 위성사진 삽도의 표준 구성이다.
+               label_deg=213, color=(255, 255, 255), short=None, fill=None):
+    """사업계획지구 중심 **반경 동심원** — 위성사진·지역개황도의 표준 구성이다.
 
     정답 삽도(괴산)는 0.25 · 0.5 · 0.75 · 1.0km 네 겹을 두르고 원마다 라벨을 단다.
     조사할 값이 하나도 없다 — **중심 좌표와 축척만 있으면 완전히 자동으로 나온다.**
@@ -290,22 +295,37 @@ def draw_rings(im, origin, radii_m, px_per_m, k=1.0, font=None,
 
     ⚠️ 원이 여럿이고 라벨을 한 방향에 몰면 글자가 겹친다. 정답 지역개황도는 반경 6개를
        동쪽 한 줄로 늘어놓는데 그때는 `반경 1km` 가 아니라 **`1.0km`** 로 줄여 쓴다.
-       `short` 를 안 주면 원 4개를 넘을 때 자동으로 줄인다."""
+       `short` 를 안 주면 원 4개를 넘을 때 자동으로 줄인다.
+
+    ⚠️ **선 색이 삽도마다 다르다.** 위성사진은 어두운 배경이라 흰 선(기본값)인데,
+       지역개황도는 밝은 지형도라 흰 선이 **보이지 않는다** — 정답은 회색
+       `(127,127,125)` 을 쓴다 (청주 실측). 지역개황도에는 `fill` 도 준다:
+       정답은 원마다 옅은 회색을 겹쳐 칠해 중심으로 갈수록 어두워진다
+       (중심 −13/−22/−21, 바깥 0)."""
     if short is None:
         short = len(radii_m) > 4
+    ox, oy = origin
+    if fill:
+        # ⚠️ **가장 바깥 원 안쪽을 한 번만** 칠한다. 원마다 겹쳐 칠하면 중심이 진해지는데
+        #    정답은 그렇지 않다 — 원 영역이 고르게 덮여 있다 (청주 실측: 중심 −13/−22/−21,
+        #    중간 −24/−25/−37 로 중심이 오히려 옅다).
+        wash = Image.new("RGBA", im.size, (0, 0, 0, 0))
+        r = max(radii_m) * px_per_m
+        ImageDraw.Draw(wash).ellipse([ox - r, oy - r, ox + r, oy + r], fill=tuple(fill))
+        im.alpha_composite(wash) if im.mode == "RGBA" else \
+            im.paste(Image.alpha_composite(im.convert("RGBA"), wash).convert("RGB"), (0, 0))
     d = ImageDraw.Draw(im)
     f = font or _font(int(30 * k))
-    ox, oy = origin
     w = max(2, round(2.5 * k))
     rad = math.radians(label_deg)
     for m in radii_m:
         r = m * px_per_m
-        d.ellipse([ox - r, oy - r, ox + r, oy + r], outline=color, width=w)
+        d.ellipse([ox - r, oy - r, ox + r, oy + r], outline=tuple(color), width=w)
         txt = f"{m/1000:.1f}km" if short else f"반경 {m/1000:g}km"
         tx, ty = ox + r * math.cos(rad), oy - r * math.sin(rad)
         tw = d.textlength(txt, font=f)
         # 원 선 위에 글자가 겹치지 않게 살짝 띄운다
-        d.text((tx - tw / 2, ty - 20 * k), txt, font=f, fill=color,
+        d.text((tx - tw / 2, ty - 20 * k), txt, font=f, fill=tuple(color),
                stroke_width=max(1, round(3 * k)), stroke_fill=(60, 60, 60))
 
 
@@ -620,7 +640,8 @@ def render(spec, out_path=None):
             d = ImageDraw.Draw(im)
         elif t == "rings":
             draw_rings(im, el["origin"], el["radii_m"], el["px_per_m"], k, F(30),
-                       el.get("label_deg", 213), short=el.get("short"))
+                       el.get("label_deg", 213), color=el.get("color", (255, 255, 255)),
+                       short=el.get("short"), fill=el.get("fill"))
             d = ImageDraw.Draw(im)
         elif t == "polar":
             # 정답 정온시설 분포도는 마커·라벨이 **초록**이다 (평창 실측).
