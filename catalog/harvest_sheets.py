@@ -173,7 +173,10 @@ def _main():
                 if not os.path.exists(local):
                     fs.download(f"{folder}/{name}", dest)
                 n, wh = extract_base(local, png)
-                if False:                              # 필터를 다듬는 동안은 PSD 를 지우지 않는다 — 재다운로드 수업료가 크다
+                # PSD 원본은 **지우지 않는다** (2026-08-23 결정). 필터가 안정된 뒤에도
+                # 그렇다 — 재다운로드가 비싸다. 448MB 에 25분, 665MB 짜리는 타임아웃으로
+                # 아직 못 받았다. 수확본은 271MB 인데 PSD 까지 3.1GB 다.
+                if False:
                     os.remove(local)
                 rows.append((site, name, human(size), n, wh))
                 print(f"  [수확] {site}/{name} ({human(size)}) → 조각 {n} · "

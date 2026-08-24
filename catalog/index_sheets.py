@@ -15,7 +15,7 @@ NAS 에서 무엇을 받았는지 알 수 없다.
     python catalog/index_sheets.py --restore   # 목록 → `_source.json` 복원
 
 ⚠️ 이미지는 **커밋하지 않는다** (`raw_data/` 는 git 제외). NAS 에서 언제든 다시
-   수확되고, 지금도 1.5GB 다. 커밋하는 것은 이 목록과 `sheet_georef.json` 의
+   수확되고, PSD 원본까지 3.4GB 다. 커밋하는 것은 이 목록과 `sheet_georef.json` 의
    **실측 좌표** — 그것만이 다시 만들 수 없는 값이다.
 
 ⚠️ 따라서 **목록은 이 PC 의 `raw_data/` 스냅샷**이다. 새로 clone 한 곳에는 표에 적힌
@@ -170,8 +170,8 @@ def main():
              "삽도 PSD 의 배경 레이어만 합성한 깨끗한 지도 — 오버레이(사업계획지구·반경원·라벨) 없음.",
              "판별 기준은 `catalog/harvest_sheets.py` 의 `extract_base` 세 줄.\n",
              "> ⚠️ **이 표는 파일 목록이 아니라 한 PC 의 `raw_data/nas/sheets/` 스냅샷이다.**",
-             "> 이미지는 git 에 없다 (`raw_data/` 는 제외, 현재 1.5GB). **새로 clone 한 곳에는",
-             "> 표에 적힌 파일이 하나도 없다.** 되살리려면:",
+             "> 이미지는 git 에 없다 (`raw_data/` 는 제외 — 수확본 271MB + PSD 원본 3.1GB).",
+             "> **새로 clone 한 곳에는 표에 적힌 파일이 하나도 없다.** 되살리려면:",
              ">",
              "> ```bash",
              "> python catalog/harvest_sheets.py                    # NAS → PSD → 수확",

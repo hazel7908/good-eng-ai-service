@@ -4,8 +4,8 @@
 판별 기준은 `catalog/harvest_sheets.py` 의 `extract_base` 세 줄.
 
 > ⚠️ **이 표는 파일 목록이 아니라 한 PC 의 `raw_data/nas/sheets/` 스냅샷이다.**
-> 이미지는 git 에 없다 (`raw_data/` 는 제외, 현재 1.5GB). **새로 clone 한 곳에는
-> 표에 적힌 파일이 하나도 없다.** 되살리려면:
+> 이미지는 git 에 없다 (`raw_data/` 는 제외 — 수확본 271MB + PSD 원본 3.1GB).
+> **새로 clone 한 곳에는 표에 적힌 파일이 하나도 없다.** 되살리려면:
 >
 > ```bash
 > python catalog/harvest_sheets.py                    # NAS → PSD → 수확
