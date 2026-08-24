@@ -127,10 +127,42 @@ def parse_survey(text):
         if cand is None and all(r["소계"] > 0 for r in rows) and len(rows) > 1:
             cand = (rows, t)
     if cand:
-        return cand[0], None, cand[1]
+        return _guard(cand[0], cand[1])
     if best is None:
         return [], "조서에서 필지를 읽지 못했습니다", None
-    return best[0], None, best[1]
+    return _guard(best[0], best[1])
+
+
+# ⚠️ **여기까지 왔다는 것은 합계 검산에 실패했다는 뜻이다.** 예전에는 그대로 돌려줬다 —
+#    부르는 쪽이 검증된 값인지 알 방법이 없었다. 낯선 서식 5건을 먹여 보니 **4건이
+#    거부 없이 쓰레기를 냈다** (예산 구례리·용인 석천리는 필지 2건, 충주 완오리는
+#    비고 자리에 지번이 들어왔다). 조서 구조가 회사 안에서도 여러 갈래라서다 —
+#    구역이 `비고` 가 아니라 **열**로 오거나(예산: 남산·양지·금광1·금광2·도로부지)
+#    **`구분` 열의 행 그룹**으로 온다(완오리: 기존 공장 부지).
+def _guard(rows, total):
+    """합계로 검산 못 한 결과를 내보내기 전 마지막 관문.
+
+    ⚠️ **합계 숫자를 믿고 거를 수 없다.** 평창은 합계 행이 없어 엉뚱한 수(2,024)를
+       읽는데 실제 소계 합은 17,615 다. 그래서 **구조 신호**로 거른다 — 열이 밀리면
+       `비고` 자리에 지목·지번·`소계` 가 들어온다. 골든셋 6건의 비고는 `-`·`기허가`·
+       `금회증설`·`공유수면` 뿐이라 이 신호와 겹치지 않는다.
+
+    합계는 **조서가 우리보다 클 때만** 쓴다 — 필지를 빠뜨렸다는 뜻이라서다.
+    작을 때는 평창처럼 합계를 잘못 읽은 경우가 있어 근거가 못 된다."""
+    got = sum(r["소계"] for r in rows)
+    지목 = "전답과장임잡대구천도묘유원학교사철차수제양광염"
+    for r in rows:
+        b = (r["비고"] or "").strip()
+        if re.fullmatch(r"소\s*계|합\s*계", b):
+            return [], "열이 밀렸습니다 — 비고 자리에 `소계`가 들어왔습니다", total
+        if len(b) == 1 and b in 지목:
+            return [], f"열이 밀렸습니다 — 비고 자리에 지목 `{b}` 가 들어왔습니다", total
+        if re.fullmatch(r"산?\d+(-\d+)?", b):
+            return [], f"열이 밀렸습니다 — 비고 자리에 지번 `{b}` 가 들어왔습니다", total
+    if total is not None and total > got + 1:
+        return [], (f"조서 합계보다 적게 읽었습니다 — 읽은 소계 합 {got:,.0f} "
+                    f"↔ 조서 {total:,.0f} (필지를 빠뜨렸습니다)"), total
+    return rows, None, total
 
 
 def survey_address(text):
@@ -437,7 +469,29 @@ def self_test(root="cases/small-env", online=False):
         if online:
             print(f"          ↳ {_online_check(name, open(f, encoding='utf-8').read(), rows)}")
     print(f"\n합계가 맞은 사업 {ok}/{len(files)}")
-    return True
+    return _reject_test() and True
+
+
+# ⚠️ **통과만 세면 파서가 조용히 틀리는 것을 못 잡는다.** 낯선 서식 4건을 먹여 보니
+#    거부 없이 쓰레기를 냈다 (2026-08-24). 그래서 **거부돼야 하는 표본**도 함께 돌린다 —
+#    조서 구조가 회사 안에서도 여러 갈래다: 구역이 열로 오거나(예산 구례리 —
+#    남산·양지·금광1·금광2·도로부지), `구분` 열의 행 그룹으로 온다(완오리 — 기존 공장 부지).
+def _reject_test(root="engine/testdata/조서_거부표본"):
+    files = sorted(glob.glob(f"{root}/*.txt"))
+    if not files:
+        return True
+    print("\n거부돼야 하는 서식 — 우리 파서가 다루지 못하는 조서 구조")
+    bad = 0
+    for f in files:
+        name = os.path.basename(f)[:-4]
+        _, err, _ = parse_survey(open(f, encoding="utf-8").read())
+        if err:
+            print(f"  [OK  ] {name:<14} {err}")
+        else:
+            bad += 1
+            print(f"  [FAIL] {name:<14} 거부해야 하는데 통과했습니다")
+    print(f"\n거부한 서식 {len(files) - bad}/{len(files)}")
+    return bad == 0
 
 
 def main():
