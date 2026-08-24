@@ -266,12 +266,36 @@ def arrows_to_elements(cells, length=90, reverse=False):
     return els
 
 
+def _snap_points(pts, mask, radius):
+    """점들을 **하천 픽셀 위로 당긴다.** 반경 안에 물이 없는 점은 버린다.
+
+    ⚠️ 자료 폴리곤의 꼭짓점 평균은 **물 위가 아니다.** 하천은 길쭉하고 굽어서
+       평균이 굽이 안쪽 육지에 떨어진다 — 괴산에서 압항천·구룡천·신월천이 죄다
+       빈 들판에 찍혔다. 이름은 자료에서 오지만 **자리는 지도 그림에서** 와야 한다."""
+    import math
+    w, h = mask.size
+    mp = mask.load()
+    step = 4
+    water = [(x, y) for y in range(0, h, step) for x in range(0, w, step) if mp[x, y]]
+    if not water:
+        return pts
+    out = []
+    for px, py in pts:
+        near = min(water, key=lambda q: (q[0] - px) ** 2 + (q[1] - py) ** 2)
+        if math.dist((px, py), near) <= radius:
+            out.append(near)
+    return out
+
+
 def river_labels(lon, lat, half_deg, center_px, px_per_m, canvas,
-                 names=None, size=None, gap=260, min_pts=40, avoid=()):
+                 names=None, size=None, gap=260, min_pts=40, avoid=(),
+                 mask=None, snap_px=None):
     """하천명 라벨 — 이름은 **자료에서**, 자리는 **화면 안 물길 위**에서.
 
     하천망 자료는 지오메트리가 면형이라 물길로는 못 쓰지만 **이름은 정확하다.**
-    면 안의 점을 고르면 그 자리는 물 위이므로 라벨 자리로 충분하다.
+
+    `mask` 를 주면 자리를 그 위로 당긴다 (`river_mask` 가 지도 그림에서 읽은 하천).
+    안 주면 폴리곤 꼭짓점 평균으로 떨어지는데, 그 자리는 물 위라는 보장이 없다.
 
     `avoid` 에 이미 놓인 라벨 자리(행정구역명 등)를 주면 그 둘레를 피한다."""
     import math
@@ -297,7 +321,13 @@ def river_labels(lon, lat, half_deg, center_px, px_per_m, canvas,
             pts.append((ox + (x - cx_m) * k, oy - (y - cy_m) * k))
 
     els = []
+    r_snap = snap_px if snap_px is not None else max(40, 900 * px_per_m)
     for nm, pts in sorted(by.items(), key=lambda kv: -len(kv[1])):
+        if mask is not None:
+            pts = _snap_points([p for p in pts if 0 <= p[0] < w and 0 <= p[1] < h],
+                               mask, r_snap)
+            if not pts:
+                continue                  # 화면 안에 이 하천의 물길이 안 보인다
         at = A._visible_center(pts, w, h)
         if at is None:
             continue

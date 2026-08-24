@@ -76,7 +76,8 @@ def build_watercourse(site):
         els += Hy.arrows_to_elements(arrows)
         # river_labels 는 (요소, 오류) 를 돌려준다 — 그냥 += 하면 리스트가 요소로 들어간다
         labels, err = Hy.river_labels(lon, lat, 0.05, anchor, ppm, (W, H),
-                                      avoid=[e.get("at") for e in els if e.get("at")])
+                                      avoid=[e.get("at") for e in els if e.get("at")],
+                                      mask=mask)
         if err:
             print(f"     [warn] {site} 하천명 — {err}")
         els += labels
@@ -125,13 +126,18 @@ def build(site, verbose=True):
            {"type": "target", "at": anchor},
            {"type": "label", "at": [anchor[0], anchor[1] - 120],
             "text": "사업계획지구", "from": anchor}]
+    # 반경 라벨 자리 — 행정구역명이 이 위에 얹히지 않게 미리 알려 준다
+    ring_pts = [[anchor[0] + r * ppm, anchor[1]] for r in RADII]
     regs = []
-    for lv in ("시도", "시군구", "읍면동"):
+    # ⚠️ 시도는 넣지 않는다 — 괴산 정답에 없다. 청주 정답의 `충청북도` 는 있지만
+    #    같은 삽도에 25km 밖 `천안시` 도 찍혀 있어, 틀을 복사한 잔재로 본다.
+    for lv in ("시군구", "읍면동"):
         r, err = A.fetch(lv, lon, lat, 0.35)
         if err:
             continue
         regs += A.to_elements(r, (lon, lat), anchor, ppm, (W, H),
-                              protect_px=int(1200 * ppm))
+                              protect_px=int(1200 * ppm),
+                              avoid=ring_pts, keep=int(900 * ppm))
     els += A._avoid(regs, int(700 * ppm))
     els += [{"type": "scalebar", "at": [W - 560, H - 120],
              "length_px": int(1000 * ppm), "label": "1.0km"},
