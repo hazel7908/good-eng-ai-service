@@ -20,3 +20,6 @@ extracted_texts/
 .vscode/
 *.swp
 .claude/worktrees/clever-blackburn/
+
+# 전국 통계 값 본체 (재생성 가능 — build_stats_values.py). 판 지문은 매니페스트에 커밋된다
+catalog/data/stats_values/
