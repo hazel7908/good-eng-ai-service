@@ -176,7 +176,7 @@ def river_mask(im, rgb=RIVER_RGB, tol=20):
     return m
 
 
-def flow_arrows(mask, origin_px, grid=300, min_frac=0.05, top=8, step=6):
+def flow_arrows(mask, origin_px, grid=300, min_frac=None, top=8, step=6):
     """하천 마스크 → 화살표 지점과 방향.
 
     정답 수계도를 보면 화살표가 **하천 굽이를 따라가지 않는다.** 주요 지점 6~7 개에
@@ -191,6 +191,15 @@ def flow_arrows(mask, origin_px, grid=300, min_frac=0.05, top=8, step=6):
     w, h = mask.size
     mp = mask.load()
     ox, oy = origin_px
+
+    # ⚠️ **문턱을 고정 비율로 두면 축척이 바뀔 때 화살표가 통째로 사라진다.**
+    #    1:75,000 도엽은 하천이 가늘어 칸의 5% 를 못 채운다 (괴산 수계도에서 0 개가
+    #    나왔다). 그래서 기준을 **이 그림의 평균 하천 밀도**로 잡는다 — 물길이 굵든
+    #    가늘든 "평균보다 하천이 많은 칸" 은 늘 있다.
+    if min_frac is None:
+        tot = sum(1 for y in range(0, h, step) for x in range(0, w, step) if mp[x, y])
+        dens = tot / max(1, (w // step) * (h // step))
+        min_frac = max(dens * 2.5, 0.004)
     cells = []
     for gy in range(0, h, grid):
         for gx in range(0, w, grid):

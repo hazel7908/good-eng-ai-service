@@ -28,7 +28,8 @@ SHEETS = os.path.join(ROOT, "raw_data/nas/sheets")
 GEOREF = os.path.join(ROOT, "catalog/data/sheet_georef.json")
 
 RING = re.compile(r"모양 1 사본 (\d+)$")
-KM = re.compile(r"(\d)\.(\d)km$")
+# 축척바 텍스트 레이어 이름이 곧 눈금이다 — `0        2.25km        4.50km`
+SCALE_TXT = re.compile(r"(\d+(?:\.\d+)?)\s*km")
 
 
 def _walk(layers):
@@ -91,8 +92,50 @@ def extract(psd_path):
     return [round(anchor[0], 1), round(anchor[1], 1)], round(px_per_m, 5), why
 
 
-# 지역개황도 계열만 이 패턴을 갖는다
+def extract_scalebar(psd_path):
+    """수계도 계열 — `사업지 원` 마커 + `축척` 막대. 반경원이 없는 삽도의 길이다.
+
+    축척 막대의 폭이 곧 거리다. 몇 km 인지는 **바로 위 텍스트 레이어 이름**에 있다
+    (`0        2.25km        4.50km`). 평창 수계도에서 수동 실측 0.08044 ↔ 자동 0.0807.
+
+    ⚠️ `축척` 이름을 가진 레이어가 둘인 판이 있다 (원주 — 273px 와 363px). 눈금 텍스트와
+       **가로 범위가 겹치는** 것을 고른다."""
+    from psd_tools import PSDImage
+    psd = PSDImage.open(psd_path)
+
+    marker, bars, txts = None, [], []
+    for l in _walk(psd):
+        name = (l.name or "").strip()
+        if not l.is_visible():
+            continue
+        if name in ("사업지 원", "사업지") and marker is None:
+            marker = l.bbox
+        elif name == "축척":
+            bars.append(l.bbox)
+        else:
+            kms = SCALE_TXT.findall(name)
+            if kms and len(name) > 12:          # 눈금 텍스트는 `0 … 2.25km … 4.50km`
+                txts.append((max(float(v) for v in kms), l.bbox))
+    if not bars or not txts:
+        return None, None, "축척 막대나 눈금 텍스트가 없습니다"
+    km, tb = max(txts, key=lambda t: t[0])
+    # 눈금 텍스트와 가로로 겹치는 막대를 고른다
+    def overlap(b):
+        return max(0, min(b[2], tb[2]) - max(b[0], tb[0]))
+    bar = max(bars, key=overlap)
+    if overlap(bar) <= 0:
+        return None, None, "축척 막대와 눈금이 어긋납니다"
+    px_per_m = (bar[2] - bar[0]) / (km * 1000)
+    if not marker:
+        return None, round(px_per_m, 5), "축척만 찾았습니다 (사업지 마커 없음)"
+    return ([round(_center(marker)[0], 1), round(_center(marker)[1], 1)],
+            round(px_per_m, 5),
+            f"축척 막대 {bar[2]-bar[0]}px={km}km · `사업지 원` 중심")
+
+
+# 삽도 종류마다 단서가 다르다 — 지역개황도는 반경원, 수계도는 축척바다
 KINDS = ("지역개황도", "대상지역설정도")
+SCALE_KINDS = ("수계도",)
 
 
 def main():
@@ -107,7 +150,32 @@ def main():
         if not os.path.isdir(d):
             continue
         for f in sorted(os.listdir(d)):
-            if not f.endswith(".psd") or not any(k in f for k in KINDS):
+            if not f.endswith(".psd"):
+                continue
+            if any(k in f for k in SCALE_KINDS) and "작은" not in f:
+                try:
+                    anchor, ppm, why = extract_scalebar(os.path.join(d, f))
+                except Exception as e:
+                    print(f"  ✗ {site:<12} {f} — {type(e).__name__}")
+                    continue
+                old = georef.get(site, {}).get("수계도")
+                mark = ""
+                if old and anchor:
+                    da = max(abs(anchor[0] - old["anchor_px"][0]),
+                             abs(anchor[1] - old["anchor_px"][1]))
+                    dp = abs(ppm - old["px_per_m"]) / old["px_per_m"] * 100
+                    mark = f"  ↔ 실측 대비 anchor {da:.1f}px · 축척 {dp:.1f}%"
+                if anchor is None:
+                    print(f"  ✗ {site:<12} 수계도 — {why}")
+                    continue
+                hits += 1
+                print(f"  ○ {site:<12} 수계도 anchor {anchor} · {ppm} px/m   ({why}){mark}")
+                if a.write and not old:
+                    georef.setdefault(site, {})["수계도"] = {
+                        "anchor_px": anchor, "px_per_m": ppm,
+                        "근거": f"PSD 레이어 자동 추출 — {why}"}
+                continue
+            if not any(k in f for k in KINDS):
                 continue
             try:
                 anchor, ppm, why = extract(os.path.join(d, f))
