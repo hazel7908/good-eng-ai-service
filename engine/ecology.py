@@ -326,8 +326,9 @@ def _site_rings(name, lon, lat):
         tr = Transformer.from_crs("EPSG:4326", "EPSG:5186", always_xy=True)
         # ⚠️ 편입률이 낮은 필지는 **모양에서 뺀다** — 원주 산59-1 은 임야 184,166㎡ 중
         #    23㎡(0.01%)만 편입인데, 필지 전체 링을 쓰면 사업지가 거대한 숲으로 둔갑한다.
+        # 기준은 **사업계획지구 전체**다 (증설이어도 기허가지를 뺀 적이 없다).
         rings = [[tr.transform(x, y) for x, y in ring]
-                 for p in pc if p["편입률"] >= 0.5 for ring in p["rings"]]
+                 for ring in P.site_rings(pc, basis="사업계획지구")]
         # 대신 그 필지의 **사업지와 맞닿은 경계 지점**을 탐침으로 남긴다.
         # 편입 조각은 반드시 사업지에 붙어 있으므로, 접점의 등급이 곧 조각의 등급이다.
         #

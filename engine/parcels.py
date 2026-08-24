@@ -282,6 +282,41 @@ def zone_of(비고, expansion):
     return "금회" if "금회" in (비고 or "") else "기허가"
 
 
+# 계산마다 **기준이 되는 부지가 다르다.** 증설 사업에서 이걸 섞으면 값이 조용히 틀린다.
+#
+#   PP 이격거리 (정온시설까지)   → 금회 부지만        (괴산·여주·청주 3/3)
+#   생태·경관보전지역 이격거리    → 사업계획지구 전체   (평창 "사업계획지구로부터 1.04km")
+#   생태자연도 등급 판정         → 사업계획지구 전체
+#
+# ⚠️ PP 이격거리는 **우리가 계산하지 않는다** — 정온시설 좌표(XTM/YTM)가 자료 부재라
+#    잴 대상이 없다. 값은 지역개황편 정온시설 표에서 온다 (텍스트 9/10 정확 · 삽도 판독은
+#    최후 수단). 여기 기준을 적어 두는 것은 **나중에 계산을 붙일 때 틀리지 않기 위해서**다.
+BASIS = ("사업계획지구", "금회")
+
+
+def site_rings(parcels, basis="사업계획지구", min_ratio=0.5):
+    """사업지 폴리곤 링(경위도) — **기준을 명시해서** 꺼낸다.
+
+    `basis="금회"` 는 증설 사업의 금회 부지만 낸다. 비증설 사업에 쓰면 조서에 금회가
+    없으므로 **빈 리스트**가 나온다 — 조용히 전체로 넘어가지 않는다. 부르는 쪽이
+    증설 여부를 `is_expansion()` 으로 먼저 판정해야 한다.
+
+    ⚠️ `min_ratio` 기본값이 그리기(0.05)보다 높은 0.5 인 이유 — 편입률이 낮은 필지를
+       넣으면 **사업지가 통째로 부풀어 거리가 0 에 가까워진다.** 원주 산59-1 은 임야
+       184,166㎡ 중 23㎡(0.01%)만 편입이다 (`ecology._site_rings` 의 같은 판단)."""
+    if basis not in BASIS:
+        raise ValueError(f"기준은 {BASIS} 중 하나여야 한다: {basis!r}")
+    exp = is_expansion(parcels)
+    out = []
+    for p in parcels:
+        if p.get("편입률", 1.0) < min_ratio:
+            continue
+        if basis == "금회" and zone_of(p.get("비고"), exp) != "금회":
+            continue
+        out.extend(p["rings"])
+    return out
+
+
 def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
                 crs="EPSG:3857", zones=None, legend=False):
     """필지 폴리곤 → figure_overlay 요소들.

@@ -276,8 +276,10 @@ def _site_rings_평창():
     if err:
         return None
     to5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
-    return [[to5179.transform(*pt) for pt in ring]
-            for pc in P.fetch(rows, code)[0] for ring in pc["rings"]]
+    # 기준은 **사업계획지구 전체**다 — 정답 문장이 "사업계획지구로부터 1.04km" 다.
+    # 금회 부지만 쓰는 것은 PP 이격거리 쪽이다 (`parcels.BASIS` 주석).
+    rings = P.site_rings(P.fetch(rows, code)[0], basis="사업계획지구")
+    return [[to5179.transform(*pt) for pt in ring] for ring in rings]
 
 
 def self_test():
