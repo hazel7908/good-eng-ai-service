@@ -34,6 +34,7 @@
 검증: `python engine/parcels.py --self-test`
 """
 import argparse, glob, itertools, json, os, re, sys, urllib.parse, urllib.request
+from pathlib import Path
 
 VWORLD_DATA = "https://api.vworld.kr/req/data"
 CADASTRE = "LP_PA_CBND_BUBUN"          # 연속지적도
@@ -77,7 +78,7 @@ def _scan(lines, n):
     while k < len(lines):
         m = JIBUN.fullmatch(lines[k])
         # 지번 → 지목(한 글자) → 숫자 n 개 → 비고
-        if m and k + n + 2 < len(lines) and re.fullmatch(r"[가-힣]", lines[k + 1]):
+        if m and k + n + 2 < len(lines) and JIMOK.fullmatch(lines[k + 1]):
             nums = [_n(lines[k + 2 + t]) for t in range(n)]
             if all(v is not None for v in nums):
                 rows.append({
@@ -92,6 +93,181 @@ def _scan(lines, n):
     return rows
 
 
+# ── 헤더 기반 파서 — 조서 서식이 회사 안에서도 여러 갈래다 ────────────────────
+#
+# 낯선 서식 4건을 뜯어 보니 **구역이 적히는 자리가 셋**이었다.
+#
+#   ① `비고` 열          괴산·여주·청주 — `기허가` / `금회증설`
+#   ② **하위 열 이름**    예산 구례리 — 신청면적 아래 `남산·양지·금광1·금광2·도로부지`
+#                       용인 석천리 — 편입면적 아래 `사전환경성검토·기정·변경·금회`
+#   ③ **`구분` 열 행 그룹** 충주 완오리 — `기존 공장 부지` / `2공장 증설 부지` / `3공장 신설 부지`
+#
+# 그래서 열 수를 짐작하는 대신 **헤더를 읽는다.**
+
+_소재지 = re.compile(r"(시|군|구|읍|면|리|동)$")
+# ⚠️ **지목을 "한글 한 글자" 로 잡으면 안 된다.** 예산 조서는 합계 행을 `계` 로 여는데,
+#    앞 칸이 `977` 이라 `977 계` 가 지번+지목으로 읽혔다. 지목 약자만 허용한다.
+JIMOK = re.compile(r"[전답과목장임광염대공창종철제천구유양수도로사묘잡원학차체분]")
+_계 = re.compile(r"\s*(소\s*계|합\s*계|계)\s*$")
+
+
+def _is_place(tok):
+    """`괴산군`·`평창군 미탄면 수청리` 처럼 소재지 칸인가."""
+    return bool(_소재지.search(tok.split()[-1])) if tok.split() else False
+
+
+def _cell(s):
+    """셀 → 숫자. `-` 는 0. **지번을 숫자로 먹지 않는다** (`704-2` → None).
+
+    ⚠️ 깨진 ㎡(`9,785浵ࡦ`)가 붙어 오므로 앞부분만 본다. 그래서 `704-2` 를
+       그냥 두면 `704` 로 읽힌다 — 하이픈+숫자가 이어지면 지번으로 본다."""
+    s = s.strip()
+    if s in ("-", "–", "—", ""):
+        return 0.0
+    if re.match(r"^산?\d[\d,]*-\d", s):
+        return None
+    m = re.match(r"[\d,]+(?:\.\d+)?", s)
+    return float(m.group(0).replace(",", "")) if m else None
+
+
+def _num_at(lines, q):
+    """`lines[q]` 를 숫자 칸으로 읽는다. 다음 필지의 지번이면 `None` (= 행 끝).
+
+    ⚠️ **`264` 는 숫자이면서 지번이다.** 무엇인지는 뒤 칸이 정한다 — 지목이 따라오면
+       다음 행의 지번이다. 이 문맥 판정이 없으면 `산84` 를 84 로 먹는다.
+    ⚠️ 값에 접두어가 붙는 조서가 있다 — 용인 석천리는 증가분을 `증) 405` 로 적는다."""
+    if q >= len(lines):
+        return None
+    t = lines[q].strip()
+    if JIBUN.fullmatch(t) and q + 1 < len(lines) and JIMOK.fullmatch(lines[q + 1]):
+        return None
+    if t in ("-", "–", "—", ""):
+        return 0.0
+    if re.match(r"^산?\d[\d,]*-\d", t):
+        return None
+    m = re.search(r"[\d,]+(?:\.\d+)?", t)
+    return float(m.group(0).replace(",", "")) if m else None
+
+
+def _header(lines):
+    """헤더를 읽어 **숫자 열 이름**과 그룹 라벨을 낸다.
+
+    반환 `(열이름[], 데이터시작, 그룹라벨)` — 못 읽으면 `None`."""
+    start = next((k for k in range(len(lines) - 1)
+                  if JIBUN.fullmatch(lines[k])
+                  and JIMOK.fullmatch(lines[k + 1])), None)
+    if start is None:
+        return None
+    # `(㎡)` 나 `(2010.04)` 처럼 **괄호만 있는 칸**은 윗 칸의 꼬리다 — 열로 세면 부푼다.
+    head = [l for l in lines[1:start] if not re.fullmatch(r"\(?㎡\)?|\([^()]*\)", l)]
+    # `지목` 뒤부터가 숫자 열이다.
+    j = next((k for k, t in enumerate(head) if t.replace(" ", "") == "지목"), None)
+    if j is None:
+        return None
+    cols = head[j + 1:]
+    # `비고`(또는 `소유자`)가 숫자 열과 그 **하위 행**을 가른다.
+    cut = next((k for k, t in enumerate(cols)
+                if t.replace(" ", "") in ("비고", "소유자")), None)
+    if cut is None:
+        # `비고` 도 `소유자` 도 없으면 숫자 열과 그룹 라벨의 경계가 헤더에 없다.
+        # **첫 데이터 행이 숫자를 몇 개 물고 있는지** 세어 가른다 (완오리 = 2).
+        cnt = 0
+        while _cell(lines[start + 2 + cnt] if start + 2 + cnt < len(lines) else "x") is not None:
+            cnt += 1
+        keep = [t for t in cols if not _is_place(t)]
+        front, back = keep[:cnt], []
+        cols = cols[:len(front)] + [t for t in keep[cnt:]]   # 나머지는 그룹 라벨로
+        cut = len(front) - 1
+    else:
+        front, back = cols[:cut], [t for t in cols[cut + 1:] if not _is_place(t)]
+    if back:
+        front = front[:-1]          # `편입면적` 은 하위 열을 묶는 이름일 뿐이다
+    names = [t.replace(" ", "") for t in front + back]
+    if len(names) < 2:
+        return None
+    # 하위 열도 소재지도 아닌 나머지가 행 그룹 라벨이다 (완오리 `기존 공장 부지`).
+    tail = [t for t in (cols[cut + 1:] if cut is not None else [])
+            if not _is_place(t) and t not in back]
+    return names, start, " ".join(tail)
+
+
+# 표 밖 것들이 마지막 필지의 비고로 딸려 온다 — 주석(`주) …`)·증감 표기(`증) 960`)·
+# 그림 캡션. 용인 석천리 마지막 행이 이것들을 통째로 삼켰다.
+_잡음 = re.compile(r"^[가-힣]\)|<그림|구적도|편입용지도|위성사진|위치도")
+
+
+def _note(tail):
+    """행 꼬리 → 비고. 표 밖 것을 걷어내고 앞의 두 칸만 쓴다."""
+    out = []
+    for t in tail:
+        t = t.strip()
+        if _잡음.search(t):
+            break
+        if t and not _계.fullmatch(t) and _cell(t) is None:
+            out.append(t)
+    return out[:2]
+
+
+def _pick(names):
+    """어느 숫자 열이 **편입 면적**인가. `("열", i)` 또는 `("합", None)`."""
+    for k, t in enumerate(names):
+        if "금회" in t:                       # 용인 — 이력 열이 앞에 늘어선다
+            return "열", k
+    for k, t in enumerate(names[1:], 1):
+        if _계.fullmatch(t):                  # 괴산·평창 — `소계`/`계` 가 곧 편입
+            return "열", k
+    if len(names) > 2:                        # 예산 — 하위 열이 곧 구역이라 전부 더한다
+        return "합", None
+    return "열", len(names) - 1
+
+
+def _structured(lines):
+    """헤더가 읽히면 그것으로 훑는다. 실패하면 `None` 을 내고 옛 경로로 넘어간다."""
+    h = _header(lines)
+    if not h:
+        return None
+    names, k, group = h
+    n = len(names)
+    kind, idx = _pick(names)
+    has비고 = any(l.replace(" ", "") == "비고" for l in lines[1:k])
+    rows = []
+    while k < len(lines):
+        m = JIBUN.fullmatch(lines[k])
+        if not (m and k + 1 < len(lines) and JIMOK.fullmatch(lines[k + 1])):
+            k += 1
+            continue
+        nums = [_num_at(lines, k + 2 + t) for t in range(n)]
+        if any(v is None for v in nums):
+            return None                       # 헤더와 안 맞는다 — 옛 경로에 맡긴다
+        j = k + 2 + n
+        tail = []
+        while j < len(lines):
+            if JIBUN.fullmatch(lines[j]) and j + 1 < len(lines) \
+                    and JIMOK.fullmatch(lines[j + 1]):
+                break
+            tail.append(lines[j])
+            j += 1
+        소계 = sum(nums[1:]) if kind == "합" else nums[idx]
+        # 구역 — ①하위 열이 구역이면 가장 많이 편입된 열 ②아니면 행 그룹 ③아니면 비고
+        if kind == "합":
+            구역 = names[1 + max(range(n - 1), key=lambda t: nums[1 + t])]
+        elif group:
+            구역 = group
+        else:
+            구역 = " ".join(_note(tail)) if has비고 else "-"
+            구역 = 구역 or "-"
+        rows.append({"지번": lines[k], "지목": lines[k + 1], "산": bool(m.group(1)),
+                     "지적면적": nums[0], "소계": 소계, "비고": 구역})
+        # 다음 그룹 라벨 — 소계 행과 숫자를 걷어낸 나머지 (완오리 `2공장 증설 부지`)
+        if not has비고:
+            lab = [t for t in tail if not _계.fullmatch(t) and not _is_place(t)
+                   and re.search(r"[가-힣]", t)]
+            if lab:
+                group = " ".join(lab)
+        k = j
+    return rows or None
+
+
 def parse_survey(text):
     """편입토지조서 → 필지 목록. HWP 표라 셀이 한 줄씩 떨어져 나온다."""
     i = text.find("편입토지조서")
@@ -104,6 +280,16 @@ def parse_survey(text):
     guess = _cols(lines)
     tail_nums = [_n(x) for x in tail.split("\n")[1:12]] if tail else []
     tail_nums = [v for v in tail_nums if v is not None]
+
+    # 헤더를 읽는 쪽을 먼저 시도한다. 합계 행의 **어느 칸과든** 맞으면 확정 —
+    # 다열 조서는 합계 행에도 숫자가 여럿이라 자리를 짚어 맞출 수 없다
+    # (예산 계 행: 남산 9,838 · 양지 6,562 · … · 총 34,177).
+    st = _structured(lines)
+    if st:
+        got = sum(r["소계"] for r in st)
+        hit = next((v for v in tail_nums if abs(v - got) < 2), None)
+        if hit is not None:
+            return st, None, hit
 
     def total_for(n):
         return tail_nums[n - 1] if len(tail_nums) >= n else (
@@ -126,11 +312,15 @@ def parse_survey(text):
         # 편입되지 않는 필지를 조서에 올릴 이유가 없기 때문이다.
         if cand is None and all(r["소계"] > 0 for r in rows) and len(rows) > 1:
             cand = (rows, t)
+    if st:                       # 헤더를 읽은 쪽이 짐작보다 낫다
+        return _guard(st, None)
     if cand:
         return _guard(cand[0], cand[1])
     if best is None:
-        return [], "조서에서 필지를 읽지 못했습니다", None
-    return _guard(best[0], best[1])
+        return ([], "조서에서 필지를 읽지 못했습니다", None) if not st \
+            else _guard(st, None)
+    # 옛 경로가 합계를 못 맞췄으면 헤더를 읽은 쪽을 우선한다.
+    return _guard(st, None) if st else _guard(best[0], best[1])
 
 
 # ⚠️ **여기까지 왔다는 것은 합계 검산에 실패했다는 뜻이다.** 예전에는 그대로 돌려줬다 —
@@ -299,22 +489,48 @@ ZONE_DEFAULT = {
 }
 
 
+# 구역이 셋 이상일 때 쓰는 색 순서. 정답에서 실제로 본 순서다 —
+# 빨강·파랑이 압도적이고(7:2 · 6:1) 그다음이 노랑·청록이다 (완오리 1·2·3공장부지).
+ZONE_PALETTE = ["red", "blue", "yellow", "cyan"]
+
+
 def is_expansion(parcels):
-    """증설 사업인가 — 조서에 금회 부지가 따로 적혀 있으면 그렇다."""
-    return any("금회" in (p.get("비고") or "") for p in parcels)
+    """증설 사업인가 — 조서가 **모든 필지에** 금회/기허가를 적었으면 그렇다.
+
+    ⚠️ `금회` 가 어딘가 한 번 나오는 것만으로는 부족하다. 용인 석천리는 필지 16개 중
+       둘에만 `금회 증설부지` 라고 적어 두었는데, 나머지가 `-` 다 — 구역 구분이 아니라
+       그 두 필지에 붙인 주석이다. 실제 정답 삽도도 **빨강 하나**로 그렸다."""
+    vals = [(p.get("비고") or "-").strip() for p in parcels]
+    return bool(vals) and all(v and v != "-" for v in vals) \
+        and any("금회" in v for v in vals)
 
 
-def zone_of(비고, expansion):
-    """조서 `비고` → 구역 키.
+def zones_in(parcels):
+    """조서에 적힌 **구역 목록**. 나눌 것이 없으면 빈 리스트.
 
-    ⚠️ **비증설 사업은 나누지 않는다.** 정답도 `사업계획지구` 한 덩어리 빨강이다 (2/2).
-       나누면 `공유수면`·`-` 같은 비고가 기허가지로 잘못 묶여 파랗게 나온다 (천안 586).
+    구역이 적히는 자리가 셋이라 (`_structured` 머리말 참고) 파서가 어느 자리에서
+    읽었든 여기 `비고` 로 들어온다 — `금회증설`(비고 열) · `2공장 증설 부지`(행 그룹) ·
+    `금광1`(하위 열 이름).
 
-    증설이면 `금회` 가 든 것만 금회, 나머지가 기허가다. 표기는 사업마다 다르다
-    (`금회증설`·`금회 신규`·`금회사업`)."""
-    if not expansion:
+    ⚠️ **비증설 사업을 나누면 안 된다.** 정답이 `사업계획지구` 한 덩어리 빨강이다 (2/2).
+       `-`·`공유수면`·`도로점용` 같은 비고는 구역이 아니라 주석이다."""
+    if is_expansion(parcels):                 # ① 금회/기허가 — 가장 흔하다
+        return ["금회", "기허가"]
+    vals = [(p.get("비고") or "-").strip() for p in parcels]
+    uniq = [v for v in dict.fromkeys(vals) if v != "-"]
+    # ② 모든 필지에 구역이 적혀 있고 서로 다른 것이 둘 이상이라야 구역이다.
+    #    하나라도 `-` 면 그 비고는 주석이라는 뜻이다 (천안 `공유수면` 이 그렇다).
+    return uniq if len(uniq) > 1 and "-" not in vals else []
+
+
+def zone_of(비고, zones):
+    """조서 `비고` → 구역 키. `zones` 가 비면 전부 `사업계획지구` 한 덩어리."""
+    if not zones:
         return "사업계획지구"
-    return "금회" if "금회" in (비고 or "") else "기허가"
+    b = (비고 or "").strip()
+    if zones == ["금회", "기허가"]:
+        return "금회" if "금회" in b else "기허가"
+    return b if b in zones else zones[0]
 
 
 # 계산마다 **기준이 되는 부지가 다르다.** 증설 사업에서 이걸 섞으면 값이 조용히 틀린다.
@@ -339,14 +555,14 @@ def site_rings(parcels, basis="사업계획지구", min_ratio=0.5):
     ⚠️ `min_ratio` 기본값이 그리기(0.05)보다 높은 0.5 인 이유 — 편입률이 낮은 필지를
        넣으면 **사업지가 통째로 부풀어 거리가 0 에 가까워진다.** 원주 산59-1 은 임야
        184,166㎡ 중 23㎡(0.01%)만 편입이다 (`ecology._site_rings` 의 같은 판단)."""
-    if basis not in BASIS:
-        raise ValueError(f"기준은 {BASIS} 중 하나여야 한다: {basis!r}")
-    exp = is_expansion(parcels)
+    zs = zones_in(parcels)
+    if basis not in BASIS and basis not in zs:
+        raise ValueError(f"기준은 {BASIS} 이거나 이 조서의 구역 {zs} 여야 한다: {basis!r}")
     out = []
     for p in parcels:
         if p.get("편입률", 1.0) < min_ratio:
             continue
-        if basis == "금회" and zone_of(p.get("비고"), exp) != "금회":
+        if basis != "사업계획지구" and zone_of(p.get("비고"), zs) != basis:
             continue
         out.extend(p["rings"])
     return out
@@ -369,6 +585,8 @@ def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
     지도 위 지시선 라벨(`금회 신규부지` → 화살표)은 **만들지 않는다.** 괴산 1건뿐이고
     (1/7) 나머지는 전부 범례에 넣는다."""
     z = {k: dict(v) for k, v in ZONE_DEFAULT.items()}
+    for i, k in enumerate(zones_in(parcels)):          # 조서에서 읽은 구역 (셋 이상 가능)
+        z.setdefault(k, {"color": ZONE_PALETTE[i % len(ZONE_PALETTE)], "label": k})
     for k, v in (zones or {}).items():
         z.setdefault(k, {}).update(v)
     import math
@@ -390,20 +608,24 @@ def to_elements(parcels, origin_lonlat, center_px, px_per_m, min_ratio=0.05,
 
     # 구역끼리 **한 덩어리로 합친다.** 필지마다 선을 그으면 안쪽에 격자가 생긴다 —
     # 정답에는 외곽선 하나뿐이다.
-    expansion = is_expansion(parcels)
+    zs = zones_in(parcels)
     groups = {}
     for p in parcels:
         if p["편입률"] < min_ratio:          # 스치듯 지나가는 필지는 그리지 않는다
             continue
-        groups.setdefault(zone_of(p["비고"], expansion), []).extend(px(r) for r in p["rings"])
+        groups.setdefault(zone_of(p["비고"], zs), []).extend(px(r) for r in p["rings"])
 
     # 금회를 나중에 그린다 — 겹치면 금회 선이 위로 올라와야 한다.
-    order = [k for k in ("사업계획지구", "기허가", "금회") if k in groups]
+    order = [k for k in ("사업계획지구", "기허가", "금회") if k in groups] \
+        or [k for k in zs if k in groups]
     els = [{"type": "parcels", "polygons": groups[k], "color": z[k]["color"], "zone": k}
            for k in order]
     if legend and len(order) > 1:
         els.append({"type": "legend", "swatch": "outline", "title": "범 례",
-                    "items": [[z[k]["color"], z[k]["label"]] for k in reversed(order)]})
+                    # 금회/기허가는 **금회를 위에** 둔다 (정답 5건 전부). 조서에서 읽은
+                    # 다구역은 조서 순서 그대로다 (완오리 1공장 → 2공장 → 3공장).
+                    "items": [[z[k]["color"], z[k]["label"]]
+                              for k in (reversed(order) if "금회" in order else order)]})
     return els
 
 
@@ -469,28 +691,35 @@ def self_test(root="cases/small-env", online=False):
         if online:
             print(f"          ↳ {_online_check(name, open(f, encoding='utf-8').read(), rows)}")
     print(f"\n합계가 맞은 사업 {ok}/{len(files)}")
-    return _reject_test() and True
+    return _ext_test() and True
 
 
 # ⚠️ **통과만 세면 파서가 조용히 틀리는 것을 못 잡는다.** 낯선 서식 4건을 먹여 보니
-#    거부 없이 쓰레기를 냈다 (2026-08-24). 그래서 **거부돼야 하는 표본**도 함께 돌린다 —
-#    조서 구조가 회사 안에서도 여러 갈래다: 구역이 열로 오거나(예산 구례리 —
-#    남산·양지·금광1·금광2·도로부지), `구분` 열의 행 그룹으로 온다(완오리 — 기존 공장 부지).
-def _reject_test(root="engine/testdata/조서_거부표본"):
-    files = sorted(glob.glob(f"{root}/*.txt"))
-    if not files:
+#    거부 없이 쓰레기를 냈다 (2026-08-24). 그 4건을 표본으로 박아 두고 **조서에 적힌
+#    합계와 맞는지**까지 본다 — 필지 수만 세면 열이 밀린 것을 놓친다.
+def _ext_test(root="engine/testdata/조서_확장표본"):
+    spec = Path(root) / "기대값.json"
+    if not spec.exists():
         return True
-    print("\n거부돼야 하는 서식 — 우리 파서가 다루지 못하는 조서 구조")
+    want = json.loads(spec.read_text(encoding="utf-8"))
+    print("\n낯선 서식 — 조서 구조가 회사 안에서도 여러 갈래다")
     bad = 0
-    for f in files:
-        name = os.path.basename(f)[:-4]
-        _, err, _ = parse_survey(open(f, encoding="utf-8").read())
-        if err:
-            print(f"  [OK  ] {name:<14} {err}")
-        else:
-            bad += 1
-            print(f"  [FAIL] {name:<14} 거부해야 하는데 통과했습니다")
-    print(f"\n거부한 서식 {len(files) - bad}/{len(files)}")
+    for name, exp in want.items():
+        if name.startswith("_"):
+            continue
+        f = Path(root) / f"{name}.txt"
+        rows, err, _ = parse_survey(f.read_text(encoding="utf-8"))
+        got = sum(r["소계"] for r in rows)
+        zs = zones_in(rows)
+        why = (err or
+               (f"필지 {len(rows)} ≠ {exp['필지']}" if len(rows) != exp["필지"] else "") or
+               (f"합계 {got:,.0f} ≠ {exp['합계']:,}" if abs(got - exp["합계"]) >= 2 else "") or
+               (f"구역 {zs} ≠ {exp['구역']}" if zs != exp["구역"] else ""))
+        bad += bool(why)
+        print(f"  [{'FAIL' if why else 'OK  '}] {name:<14} {exp['구조']}")
+        print(f"          {why or f'필지 {len(rows)} · 합계 {got:,.0f}㎡'}"
+              + (f" · 구역 {zs}" if zs and not why else ""))
+    print(f"\n낯선 서식 {len(want) - 1 - bad}/{len(want) - 1}")
     return bad == 0
 
 
