@@ -191,10 +191,12 @@ def main():
     ok = [r for r in rows if r[5] == "○"]
     lines.append(f"\n수확 **{len(ok)}장** · {sum(r[3] for r in ok)/1e6:.0f}MB"
                  f" (실패 {len(rows)-len(ok)}건)\n")
-    lines.append("실패는 PSD 구조가 제각각이라 그렇다 — 국토환경성평가지도는 ECVAM 캡처가"
-                 " 레이어로 안 들어 있는 판이 있다. 반수동 처리 대상.\n")
-    lines.append("원주·천안은 **NAS 경로가 바뀌어** 목록 조회부터 실패한다"
-                 " (`0. 평가서/환경/환25-NN …`). 카탈로그 v2 재빌드 뒤에 다시 받는다.\n")
+    lines.append("**골든셋 8개 사업을 전부 수확했다.** 재편된 사업은 경로가 한 단계 더"
+                 " 깊다 — `0. 평가서/환경/환25-NN …/lsy {사업}/3. 삽도`"
+                 " (상위·하위의 띄어쓰기가 서로 다르다).\n")
+    lines.append("실패는 지역개황이 만드는 5종 **밖**이다 — 국토환경성평가지도는 ECVAM"
+                 " 캡처가 레이어로 안 들어 있는 판이고, 어차피 ECVAM 타일로 직접 받는다."
+                 " 표고는 다른 파트 삽도다.\n")
     open(MD, "w", encoding="utf-8").write("\n".join(lines))
     print(f"\n{len(rows)}장 → {MD}")
 
