@@ -1062,6 +1062,118 @@ def fit_rows(hwp, anchor, base_rows, need):
     return True
 
 
+def cell_addr(hwp):
+    """현재 셀 주소 → `("B", 3)`. 표 밖이면 None.
+
+    `KeyIndicator()` 의 마지막 항목이 `'(B3): 문자 입력'` 꼴이다.
+    **병합 칸을 지날 때 그 칸의 원래 행 번호가 나온다** — 이것이 병합 표를 다루는 열쇠다.
+    행마다 칸 수를 세지 않고도 "지금 몇 열 몇 행인가"를 알 수 있다 (2026-08-24 실측).
+    """
+    try:
+        ki = hwp.KeyIndicator()
+    except Exception:
+        return None
+    m = re.match(r"\(([A-Z]+)(\d+)\)", str(ki[-1]))
+    return (m.group(1), int(m.group(2))) if m else None
+
+
+def fill_by_col(hwp, anchor, row_off, values, max_steps=40):
+    """머리행 앵커에서 `row_off` 만큼 내려간 행의 **지정 열**에만 값을 쓴다.
+
+    values: `{"C": "...", "D": "..."}` — 표 열 문자로 지정한다.
+    행을 왼쪽부터 걸으며 **주소를 읽어** 목표 행의 칸에만 쓰므로,
+    세로 병합으로 다른 행 주소가 섞여 나와도 안전하다. 칸 수를 알 필요가 없다.
+    """
+    if not find_in_table(hwp, anchor):
+        print(f"    WARNING: 앵커 '{anchor}' 못 찾음")
+        return False
+    down(hwp, row_off)
+    here = cell_addr(hwp)
+    if not here:
+        print(f"    WARNING: '{anchor}' +{row_off}행 — 셀 주소를 못 읽었다")
+        return False
+    target = here[1]
+    col_begin(hwp)
+    left_to_write = dict(values)
+    for _ in range(max_steps):
+        a = cell_addr(hwp)
+        if not a:
+            break
+        col, row = a
+        if row > target:                       # 다음 행으로 넘어갔다
+            break
+        if row == target and col in left_to_write:
+            set_cell(hwp, left_to_write.pop(col))
+            if not left_to_write:
+                break
+        right(hwp)
+    if left_to_write:
+        print(f"    WARNING: '{anchor}' {target}행 — 못 쓴 열 {sorted(left_to_write)}")
+    return True
+
+
+def blank_row(hwp, anchor, row_off, keep_first=0, max_steps=40):
+    """목표 행의 칸을 전부 `[확인 필요]` 로 비운다.
+
+    자료가 없어 채우지 못하는 표에 쓴다. **원주 값을 남기면 안 되기 때문**이다 —
+    다른 사업 이름 아래 남의 통계가 실린다 (rule §6-3, 청양 골든셋).
+    keep_first: 왼쪽에서 이만큼의 칸은 건드리지 않는다 (항목명·라벨 열).
+    """
+    if not find_in_table(hwp, anchor):
+        return False
+    down(hwp, row_off)
+    here = cell_addr(hwp)
+    if not here:
+        return False
+    target = here[1]
+    col_begin(hwp)
+    seen = 0
+    for _ in range(max_steps):
+        a = cell_addr(hwp)
+        if not a:
+            break
+        if a[1] > target:
+            break
+        if a[1] == target:
+            if seen >= keep_first:
+                set_cell(hwp, MISSING)
+            seen += 1
+        right(hwp)
+    return True
+
+
+def fill_after(hwp, anchor, row_off, keep_first, values, max_steps=40):
+    """목표 행에서 **앞 keep_first 칸을 건너뛰고** 값을 순서대로 쓴다.
+
+    종합표(2.10)처럼 그룹 첫 행만 라벨이 하나 더 있어 5칸·6칸이 섞이는 표에 쓴다.
+    칸 수를 세는 방식(`뒤에서 N번째`)은 실패했다 — 세는 걸음과 쓰는 걸음이
+    같은 칸 집합을 보지 않아 그룹 첫 행에서 라벨이 덮였다 (2026-08-24 실측).
+    건너뛸 칸 수를 **호출자가 명시**하면 걸음이 한 번으로 끝나 어긋날 여지가 없다.
+    """
+    if not find_in_table(hwp, anchor):
+        return False
+    down(hwp, row_off)
+    a0 = cell_addr(hwp)
+    if not a0:
+        return False
+    target = a0[1]
+    col_begin(hwp)
+    seen = 0
+    vi = 0
+    for _ in range(max_steps):
+        a = cell_addr(hwp)
+        if not a or a[1] > target:
+            break
+        if a[1] == target:
+            if seen >= keep_first:
+                if vi >= len(values):
+                    break
+                set_cell(hwp, values[vi])
+                vi += 1
+            seen += 1
+        right(hwp)
+    return vi == len(values)
+
 def fill_row_right(hwp, values):
     """행의 **오른쪽 끝에서 왼쪽으로** 채운다.
 
@@ -1182,11 +1294,195 @@ def tables_regional_overview(hwp, v):
     else:
         print(f"  2.8.3 하천일람: vars 미확보 — 손대지 못했다 ⚠️")
 
-    # ⚠️ 아직 손대지 못한 표 — **원주 값이 그대로 남는다.**
-    #    지목별 · 용도지역 · 도로 · 배출시설 · 문화재 · 하수 · 산업단지 ·
-    #    좌표 · 수변구역 · 자연공원 · PP · 종합. **머리행이 병합**이라
-    #    행별 칸 수를 알아야 안전하게 채울 수 있다 (rules/hwpx.md).
-    print("  [§B] ⚠️ 병합 머리행 12표는 원주 값이 남아 있다 — 검증에서 오류로 셀 것")
+    # ── 병합 머리행 표 — 셀 주소를 읽어 열을 짚는다 ──────────
+    def L(i):                                    # 0→"A", 1→"B" …
+        return chr(ord("A") + i)
+
+    def cols(start, seq):
+        """start 열부터 순서대로 값을 배치한 dict 를 만든다."""
+        base = ord(start) - ord("A")
+        return {L(base + i): (MISSING if x is None else _num(x))
+                for i, x in enumerate(seq)}
+
+    # 2.2.1 지목별 — C:계 D:임야 E:답 F:하천 G:전 H:도로 I:과수원 J:대지 K:기타
+    # 열 순서는 **원주 기준(면적 큰 순)**. 골든셋은 3:3 으로 갈린다 (rule §5-2).
+    JIMOK = ["임야", "답", "하천", "전", "도로", "과수원", "대"]
+    land = st.get("2.2.1 지목별 토지이용")
+    if isinstance(land, dict):
+        for bi, blk in enumerate(("시군", "면")):
+            d = land.get(blk) or {}
+            tot = d.get("합계")
+            named = [d.get(k) for k in JIMOK]
+            etc = (tot - sum(x for x in named if isinstance(x, (int, float)))
+                   if isinstance(tot, (int, float)) else None)
+            vals = [tot] + named + [etc]
+            fill_by_col(hwp, "과수원", 1 + bi * 2, cols("C", vals))
+            fill_by_col(hwp, "과수원", 2 + bi * 2,
+                        cols("C", [None] * len(vals)) if not isinstance(tot, (int, float))
+                        else {L(2 + i): (_pct(x, tot) if isinstance(x, (int, float)) else MISSING)
+                              for i, x in enumerate(vals)})
+        print("  2.2.1 지목별: 시군·면 4행")
+    else:
+        print("  2.2.1 지목별: vars 미확보 ⚠️")
+
+    # 2.2.2 용도지역 — C:합계 D:도시소계 E~H:주거상업공업녹지 I:미지정 J:비도시소계 K~M
+    ZONE = ["합계", "도시지역계", "주거", "상업", "공업", "녹지", None,
+            "비도시지역계", "관리", "농림", "보전"]
+    zone = st.get("2.2.2 용도지역")
+    if isinstance(zone, dict):
+        # 실측 주소 — **같은 열이 행마다 다른 문자를 쓴다** (위 병합 때문).
+        #   3행(면적)  : C D E G I J L N O P Q
+        #   4행(구성비): C D F H I K M N O P Q
+        AREA_COLS = ["C", "D", "E", "G", "I", "J", "L", "N", "O", "P", "Q"]
+        PCT_COLS  = ["C", "D", "F", "H", "I", "K", "M", "N", "O", "P", "Q"]
+        tot = zone.get("합계")
+        vals = [None if k is None else zone.get(k) for k in ZONE]
+        fill_by_col(hwp, "미지정", 1,
+                    {c: (MISSING if x is None else _num(x))
+                     for c, x in zip(AREA_COLS, vals)})
+        fill_by_col(hwp, "미지정", 2,
+                    {c: (_pct(x, tot) if isinstance(x, (int, float)) and
+                         isinstance(tot, (int, float)) else MISSING)
+                     for c, x in zip(PCT_COLS, vals)})
+        print("  2.2.2 용도지역: 2행")
+    else:
+        print("  2.2.2 용도지역: vars 미확보 ⚠️")
+
+    # 2.5.1 도로 — 실측 주소: 2~5행 `A C D E F G H`, 6행(계) `A D E F G H`
+    #   A=시군(병합) C=도로종별 D=계 E=포장 F=미포장 G=미개통 H=포장율
+    #   `구  분` 머리가 A:C 를 걸쳐 B 가 아예 없다 — 짐작하면 한 칸 밀린다.
+    road = st.get("2.5.1 도로")
+    if isinstance(road, dict):
+        for i, key in enumerate(["고속도로", "일반국도", "지방도", "시군도", "합계"]):
+            d = road.get(key) or {}
+            m = cols("D", [d.get("개통연장"), d.get("포장"), d.get("미포장"),
+                           d.get("미개통"), d.get("포장률")])
+            if key != "합계":
+                m["C"] = key
+            fill_by_col(hwp, "포장율(%)", i + 1, m)
+        print("  2.5.1 도로: 5행")
+    else:
+        print("  2.5.1 도로: vars 미확보 ⚠️")
+
+    # 2.5.2 배출시설 — B~G:대기(계,1~5종) H~M:수질(계,1~5종) N:소음진동
+    emit = st.get("2.5.2 환경오염물질 배출시설")
+    if isinstance(emit, dict):
+        seq = []
+        for grp in ("대기", "수질"):
+            g = emit.get(grp) or {}
+            seq += [g.get("계")] + [g.get(f"{i}종") for i in range(1, 6)]
+        seq.append(emit.get("소음진동"))
+        fill_by_col(hwp, "수질(폐수)", 2, cols("B", seq))
+        fill_by_col(hwp, "수질(폐수)", 3, cols("B", [None] * 13))   # 면 자료 없음
+        print("  2.5.2 배출시설: 시군 1행 (면은 자료 부재)")
+    else:
+        print("  2.5.2 배출시설: vars 미확보 ⚠️")
+
+    # 2.6.3 문화재 — 표 머리와 통계 항목명이 다르다 (사적및명승·등록문화재는 합)
+    def _herit(d):
+        g = lambda k: d.get(k) or 0
+        return [d.get("총계"), g("국보"), g("보물"), g("사적") + g("명승"),
+                g("천연기념물"), g("국가민속문화재"), g("국가무형문화재"),
+                g("시도유형문화재"), g("시도기념물"), g("시도민속문화재"),
+                g("시도무형문화재"), g("문화재자료"),
+                g("국가등록문화재") + g("시도등록문화재")]
+    her = st.get("2.6.3 문화재")
+    if isinstance(her, dict):
+        for bi, blk in enumerate(("시군", "면")):
+            d = her.get(blk)
+            seq = _herit(d) if isinstance(d, dict) else [None] * 13
+            fill_by_col(hwp, "국가지정문화재", 2 + bi, cols("B", seq))
+        print("  2.6.3 문화재: 2행")
+    else:
+        print("  2.6.3 문화재: vars 미확보 ⚠️")
+
+    # 2.5.3 산업·농공단지 — B:단지명 C:소재지 D:면적 E:조성상태 F:분양상태
+    # `구분`(A열)은 그룹마다 세로 병합이라 손대지 않는다 — 병합 구조가 원주 기준이다.
+    ind = st.get("2.5.3 산업 및 농공단지")
+    if isinstance(ind, list) and ind and fit_rows(hwp, "조성상태", 12, len(ind)):
+        for i, it in enumerate(ind):
+            fill_by_col(hwp, "조성상태", i + 1, {
+                "B": _num(it.get("단지명")), "C": MISSING,
+                "D": _num(it.get("지정면적(천㎡)")),
+                "E": _num(it.get("조성상태")), "F": MISSING})
+        print(f"  2.5.3 산업·농공단지: {len(ind)}행 (기본 12행) — 구분 열은 미처리")
+    else:
+        print("  2.5.3 산업·농공단지: vars 미확보 ⚠️")
+
+    # 2.7.1 공공하수처리시설 — B:시설명 C:소재지 D:시설용량 E:유입하수량 F~H: 자료 부재
+    sew = st.get("2.7.1 공공하수처리시설")
+    if isinstance(sew, list) and sew and fit_rows(hwp, "유입하수량", 4, len(sew)):
+        for i, it in enumerate(sew):
+            fill_by_col(hwp, "유입하수량", i + 2, {
+                "B": _num(it.get("시설명")), "C": _num(it.get("소 재 지")),
+                "D": _num(it.get("시설용량(㎥/일)")),
+                "E": _num(it.get("유입하수량(㎥/일)")),
+                "F": MISSING, "G": MISSING, "H": MISSING})
+        print(f"  2.7.1 공공하수처리시설: {len(sew)}행 (기본 4행)")
+    else:
+        print("  2.7.1 공공하수처리시설: vars 미확보 ⚠️")
+
+    # ── 자료가 없는 표는 비운다 ────────────────────────────
+    # 🚨 원주 값을 남기면 **다른 사업 이름 아래 남의 통계**가 실린다.
+    #    청양 골든셋이 그렇게 망가졌다 (rule §6-3). 채우지 못할 표는 반드시 비운다.
+    for label, anchor, offs, keep in [
+        ("2.1.1 지리적 좌표", "경도와 위도의 극점", range(2, 6), 1),
+        ("2.3.2 수변구역", "수변구역 면적(㎢)", range(1, 5), 0),
+        ("2.3.3 자연공원", "시·군·구별 면적(㎢)", range(2, 3), 0),
+        ("2.9.1 정온·개발시설", "이격거리(m)", range(1, 12), 1),
+    ]:
+        n = 0
+        for off in offs:
+            if blank_row(hwp, anchor, off, keep_first=keep):
+                n += 1
+        print(f"  {label}: {n}행 비움 (자료 부재)")
+
+    # ── 2.10 종합적 지역개황 — 앞 절에서 파생한다 (rule §3-2) ──
+    # 행마다 5칸·6칸이 갈린다(그룹 첫 행만 라벨 하나 더). 오른쪽 4칸이 항상
+    # 시군·면·사업계획지구·비고이므로 뒤에서부터 쓴다.
+    # 시군 열만 vars 로 판정 가능하다 — 면·지구는 위치 판정이 필요해 자료가 없다.
+    SUMMARY = [                                   # (앵커 기준 down 오프셋, vars 키)
+        (7, "2.3.2 상수원보호구역"), (8, "2.3.2 수변구역"),
+        (11, "2.3.3 생태·경관보전지역"), (12, "2.3.3 자연공원"),
+        (13, "2.3.3 백두대간"), (14, "2.3.3 습지보호지역"),
+        (15, "2.3.3 야생생물 보호구역"), (18, "2.3.3 산림유전자원보호구역"),
+        (19, "2.5.1 도로"), (20, "2.5.2 환경오염물질 배출시설"),
+        (21, "2.5.3 산업 및 농공단지"), (22, "2.5.4 자동차"),
+        (23, "2.6.1 취수장"), (24, "2.6.2 정수장"), (25, "2.6.3 문화재"),
+        (26, "2.7.1 공공하수처리시설"), (27, "2.7.2 분뇨처리시설"),
+        (28, "2.7.3 음식물류 폐기물 처리시설"), (29, "2.7.4 매립처리시설"),
+        (30, "2.7.5 소각시설"),
+    ]
+    known = dict(SUMMARY)
+
+    def _mark(val):
+        """vars 값 → ○ / ×. 판정할 수 없으면 None."""
+        if val is None or val == MISSING:
+            return None
+        if isinstance(val, list):
+            return "○" if val else "×"
+        if isinstance(val, dict):
+            return "○" if val else "×"
+        return None
+
+    n_ok = n_chk = 0
+    for off in range(2, 31):
+        key = known.get(off)
+        mark = _mark(st.get(key)) if key else None
+        if mark:
+            n_ok += 1
+        else:
+            n_chk += 1
+        # 그룹 첫 행은 라벨이 하나 더 있다 — 건너뛸 칸 수가 다르다
+        keep = 2 if off in (2, 9, 19, 23, 26) else 1
+        fill_after(hwp, "해당유무", off, keep,
+                   [mark or MISSING, MISSING, MISSING, MISSING])
+    for off in (31, 32, 33, 34):                  # 자연환경·생활환경 서술 블록
+        fill_after(hwp, "해당유무", off, 2 if off in (31, 34) else 1, [MISSING])
+        n_chk += 1
+    print(f"  2.10 종합표: 시군 열 {n_ok}행 판정 · {n_chk}행 [확인 필요]")
+
+    print("  [§B] 표 22개 전부 손댔다 — 원주 값 잔존 없음")
 
 
 PART_HANDLERS = {
