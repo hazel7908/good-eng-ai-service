@@ -6,9 +6,8 @@ NAS 삽도 PSD → 깨끗한 도엽 베이스 수확.
 NAS 의 삽도 PSD 안에 쌓여 있다** — 배경 레이어로. 오버레이(사업계획지구·화살표·라벨)는
 전부 별도 레이어라, 배경만 합성하면 원본 도엽이 나온다 (평창 수계도로 검증).
 
-수확 기준: **보이는 큰(문서 25%↑) + 꽉 찬(불투명 60%↑) 래스터 레이어**만 합성한다.
-작은 레이어 = 오버레이, 크지만 성긴 레이어(반경원 묶음 등)도 오버레이다 —
-평창 위치도 틀에서 투명 레이어가 검은 사각형으로 얹히는 것으로 배웠다.
+수확 기준은 `extract_base` 안의 세 줄이다 — 불투명·명암·흑백마스크. 전 PSD 의 수치를
+모아 놓고 그었다. 크기만으로는 안 갈린다: 반경원 묶음도 문서를 꽉 채운다.
 
 결과는 `raw_data/nas/sheets/{사업}/{PSD이름}.png` (git 제외) + 목록은
 `catalog/review/sheets_harvest.md` (커밋).
@@ -27,6 +26,10 @@ from synology_filestation import connect, human
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "raw_data/nas/sheets")
 MD = os.path.join(ROOT, "catalog/review/sheets_harvest.md")
+# 수확본은 `index_sheets.py` 가 **종류 이름으로 정규화**한다 (`지역개황도 틀 2023.png`
+# → `지역개황도.png`). 그 매핑이 사업 폴더의 `_source.json` 에 있다.
+# ⚠️ 이걸 안 보면 **이미 수확한 것을 원래 이름으로 다시 만들어** 정규화가 깨진다.
+SIDECAR = "_source.json"
 
 # 지형도 계열만 — 위성사진·현장·계획도면류는 도엽이 아니다
 WANT = ("위치도", "지역개황도", "수계도", "표고", "지질도", "생태자연도", "국토환경성평가지도")
@@ -75,26 +78,30 @@ def extract_base(psd_path, out_png, min_frac=0.25):
         if im is None:
             continue
         mask = im.getchannel("A") if "A" in im.getbands() else None
+        op = 1.0
         if mask is not None:
             small = mask.resize((64, 64))
-            # 문턱 30% — 베이스가 **띠 여러 장**일 수 있다 (괴산 위성: 캡처 4장이
-            # 각각 문서의 ~48% 만 덮는다). 성긴 오버레이(반경원 묶음)는 10~20% 라
-            # 여전히 걸러진다.
-            if sum(small.getdata()) / (64 * 64 * 255) < 0.30:
-                continue
+            op = sum(small.getdata()) / (64 * 64 * 255)
         thumb = im.convert("RGB").resize((64, 64))
-        gray = thumb.convert("L")
-        vals = list(gray.getdata())
+        vals = list(thumb.convert("L").getdata())
         mean = sum(vals) / len(vals)
         std = (sum((v - mean) ** 2 for v in vals) / len(vals)) ** 0.5
-        sat = thumb.convert("HSV").getchannel("S")
-        sv = sum(sat.getdata()) / (64 * 64)
-        # 균일색·무채색 = 오버레이(흰 패널·음영 링·딤).
-        # ⚠️ **둘을 따로 쓰면 진짜 베이스가 걸린다** — 평창 위성은 어두운 숲 위주라
-        #    명암 std 10.8 로 균일색 문턱(12)에 걸렸다. 채도가 있으면 지도다.
-        if std < 12 and sv < 40:
+        sv = sum(thumb.convert("HSV").getchannel("S").getdata()) / (64 * 64)
+
+        # ── 베이스 판별 세 줄. 전 PSD 의 수치를 모아 놓고 그은 선이다 ────────────
+        # 오버레이(반경원 묶음·`모양 사본`)는 불투명이 **0.02 이하**로 뚝 떨어진다.
+        # 베이스는 도엽 조각이 가장자리만 걸쳐도 0.24 는 된다 (괴산 `97 음성, 충주`).
+        if op < 0.20:
             continue
-        if sv < 18:
+        # 단색 패널·딤·투명 레이어의 검은 사각형은 명암이 아예 없다 (std 0.0).
+        # 도엽 스캔의 하한은 9.8 이라 9 에서 갈린다.
+        if std < 9:
+            continue
+        # ⚠️ **채도로 지도를 가리면 안 된다.** 흑백 도엽 스캔이 있다 (괴산 수계도 `115`
+        #    채도 9.8 — 예전 필터가 이걸 죽였다). 대신 **순수 흑백 마스크**만 집어낸다:
+        #    채도 0 이면서 명암이 극단(std>60)인 것은 지도가 아니라 원형 마스크다
+        #    (평창 위치도 틀 `타원 1 사본` std 121).
+        if sv < 3 and std > 60:
             continue
         canvas.paste(im.convert("RGB"), (0, 0), mask)
         n += 1
@@ -127,6 +134,15 @@ def main():
             if os.path.exists(local) and size and os.path.getsize(local) != size:
                 print(f"  [부분] {site}/{name} {os.path.getsize(local)}≠{size} → 재다운로드")
                 os.remove(local)
+            # 정규화된 이름으로 이미 수확돼 있는가
+            side = os.path.join(dest, SIDECAR)
+            done = set()
+            if os.path.exists(side):
+                import json
+                done = set(json.load(open(side, encoding="utf-8")).values())
+            if os.path.basename(png) in done:
+                print(f"  [정리됨] {site}/{name}")
+                continue
             # PNG 는 필터가 바뀌었을 수 있으니 PSD 가 있으면 다시 뽑는다
             if os.path.exists(png) and not os.path.exists(local):
                 print(f"  [있음] {site}/{name}")

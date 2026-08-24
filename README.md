@@ -101,7 +101,10 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── build_catalog.py           정본 카탈로그 빌더 (290 유니크 사업, v2 예정)
 │   ├── build_stats_catalog.py     통계 원자료 카탈로그 (236건 — 지자체 통계연보·전국 통계)
 │   ├── nas_diff.py                스냅샷 변경 감지
+│   ├── harvest_sheets.py          삽도 PSD → 깨끗한 도엽 베이스 수확
+│   ├── index_sheets.py            수확본 종류 정규화 + 목록 (이미지는 git 제외)
 │   ├── data/nas_index.json.gz     전수 스냅샷 (08-13)
+│   ├── data/sheet_georef.json     수확 베이스 실측 좌표 — **다시 만들 수 없는 값**
 │   └── review/                    검수용 트리·워크리스트·조사 리포트
 │
 ├── docs/                        ▓ 사람이 읽는 문서 (신규는 YYYYMMDD_제목.md)
@@ -148,6 +151,7 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 | [`golden/small-env/_variants.md`](golden/small-env/_variants.md) | 골든셋 변이 비교 (n/7 근거) + 정답지 자기모순 목록 |
 | [`catalog/review/nas_survey_2026-08-13.md`](catalog/review/nas_survey_2026-08-13.md) | NAS 전수 조사 — 실규모·파트별 자료 집계·신규 사업 |
 | [`catalog/review/stats_catalog.md`](catalog/review/stats_catalog.md) | **통계 원자료 지도** — 지자체 통계연보 59·전국 통계 177, 배포 형식별 자동화 가능성 |
+| [`catalog/review/sheets_harvest.md`](catalog/review/sheets_harvest.md) | 도엽 베이스 수확 목록 — 사업·종류·좌표 유무 (이미지 자체는 git 제외) |
 | [`docs/20260819_지역개황_골든셋선별.md`](docs/20260819_지역개황_골든셋선별.md) | 지역개황 골든셋 선별 — 선별 근거·통계 출처 지도 |
 | [`docs/20260819_통계원자료_소싱실증.md`](docs/20260819_통계원자료_소싱실증.md) | **통계 원자료 소재 + 매핑 실증** — NAS 통계연보 91건·배포 형식 |
 | [`docs/20260819_삽도_자동화.md`](docs/20260819_삽도_자동화.md) | **삽도 자동화** — 베이스 출처 4곳·취득 실증·오버레이 자동화 등급 |
