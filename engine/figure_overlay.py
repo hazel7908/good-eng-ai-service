@@ -217,6 +217,42 @@ def draw_flow(d, path, count=5, k=1.0):
             acc += sl
 
 
+def draw_title(im, at, text, width, height, k=1.0, size=None):
+    """삽도 표제 — **리본 띠**. 정답 지역개황도가 상단 중앙에 두는 그 장식이다.
+
+    골든셋 7건이 **완전히 일치한다** — 중심 (0.50, 0.055) · 폭 = 캔버스 폭의 16.7% ·
+    높이 = 캔버스 높이의 5.8%. 사업이 달라도 같다.
+
+    모양은 평창 PSD 에서 실측했다: 흰 바탕에 검은 테두리, 위아래 변이 중앙에서
+    살짝 처지고(높이의 11%) 좌우 끝이 안으로 파인다(폭의 5.5%). 글자는 낱자를
+    벌려 쓴다."""
+    d = ImageDraw.Draw(im)
+    cx, cy = at
+    w, h = width, height
+    x0, y0 = cx - w / 2, cy - h / 2
+    sag = h * 0.11
+    notch = w * 0.055
+
+    def curve(top):
+        pts = []
+        for i in range(41):
+            t = i / 40
+            x = x0 + w * t
+            off = sag * (1 - (2 * t - 1) ** 2)
+            pts.append((x, y0 + off if top else y0 + h - off))
+        return pts
+
+    poly = curve(True) + [(x0 + w - notch, cy)] + curve(False)[::-1] + [(x0 + notch, cy)]
+    d.polygon(poly, fill=(255, 255, 255))
+    d.line(poly + [poly[0]], fill=(0, 0, 0), width=max(2, round(3 * k)))
+
+    px = size or int(h * 0.45)
+    f = _font(px)
+    spaced = " ".join(text)
+    d.text((cx, cy), spaced, font=f, fill=(0, 0, 0), anchor="mm",
+           stroke_width=max(1, round(px * 0.06)), stroke_fill=(255, 255, 255))
+
+
 def draw_admin(im, at, text, k=1.0, size=None):
     """행정구역명 — **낱자를 하나씩 박스에 담아** 벌려 놓는다.
 
@@ -654,6 +690,13 @@ def render(spec, out_path=None):
             # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.
             # 캔버스 크기를 내용에서 잡는데 그 크기로 다시 배율을 매기면 서로 물려 넘친다.
             draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), 1.0)
+            d = ImageDraw.Draw(im)
+        elif t == "title":
+            # 크기를 안 주면 골든셋 7/7 비율을 쓴다 — 폭 16.7% · 높이 5.8%
+            draw_title(im, el.get("at") or [im.width / 2, im.height * 0.055],
+                       el["text"],
+                       el.get("width", im.width * 0.167),
+                       el.get("height", im.height * 0.058), k, el.get("size"))
             d = ImageDraw.Draw(im)
         elif t == "admin":
             draw_admin(im, pos(el, "north") if not el.get("at") else el["at"],

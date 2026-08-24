@@ -139,7 +139,8 @@ def build(site, verbose=True):
                               protect_px=int(1200 * ppm),
                               avoid=ring_pts, keep=int(900 * ppm))
     els += A._avoid(regs, int(700 * ppm))
-    els += [{"type": "scalebar", "at": [W - 560, H - 120],
+    els += [{"type": "title", "text": "지역개황도"},
+            {"type": "scalebar", "at": [W - 560, H - 120],
              "length_px": int(1000 * ppm), "label": "1.0km"},
             {"type": "north", "at": [W - 160, H - 190]}]
 
