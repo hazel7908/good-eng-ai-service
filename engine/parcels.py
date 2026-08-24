@@ -106,8 +106,14 @@ def _scan(lines, n):
 
 _소재지 = re.compile(r"(시|군|구|읍|면|리|동)$")
 # ⚠️ **지목을 "한글 한 글자" 로 잡으면 안 된다.** 예산 조서는 합계 행을 `계` 로 여는데,
-#    앞 칸이 `977` 이라 `977 계` 가 지번+지목으로 읽혔다. 지목 약자만 허용한다.
-JIMOK = re.compile(r"[전답과목장임광염대공창종철제천구유양수도로사묘잡원학차체분]")
+#    앞 칸이 `977` 이라 `977 계` 가 지번+지목으로 읽혔다.
+# ⚠️ **한 글자로만 잡아도 안 된다.** 골든셋이 전부 약자(`전`·`답`·`임`)를 써서 몰랐는데,
+#    천안 백자리는 정식 명칭을 쓴다 — `종교`·`임야`·`창고`·`유지`·`도로`.
+JIMOK = re.compile(
+    r"[전답과목장임광염대공창종철제천구유양수도로사묘잡원학차체분]"
+    r"|전|답|과수원|목장용지|임야|광천지|염전|대|공장용지|학교용지|주차장|주유소용지"
+    r"|창고용지|창고|도로|철도용지|제방|하천|구거|유지|양어장|수도용지|공원|체육용지"
+    r"|유원지|종교용지|종교|사적지|묘지|잡종지")
 _계 = re.compile(r"\s*(소\s*계|합\s*계|계)\s*$")
 
 
@@ -130,7 +136,25 @@ def _cell(s):
     return float(m.group(0).replace(",", "")) if m else None
 
 
-def _num_at(lines, q):
+def _looks_row(lines, q, n):
+    """`lines[q]` 에서 **한 필지 행이 시작되는가** — 지번 · 지목 · 숫자 n 칸.
+
+    ⚠️ 지번+지목만 보면 안 된다. `도로`·`창고`·`유지` 는 지목이면서 비고에도 흔히 쓰인다
+       (안성 `374-2 답 2,774 526 도로` 에서 `526 도로` 가 지번+지목으로 읽혔다).
+       **뒤에 숫자가 n 칸 따라오는지**까지 봐야 자리로 갈린다."""
+    if not (JIBUN.fullmatch(lines[q]) and q + 1 < len(lines)
+            and JIMOK.fullmatch(lines[q + 1])):
+        return False
+    for t in range(n):
+        v = lines[q + 2 + t] if q + 2 + t < len(lines) else None
+        # 숫자가 **들어 있기만** 하면 된다 — 값에 접두어가 붙는 조서가 있다
+        # (용인 석천리 `증) 405`). 대신 `구`·`도로` 처럼 숫자 없는 칸은 걸러진다.
+        if v is None or not (v.strip() in ("-", "–", "—") or re.search(r"\d", v)):
+            return False
+    return True
+
+
+def _num_at(lines, q, n=1):
     """`lines[q]` 를 숫자 칸으로 읽는다. 다음 필지의 지번이면 `None` (= 행 끝).
 
     ⚠️ **`264` 는 숫자이면서 지번이다.** 무엇인지는 뒤 칸이 정한다 — 지목이 따라오면
@@ -139,7 +163,7 @@ def _num_at(lines, q):
     if q >= len(lines):
         return None
     t = lines[q].strip()
-    if JIBUN.fullmatch(t) and q + 1 < len(lines) and JIMOK.fullmatch(lines[q + 1]):
+    if _looks_row(lines, q, n):
         return None
     if t in ("-", "–", "—", ""):
         return 0.0
@@ -180,15 +204,26 @@ def _header(lines):
         cut = len(front) - 1
     else:
         front, back = cols[:cut], [t for t in cols[cut + 1:] if not _is_place(t)]
-    if back:
-        front = front[:-1]          # `편입면적` 은 하위 열을 묶는 이름일 뿐이다
-    names = [t.replace(" ", "") for t in front + back]
+    # 첫 데이터 행이 숫자를 몇 개 물었는지 — 헤더 해석의 심판이다.
+    cnt = 0
+    while _num_at(lines, start + 2 + cnt, 1) is not None:
+        cnt += 1
+    # ⚠️ `비고` 뒤에 오는 것이 **늘 하위 열은 아니다.** 천안 백자리는 `구분` 칸
+    #    (`백자리 종교시설`·`소규모환경영향평가시`)이 거기 온다. 둘 중 행과 맞는 쪽을 쓴다.
+    # ⚠️ `<=` 다. 행 끝의 `-` 는 비고인데 숫자 0 으로도 읽혀 `cnt` 를 하나 부풀린다
+    #    (용인 석천리 — 실제 5열인데 6으로 세어진다).
+    if back and 2 <= len(front) - 1 + len(back) <= cnt:
+        names, group_extra = front[:-1] + back, []
+    else:
+        names, group_extra = front[:cnt] if cnt else front, back
+        back = []
+    names = [t.replace(" ", "") for t in names]
     if len(names) < 2:
         return None
     # 하위 열도 소재지도 아닌 나머지가 행 그룹 라벨이다 (완오리 `기존 공장 부지`).
     tail = [t for t in (cols[cut + 1:] if cut is not None else [])
-            if not _is_place(t) and t not in back]
-    return names, start, " ".join(tail)
+            if not _is_place(t) and t not in back] + list(group_extra)
+    return names, start, " ".join(dict.fromkeys(tail)), bool(back)
 
 
 # 표 밖 것들이 마지막 필지의 비고로 딸려 온다 — 주석(`주) …`)·증감 표기(`증) 960`)·
@@ -226,24 +261,23 @@ def _structured(lines):
     h = _header(lines)
     if not h:
         return None
-    names, k, group = h
+    names, k, group, has_sub = h
     n = len(names)
     kind, idx = _pick(names)
     has비고 = any(l.replace(" ", "") == "비고" for l in lines[1:k])
     rows = []
     while k < len(lines):
-        m = JIBUN.fullmatch(lines[k])
-        if not (m and k + 1 < len(lines) and JIMOK.fullmatch(lines[k + 1])):
+        if not _looks_row(lines, k, n):
             k += 1
             continue
-        nums = [_num_at(lines, k + 2 + t) for t in range(n)]
+        m = JIBUN.fullmatch(lines[k])
+        nums = [_num_at(lines, k + 2 + t, n) for t in range(n)]
         if any(v is None for v in nums):
             return None                       # 헤더와 안 맞는다 — 옛 경로에 맡긴다
         j = k + 2 + n
         tail = []
         while j < len(lines):
-            if JIBUN.fullmatch(lines[j]) and j + 1 < len(lines) \
-                    and JIMOK.fullmatch(lines[j + 1]):
+            if _looks_row(lines, j, n):
                 break
             tail.append(lines[j])
             j += 1
@@ -257,7 +291,8 @@ def _structured(lines):
             구역 = " ".join(_note(tail)) if has비고 else "-"
             구역 = 구역 or "-"
         rows.append({"지번": lines[k], "지목": lines[k + 1], "산": bool(m.group(1)),
-                     "지적면적": nums[0], "소계": 소계, "비고": 구역})
+                     "지적면적": nums[0], "소계": 소계, "비고": 구역,
+                     "구역출처": "열" if kind == "합" else ("그룹" if group else "비고")})
         # 다음 그룹 라벨 — 소계 행과 숫자를 걷어낸 나머지 (완오리 `2공장 증설 부지`)
         if not has비고:
             lab = [t for t in tail if not _계.fullmatch(t) and not _is_place(t)
@@ -516,11 +551,16 @@ def zones_in(parcels):
        `-`·`공유수면`·`도로점용` 같은 비고는 구역이 아니라 주석이다."""
     if is_expansion(parcels):                 # ① 금회/기허가 — 가장 흔하다
         return ["금회", "기허가"]
-    vals = [(p.get("비고") or "-").strip() for p in parcels]
-    uniq = [v for v in dict.fromkeys(vals) if v != "-"]
-    # ② 모든 필지에 구역이 적혀 있고 서로 다른 것이 둘 이상이라야 구역이다.
-    #    하나라도 `-` 면 그 비고는 주석이라는 뜻이다 (천안 `공유수면` 이 그렇다).
-    return uniq if len(uniq) > 1 and "-" not in vals else []
+    # ② **비고 칸은 원래 주석 자리다.** 거기 적힌 것을 구역으로 쓰는 건 `기허가`/
+    #    `금회증설` 관례뿐이고, 그건 위에서 이미 걸렀다. 나머지 비고는 구역이 아니다 —
+    #    천안 백자리 `소규모환경영향평가시 : 9,900㎡` · 안성 `황태성(사용승낙)` ·
+    #    천안 화덕리 `공유수면` 이 전부 그렇다.
+    #    구역으로 인정하는 것은 **하위 열 이름**(예산)과 **행 그룹**(완오리)뿐이다.
+    if not any(p.get("구역출처") in ("열", "그룹") for p in parcels):
+        return []
+    uniq = [v for v in dict.fromkeys((p.get("비고") or "-").strip() for p in parcels)
+            if v != "-"]
+    return uniq if len(uniq) > 1 else []
 
 
 def zone_of(비고, zones):
