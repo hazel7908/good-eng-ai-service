@@ -7,7 +7,7 @@
 
 ---
 
-## 현재 상태 (2026-08-13)
+## 현재 상태 (2026-08-24)
 
 **두 파트(소음·진동, 대기질)의 생성→검증 파이프라인 완주. 두 파트 모두 "코드로 고칠 수 있는 오류 0" 도달.**
 
@@ -19,6 +19,19 @@
 | 평창 수청리 | 대기질 | **61.6%** (85/138) — 계산 체인 오차 0, 잔여는 인풋·구조·표준 영역 |
 
 세 숫자가 다른 것은 성능 분산이 아니라 **서로 다른 조건의 측정**이다 — 텍스트 인풋 + 통상 구조면 90%대, 삽도 인풋이면 70%대, 구조 이질 사업은 50%대. 상세와 캘리브레이션: [`docs/20260813_결과보고_소음진동_대기질.md`](docs/20260813_결과보고_소음진동_대기질.md)
+
+**진행 중 — 세 번째 파트 「지역개황」** (2026-08-24 갱신)
+
+앞 두 파트는 *측정값을 계산*했다. 지역개황은 **외부 통계를 옮겨 적는다** — 값의 90%가 계산이 아니라 **소싱**이다.
+
+| 층 | 내용 | 상태 |
+|:--:|---|---|
+| A 본문 토큰 | 사업 고유값 | 명세 완료 · 베이스 문서는 Windows 대기 |
+| **B 통계 표** | **자료 19종 → 절 19개** | **절 18/19 · 자료 15/19종** |
+| C 법령표 | 2.4 전체 | 고정 |
+| D 삽도 6종 | 지역개황도·수계도 등 | 5종 정답 근접 |
+
+통계는 네 층으로 나눠 다룬다 — ①어느 파일이 어디 있나(`stats_catalog`) ②파일 안 어디에 뭐가 있나(`SOURCES` 선언) ③꺼내는 방법(엔진) ④**꺼낸 값 + 판 지문**(`stats_values`). 생성은 ④만 본다.
 
 **다음 단계**: 나머지 파트로 확대 (10월 말 전체 주제 영역 구현 목표). NAS 전수 조사(08-13)로 파트별 완성 보고서 165~234건 확보 확인 — 자료 허들 없음. 진행 현황·할 일은 [`CLAUDE.md`](CLAUDE.md).
 
@@ -81,7 +94,13 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 ├── engine/                      ▓ 생성 엔진 (파트 무관 본체 + 파트 핸들러)
 │   ├── generate.py                한글 API 생성 (Windows) — PART_HANDLERS 레지스트리
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
-│   ├── stats_extract.py          통계연보 엑셀 → 지역개황 표 (자체검증 내장)
+│   │  ▸ 지역개황 통계 소싱 — 자료 19종을 네 층으로 나눠 읽는다
+│   ├── xlsx_grid.py              공용 격자 — 머리글 인식·병합 끌어채우기·**이름으로 열 찾기**
+│   ├── stats_extract.py          지자체 통계연보 엑셀 → 6절 (자체검증 내장)
+│   ├── stats_national.py         전국 통계 엑셀 → 9절 · 좌표는 `SOURCES` 선언 (자체검증 82)
+│   ├── stats_irregular.py        선언으로 안 되는 모양 — 수변구역·생태경관·하천일람·야생생물
+│   ├── hwpx_table.py             HWPX 표 읽기 (**읽기 전용** — `rules/hwpx.md` 금지는 쓰기)
+│   ├── stats_pdf.py              텍스트 PDF → 자연공원·습지·백두대간 (합계 검산으로 표 복원)
 │   │  ▸ 삽도 — 실행 경로
 │   ├── map_fetch.py              주소·좌표 → 베이스 지도 (NGII 지형도·위성 · ECVAM · EGIS)
 │   ├── parcels.py                편입토지조서 → 사업지 경계 폴리곤 (연속지적도)
@@ -100,11 +119,17 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── synology_filestation.py    NAS API 클라이언트 (병렬 크롤)
 │   ├── build_catalog.py           정본 카탈로그 빌더 (290 유니크 사업, v2 예정)
 │   ├── build_stats_catalog.py     통계 원자료 카탈로그 (236건 — 지자체 통계연보·전국 통계)
+│   ├── stats_registry.py          **통계 자료 전수 목록** — 필요·보유·발행처 (19종)
+│   ├── build_stats_values.py      원자료 → **값 저장소** + 판 지문(sha256)
+│   ├── trace_stats.py             ⚙ 역추적기 — 값을 넣으면 원자료 어느 시트·열인지 알려준다
 │   ├── nas_diff.py                스냅샷 변경 감지
 │   ├── harvest_sheets.py          삽도 PSD → 깨끗한 도엽 베이스 수확
 │   ├── index_sheets.py            수확본 종류 정규화 + 목록 (이미지는 git 제외)
 │   ├── data/nas_index.json.gz     전수 스냅샷 (08-13)
 │   ├── data/sheet_georef.json     수확 베이스 실측 좌표 — **다시 만들 수 없는 값**
+│   ├── data/stats_values.manifest.json  판 목록·지문·좌표 — **다시 만들 수 없는 값**
+│   ├── data/stats_holdings.json   자료별 최신 보유 현황 (창고 + 로컬)
+│   ├── data/stats_values/         값 본체 (git 제외 — 재생성 가능, NAS 로 공유)
 │   └── review/                    검수용 트리·워크리스트·조사 리포트
 │
 ├── docs/                        ▓ 사람이 읽는 문서 (신규는 YYYYMMDD_제목.md)
@@ -151,6 +176,7 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 | [`golden/small-env/_variants.md`](golden/small-env/_variants.md) | 골든셋 변이 비교 (n/7 근거) + 정답지 자기모순 목록 |
 | [`catalog/review/nas_survey_2026-08-13.md`](catalog/review/nas_survey_2026-08-13.md) | NAS 전수 조사 — 실규모·파트별 자료 집계·신규 사업 |
 | [`catalog/review/stats_catalog.md`](catalog/review/stats_catalog.md) | **통계 원자료 지도** — 지자체 통계연보 59·전국 통계 177, 배포 형식별 자동화 가능성 |
+| [`docs/20260824_지역개황_작업계획.md`](docs/20260824_지역개황_작업계획.md) | **지역개황 4층 구조·통계 19종 전수·값 저장소 설계** — 이 파트의 정본 |
 | [`catalog/review/sheets_harvest.md`](catalog/review/sheets_harvest.md) | 도엽 베이스 수확 목록 — 사업·종류·좌표 유무 (이미지 자체는 git 제외) |
 | [`docs/20260819_지역개황_골든셋선별.md`](docs/20260819_지역개황_골든셋선별.md) | 지역개황 골든셋 선별 — 선별 근거·통계 출처 지도 |
 | [`docs/20260819_통계원자료_소싱실증.md`](docs/20260819_통계원자료_소싱실증.md) | **통계 원자료 소재 + 매핑 실증** — NAS 통계연보 91건·배포 형식 |
@@ -178,6 +204,6 @@ rule 파일은 **경로로 스코핑**된다. 파일을 여는 행위 자체가 
 
 - Python 3.10+, 가상환경 `.venv/`
 - **Windows + 한글 프로그램 필요**: `generate.py`(생성) · `build_template.py`(베이스 문서) · `to_pdf.py`(육안 검증)
-- **플랫폼 무관**: `calc*.py`(계산·자체검증) · `stats_extract.py`(통계 소싱) · `figure_overlay.py`(삽도) · `fill_report.py` · `extract.py` · `catalog/*`(NAS 조사)
+- **플랫폼 무관**: `calc*.py`(계산·자체검증) · `stats_*.py`·`xlsx_grid.py`·`hwpx_table.py`(통계 소싱) · `figure_overlay.py`(삽도) · `fill_report.py` · `extract.py` · `catalog/*`(NAS 조사)
 - 원본 HWP/PDF/JPG는 `raw_data/` (git 제외)
 - Python XML 직접 조작은 파일 무결성 문제로 금지 — 한글 API만 사용 (`rules/hwpx.md`)

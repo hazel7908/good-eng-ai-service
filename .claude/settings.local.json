@@ -41,7 +41,27 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Bash(git fetch *)",
+      "Bash(ls catalog/ catalog/data 2>/dev/null && head -40 catalog/*.py 2>/dev/null | head -60; ls /Volumes/ 2>/dev/null)",
+      "Bash(ls -la catalog/data/ && python3 -c \" *)",
+      "Bash(ps -axo pid,ppid,stat,etime,%cpu,command)",
+      "Bash(awk '$2==23838 || $1==23838')",
+      "Bash(ps -axo pid,ppid,stat,etime,command)",
+      "Bash(ps -o pid,time,%cpu -p 23840)",
+      "Bash(ps -o pid,etime,time -p 23840)",
+      "Bash(ps -o pid,etime,time,%cpu -p 23840)",
+      "Bash(kill 23840)",
+      "Bash(ps -o etime,time -p 46675)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(.venv/bin/py-spy dump *)",
+      "Bash(nettop -p 46675 -L 1 -x)",
+      "Bash(nettop -p 46675 -L 1)",
+      "Bash(awk -F, 'NR==2{print \"bytes_in:\", $5, \" bytes_out:\", $6}')",
+      "Bash(kill 46675)",
+      "Bash(zsh /private/tmp/claude-503/-Users-hazel-Documents-good-eng-ai-service/f78b275b-2423-4204-8fa6-1294eaef2a48/scratchpad/crawl_parts.sh)",
+      "Bash(git mv *)",
+      "Bash(xxd)"
     ]
   }
 }
