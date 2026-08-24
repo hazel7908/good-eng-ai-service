@@ -1020,14 +1020,173 @@ def slots_regional_overview(v):
     return out
 
 
-def tables_regional_overview(hwp, v):
-    """§B 17개 표 — **Windows 에서 만든다.** 지금은 자리만 잡아 둔다.
+def _num(x):
+    """표 셀 숫자 표기 — 천단위 쉼표, 불필요한 소수 0 제거."""
+    if x is None:
+        return MISSING
+    if isinstance(x, bool):
+        return str(x)
+    if isinstance(x, int):
+        return f"{x:,}"
+    if isinstance(x, float):
+        return f"{int(x):,}" if x == int(x) else f"{x:,}"
+    return str(x)
 
-    표마다 행 수가 다르고(시군마다 시설 개수가 다르다) 한글 API 로 행을 늘려야 해서,
-    실제 문서를 열어 보며 짜야 한다. vars 의 `통계` 는 이미 값이 채워져 있다.
+
+def fit_rows(hwp, anchor, base_rows, need):
+    """앵커 행 아래 **데이터 행 수**를 need 로 맞춘다.
+
+    끝나면 커서는 **첫 데이터 행 첫 칸**에 있다.
+    `append_rows()` 는 늘리기만 한다 — 줄이는 쪽은 여기서 처리한다.
+    시군마다 시설 개수가 달라 양방향이 다 필요하다.
     """
-    raise NotImplementedError(
-        "§B 표 편집은 Windows 세션에서 작성한다 — vars['통계'] 에 값은 준비돼 있다")
+    cur = base_rows
+    while cur > need:
+        if not find_in_table(hwp, anchor):
+            print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
+            return False
+        down(hwp, cur)                      # 마지막 데이터 행
+        hwp.HAction.Run("TableDeleteRow")
+        cur -= 1
+    if need > cur:
+        if not find_in_table(hwp, anchor):
+            print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
+            return False
+        append_rows(hwp, anchor, cur, need)
+        return True
+    if not find_in_table(hwp, anchor):
+        print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
+        return False
+    down(hwp)
+    col_begin(hwp)
+    return True
+
+
+def fill_row_right(hwp, values):
+    """행의 **오른쪽 끝에서 왼쪽으로** 채운다.
+
+    ⛔ **2026-08-24 현재 쓰지 않는다** — `TableRowEnd` 가 기대대로 마지막 칸으로
+    가지 않아 값이 왼쪽부터 쓰이고 **이전 행까지 침범했다.** 아래 설명은 의도였다.
+
+    첫 열이 세로 병합된 표에서는 행마다 셀 개수가 다르다 — 산업단지 표의 `구분` 은
+    그룹(일반/농공)마다 병합돼 있어 그룹 첫 행만 6칸이고 나머지는 5칸이다.
+    왼쪽부터 채우면 **한 칸씩 밀린다.** 오른쪽 끝을 기준으로 잡으면 병합과 무관하게 맞는다.
+    """
+    hwp.HAction.Run("TableRowEnd")
+    for i, v in enumerate(reversed(values)):
+        if i:
+            left(hwp)
+        set_cell(hwp, v)
+
+
+def fill_list_table(hwp, label, anchor, base_rows, rows, cols, right_align=False):
+    """목록형 표 하나를 채운다.
+
+    cols: 표 열 순서대로의 vars 키 목록. **`None` 은 vars 에 없는 열**이라
+          `[확인 필요]` 로 비운다 — 원주 값을 남겨두면 다른 사업 이름 아래
+          남의 통계가 남는다 (청양 골든셋이 그렇게 망가졌다).
+    """
+    n = len(rows)
+    if n == 0:
+        print(f"  {label}: 0행 — 지정 없음 (표 처리는 §C 삭제 대상)")
+        return 0
+    if not fit_rows(hwp, anchor, base_rows, n):
+        return 0
+    put = fill_row_right if right_align else fill_row
+    for i, item in enumerate(rows):
+        if i:
+            down(hwp)
+            col_begin(hwp)
+        put(hwp, [MISSING if c is None else _num(item.get(c)) for c in cols])
+    print(f"  {label}: {n}행 (기본 {base_rows}행)")
+    return n
+
+
+# 목록형 표 — (라벨, 앵커, 기본 데이터행수, vars 키, 표 열 순서의 vars 키)
+# ⚠️ 앵커는 **표 안에서 유일**해야 한다. `find_in_table` 은 본문 매치를 건너뛰지만
+#    다른 표에 같은 문자열이 있으면 거기가 먼저 걸린다 (rules/hwpx.md).
+#    전부 베이스 문서에서 실측 확인했다 (2026-08-24).
+LIST_TABLES = [
+    ("2.3.2 상수원보호구역", "보호구역명", 1, "2.3.2 상수원보호구역",
+     ["보호구역명", "지정일자", "지정면적(㎢)", "소재지"]),
+    ("2.3.3 산림유전자원", "보호구역 명칭", 2, "2.3.3 산림유전자원보호구역",
+     ["지정일자", None, "지정유형", "위치", "면적(㎡)"]),
+    ("2.3.3 야생생물", "연번", 3, "2.3.3 야생생물 보호구역",
+     ["연번", "소재지", "면적(㎢)", "비고"]),
+    # ⛔ 2.5.3 산업·농공단지는 **아직 못 넣는다.** `구분` 열이 그룹(일반/농공)마다
+    #    세로 병합이라 행마다 셀 수가 5·6 으로 갈린다. 왼쪽 정렬은 한 칸씩 밀리고,
+    #    오른쪽 정렬(TableRowEnd 기준)은 이전 행을 침범했다 — 2026-08-24 실측.
+    #    행별 칸 수를 런타임에 알아내는 방법이 필요하다.
+    ("2.6.1 취수장", "취수원정보", 3, "2.6.1 취수장",
+     ["시설명", "소재지 주소", "설계시설용량(㎥/일)", "취수원정보",
+      "일평균취수량(㎥/일)", "공급정수장"]),
+    # 앵커 `정수처리적용방식` 은 못 쓴다 — 셀이 `정수처리`/`적용방식` 두 문단이다
+    ("2.6.2 정수장", "급수지역", 3, "2.6.2 정수장",
+     ["시설명", "소재지 주소", "설계시설용량(㎥/일)", "일평균생산량(㎥/일)",
+      "정수처리 적용방식", "급수지역"]),
+    ("2.7.2 분뇨처리시설", "연계처리장명", 1, "2.7.2 분뇨처리시설",
+     ["시설명", "소재지", "시설용량(㎥/일)", "처리량(㎥/일)", "처리공법", None]),
+    ("2.7.3 음식물류", "업체/시설명", 1, "2.7.3 음식물류 폐기물 처리시설",
+     ["업체/시설명", "소재지", "공공/민간", "시설용량(톤/일)", "처리방법", "처리량(톤/년)"]),
+    ("2.7.4 매립처리시설", "기매립량", 1, "2.7.4 매립처리시설",
+     ["시설명", "소재지", "총매립면적(㎡)", "총매립용량(㎥)",
+      "기매립량(㎥)", "잔여매립가능량(㎥)"]),
+]
+
+
+def tables_regional_overview(hwp, v):
+    """§B 표 — 값이 있으면 채우고, **없으면 `[확인 필요]` 로 비운다.**
+
+    🚨 베이스 문서에는 원주의 통계가 그대로 들어 있다. 일부만 채우면 나머지 표는
+    **다른 사업 이름 아래 원주 값**으로 남는다 — 청양 골든셋이 그렇게 망가진 물건이다
+    (`regional-overview.md` §6-3). **손대지 않은 표가 없어야 한다.**
+    """
+    st = v.get("통계", {})
+    print("  [§B] 목록형 표")
+    done = 0
+    for label, anchor, base, key, cols, *opt in LIST_TABLES:
+        rows = st.get(key)
+        if not isinstance(rows, list):
+            print(f"  {label}: vars 미확보({rows!r}) — 표를 비운다")
+            rows = []
+        if rows:
+            done += 1
+        fill_list_table(hwp, label, anchor, base, rows, cols,
+                        right_align=bool(opt and opt[0]))
+    print(f"  [§B] 목록형 {done}/{len(LIST_TABLES)}표 채움")
+
+    # ── 2.5.4 자동차 등록현황 ──────────────────────────────
+    # 첫 칸은 `{{시군}}` 이 치환된 시군명이다 — 건드리지 않고 오른쪽부터 채운다.
+    car = st.get("2.5.4 자동차")
+    if isinstance(car, dict) and fit_rows(hwp, "이륜자동차", 1, 1):
+        right(hwp)
+        fill_row(hwp, [_num(car.get(k)) for k in
+                       ("합계", "승용차", "승합차", "화물차", "특수차", "이륜자동차")])
+        print("  2.5.4 자동차: 6칸")
+    else:
+        print(f"  2.5.4 자동차: vars 미확보({car!r}) — 손대지 못했다 ⚠️")
+
+    # ── 2.8.3 하천일람 ────────────────────────────────────
+    # 머리 셀이 전부 두 문단으로 갈려 있다 — 한 문단짜리 `기점 ~ 종점` 만 앵커로 쓸 수 있다.
+    riv = st.get("2.8.3 하천일람")
+    if isinstance(riv, dict) and fit_rows(hwp, "기점 ~ 종점", 2, 1):
+        gj, jj = riv.get("기점"), riv.get("종점")
+        fill_row(hwp, [
+            _num(riv.get("하천명")), _num(riv.get("본류")), _num(riv.get("제1지류")),
+            _num(riv.get("제2지류")) or "-", _num(riv.get("제3지류")) or "-",
+            _num(riv.get("하천등급")),
+            f"{gj} ~ {jj}" if gj and jj else MISSING,
+            _num(riv.get("유로연장(㎞)")), _num(riv.get("유역면적(㎢)")),
+        ])
+        print("  2.8.3 하천일람: 1행 (기본 2행)")
+    else:
+        print(f"  2.8.3 하천일람: vars 미확보 — 손대지 못했다 ⚠️")
+
+    # ⚠️ 아직 손대지 못한 표 — **원주 값이 그대로 남는다.**
+    #    지목별 · 용도지역 · 도로 · 배출시설 · 문화재 · 하수 · 산업단지 ·
+    #    좌표 · 수변구역 · 자연공원 · PP · 종합. **머리행이 병합**이라
+    #    행별 칸 수를 알아야 안전하게 채울 수 있다 (rules/hwpx.md).
+    print("  [§B] ⚠️ 병합 머리행 12표는 원주 값이 남아 있다 — 검증에서 오류로 셀 것")
 
 
 PART_HANDLERS = {
