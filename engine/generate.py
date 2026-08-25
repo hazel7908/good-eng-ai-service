@@ -954,6 +954,8 @@ def slots_regional_overview(v):
         "지구_면적": biz.get("지구_면적", CHECK),
         # 인풋에 없다 — 실무자 입력 (slots.md A절 5·6·7·9·13·15·17·18·19)
         "시군_개황": CHECK,
+        # 2.8.3 수계 서술 — 유하 하천·거리는 사업마다 다르다. vars 에 없으면 [확인 필요].
+        "수계_서술": biz.get("수계_서술", CHECK),
         "하위행정구역_개황": CHECK,
         "시군청_주소": CHECK,
         "지구_지목구성": CHECK,
@@ -1033,19 +1035,20 @@ def _num(x):
     return str(x)
 
 
-def fit_rows(hwp, anchor, base_rows, need):
+def fit_rows(hwp, anchor, base_rows, need, start=1):
     """앵커 행 아래 **데이터 행 수**를 need 로 맞춘다.
 
     끝나면 커서는 **첫 데이터 행 첫 칸**에 있다.
     `append_rows()` 는 늘리기만 한다 — 줄이는 쪽은 여기서 처리한다.
     시군마다 시설 개수가 달라 양방향이 다 필요하다.
     """
+    # start: 앵커 행에서 **첫 데이터 행까지의 거리**. 머리행이 두 줄인 표(하수)는 2다.
     cur = base_rows
     while cur > need:
         if not find_in_table(hwp, anchor):
             print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
             return False
-        down(hwp, cur)                      # 마지막 데이터 행
+        down(hwp, start - 1 + cur)          # 마지막 데이터 행
         hwp.HAction.Run("TableDeleteRow")
         cur -= 1
     if need > cur:
@@ -1057,7 +1060,7 @@ def fit_rows(hwp, anchor, base_rows, need):
     if not find_in_table(hwp, anchor):
         print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
         return False
-    down(hwp)
+    down(hwp, start)
     col_begin(hwp)
     return True
 
@@ -1281,7 +1284,17 @@ def tables_regional_overview(hwp, v):
     # ── 2.8.3 하천일람 ────────────────────────────────────
     # 머리 셀이 전부 두 문단으로 갈려 있다 — 한 문단짜리 `기점 ~ 종점` 만 앵커로 쓸 수 있다.
     riv = st.get("2.8.3 하천일람")
-    if isinstance(riv, dict) and fit_rows(hwp, "기점 ~ 종점", 2, 1):
+    # ⚠️ vars 가 `_확인필요` 에 **기본값**이라고 표시한 항목은 쓰지 않는다.
+    #    하천일람은 유하 하천명이 인풋(본문 수계 서술)에서 와야 하는데 아직 미연결이라
+    #    원주의 `섬강` 이 기본값으로 들어 있다. 그대로 쓰면 천안 보고서에 원주 하천이 실린다.
+    if any("2.8.3 하천일람" in x.get("항목", "") for x in v.get("_확인필요", [])):
+        if fit_rows(hwp, "기점 ~ 종점", 2, 1):
+            fill_row(hwp, [MISSING] * 9)
+            print("  2.8.3 하천일람: 기본값이라 비움 (인풋 미연결)")
+        riv = "_blanked"
+    if riv == "_blanked":
+        pass                                   # 위에서 이미 비웠다
+    elif isinstance(riv, dict) and fit_rows(hwp, "기점 ~ 종점", 2, 1):
         gj, jj = riv.get("기점"), riv.get("종점")
         fill_row(hwp, [
             _num(riv.get("하천명")), _num(riv.get("본류")), _num(riv.get("제1지류")),
@@ -1413,7 +1426,8 @@ def tables_regional_overview(hwp, v):
     sew = st.get("2.7.1 공공하수처리시설")
     if isinstance(sew, list) and sew and fit_rows(hwp, "유입하수량", 4, len(sew)):
         for i, it in enumerate(sew):
-            fill_by_col(hwp, "유입하수량", i + 2, {
+            # ⚠️ 부머리행(수계/지류)은 **앵커 열에 셀이 없다** — down(1) 이 바로 첫 데이터 행이다
+            fill_by_col(hwp, "유입하수량", i + 1, {
                 "B": _num(it.get("시설명")), "C": _num(it.get("소 재 지")),
                 "D": _num(it.get("시설용량(㎥/일)")),
                 "E": _num(it.get("유입하수량(㎥/일)")),
@@ -1422,14 +1436,59 @@ def tables_regional_overview(hwp, v):
     else:
         print("  2.7.1 공공하수처리시설: vars 미확보 ⚠️")
 
+    # ── 지정이 없으면 표를 뺀다 (rule §4-3·§5-1 ①) ─────────
+    # ⚠️ **표만 지우면 안 된다.** 위 문장이 "N개소 지정되어 있으며" 로 남아 모순이 된다.
+    #    문장을 없음형(rule §5-1 ①)으로 바꾸고 캡션~출처주석 구간을 지운다.
+    #    `[확인 필요]` 로 비우는 것과 다르다 — 그쪽은 **자료 부재**, 이쪽은 **지정 없음**이다.
+    ABSENT = [
+        ("2.3.3 자연공원", "자연공원 지정현황", "다. 백두대간",
+         "“2025 국립공원기본통계. 국립공원관리공단”, “2023 도립·군립공원 기본통계. 환경부” "
+         "상 치악산국립공원이 지정·관리되고 있으며, 본 사업계획지구와는 위치상 관련이 "
+         "없는 것으로 조사되었다.",
+         "“2025 국립공원기본통계. 국립공원관리공단”, “2023 도립·군립공원 기본통계. 환경부” "
+         "상 지정현황이 없는 것으로 조사되었다."),
+        ("2.3.3 산림유전자원보호구역", "산림유전자원보호구역 지정 현황", "사. 겨울철",
+         "“2018 산림유전자원보호구역 지정 세부현황. 산림청” 상 산림유전자원보호구역이 "
+         "2개소가 지정되어 있으며, 사업계획지구가 위치한 ",
+         "“2018 산림유전자원보호구역 지정 세부현황. 산림청” 상 산림유전자원보호구역의 "
+         "지정현황이 없는 것으로 조사되었다.@@DROP@@"),
+    ]
+    for key, cap, nxt, old_sent, new_sent in ABSENT:
+        val = st.get(key)
+        if not (isinstance(val, list) and len(val) == 0):
+            continue
+        fr(hwp, old_sent, new_sent)
+        if delete_range(hwp, cap, nxt):
+            print(f"  {key}: 지정 없음 — 표 삭제 + 문장 전환")
+        else:
+            print(f"  {key}: ⚠️ 표 삭제 실패 (앵커 '{cap}'~'{nxt}')")
+    # 산림유전자원은 문장 꼬리가 `{{하위행정구역}}과 위치 상 …` 로 이어진다.
+    # 위에서 새 문장 끝에 표식을 붙여 두고, 남은 꼬리를 여기서 지운다.
+    fr(hwp, "@@DROP@@" + v.get("사업", {}).get("하위행정구역", "") +
+       "과 위치 상 관련이 없는 것으로 조사되었다.", "")
+    fr(hwp, "@@DROP@@", "")
+
+    # 겨울철 조류 서술 — 표를 비워도 문장에 원주 조사 결과(섬강·250m)가 남는다.
+    # vars 에 항목이 없으므로 판정 부분을 통째로 [확인 필요] 로 바꾼다.
+    fr(hwp, "겨울철 조류 동시 센서스는 2개소가 지정·관찰되고 있는 것으로 조사되었으며, "
+            "사업계획지구 서측으로 약 250m 이격하여 섬강 조사지역 내에 위치하는 것으로 조사되었다.",
+       MISSING)
+
     # ── 자료가 없는 표는 비운다 ────────────────────────────
     # 🚨 원주 값을 남기면 **다른 사업 이름 아래 남의 통계**가 실린다.
     #    청양 골든셋이 그렇게 망가졌다 (rule §6-3). 채우지 못할 표는 반드시 비운다.
     for label, anchor, offs, keep in [
         ("2.1.1 지리적 좌표", "경도와 위도의 극점", range(2, 6), 1),
         ("2.3.2 수변구역", "수변구역 면적(㎢)", range(1, 5), 0),
+        # 자연공원은 지정 없으면 위에서 표째 지운다 — 남아 있을 때만 비운다
         ("2.3.3 자연공원", "시·군·구별 면적(㎢)", range(2, 3), 0),
         ("2.9.1 정온·개발시설", "이격거리(m)", range(1, 12), 1),
+        # 겨울철 조류 동시 센서스는 vars 에 항목 자체가 없다 — 원주 조사 결과가 남는다
+        ("2.3.3 겨울철 조류", "관찰된 조류", range(1, 9), 0),
+        # 환경부 고시 표 둘 — vars 에 항목이 없어 원주 읍면 목록이 그대로 남는다
+        # 앵커 `지 역 별 행정구역` 은 `지 역 별`/`행정구역` 두 문단이라 못 쓴다
+        ("2.3.2 폐수 지역지정", "청 정", range(1, 2), 1),
+        ("2.3.2 설치제한지역", "대  상  지  역", range(1, 2), 1),
     ]:
         n = 0
         for off in offs:
