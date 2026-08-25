@@ -1107,6 +1107,50 @@ def slots_regional_overview(v):
     except (TypeError, ValueError):
         out["높낮"] = CHECK
 
+    # ── 2.6 · 2.7 서술 문장 ★ ─────────────────────────────────────────
+    # 표를 채워도 그 위 문장은 기준 사업(원주) 수치를 그대로 안고 있었다 —
+    # `BCS공법으로 일 430㎥ … 원주공공하수처리시설과 연계` 가 천안 보고서에 실렸다.
+    # **표와 문장은 같은 vars 에서 나와야 한다** (2026-08-24).
+    def n_of(key):
+        r = st.get(key)
+        return str(len(r)) if isinstance(r, list) and r else CHECK
+
+    out["취수장_개소"] = n_of("2.6.1 취수장")
+    out["정수장_개소"] = n_of("2.6.2 정수장")
+    out["하수처리_개소"] = n_of("2.7.1 공공하수처리시설")
+    # 방류 수계는 통계에 없다 — 하천일람(2.8.3)이나 인풋 수계 서술에서 와야 한다
+    out["하수_방류수계"] = biz.get("방류수계", CHECK)
+    out["음식물류_개소"] = n_of("2.7.3 음식물류 폐기물 처리시설")
+
+    분뇨 = st.get("2.7.2 분뇨처리시설")
+    out["분뇨_개소"] = n_of("2.7.2 분뇨처리시설")
+    if isinstance(분뇨, list) and 분뇨:
+        # 문장은 공법·처리량을 합산하지 않는다 — 시설이 둘 이상이면 지어내게 된다
+        one = 분뇨[0] if len(분뇨) == 1 else {}
+        out["분뇨_처리공법"] = one.get("처리공법", CHECK)
+        out["분뇨_처리량"] = _num(one.get("처리량(㎥/일)")) if one.get("처리량(㎥/일)") else CHECK
+    else:
+        out["분뇨_처리공법"] = out["분뇨_처리량"] = CHECK
+
+    매립 = st.get("2.7.4 매립처리시설")
+    out["매립_개소"] = n_of("2.7.4 매립처리시설")
+    if isinstance(매립, list) and 매립:
+        # 사용가능기간 `1999-2032` 의 뒤쪽이 종료년이다. 시설이 여럿이면 가장 늦은 해.
+        yrs = [str(x.get("사용가능기간", "")).split("-")[-1] for x in 매립]
+        yrs = [y for y in yrs if y.isdigit()]
+        out["매립_종료년"] = max(yrs) if yrs else CHECK
+        cum = sum(x.get("기매립량(㎥)") or 0 for x in 매립)
+        out["매립_누적량"] = _num(cum) if cum else CHECK
+    else:
+        out["매립_종료년"] = out["매립_누적량"] = CHECK
+    # 누적 기준년 — 폐기물 통계는 **전년도 실적을 이듬해 발행**한다.
+    # 출처 주석도 `전국 폐기물 발생 및 처리현황(2023년도) 2024` 로 두 해를 함께 적는다.
+    판 = v.get("_통계판", {}).get("전국 폐기물 발생 및 처리현황", {}).get("판")
+    out["매립_기준년"] = str(판 - 1) if isinstance(판, int) else CHECK
+
+    # 2.3.1 다. 저황유 공급지역 — 법령 별표10의2 전문이 인풋에 없다
+    out["저황유_공급지역"] = CHECK
+
     # ── 2.2.2 용도지역 서술 ────────────────────────────────────────────
     z = st.get("2.2.2 용도지역")
     if isinstance(z, dict) and z.get("합계"):
@@ -1131,7 +1175,12 @@ def _num(x):
     if isinstance(x, int):
         return f"{x:,}"
     if isinstance(x, float):
-        return f"{int(x):,}" if x == int(x) else f"{x:,}"
+        if x == int(x):
+            return f"{int(x):,}"
+        # ⚠️ `f"{x:,}"` 는 부동소수점 오차를 그대로 찍는다 —
+        #    `12,026.700000000012` 가 실제로 문서에 나갔다 (2026-08-24).
+        #    통계 표의 소수는 한 자리를 넘지 않으므로 반올림 후 뒤 0 을 턴다.
+        return f"{round(x, 2):,.2f}".rstrip("0").rstrip(".")
     return str(x)
 
 
@@ -1180,14 +1229,14 @@ def cell_addr(hwp):
     return (m.group(1), int(m.group(2))) if m else None
 
 
-def fill_by_col(hwp, anchor, row_off, values, max_steps=40):
+def fill_by_col(hwp, anchor, row_off, values, max_steps=40, skip=0):
     """머리행 앵커에서 `row_off` 만큼 내려간 행의 **지정 열**에만 값을 쓴다.
 
     values: `{"C": "...", "D": "..."}` — 표 열 문자로 지정한다.
     행을 왼쪽부터 걸으며 **주소를 읽어** 목표 행의 칸에만 쓰므로,
     세로 병합으로 다른 행 주소가 섞여 나와도 안전하다. 칸 수를 알 필요가 없다.
     """
-    if not find_in_table(hwp, anchor):
+    if not find_in_table(hwp, anchor, skip=skip):
         print(f"    WARNING: 앵커 '{anchor}' 못 찾음")
         return False
     down(hwp, row_off)
@@ -1277,24 +1326,7 @@ def fill_after(hwp, anchor, row_off, keep_first, values, max_steps=40):
         right(hwp)
     return vi == len(values)
 
-def fill_row_right(hwp, values):
-    """행의 **오른쪽 끝에서 왼쪽으로** 채운다.
-
-    ⛔ **2026-08-24 현재 쓰지 않는다** — `TableRowEnd` 가 기대대로 마지막 칸으로
-    가지 않아 값이 왼쪽부터 쓰이고 **이전 행까지 침범했다.** 아래 설명은 의도였다.
-
-    첫 열이 세로 병합된 표에서는 행마다 셀 개수가 다르다 — 산업단지 표의 `구분` 은
-    그룹(일반/농공)마다 병합돼 있어 그룹 첫 행만 6칸이고 나머지는 5칸이다.
-    왼쪽부터 채우면 **한 칸씩 밀린다.** 오른쪽 끝을 기준으로 잡으면 병합과 무관하게 맞는다.
-    """
-    hwp.HAction.Run("TableRowEnd")
-    for i, v in enumerate(reversed(values)):
-        if i:
-            left(hwp)
-        set_cell(hwp, v)
-
-
-def fill_list_table(hwp, label, anchor, base_rows, rows, cols, right_align=False):
+def fill_list_table(hwp, label, anchor, base_rows, rows, cols):
     """목록형 표 하나를 채운다.
 
     cols: 표 열 순서대로의 vars 키 목록. **`None` 은 vars 에 없는 열**이라
@@ -1307,12 +1339,11 @@ def fill_list_table(hwp, label, anchor, base_rows, rows, cols, right_align=False
         return 0
     if not fit_rows(hwp, anchor, base_rows, n):
         return 0
-    put = fill_row_right if right_align else fill_row
     for i, item in enumerate(rows):
         if i:
             down(hwp)
             col_begin(hwp)
-        put(hwp, [MISSING if c is None else _num(item.get(c)) for c in cols])
+        fill_row(hwp, [MISSING if c is None else _num(item.get(c)) for c in cols])
     print(f"  {label}: {n}행 (기본 {base_rows}행)")
     return n
 
@@ -1366,9 +1397,18 @@ def tables_regional_overview(hwp, v):
             rows = []
         if rows:
             done += 1
-        fill_list_table(hwp, label, anchor, base, rows, cols,
-                        right_align=bool(opt and opt[0]))
+        fill_list_table(hwp, label, anchor, base, rows, cols)
     print(f"  [§B] 목록형 {done}/{len(LIST_TABLES)}표 채움")
+
+    # ── 2.3.1 다. 저황유 공급 및 사용지역 ────────────────────
+    # 대기환경보전법 시행령 [별표10의2] 는 **시·도별로 행이 다르다.**
+    # 법령표라 손대지 않는 영역처럼 보이지만 그 사업의 시·도 행만 남는 표라
+    # 베이스를 그대로 두면 `강원 / 춘천시, 원주시, 강릉시` 가 실려 나간다.
+    # 별표 전문이 인풋에 없으므로 비운다 (`common.md` 환각 금지).
+    # 공급지역 셀은 `{{저황유_공급지역}}` 토큰이 맡는다 — 여기는 시·도 셀만.
+    # `강원` 은 두 글자라 본문 치환으로 뚫으면 다른 자리에 먹힌다.
+    if fill_by_col(hwp, "저황유 공급 및 사용지역", 2, values={"B": MISSING}):
+        print("  2.3.1 저황유 시·도: 비움")
 
     # ── 2.5.4 자동차 등록현황 ──────────────────────────────
     # 첫 칸은 `{{시군}}` 이 치환된 시군명이다 — 건드리지 않고 오른쪽부터 채운다.
@@ -1560,6 +1600,7 @@ def tables_regional_overview(hwp, v):
         fr(hwp, old_sent, new_sent)
         if delete_range(hwp, cap, nxt):
             print(f"  {key}: 지정 없음 — 표 삭제 + 문장 전환")
+
         else:
             print(f"  {key}: ⚠️ 표 삭제 실패 (앵커 '{cap}'~'{nxt}')")
     # 산림유전자원은 문장 꼬리가 `{{하위행정구역}}과 위치 상 …` 로 이어진다.
@@ -1568,11 +1609,45 @@ def tables_regional_overview(hwp, v):
        "과 위치 상 관련이 없는 것으로 조사되었다.", "")
     fr(hwp, "@@DROP@@", "")
 
+    # ── 2.7.5 소각시설 — **반대 방향 분기** (없음 → 있음) ──────────────
+    # 베이스(원주)는 소각시설이 없어 `운영하지 않는 것으로` 문장만 있고 표가 없다.
+    # 천안은 2개소가 있다 — 표를 새로 삽입하는 기능은 아직 없지만(확인요청 H-2)
+    # **문장까지 틀린 채로 둘 이유는 없다.** 자료가 있으면 있음형(rule §4-1 C)으로 바꾼다.
+    소각 = st.get("2.7.5 소각시설")
+    if isinstance(소각, list) and 소각:
+        톤 = sum(x.get("처리량(톤/년)") or 0 for x in 소각)
+        판 = v.get("_통계판", {}).get("전국 폐기물 발생 및 처리현황", {}).get("판")
+        기준년 = str(판 - 1) if isinstance(판, int) else MISSING
+        fr(hwp, "상 소각시설을 운영하지 않는 것으로 조사되었다.",
+           f"상 {len(소각)}개소의 소각시설을 운영 중에 있으며, {기준년}년 "
+           f"처리량(톤)기준 {_num(톤)}톤을 처리한 것으로 조사되었다. "
+           f"{MISSING}(소각시설 현황 표 미삽입)")
+        print(f"  2.7.5 소각시설: {len(소각)}개소 — 문장 전환 (표는 미삽입)")
+
     # 겨울철 조류 서술 — 표를 비워도 문장에 원주 조사 결과(섬강·250m)가 남는다.
     # vars 에 항목이 없으므로 판정 부분을 통째로 [확인 필요] 로 바꾼다.
     fr(hwp, "겨울철 조류 동시 센서스는 2개소가 지정·관찰되고 있는 것으로 조사되었으며, "
             "사업계획지구 서측으로 약 250m 이격하여 섬강 조사지역 내에 위치하는 것으로 조사되었다.",
        MISSING)
+
+    # ── 사업계획지구 표 2개 ────────────────────────────────
+    # ⚠️ 이 둘은 **통계가 아니라 사업 인풋**에서 오는 값이라 §B 목록에 안 들어간다.
+    #    빠뜨렸더니 기준 사업 값(13,934㎡·보전관리/생산관리)이 그대로 남았다.
+    #    지명이 아니라 숫자라 "고유 지명 0건" 검사에도 안 걸렸다 (2026-08-24).
+    #    ⚠️ 열 구성(지목·용도지역 종류)이 사업마다 다르다 — 채울 수 있는 것은 `계` 뿐이다.
+    # ⚠️ 이 표들은 머리 칸(`계`·`답`·`전`·`임`)이 전부 다른 표와 겹쳐 **유일한 앵커가 없다.**
+    #    `면  적(㎡)` 이 정확히 두 표에만 있으므로 `skip` 으로 가른다.
+    #    구조: A=사업계획지구 B=면적(㎡) C=계 D~F=지목/용도지역별 (앵커가 이미 2행에 있다)
+    biz = v.get("사업", {})
+    area = biz.get("지구_면적")
+    for label, skip in (("2.2-2 지구 지목별", 0), ("2.2-4 지구 용도지역", 1)):
+        ok = fill_by_col(hwp, "면  적(㎡)", 0, skip=skip, values={
+            "C": _num(area) if area else MISSING,
+            "D": MISSING, "E": MISSING, "F": MISSING})
+        fill_by_col(hwp, "면  적(㎡)", 1, skip=skip, values={
+            "C": "100.00", "D": MISSING, "E": MISSING, "F": MISSING})
+        print(f"  {label}: 계 {area or MISSING} · 세부는 자료 부재로 비움"
+              if ok else f"  {label}: 앵커 못 찾음 ⚠️")
 
     # ── 자료가 없는 표는 비운다 ────────────────────────────
     # 🚨 원주 값을 남기면 **다른 사업 이름 아래 남의 통계**가 실린다.
