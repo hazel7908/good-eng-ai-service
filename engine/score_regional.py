@@ -34,6 +34,7 @@
 """
 import argparse
 import difflib
+import json
 import re
 import sys
 import zipfile
@@ -97,12 +98,44 @@ def sentences(block):
             if (len(t) > 18 and END.search(t)) or (CHECK in t and len(t) < 19)]
 
 
+# 절 → 그 절이 인용하는 통계 자료 (vars `_통계판` 의 키)
+SEC_SOURCE = {"2.2": "지자체 통계연보", "2.5": "지자체 통계연보",
+              "2.6": "상수도통계", "2.7": "하수도통계"}
+
+
+def edition_state(case, sec):
+    """그 절이 쓰는 통계가 **발행처 최신임이 확인됐는가**.
+
+    `build_vars_regional.py` 가 생성 때 발행처를 확인하고 `_통계판.최신확인` 에 적는다.
+    값이 정답지와 달라도 **최신이 확인된 자료면 우리가 틀린 게 아니다.**
+
+    ⚠️ 다만 `확인됨` 이 곧 `옳다` 는 아니다 — 우리 값이 그 판 원자료와 맞는지
+    (**역추적 실증**)는 원자료가 있는 쪽에서 따로 해야 한다. 그걸 빼면 진짜 오류가
+    숨는다 — 매립에서 정답지 자릿수 오류가 그렇게 숨어 있었다.
+    """
+    src = SEC_SOURCE.get(sec)
+    if not src:
+        return None
+    f = ROOT / "cases/small-env" / case / "vars/regional-overview.json"
+    if not f.exists():
+        return None
+    e = json.loads(f.read_text(encoding="utf-8")).get("_통계판", {}).get(src, {})
+    mark = str(e.get("최신확인", ""))
+    if mark.startswith("✅"):
+        return "판차이"          # 발행처 최신 확인 — 자료가 갱신된 것이다
+    return "판미확인"             # 최신인지 모른다 — 옳은지도 모른다
+
+
 def judge(o, g):
     a, b = nums(o), nums(g)
     r = difflib.SequenceMatcher(None, cite(o), cite(g)).ratio()
     if CHECK in o:
         return "확인필요", r
-    if a == b:
+    # ⚠️ **정답 값을 다 담았으면 OK 다.** 우리 쪽에 값이 더 있는 것은 감점 사유가
+    #    아니다 — 정답 txt 추출이 표 일부를 놓친 것이거나(법령표에서 실제로 나왔다)
+    #    표에 행이 더 있는 정상 상황이다. `a == b` 만 OK 로 보면 **더 채울수록
+    #    점수가 내려간다** (2026-08-26 정정).
+    if b <= a:
         return ("OK", r) if r > 0.85 else ("문형", r)
     return ("일부", r) if (a & b) else ("WRONG", r)
 
@@ -227,6 +260,14 @@ def gold_table(lines, cap, head=""):
     return " ".join(body)
 
 
+# 표 캡션 → 절. 판이 갈리는 표만 적는다.
+TBL_SEC = {"지목별 토지이용": "2.2", "용도지역 현황": "2.2", "도로현황": "2.5",
+           "자동차 등록현황": "2.5", "문화재": "2.5",
+           "취수장": "2.6", "정수장": "2.6",
+           "공공하수처리시설": "2.7", "분뇨처리시설": "2.7",
+           "음식물류": "2.7", "매립처리시설": "2.7"}
+
+
 def score_tables(case, part, gold_lines):
     tally, rows = {}, []
     for cap, cells in tables_of(case, part):
@@ -241,12 +282,17 @@ def score_tables(case, part, gold_lines):
                 v = "OK"                      # 값 없는 법령표·머리표
             elif CHECK in cells and not (a & b):
                 v = "확인필요"
-            elif a == b and a:
+            elif b <= a and a:          # 정답 값을 다 담았다 — 더 있어도 감점 아니다
                 v = "OK"
             elif a & b:
                 v = "일부"
             else:
                 v = "WRONG"
+        if v in ("WRONG", "일부"):
+            sec = next((x for k, x in TBL_SEC.items() if k in cap), None)
+            st = edition_state(case, sec) if sec else None
+            if st:
+                v = st
         tally[v] = tally.get(v, 0) + 1
         rows.append((v, cap, a))
     return tally, rows
@@ -290,13 +336,17 @@ def main():
                 v, r = "없음", 0.0
             else:
                 v, r = judge(o, g)
+                if v in ("WRONG", "일부"):
+                    st = edition_state(a.case, sec)
+                    if st:
+                        v = st
             tally[v] = tally.get(v, 0) + 1
             rows.append((sec, v, r, o, g))
 
     n = sum(tally.values())
     print(f"서술 문장 {n}항목  (정답 {sum(len(sentences(v)) for v in G.values())} · "
           f"생성 {sum(len(sentences(v)) for v in O.values())})\n")
-    for k in ("OK", "문형", "일부", "WRONG", "확인필요", "없음", "잉여"):
+    for k in ("OK", "문형", "일부", "판차이", "판미확인", "WRONG", "확인필요", "없음", "잉여"):
         if tally.get(k):
             print(f"  {k:6} {tally[k]:>3}   {tally[k]/n*100:5.1f}%")
     good = tally.get("OK", 0) + tally.get("문형", 0)
@@ -308,7 +358,7 @@ def main():
     ft = score_figures(a.case, a.part)
     tn, fn = sum(tt.values()), sum(ft.values())
     print(f"\n표 {tn}항목")
-    for k in ("OK", "일부", "WRONG", "확인필요", "잉여"):
+    for k in ("OK", "일부", "판차이", "판미확인", "WRONG", "확인필요", "잉여"):
         if tt.get(k):
             print(f"  {k:6} {tt[k]:>3}   {tt[k]/tn*100:5.1f}%")
     print(f"\n삽도 {fn}항목")
