@@ -336,7 +336,11 @@ def figure_names(hwpx_path):
     return out
 
 
-FIGURE_MIN_BYTES = 300 * 1024      # 삽도·사진은 크다. 수식·기호 그림은 작다
+# ⚠️ **바이트가 아니라 가로 픽셀로 가른다** (2026-08-25 정정).
+#    `300KB` 로 쟀더니 원주 현장사진 4장(429×287 · 220~285KB)이 검사를 통과해
+#    천안 보고서에 실려 나갔다. 압축률이 그림마다 달라 바이트는 크기를 대변하지 못한다.
+#    실측 분포: 사업 고유 그림 361~6,960px · 일반 아이콘 44~157px.
+FIGURE_MIN_PX = 300
 
 
 def check_figures(hwpx_path, template_path):
@@ -365,14 +369,21 @@ def check_figures(hwpx_path, template_path):
             except KeyError:
                 continue
             # 베이스에 큰 그림이 남아 있다 = strip_figures 가 놓쳤다 = 회귀
-            (leaked if len(data) >= FIGURE_MIN_BYTES else unfilled).append(
-                (fn, len(data)))
+            # ⚠️ `[삽도 필요]` 자리표시도 900px 다 — **바이트로 먼저 걸러낸다.**
+            #    자리표시는 흰 바탕이라 3KB 남짓이고, 실제 그림은 그보다 훨씬 크다.
+            try:
+                from PIL import Image
+                w = Image.open(io.BytesIO(data)).width
+            except Exception:
+                w = 0
+            big = w >= FIGURE_MIN_PX and len(data) > 20 * 1024
+            (leaked if big else unfilled).append((fn, len(data), w))
 
     if leaked:
         print(f"⚠️ 베이스에 큰 그림이 살아 있다 {len(leaked)}장 "
               f"— **기준 사업 삽도가 실린다.** build_template.strip_figures() 를 의심할 것")
-        for fn, sz in sorted(leaked, key=lambda x: -x[1])[:6]:
-            print(f"     {fn}  {sz/1024/1024:.2f}MB")
+        for fn, sz, w in sorted(leaked, key=lambda x: -x[2])[:6]:
+            print(f"     {fn}  가로 {w}px  {sz/1024:.0f}KB")
     elif unfilled:
         print(f"삽도 {len(unfilled)}장이 아직 [삽도 필요] 상태 "
               f"— 기준 사업 그림 유출은 없다 ✅")

@@ -598,7 +598,17 @@ def strip_figures(dst):
 
     판정은 두 근거의 **합집합**이다 (한쪽만 믿으면 샌다 — `rules/hwpx.md` 검증 원칙):
       · 이름이 있다 = 원본 파일에서 온 사업 고유 그림 (`원주시 행정구역` 지도 등)
-      · 300KB 이상 = 이름이 없어도 삽도·사진이다
+      · **가로 300px 이상** = 이름이 없어도 삽도·사진이다
+
+    ⚠️ **바이트가 아니라 픽셀로 가른다** (2026-08-25 정정).
+       `300KB 이상` 으로 쟀더니 원주 **현장사진 4장**(429×287 · 220~285KB)이
+       그대로 남아 천안 보고서에 실려 나갔다. 압축률이 그림마다 달라 바이트는
+       크기를 대변하지 못한다. 베이스 실측 분포가 이렇다.
+
+         사업 고유 그림   361 ~ 6,960 px
+         일반 아이콘       44 ~   157 px      (물방울 캐릭터 등)
+
+       사이가 200px 넘게 비어 있어 **300px 이 안전한 자리**다.
     """
     from PIL import Image, ImageDraw
 
@@ -623,11 +633,18 @@ def strip_figures(dst):
     if os.path.exists(tmp):
         os.remove(tmp)
     n = 0
+    def wide(zf, item):
+        """가로 픽셀. 읽을 수 없으면 0 — 아이콘 취급."""
+        try:
+            return Image.open(io.BytesIO(zf.read(item.filename))).width
+        except Exception:
+            return 0
+
     with zipfile.ZipFile(dst) as zin, zipfile.ZipFile(tmp, "w") as zout:
         for item in zin.infolist():
             stem = re.sub(r"\.[^.]+$", "", item.filename.split("/")[-1])
             is_fig = (item.filename.startswith("BinData")
-                      and (stem in named or item.file_size >= 300 * 1024))
+                      and (stem in named or wide(zin, item) >= 300))
             if is_fig:
                 info = zipfile.ZipInfo(item.filename)
                 info.compress_type = item.compress_type
