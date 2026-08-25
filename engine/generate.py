@@ -314,6 +314,105 @@ def replace_images(hwpx_path, img_map):
     print(f"  이미지 {n}건 교체")
 
 
+def figure_names(hwpx_path):
+    """문서의 그림 → `{"image3": "수계도.jpg", …}`.
+
+    `<hc:img binaryItemIDRef="imageN">` 과 `원본 그림의 이름: X` 가 같은 순서로 나온다.
+    `CLP…` 는 한글이 붙여넣기에 붙이는 이름이라 **베이스 원본 파일이 아니다** — 구분한다.
+    """
+    with zipfile.ZipFile(hwpx_path) as z:
+        sec = "".join(z.read(n).decode("utf-8") for n in z.namelist()
+                      if re.match(r"Contents/section\d+\.xml$", n))
+    ids = re.findall(r'binaryItemIDRef="(image\d+)"', sec)
+    names = re.findall(r"원본 그림의 이름: ([^\r<&]+)", sec)
+    out = {}
+    for i, nm in zip(ids, names):
+        out.setdefault(i, nm.strip())
+    return out
+
+
+def blank_figures(hwpx_path, template_path):
+    """**베이스와 똑같이 남아 있는 삽도**를 `[삽도 필요]` 판으로 갈아 끼운다.
+
+    🚨 텍스트는 다 지워도 **그림 안의 값은 남는다.** 실제로 천안 보고서에
+    원주의 수계흐름모식도(`섬강 → 한강 · 34.54km`)와 **원주 정온시설 현장사진 8장**이
+    실려 나갔다 (2026-08-24, PDF 육안 확인에서만 잡혔다).
+    삽도는 BinData 라 텍스트 대조·빈칸 검사에 **걸리지 않는다.**
+
+    `slots.md` §D 가 "자리만 남기고 `[삽도 필요]` 로 표시한다" 고 정한 그대로다.
+    """
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        print("  Pillow 미설치 — 삽도 비우기 스킵")
+        return 0
+
+    with zipfile.ZipFile(template_path) as zt:
+        base = {i.filename: zt.read(i.filename) for i in zt.infolist()
+                if i.filename.startswith("BinData")}
+    names = figure_names(hwpx_path)
+    # 이름이 `CLP` 로 시작하면 붙여넣기 개체다 — 사업 고유 그림이 아니므로 둔다
+    targets = {k for k, v in names.items() if not v.upper().startswith("CLP")}
+
+    ph = Image.new("RGB", (900, 620), "white")
+    d = ImageDraw.Draw(ph)
+    d.rectangle([6, 6, 893, 613], outline="#c00000", width=4)
+    d.text((330, 295), "[ 삽도 필요 ]", fill="#c00000")
+    buf = io.BytesIO(); ph.save(buf, format="PNG")
+
+    tmp = hwpx_path + ".tmp"
+    if os.path.exists(tmp):
+        os.remove(tmp)
+    n = kept = 0
+    with zipfile.ZipFile(hwpx_path) as zin, zipfile.ZipFile(tmp, "w") as zout:
+        for item in zin.infolist():
+            stem = re.sub(r"\.[^.]+$", "", item.filename.split("/")[-1])
+            same_as_base = (item.filename in base
+                            and zin.read(item.filename) == base[item.filename])
+            if stem in targets and same_as_base:
+                info = zipfile.ZipInfo(item.filename)
+                info.compress_type = item.compress_type
+                zout.writestr(info, buf.getvalue())
+                n += 1
+            else:
+                if stem in targets:
+                    kept += 1
+                zout.writestr(item, zin.read(item.filename))
+    os.replace(tmp, hwpx_path)
+    if n:
+        print(f"  삽도 {n}장을 [삽도 필요] 로 비웠다 (교체된 것 {kept}장은 유지)")
+    return n
+
+
+def check_stale_figures(hwpx_path, template_path):
+    """베이스와 동일한 그림이 남아 있으면 경고한다 — **재발 방지 장치**.
+
+    삽도는 텍스트 검사에 안 걸리므로, 이 검사가 없으면 다른 사업 그림이
+    조용히 실려 나간다. 육안 확인 없이도 잡히게 한다.
+    """
+    with zipfile.ZipFile(template_path) as zt:
+        base = {i.filename: zt.read(i.filename) for i in zt.infolist()
+                if i.filename.startswith("BinData")}
+    names = figure_names(hwpx_path)
+    stale = []
+    with zipfile.ZipFile(hwpx_path) as z:
+        for stem, nm in names.items():
+            if nm.upper().startswith("CLP"):
+                continue
+            for fn in base:
+                if re.sub(r"\.[^.]+$", "", fn.split("/")[-1]) == stem:
+                    if z.read(fn) == base[fn]:
+                        stale.append(f"{stem}({nm})")
+                    break
+    if stale:
+        print(f"⚠️ 베이스 삽도가 그대로인 것 {len(stale)}장 — 다른 사업 그림이 실린다")
+        for s in stale[:6]:
+            print(f"     {s}")
+    else:
+        print("삽도 잔존 없음 ✅")
+    return stale
+
+
 # ============================================================
 # 파트 핸들러 — 소음·진동
 # ============================================================
@@ -1666,6 +1765,12 @@ def main():
         })
 
     print(f"\n완료: {output} ({output.stat().st_size:,} bytes)")
+
+    # 삽도 — vars 에 `삽도` 지정이 없으면 베이스(다른 사업) 그림이 그대로 남는다.
+    #        비운 뒤 재발 방지 검사를 돌린다 (2026-08-24, 원주 삽도 14장이 실려 나갔다).
+    if "삽도" not in v:
+        blank_figures(str(output), str(template))
+    check_stale_figures(str(output), str(template))
 
     # 치환 누락 검사 — 빈칸이 남아 있으면 실패다
     with zipfile.ZipFile(output) as zf:
