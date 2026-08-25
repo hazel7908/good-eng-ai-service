@@ -336,116 +336,49 @@ def figure_names(hwpx_path):
     return out
 
 
-def blank_figures(hwpx_path, template_path):
-    """**베이스와 똑같이 남아 있는 삽도**를 `[삽도 필요]` 판으로 갈아 끼운다.
-
-    🚨 텍스트는 다 지워도 **그림 안의 값은 남는다.** 실제로 천안 보고서에
-    원주의 수계흐름모식도(`섬강 → 한강 · 34.54km`)와 **원주 정온시설 현장사진 8장**이
-    실려 나갔다 (2026-08-24, PDF 육안 확인에서만 잡혔다).
-    삽도는 BinData 라 텍스트 대조·빈칸 검사에 **걸리지 않는다.**
-
-    `slots.md` §D 가 "자리만 남기고 `[삽도 필요]` 로 표시한다" 고 정한 그대로다.
-    """
-    try:
-        from PIL import Image, ImageDraw
-    except ImportError:
-        print("  Pillow 미설치 — 삽도 비우기 스킵")
-        return 0
-
-    with zipfile.ZipFile(template_path) as zt:
-        base = {i.filename: zt.read(i.filename) for i in zt.infolist()
-                if i.filename.startswith("BinData")}
-    # 🚨 **이름으로 고르지 않는다.** `CLP…` 는 붙여넣기 이름이라 제외했더니
-    #    `원주시 행정구역` 지도(image1.BMP)가 그대로 살아남았다 (2026-08-24 실측).
-    #    판정 근거는 **바이트가 베이스와 같은가 + 크기**다 — 이름은 로그에만 쓴다.
-    #    베이스와 바이트가 같다 = 한 번도 안 갈아 끼웠다 = **다른 사업 그림**이다.
-    names = figure_names(hwpx_path)
-
-    ph = Image.new("RGB", (900, 620), "white")
-    d = ImageDraw.Draw(ph)
-    d.rectangle([6, 6, 893, 613], outline="#c00000", width=4)
-    d.text((330, 295), "[ 삽도 필요 ]", fill="#c00000")
-    buf = io.BytesIO()
-    ph.save(buf, format="PNG")
-
-    tmp = hwpx_path + ".tmp"
-    if os.path.exists(tmp):
-        os.remove(tmp)
-    n = kept = 0
-    with zipfile.ZipFile(hwpx_path) as zin, zipfile.ZipFile(tmp, "w") as zout:
-        for item in zin.infolist():
-            stem = re.sub(r"\.[^.]+$", "", item.filename.split("/")[-1])
-            same_as_base = (item.filename in base
-                            and zin.read(item.filename) == base[item.filename])
-            # 두 근거를 **합집합**으로 쓴다 — 어느 하나만 믿으면 샌다.
-            #   · 이름이 있다  = 원본 파일에서 온 사업 고유 그림 (크기 무관)
-            #   · 300KB 이상  = 삽도·사진 (이름이 없어도 잡는다)
-            # 교차 확인이 `수계모식도`(20KB)·`생태자연도`(154KB)를 잡아내 알게 됐다.
-            big = (same_as_base
-                   and len(base[item.filename]) >= FIGURE_MIN_BYTES)
-            if same_as_base and (big or stem in names):
-                info = zipfile.ZipInfo(item.filename)
-                info.compress_type = item.compress_type
-                zout.writestr(info, buf.getvalue())
-                n += 1
-            else:
-                if item.filename in base and zin.read(item.filename) != base[item.filename]:
-                    kept += 1
-                zout.writestr(item, zin.read(item.filename))
-    os.replace(tmp, hwpx_path)
-    if n:
-        shown = [names[k] for k in names if k in {re.sub(r"\.[^.]+$", "", f.split("/")[-1]) for f in base}][:4]
-        print(f"  삽도 {n}장을 [삽도 필요] 로 비웠다 (이미 갈아 끼운 것 {kept}장은 유지)")
-    return n
-
-
 FIGURE_MIN_BYTES = 300 * 1024      # 삽도·사진은 크다. 수식·기호 그림은 작다
 
 
-def check_stale_figures(hwpx_path, template_path):
-    """베이스 그림이 남아 있는지 **매핑에 기대지 않고** 검사한다.
+def check_figures(hwpx_path, template_path):
+    """삽도 상태를 센다 — **아직 안 채운 것**과 **기준 사업 그림이 샌 것**을 가른다.
 
-    🚨 **왜 이렇게 만드는가** (2026-08-24 실패에서 배웠다)
-    처음 만든 검사는 `blank_figures()` 와 **같은 pic→이름 매핑**을 썼다.
-    그 매핑이 틀렸는데 검사도 같은 매핑을 쓰니 **"잔존 없음 ✅" 를 내면서
-    엉뚱한 그림 13장을 지우고 진짜 원주 삽도는 그대로 뒀다.**
-    PDF 를 눈으로 보고서야 잡혔다.
+    기준 사업 그림은 이제 베이스 단계에서 걷어낸다
+    (`build_template.strip_figures()` — `slots.md` §D). 그래서 여기서 "베이스와 동일"은
+    **아직 안 채웠다**는 뜻이지 다른 사업 그림이라는 뜻이 아니다.
 
-    → **검사는 수정과 다른 근거를 써야 한다.** 여기서는 매핑을 아예 안 쓰고
-       **바이트 비교 + 크기**만 본다. 둘이 어긋나면 그 자체가 경보다.
+    ⚠️ **검사의 전제가 바뀌면 검사도 다시 써야 한다.** 템플릿을 비운 뒤에도 옛 검사를
+    그대로 뒀더니 플레이스홀더 16장을 "다른 사업 삽도가 실린다"고 **거짓 경보**했다
+    (2026-08-24). 남는 위험은 하나뿐이다 — **베이스에 큰 그림이 살아남는 것**.
+    그건 빌더 회귀이므로 크기로 잡는다.
+
+    🚨 검사는 수정과 **다른 근거**를 쓴다 (`rules/hwpx.md` 검증 원칙).
     """
     with zipfile.ZipFile(template_path) as zt:
         base = {i.filename: zt.read(i.filename) for i in zt.infolist()
                 if i.filename.startswith("BinData")}
-    named = {k for k, v in figure_names(hwpx_path).items()}
-    stale_big, stale_small = [], []
+    unfilled, leaked = [], []
     with zipfile.ZipFile(hwpx_path) as z:
         for fn, data in base.items():
             try:
                 if z.read(fn) != data:
-                    continue                      # 갈아 끼웠다
+                    continue                      # 갈아 끼웠다 = 채워졌다
             except KeyError:
                 continue
-            stem = re.sub(r"\.[^.]+$", "", fn.split("/")[-1])
-            big = len(data) >= FIGURE_MIN_BYTES or stem in named
-            (stale_big if big else stale_small).append((fn, len(data)))
+            # 베이스에 큰 그림이 남아 있다 = strip_figures 가 놓쳤다 = 회귀
+            (leaked if len(data) >= FIGURE_MIN_BYTES else unfilled).append(
+                (fn, len(data)))
 
-    # 교차 확인 — 이름 기준과 크기 기준이 어긋나면 둘 중 하나가 틀렸다
-    by_name = {fn for fn, _ in stale_big + stale_small
-               if re.sub(r"\.[^.]+$", "", fn.split("/")[-1]) in named}
-
-    if stale_big:
-        print(f"⚠️ 베이스 그림이 그대로인 것 {len(stale_big)}장 (300KB 이상) "
-              f"— **다른 사업 삽도가 실린다**")
-        for fn, sz in sorted(stale_big, key=lambda x: -x[1])[:6]:
+    if leaked:
+        print(f"⚠️ 베이스에 큰 그림이 살아 있다 {len(leaked)}장 "
+              f"— **기준 사업 삽도가 실린다.** build_template.strip_figures() 를 의심할 것")
+        for fn, sz in sorted(leaked, key=lambda x: -x[1])[:6]:
             print(f"     {fn}  {sz/1024/1024:.2f}MB")
+    elif unfilled:
+        print(f"삽도 {len(unfilled)}장이 아직 [삽도 필요] 상태 "
+              f"— 기준 사업 그림 유출은 없다 ✅")
     else:
-        print(f"삽도 잔존 없음 ✅ (작은 그림 {len(stale_small)}장은 서식 요소라 유지)")
-
-    if by_name and not stale_big:
-        print(f"⚠️ 교차 확인 불일치 — 이름 기준으로는 {len(by_name)}장이 남았다고 나온다. "
-              f"매핑을 의심할 것")
-    return stale_big
+        print("삽도 전부 교체됨 ✅")
+    return leaked
 
 
 # ============================================================
@@ -1801,11 +1734,9 @@ def main():
 
     print(f"\n완료: {output} ({output.stat().st_size:,} bytes)")
 
-    # 삽도 — vars 에 `삽도` 지정이 없으면 베이스(다른 사업) 그림이 그대로 남는다.
-    #        비운 뒤 재발 방지 검사를 돌린다 (2026-08-24, 원주 삽도 14장이 실려 나갔다).
-    if "삽도" not in v:
-        blank_figures(str(output), str(template))
-    check_stale_figures(str(output), str(template))
+    # 삽도 — 기준 사업 그림은 **베이스 단계에서 이미 걷어냈다**
+    #        (`build_template.strip_figures()`). 여기서는 몇 장이 아직 안 채워졌는지만 센다.
+    check_figures(str(output), str(template))
 
     # 치환 누락 검사 — 빈칸이 남아 있으면 실패다
     with zipfile.ZipFile(output) as zf:

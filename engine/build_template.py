@@ -20,6 +20,9 @@
 """
 
 import argparse
+import io
+import os
+import re
 import shutil
 import sys
 import time
@@ -478,6 +481,61 @@ def build(spec, src, dst):
     time.sleep(2)
 
 
+def strip_figures(dst):
+    """베이스에서 **기준 사업의 삽도를 걷어낸다** (`slots.md` §D).
+
+    베이스는 골든셋 한 건에 빈칸을 뚫어 만든다. 그런데 **삽도는 뚫을 자리가 아니라
+    통째로 교체 대상**이라, 그냥 두면 기준 사업(원주)의 지도·현장사진이 저장소에도
+    남고 생성물에도 따라간다. 실제로 천안 보고서에 원주 축사 사진이 실려 나갔다.
+
+    → 베이스 단계에서 `[삽도 필요]` 판으로 갈아 끼운다.
+      부수 효과가 크다 — 지역개황 베이스가 **51.8MB → 1.3MB** (GitHub 50MB 경고도 해소).
+
+    판정은 두 근거의 **합집합**이다 (한쪽만 믿으면 샌다 — `rules/hwpx.md` 검증 원칙):
+      · 이름이 있다 = 원본 파일에서 온 사업 고유 그림 (`원주시 행정구역` 지도 등)
+      · 300KB 이상 = 이름이 없어도 삽도·사진이다
+    """
+    from PIL import Image, ImageDraw
+
+    with zipfile.ZipFile(dst) as z:
+        sec = "".join(z.read(n).decode("utf-8") for n in z.namelist()
+                      if re.match(r"Contents/section\d+\.xml$", n))
+    named = set()
+    for m in re.finditer(r"<hp:pic\b.*?</hp:pic>", sec, re.S):
+        blk = m.group(0)
+        i = re.search(r'binaryItemIDRef="(image\d+)"', blk)
+        if i and "원본 그림의 이름:" in blk:
+            named.add(i.group(1))
+
+    ph = Image.new("RGB", (900, 620), "white")
+    d = ImageDraw.Draw(ph)
+    d.rectangle([6, 6, 893, 613], outline="#c00000", width=4)
+    d.text((330, 295), "[ 삽도 필요 ]", fill="#c00000")
+    buf = io.BytesIO()
+    ph.save(buf, format="PNG")
+
+    tmp = str(dst) + ".tmp"
+    if os.path.exists(tmp):
+        os.remove(tmp)
+    n = 0
+    with zipfile.ZipFile(dst) as zin, zipfile.ZipFile(tmp, "w") as zout:
+        for item in zin.infolist():
+            stem = re.sub(r"\.[^.]+$", "", item.filename.split("/")[-1])
+            is_fig = (item.filename.startswith("BinData")
+                      and (stem in named or item.file_size >= 300 * 1024))
+            if is_fig:
+                info = zipfile.ZipInfo(item.filename)
+                info.compress_type = item.compress_type
+                zout.writestr(info, buf.getvalue())
+                n += 1
+            else:
+                zout.writestr(item, zin.read(item.filename))
+    os.replace(tmp, dst)
+    print(f"  삽도 {n}장을 [삽도 필요] 로 걷어냈다 "
+          f"— 기준 사업 그림은 베이스에 남기지 않는다")
+    return n
+
+
 def verify(spec, dst):
     """저장된 베이스 문서의 토큰을 명세와 대조."""
     import re
@@ -528,6 +586,9 @@ def main():
 
     print("\n[5/5] 캡션 쪽 분리 방지...")
     keep_captions_with_table(dst)
+
+    print("\n[6/6] 기준 사업 삽도 걷어내기...")
+    strip_figures(dst)
 
     ok = verify(spec, dst)
     print(f"\n완료: {dst} ({dst.stat().st_size:,} bytes)")
