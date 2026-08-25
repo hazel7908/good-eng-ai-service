@@ -46,8 +46,10 @@ def narrative(ls):
 def main():
     base, gen = sys.argv[1], sys.argv[2]
     tn, on = narrative(paras(base)), narrative(paras(gen))
+    # ⚠️ 문턱을 3자리로 두면 `대기 31개소, 수질 17개소` 같은 **두 자리 유출을 놓친다**
+    #    (2026-08-25 실측 — 배출시설·산업단지 두 문장이 그렇게 숨어 있었다).
     tnums = {m for x in tn for m in NUM.findall(strip_cite(x))
-             if len(m.replace(",", "").replace(".", "")) >= 3 and not SKIP.match(m)}
+             if len(m.replace(",", "").replace(".", "")) >= 2 and not SKIP.match(m)}
     hits = []
     for x in on:
         common = sorted({m for m in NUM.findall(strip_cite(x)) if m in tnums})

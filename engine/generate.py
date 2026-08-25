@@ -1073,7 +1073,10 @@ def slots_regional_overview(v):
     out["도엽명_번호"] = f"{이름}‧{번호}" if 이름 and 번호 != CHECK else (
         번호 if 번호 != CHECK else CHECK)
     # `2, 3` 처럼 나열될 수 있다 — 부지가 두 등급에 걸치면 둘 다 적는다 (rule 3/8)
-    out["생태자연도_등급"] = sp.get("생태자연도_등급", CHECK)
+    # ⚠️ 베이스 문구가 `생태·자연도 {{토큰}}으로` 라 **`등급` 을 값에 붙여야** 한다.
+    #    안 붙이면 `생태·자연도 3으로` 가 나간다 (2026-08-25 실측).
+    _eg = sp.get("생태자연도_등급")
+    out["생태자연도_등급"] = f"{_eg}등급" if _eg else CHECK
 
     # 지구 소재지 — 사업명에서 조립한다 (`{시군} {면} {리} {지번}`)
     m = re.search(r"^(.+?번지)\s*일원", str(biz.get("사업명", "")))
@@ -1188,6 +1191,61 @@ def slots_regional_overview(v):
     # 값만 뚫으면 "지정돼 있다" 는 단정이 남는다. 모르면 서술을 통째로 비운다.
     out["수변구역_서술"] = CHECK
     out["설치제한_서술"] = CHECK
+
+    # ── 2.3 · 2.5 · 2.6 서술 문장 (3차) ★ ─────────────────────────────
+    # 2.3.2 상수원보호구역 — 개소는 표 행 수와 같아야 한다
+    wp = st.get("2.3.2 상수원보호구역")
+    out["상수원보호_개소"] = str(len(wp)) if isinstance(wp, list) and wp else CHECK
+
+    # 2.5.2 배출시설 — 통계가 시군까지만 오므로 **주어를 시군으로** 쓴다
+    em = st.get("2.5.2 환경오염물질 배출시설")
+    if isinstance(em, dict):
+        air = (em.get("대기") or {}).get("계")
+        wat = (em.get("수질") or {}).get("계")
+        noi = em.get("소음진동")
+        out["배출시설_서술"] = (
+            f"{biz.get('시군', CHECK)}는 대기 {_num(air)}개소, 수질 {_num(wat)}개소, "
+            f"소음 및 진동 {_num(noi)}개소의 환경오염물질 배출시설이 "
+            f"등록되어 있는 것으로 조사되었다"   # 마침표는 베이스에 남아 있다
+            if air and wat and noi else CHECK)
+    else:
+        out["배출시설_서술"] = CHECK
+
+    # 2.5.3 산업·농공단지 — 구분·조성상태로 센다
+    ind = st.get("2.5.3 산업 및 농공단지")
+    if isinstance(ind, list) and ind:
+        n = lambda f: str(sum(1 for x in ind if f(x)))
+        out["산단_일반"] = n(lambda x: "일반" in str(x.get("구분", "")))
+        out["산단_농공"] = n(lambda x: "농공" in str(x.get("구분", "")))
+        out["산단_완료"] = n(lambda x: "완료" in str(x.get("조성상태", "")))
+    else:
+        out["산단_일반"] = out["산단_농공"] = out["산단_완료"] = CHECK
+
+    # 2.6.3 문화재 — vars 가 국가/시도 계를 미리 집계해 둔다
+    ch = st.get("2.6.3 문화재")
+    sg = ch.get("시군") if isinstance(ch, dict) else None
+    if isinstance(sg, dict):
+        g = lambda k: _num(sg.get(k)) if sg.get(k) is not None else CHECK
+        out["문화재_국가"] = g("국가지정계")
+        out["문화재_지방"] = g("시도지정계")
+        out["문화재_자료"] = g("문화재자료")
+        out["문화재_등록"] = g("국가등록문화재")
+        out["문화재_총계"] = g("총계")
+    else:
+        for k in ("국가", "지방", "자료", "등록", "총계"):
+            out[f"문화재_{k}"] = CHECK
+    # 면 단위 — 0 이면 **지정 없음**이다. 숫자만 뚫으면 `0개소로 총 0개소가
+    # 지정·관리되고 있는` 이라는 모순된 문장이 남는다.
+    myeon = ch.get("면") if isinstance(ch, dict) else None
+    if isinstance(myeon, dict):
+        tot = myeon.get("총계")
+        out["면_문화재_서술"] = (
+            "은 문화재의 지정현황이 없는 것으로 조사되었다." if tot == 0 else
+            f"은 총 {_num(tot)}개소가 지정·관리되고 있는 것으로 조사되었다."
+            if tot else CHECK)
+        out["면_문화재_서술"] = out["면_문화재_서술"].lstrip("은 ")
+    else:
+        out["면_문화재_서술"] = CHECK
 
     # ── 2.2.2 용도지역 서술 ────────────────────────────────────────────
     z = st.get("2.2.2 용도지역")
