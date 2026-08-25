@@ -77,6 +77,40 @@ def 생태경관보전지역(path, region=None):
     return out
 
 
+def 수계_체인(path, 하천명, 시도=None):
+    """사업지 인근 하천 → **최종 본류까지의 계통**. 수계흐름모식도·2.8.3 서술의 뼈대다.
+
+    하천일람은 하천마다 `본류·제1지류·제2지류·제3지류` 를 갖고 있어 **한 줄이 곧 체인**이다.
+    천안 정답(`용두천 → 병천천 → 미호천 → 금강`)의 병천천 행이 그대로 그 순서다.
+
+    ⚠️ **동명이천이 있다** — `용두천` 은 세종에도 있고 그쪽 제1지류는 `대교천` 이다.
+    이름만으로 찾으면 엉뚱한 수계가 나온다. **시도로 걸러야 한다.**
+
+    ⚠️ **거리는 안 나온다.** 정답의 `2.97km · 9.19km` 는 지도에서 물길을 따라 잰 값이라
+    자료에 없다 — 하천망이 면형이라 중심선을 못 뽑는다 (`hydro.py` 머리말).
+    체인까지가 자료로 갈 수 있는 끝이다.
+    """
+    r = 하천일람(path, 하천명, 시도)
+    if not r:
+        return None
+    # 제3 → 제2 → 제1 → 본류 순으로 위로 올라간다 (빈 칸은 건너뛴다)
+    chain, seen = [], set()
+    for k in ("제3지류", "제2지류", "제1지류", "본류"):
+        nm = (r.get(k) or "").strip()
+        if nm and nm not in seen:
+            seen.add(nm)
+            chain.append(nm)
+    if 하천명 not in seen:
+        chain.insert(0, 하천명)
+    등급 = {}
+    for nm in chain:
+        g = 하천일람(path, nm, 시도) or 하천일람(path, nm)
+        등급[nm] = (g or {}).get("하천등급", CHECK)
+    return {"기준하천": 하천명, "체인": chain, "등급": 등급,
+            "최종본류": chain[-1] if chain else CHECK,
+            "거리": CHECK}          # 자료에 없다 — 지도 판독이 필요하다
+
+
 def 하천일람(path, 하천명, 시도=None):
     """`한국하천일람` 시도별 — **시군이 아니라 하천으로 찾는다.**
 
@@ -168,7 +202,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("절", nargs="?",
                     choices=["수변구역", "생태경관보전지역", "하천일람",
-                             "야생생물보호구역"])
+                             "야생생물보호구역", "수계_체인"])
     ap.add_argument("hwpx", nargs="?")
     ap.add_argument("--region")
     ap.add_argument("--self-test", action="store_true")

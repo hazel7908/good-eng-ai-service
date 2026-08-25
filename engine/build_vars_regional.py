@@ -21,6 +21,7 @@
 """
 import argparse
 import json
+import math
 import re
 import sys
 from datetime import date
@@ -98,6 +99,88 @@ def 사업정보(case_dir):
     return info
 
 
+# 시도 약칭 — 하천일람의 `시도` 열이 축약형이다 (`충남`·`강원`)
+SIDO_SHORT = {"충청남도": "충남", "충청북도": "충북", "전라남도": "전남",
+              "전라북도": "전북", "경상남도": "경남", "경상북도": "경북",
+              "강원특별자치도": "강원", "강원도": "강원", "경기도": "경기",
+              "제주특별자치도": "제주", "전북특별자치도": "전북"}
+
+
+def 수계(path, info, out, 확인필요):
+    """사업지 인근 하천 → 하천일람 계통.
+
+    ⚠️ 예전에는 조회 키를 **`섬강`(원주 하천)으로 박아** 뒀다. 다른 사업에 원주 값이
+    그대로 샜다 — 천안 vars 에 `섬강 · 경기 · 유로연장 100km` 가 들어가 있었다.
+    지금은 좌표로 찾는다.
+
+    ⚠️ **동명이천을 시도로 거른다.** `용두천` 은 천안 근처(충남 계통: 병천천→미호천→금강)와
+    세종(대교천→금강)에 둘 다 있다. 시도를 안 주면 엉뚱한 수계가 나온다.
+    """
+    import hydro as Hy
+    import stats_irregular as I
+    lon, lat = out["공간"].get("_lonlat", (None, None))
+    if lon is None:
+        확인필요("통계.2.8.3 하천일람", "판단", "좌표가 없어 인근 하천을 못 찾았다")
+        return CHECK
+    streams, err = Hy.fetch_streams(lon, lat, 0.05)
+    # 거리순으로 후보를 세운다 — 경위도 1도를 미터로 환산해 가장 가까운 절점을 본다
+    cands = []
+    for st in (streams or []):
+        if not st.get("name") or not st.get("path"):
+            continue
+        d = min(math.hypot((px - lon) * 88800, (py - lat) * 111000)
+                for px, py in st["path"])
+        cands.append((round(d), st["name"], st.get("grade")))
+    cands.sort()
+    if not cands:
+        확인필요("통계.2.8.3 하천일람", "판단",
+                 f"인근 하천을 못 찾았다{' — ' + err if err else ''}")
+        return CHECK
+
+    시도 = SIDO_SHORT.get(str(info.get("시군_시도") or ""), None)
+    if 시도 is None:
+        m = re.match(r"([가-힣]+(?:도|시))\s", str(out["공간"].get("지오코딩_주소", "")))
+        시도 = SIDO_SHORT.get(m.group(1)) if m else None
+
+    r = None
+    for _, nm, _g in cands:
+        r = I.수계_체인(str(path), nm, 시도)
+        if r and len(r["체인"]) > 1:
+            break
+    if not r:
+        확인필요("통계.2.8.3 하천일람", "판단",
+                 f"하천일람에서 {[c[1] for c in cands]} 를 못 찾았다")
+        return CHECK
+    r["후보"] = [{"하천": n, "거리_m": d, "등급": g} for d, n, g in cands[:5]]
+
+    # ⚠️ **가장 가까운 하천이 정답이 아니다.** 사업지에서 구거가 *어디로 흘러드는지*는
+    #    물길 방향 문제라 거리로 못 정한다 — 천안은 최근접(용두천)이 맞았지만
+    #    원주는 최근접이 원주천(1,410m)인데 정답은 **섬강(1,612m)** 이다.
+    #    관측 1:1 이라 규칙으로 굳히지 않는다. 최근접을 **기본값**으로 두고 표시한다.
+    확인필요("통계.2.8.3 하천일람", "판단",
+             f"유하 하천을 **최근접({r['기준하천']})으로 가정**했다 — 구거가 실제로 어디로 "
+             f"흘러드는지는 물길을 따라가야 안다. 후보: "
+             + " · ".join(f"{n}({d}m)" for d, n, _ in cands[:4]))
+    # ── 유하 경로·거리 — KRF(Korean Reach File) ────────────────────────
+    #    하천일람은 **계통**을, KRF 는 **경로와 거리**를 준다. 둘을 함께 낸다.
+    try:
+        import reachfile as RF
+        t = RF.trace(lon, lat)
+        r["유하"] = t
+        확인필요("통계.2.8.3 하천일람", "판단",
+                 f"유하 경로는 **KRF 추정**이다 — 최종본류 `{t['최종본류']}` "
+                 f"(골든셋 2/2 일치), 총 {t['총거리_km']}km. "
+                 "⚠️ **사업지~하천 구간이 구거라 자료에 없다** — 첫 합류 하천을 직선 "
+                 "최근접으로 가정했고, 골든셋 2건 중 1건(원주)이 어긋났다. "
+                 "구간별 거리도 +10~58% 벌어진다. 지도 확인 필요")
+    except SystemExit:
+        확인필요("통계.2.8.3 하천일람", "자료부재",
+                 "KRF 가 없다 — `python engine/reachfile.py --download`")
+    except Exception as e:
+        확인필요("통계.2.8.3 하천일람", "판단", f"KRF 추적 실패: {e}")
+    return r
+
+
 def build(case, refresh=False):
     case_dir = ROOT / "cases/small-env" / case
     if not (case_dir / "input/사업개요.txt").exists():
@@ -133,6 +216,27 @@ def build(case, refresh=False):
     def 확인필요(항목, 분류, 사유):
         out["_확인필요"].append({"항목": 항목, "분류": 분류, "사유": 사유})
 
+    # ── 좌표 먼저 ─────────────────────────────────────────────────────
+    #    ⚠️ **수계 조회가 좌표를 쓴다.** 예전에는 지오코딩이 절 소싱보다 뒤에 있어
+    #       하천을 못 찾고 원주 기본값(`섬강`)으로 떨어졌다.
+    out["공간"] = {"도엽번호": CHECK, "생태자연도_등급": CHECK}
+    # ⚠️ **지번까지 넣어야 한다.** 리까지만 주면 VWorld 가 `무장리 1` (리 대표점)로
+    #    매칭해 **사업지와 다른 곳**을 짚는다 — 원주에서 생태자연도가 1등급으로 나왔다
+    #    (정답 2,3등급). `지구_소재지` 는 사업명에서 뽑은 `…578번지` 다.
+    m0 = re.search(r"^(.+?번지)\s*일원", str(info.get("사업명", "")))
+    주소 = m0.group(1) if m0 else f'{info["시군"]} {info["하위행정구역"]} {info["리"]}'.strip()
+    lon = lat = None
+    try:
+        import map_fetch
+        x, y, matched = map_fetch.geocode(주소)      # EPSG:3857 + 매칭된 주소
+        lon, lat = map_fetch.merc_to_lonlat(x, y)
+        out["공간"]["지오코딩_주소"] = matched
+        out["공간"]["_lonlat"] = [lon, lat]
+        out["공간"]["좌표_3857"] = [x, y]
+    except Exception as e:
+        확인필요("공간.좌표", "판단", f"지오코딩 실패({주소}): {e}")
+
+
     # ── 전국 통계 (값 저장소 — 오프라인) ────────────────────────────────
     for sec in FROM_VALUES:
         자료 = SOURCES[sec]["자료"]
@@ -156,16 +260,15 @@ def build(case, refresh=False):
             out["통계"][sec] = CHECK
             확인필요(f"통계.{sec}", "자료부재", f"원자료 없음 (/{pat}/)")
             continue
-        key = "섬강" if fn == "하천일람" else 시군      # 하천은 시군이 아니라 하천명이다
         try:
-            out["통계"][sec] = getattr(IRR, fn)(str(p), key)
+            if fn == "하천일람":
+                out["통계"][sec] = 수계(p, info, out, 확인필요)
+            else:
+                out["통계"][sec] = getattr(IRR, fn)(str(p), 시군)
         except Exception as e:
             out["통계"][sec] = CHECK
             확인필요(f"통계.{sec}", "판단", f"읽기 실패: {e}")
         out["_통계판"][sec] = {"파일": p.name}
-        if fn == "하천일람":
-            확인필요(f"통계.{sec}", "X",
-                     "유하 하천명은 인풋(본문 수계 서술)에서 온다 — 지금은 기본값")
 
     # ── PDF ────────────────────────────────────────────────────────────
     for sec, (fn, pat) in FROM_PDF.items():
@@ -236,22 +339,6 @@ def build(case, refresh=False):
     # ── 좌표에서 나오는 값 둘 ──────────────────────────────────────────
     #    ⚠️ **여기서 실패해도 생성을 막지 않는다.** 네트워크·키·조서 서식 어느 것이
     #       어긋나도 `[확인 필요]` 로 떨어뜨리고 넘어간다 (`common.md` 환각 금지).
-    out["공간"] = {"도엽번호": CHECK, "생태자연도_등급": CHECK}
-    # ⚠️ **지번까지 넣어야 한다.** 리까지만 주면 VWorld 가 `무장리 1` (리 대표점)로
-    #    매칭해 **사업지와 다른 곳**을 짚는다 — 원주에서 생태자연도가 1등급으로 나왔다
-    #    (정답 2,3등급). `지구_소재지` 는 사업명에서 뽑은 `…578번지` 다.
-    m0 = re.search(r"^(.+?번지)\s*일원", str(info.get("사업명", "")))
-    주소 = m0.group(1) if m0 else f'{info["시군"]} {info["하위행정구역"]} {info["리"]}'.strip()
-    lon = lat = None
-    try:
-        import map_fetch
-        x, y, matched = map_fetch.geocode(주소)      # EPSG:3857 + 매칭된 주소
-        lon, lat = map_fetch.merc_to_lonlat(x, y)
-        out["공간"]["지오코딩_주소"] = matched
-        out["공간"]["좌표_3857"] = [x, y]
-    except Exception as e:
-        확인필요("공간.좌표", "판단", f"지오코딩 실패({주소}): {e}")
-
     if lon is not None:
         # ① 도엽번호 — **순수 계산이다.** 네트워크도 폴리곤도 필요 없다 (골든셋 8쌍 일치)
         try:

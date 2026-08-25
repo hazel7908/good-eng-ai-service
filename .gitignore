@@ -23,3 +23,6 @@ extracted_texts/
 
 # 전국 통계 값 본체 (재생성 가능 — build_stats_values.py). 판 지문은 매니페스트에 커밋된다
 catalog/data/stats_values/
+
+# KRF 원자료 (87MB · 재취득 가능 — reachfile.py --download)
+raw_data/nas/stats/_national/KRF/
