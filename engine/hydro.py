@@ -239,6 +239,13 @@ def flow_arrows(mask, origin_px, grid=300, min_frac=None, top=8, step=6):
             elif (mx - ox) * dx + (my - oy) * dy < 0:
                 dx, dy = -dx, -dy                   # 폭이 비슷하면 사업지에서 멀어지는 쪽
             spread = max(sxx, syy)                            # 길쭉할수록 물길답다
+            # ⚠️ **저수지가 상위를 독차지한다.** 점수가 `spread × n` 이라 수면이 넓은
+            #    칸이 늘 이긴다 — 천안 수계도에서 화살표 8개가 전부 오창저수지에
+            #    몰렸다. 물길은 **길쭉하고**(한 축으로 뻗고) 호수는 **퍼져 있다.**
+            #    두 축의 비(가늘기)로 가른다 — 3:1 미만이면 물길로 보지 않는다.
+            thin = max(sxx, syy) / max(1e-6, min(sxx, syy))
+            if thin < 3:
+                continue
             # 정답은 **사업지에서 물이 빠져나가는 쪽에 화살표를 몰아 준다.**
             # 굵기만 보고 고르면 멀리 있는 큰 강에만 찍힌다 — 거리로 눌러 준다.
             dist = math.hypot(mx - ox, my - oy)

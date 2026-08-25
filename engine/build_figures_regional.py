@@ -53,6 +53,22 @@ FRAME = {
 # 명세 §3 — 지역개황이 만들지 않는다
 OTHER_PART = {"식생보전등급도": "동식물상(7.1.1) 산출물이다 — 인용만 한다 (rule §1)"}
 
+def bottom_right(W, H, ppm, length_m, label):
+    """축척 막대와 방위표를 **겹치지 않게** 우하단에 놓는다.
+
+    ⚠️ 고정 오프셋(`W-560`)을 쓰면 액자마다 어긋난다 — 막대 길이가 `length_m × ppm`
+    이라 축척이 바뀌면 길이가 통째로 달라지는데, 방위표 자리는 그대로여서 글자가
+    겹쳐 뭉갰다 (`1.0km 0 1.0km` · `200m 0 S 200m`).
+    막대 실제 폭에서 역산하고, 방위표는 그 **위쪽**에 세운다.
+    """
+    bar = max(60, int(length_m * ppm))
+    pad = max(40, int(W * 0.03))
+    bx, by = W - bar - pad - int(W * 0.06), H - pad - int(H * 0.02)
+    return ([{"type": "scalebar", "at": [bx, by], "length_px": bar, "label": label},
+             {"type": "north", "at": [W - pad - int(W * 0.03),
+                                      by - max(120, int(H * 0.07))]}])
+
+
 RING_COLOR = [127, 127, 125]
 RING_FILL = [150, 140, 110, 58]
 RADII = [1000, 2000, 3000, 4000, 5000, 6000]
@@ -136,8 +152,8 @@ def 지역개황도(ctx):
     els = [{"type": "rings", "origin": cx, "radii_m": RADII, "px_per_m": ppm,
             "label_deg": 0, "short": True, "color": RING_COLOR, "fill": RING_FILL},
            {"type": "target", "at": cx},
-           {"type": "label", "at": [cx[0], cx[1] - 120], "text": "사업계획지구",
-            "from": cx}]
+           {"type": "label", "at": [cx[0], cx[1] - max(150, int(H * 0.06))],
+            "text": "사업계획지구", "from": cx}]
     ring_pts = [[cx[0] + r * ppm, cx[1]] for r in RADII]
     regs = []
     # ⚠️ 시도는 넣지 않는다 — 괴산 정답에 없다
@@ -148,10 +164,8 @@ def 지역개황도(ctx):
                                   protect_px=int(1200 * ppm),
                                   avoid=ring_pts, keep=int(900 * ppm))
     els += A._avoid(regs, int(700 * ppm))
-    return els + [{"type": "title", "text": "지역개황도"},
-                  {"type": "scalebar", "at": [W - 560, H - 120],
-                   "length_px": int(1000 * ppm), "label": "1.0km"},
-                  {"type": "north", "at": [W - 160, H - 190]}]
+    return els + [{"type": "title", "text": "지역개황도"}] \
+        + bottom_right(W, H, ppm, 1000, "1.0km")
 
 
 def 수계도(ctx):
@@ -168,8 +182,11 @@ def 수계도(ctx):
             "from": cx}]
     try:
         mask = Hy.river_mask(im)
+        # ⚠️ 격자를 `220 × ppm/0.08` 로 잡으면 **NAS 도엽 축척(0.08)에 묶인다.**
+        #    API 베이스는 ppm 이 3~4배라 격자가 800px 로 벌어져 화살표가 한 개만 남았다.
+        #    화면 크기의 일정 비율로 잡아야 축척이 달라져도 고르게 놓인다.
         els += Hy.arrows_to_elements(
-            Hy.flow_arrows(mask, cx, grid=int(220 * ppm / 0.08)))
+            Hy.flow_arrows(mask, cx, grid=max(80, int(min(W, H) / 12))))
         labels, err = Hy.river_labels(ctx["lon"], ctx["lat"], 0.05, cx, ppm, (W, H),
                                       avoid=[e.get("at") for e in els if e.get("at")],
                                       mask=mask)
@@ -182,10 +199,8 @@ def 수계도(ctx):
         els += Hy.protected_zones(ctx["lon"], ctx["lat"], 0.05, cx, ppm)
     except Exception as e:
         ctx["warn"].append(f"보호구역 — {type(e).__name__}")
-    return els + [{"type": "title", "text": "수계도"},
-                  {"type": "scalebar", "at": [W - 470, H - 100],
-                   "length_px": int(1000 * ppm), "label": "1.0km"},
-                  {"type": "north", "at": [W - 160, H - 250]}]
+    return els + [{"type": "title", "text": "수계도"}] \
+        + bottom_right(W, H, ppm, 1000, "1.0km")
 
 
 def pp_points(ctx):
@@ -234,15 +249,15 @@ def 정온시설도(ctx):
     items = pp_points(ctx)
     if not items:
         ctx["warn"].append("PP 표를 어디서도 못 찾았다 — 마커 없이 배경만 나온다")
+    # ⚠️ PP 마커가 사업지 바로 옆(80m)에 오는 수가 있다 — 라벨을 표적 위에 두면
+    #    `사업계농막구` 처럼 겹쳐 뭉갠다. 왼쪽 위로 빼고 지시선으로 잇는다.
     els = [{"type": "target", "at": cx},
-           {"type": "label", "at": [cx[0], cx[1] - 120], "text": "사업계획지구",
-            "from": cx}]
+           {"type": "label", "at": [cx[0] - int(W * 0.14), cx[1] - int(H * 0.06)],
+            "text": "사업계획지구", "from": cx}]
     if items:
         els.append({"type": "polar", "origin": cx, "items": items, "px_per_m": ppm})
-    return els + [{"type": "title", "text": "정온시설 및 개발시설 현황"},
-                  {"type": "scalebar", "at": [W - 470, H - 100],
-                   "length_px": int(200 * ppm), "label": "200m"},
-                  {"type": "north", "at": [W - 160, H - 190]}]
+    return els + [{"type": "title", "text": "정온시설 및 개발시설 현황"}] \
+        + bottom_right(W, H, ppm, 200, "200m")
 
 
 def 생태자연도(ctx):
