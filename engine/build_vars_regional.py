@@ -195,7 +195,7 @@ def 수계(path, info, out, 확인필요):
     return r
 
 
-def build(case, refresh=False):
+def build(case, refresh=False, land_source="통계연보"):
     case_dir = ROOT / "cases/small-env" / case
     if not (case_dir / "input/사업개요.txt").exists():
         sys.exit(f"ERROR: {case_dir}/input/사업개요.txt 없음")
@@ -389,6 +389,26 @@ def build(case, refresh=False):
             확인필요("공간.생태자연도_등급", "판단", f"EcoBank 판정 실패: {e}")
 
 
+    # ── 2.2.1 을 지적통계로 갈아탈 때 ──────────────────────────────────
+    if land_source == "지적통계":
+        cad = next((p for p in NAT.glob("지적기본통계집계*.csv")), None)
+        if not cad:
+            확인필요("통계.2.2.1 지목별 토지이용", "자료부재",
+                     "지적통계 CSV 가 없다 — 공공데이터포털에서 받을 것")
+        else:
+            r = IRR.지적통계(str(cad), 시군)
+            if r:
+                out["통계"]["2.2.1 지목별 토지이용"] = {"시군": r["지목별"] | {"합계": r["합계"]},
+                                                       "면": CHECK, "_출처": r["_출처"]}
+                out["_통계판"]["지적통계"] = {"파일": cad.name}
+                확인필요("통계.2.2.1 지목별 토지이용", "판단",
+                         f"**지적통계로 갈아탔다** (`--land-source 지적통계`). 출처 주석이 "
+                         f"`{r['_출처']}` 로 바뀐다 — 통계연보가 아니다 (확인요청 G-7). "
+                         "⚠️ **면 단위는 이 자료에 없다** — 읍면동 지목은 통계연보라야 한다")
+            else:
+                확인필요("통계.2.2.1 지목별 토지이용", "판단",
+                         f"지적통계에서 {시군} 을 못 찾았다")
+
     # ── 자료가 아예 없는 자리 ──────────────────────────────────────────
     out["통계"]["2.1.1 지리적 좌표"] = CHECK
     확인필요("통계.2.1.1 지리적 좌표(극점)", "자료부재",
@@ -400,6 +420,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("case")
     ap.add_argument("--dry-run", action="store_true")
+    # ⚠️ **기본은 통계연보다.** 지적통계로 바꾸면 값은 더 새로워지지만 **출처 주석이
+    #    바뀐다**(`통계연보. 천안시` → `지적통계. 국토교통부`). 그건 실무자 판단이라
+    #    자동으로 갈아타지 않는다 (확인요청 G-7).
+    ap.add_argument("--land-source", choices=["통계연보", "지적통계"], default="통계연보",
+                    help="2.2.1 지목별 토지이용의 출처 (기본: 통계연보)")
     ap.add_argument("--refresh", action="store_true",
                     help="**고정된 판을 버리고 최신으로 갈아탄다** (기본은 고정)")
     a = ap.parse_args()
@@ -407,7 +432,7 @@ def main():
     _vp = ROOT / "cases/small-env" / a.case / "vars/regional-overview.json"
     frozen_before = (json.loads(_vp.read_text(encoding="utf-8")).get("_통계판")
                      if _vp.exists() else {})
-    v = build(a.case, refresh=a.refresh)
+    v = build(a.case, refresh=a.refresh, land_source=a.land_source)
     filled = sum(1 for x in v["통계"].values()
                  if x not in (CHECK,) and x != [] and x is not None)
     print(f"# {a.case} — 통계 {filled}/{len(v['통계'])} 절 채움 · "

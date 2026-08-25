@@ -11,6 +11,7 @@
 | 생태경관보전지역 | 행=지역. 시군 열이 아예 없다 | hwpx |
 | 하천일람 | **시군이 아니라 하천**으로 찾는다 | xlsx (시도별 시트) |
 | 야생생물 보호구역 | **시군 열이 없다** — 보호지역명 문자열 안에 들어 있다 | xlsx |
+| 지적통계 | 행 하나 = **필지 묶음**이라 지목별로 **합산**해야 표가 된다 | csv(cp949) |
 
     python engine/stats_irregular.py --self-test
     python engine/stats_irregular.py 수변구역 <파일.hwpx> --region 원주시
@@ -163,12 +164,54 @@ def 야생생물보호구역(path, region):
     return out
 
 
+def 지적통계(path, region):
+    """`국토교통부_지적기본통계집계` → 시군의 **지목별 면적(㎢)**.
+
+    2.2.1 을 **통계연보 대신** 채울 수 있는 전국 자료다. 통계연보는 229개 지자체가
+    각자 발행해 최신판 확보가 막히는데(확인요청 F-4), 이것은 **파일 하나로 전국**이다.
+
+    ⚠️ 행 하나가 `축척 × 소유구분 × 지목` 묶음이라 **지목별로 합산**해야 표가 된다.
+    ⚠️ **CSV 가 `cp949`** 다. utf-8 로 읽으면 행정구역이 빈 문자열이 되어 **조회가
+       조용히 0건**이 된다 (천안이 0으로 나왔다).
+    ⚠️ 천안처럼 자치구가 있으면 `천안시 동남구`·`서북구` **두 행으로 나뉜다** — 합친다.
+
+    천안 대조 (2024-12-31 기준 ↔ 골든셋 통계연보 2021년 기준):
+        합계 636.17 ↔ 636.15 (**0.003% 차**) · 지목별은 3년치 지목 변경만큼 갈린다
+        (`대` 가 +1.78㎢, 농지·임야가 그만큼 준다 — 개발이 진행된 방향이다)
+    """
+    import csv
+    from collections import Counter
+    key = region.rstrip("시군구")
+    agg, hit = Counter(), set()
+    with open(path, encoding="cp949", errors="replace") as f:
+        for r in csv.DictReader(f):
+            reg = (r.get("행정구역") or "").strip()
+            if key not in reg:
+                continue
+            hit.add(reg)
+            try:
+                a = float((r.get("면적") or "0").replace(",", ""))
+            except ValueError:
+                continue
+            agg[(r.get("지목") or "").strip()] += a
+    if not agg:
+        return None
+    out = {k: round(v / 1e6, 2) for k, v in agg.items()}      # ㎡ → ㎢
+    return {"합계": round(sum(agg.values()) / 1e6, 2), "지목별": out,
+            "행정구역": sorted(hit),
+            "_출처": "지적통계. 국토교통부"}
+
+
 GOLDEN = [
     ("원주 수변구역 2024", "수변구역", NAT / "4대강 수계 수변구역 지정현황(''24년 기준).hwpx",
      "원주시", {"수변구역면적(㎢)": 5.344, "수계": "한강수계"}),
     ("원주 하천일람 2022 (섬강)", "하천일람",
      NAT / "2022년 한국하천일람(시도별하천일람_2022.12.31 기준).xlsx",
      "섬강", {"본류": "한강", "제1지류": "섬강", "하천등급": "국가"}),
+    ("천안 지적통계 2024", "지적통계",
+     NAT / "지적기본통계집계_2024.csv", "천안시",
+     # ⚠️ 골든셋(통계연보 2021년 기준)과 **합계로만** 맞춘다 — 기준연도가 3년 다르다
+     {"합계": 636.17}),
     ("원주 야생생물 2017", "야생생물보호구역",
      NAT / "야생생물보호구역 현황(171231).xlsx", "원주시",
      {"연번": 11, "면적(㎢)": 0.059}),
@@ -202,7 +245,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("절", nargs="?",
                     choices=["수변구역", "생태경관보전지역", "하천일람",
-                             "야생생물보호구역", "수계_체인"])
+                             "야생생물보호구역", "수계_체인", "지적통계"])
     ap.add_argument("hwpx", nargs="?")
     ap.add_argument("--region")
     ap.add_argument("--self-test", action="store_true")
