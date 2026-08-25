@@ -420,7 +420,7 @@ def build(case, refresh=False, land_source="통계연보", offline=False):
         확인필요("통계.통계연보 최신판", "판단",
                  f"**{시군} 통계연보가 최신판인지 확인하지 못했다** — 지자체마다 발행처가 "
                  "달라 자동 확인이 안 된다. 지금 쓰는 것은 "
-                 f"`{yb[0].name}` 이다. 더 새 판이 있는지 확인해 주십시오 (F-4 · G-7)")
+                 f"`{yb[0].name}` 이다. 더 새 판이 있는지 확인해 주십시오 (F-4)")
         면 = info["하위행정구역"] if info["하위행정구역"] != CHECK else None
         try:
             book = YB.YearBook(str(yb[0]))
@@ -498,7 +498,7 @@ def build(case, refresh=False, land_source="통계연보", offline=False):
                 out["_통계판"]["지적통계"] = {"파일": cad.name}
                 확인필요("통계.2.2.1 지목별 토지이용", "판단",
                          f"**지적통계로 갈아탔다** (`--land-source 지적통계`). 출처 주석이 "
-                         f"`{r['_출처']}` 로 바뀐다 — 통계연보가 아니다 (확인요청 G-7). "
+                         f"`{r['_출처']}` 로 바뀐다 — 통계연보가 아니다 (확인요청 F-4 ②). "
                          "⚠️ **면 단위는 이 자료에 없다** — 읍면동 지목은 통계연보라야 한다")
             else:
                 확인필요("통계.2.2.1 지목별 토지이용", "판단",
@@ -517,7 +517,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     # ⚠️ **기본은 통계연보다.** 지적통계로 바꾸면 값은 더 새로워지지만 **출처 주석이
     #    바뀐다**(`통계연보. 천안시` → `지적통계. 국토교통부`). 그건 실무자 판단이라
-    #    자동으로 갈아타지 않는다 (확인요청 G-7).
+    #    자동으로 갈아타지 않는다 (확인요청 F-4 ②).
     ap.add_argument("--land-source", choices=["통계연보", "지적통계"], default="통계연보",
                     help="2.2.1 지목별 토지이용의 출처 (기본: 통계연보)")
     ap.add_argument("--offline", action="store_true",
