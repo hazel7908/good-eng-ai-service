@@ -1531,26 +1531,41 @@ def tables_regional_overview(hwp, v):
     # ── 2.8.3 하천일람 ────────────────────────────────────
     # 머리 셀이 전부 두 문단으로 갈려 있다 — 한 문단짜리 `기점 ~ 종점` 만 앵커로 쓸 수 있다.
     riv = st.get("2.8.3 하천일람")
-    # ⚠️ vars 가 `_확인필요` 에 **기본값**이라고 표시한 항목은 쓰지 않는다.
-    #    하천일람은 유하 하천명이 인풋(본문 수계 서술)에서 와야 하는데 아직 미연결이라
-    #    원주의 `섬강` 이 기본값으로 들어 있다. 그대로 쓰면 천안 보고서에 원주 하천이 실린다.
-    if any("2.8.3 하천일람" in x.get("항목", "") for x in v.get("_확인필요", [])):
+    # ⚠️ **기준 사업 하천이 기본값으로 남아 있을 때만 비운다.**
+    #    처음엔 `_확인필요` 에 항목이 있으면 무조건 비웠는데, vars 빌더가 KRF 로
+    #    유하 경로를 뚫은 뒤에도 계속 비웠다 — 사유가 "기본값" 에서 "추정" 으로
+    #    바뀌었는데 조건은 그대로였기 때문이다 (2026-08-26).
+    #    체인은 정답과 일치하고 거리만 못 믿는 상태라, 비우면 있는 값을 버린다.
+    _basis = str((riv or {}).get("기준하천", "")) if isinstance(riv, dict) else ""
+    if not isinstance(riv, dict) or _basis in ("", "섬강"):
         if fit_rows(hwp, "기점 ~ 종점", 2, 1):
             fill_row(hwp, [MISSING] * 9)
             print("  2.8.3 하천일람: 기본값이라 비움 (인풋 미연결)")
         riv = "_blanked"
     if riv == "_blanked":
         pass                                   # 위에서 이미 비웠다
-    elif isinstance(riv, dict) and fit_rows(hwp, "기점 ~ 종점", 2, 1):
-        gj, jj = riv.get("기점"), riv.get("종점")
-        fill_row(hwp, [
-            _num(riv.get("하천명")), _num(riv.get("본류")), _num(riv.get("제1지류")),
-            _num(riv.get("제2지류")) or "-", _num(riv.get("제3지류")) or "-",
-            _num(riv.get("하천등급")),
-            f"{gj} ~ {jj}" if gj and jj else MISSING,
-            _num(riv.get("유로연장(㎞)")), _num(riv.get("유역면적(㎢)")),
-        ])
-        print("  2.8.3 하천일람: 1행 (기본 2행)")
+    elif isinstance(riv, dict) and riv.get("체인"):
+        # 유하 체인이 그대로 표의 지류 계층이다 — 첫 하천이 제1지류, 마지막이 본류.
+        #   용두천 → 병천천 → 미호천 → 금강   (KRF 추정, 골든셋 최종본류 2/2 일치)
+        # ⚠️ **유하거리는 쓰지 않는다.** 사업지~하천 구간이 구거라 자료에 없어
+        #    첫 합류 하천을 직선 최근접으로 가정했고, 구간별 오차가 +10~58% 다.
+        체인 = list(riv["체인"])
+        본류 = riv.get("최종본류") or 체인[-1]
+        지류 = [c for c in 체인 if c != 본류]
+        등급 = riv.get("등급", {})
+        if fit_rows(hwp, "기점 ~ 종점", 2, len(지류)):
+            for i, 하천 in enumerate(지류):
+                if i:
+                    down(hwp); col_begin(hwp)
+                fill_row(hwp, [
+                    하천, 본류,
+                    지류[0], 지류[1] if len(지류) > 1 else "-",
+                    지류[2] if len(지류) > 2 else "-",
+                    등급.get(하천, MISSING),
+                    MISSING, MISSING, MISSING,      # 기점~종점·유로연장·유역면적
+                ])
+            print(f"  2.8.3 하천일람: {len(지류)}행 — 체인 {' → '.join(체인)} "
+                  f"(거리는 추정이라 비움)")
     else:
         print(f"  2.8.3 하천일람: vars 미확보 — 손대지 못했다 ⚠️")
 
