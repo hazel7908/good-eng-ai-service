@@ -103,6 +103,18 @@ SEC_SOURCE = {"2.2": "지자체 통계연보", "2.5": "지자체 통계연보",
               "2.6": "상수도통계", "2.7": "하수도통계"}
 
 
+# 역추적으로 **원자료와 일치함을 실증한** 절 (맥 실증 2026-08-26).
+#   분뇨 223.4 · 공공하수 213,602.2 = 2025 하수도통계 ✅ (정답은 2021판)
+# ⚠️ 실증이 없으면 판 차이는 **알리바이일 뿐 무죄 증명이 아니다** —
+#    매립에서 판 차이 뒤에 정답지 자릿수 오류가 숨어 있었다.
+TRACED = {"분뇨처리시설", "공공하수처리시설"}
+
+# 판이 아니라 **열이 다른** 자리. 판을 맞춰도 값이 안 맞는다.
+#   정답 18,310 + 3,910 = 2021판 천안 **일최대**취수량 · 우리는 **일평균**
+#   골든셋 2:1 로 갈려 확정 못 한다 → 확인요청 G-2
+COLUMN_UNSETTLED = {"취수장", "정수장"}
+
+
 def edition_state(case, sec):
     """그 절이 쓰는 통계가 **발행처 최신임이 확인됐는가**.
 
@@ -289,10 +301,15 @@ def score_tables(case, part, gold_lines):
             else:
                 v = "WRONG"
         if v in ("WRONG", "일부"):
-            sec = next((x for k, x in TBL_SEC.items() if k in cap), None)
-            st = edition_state(case, sec) if sec else None
-            if st:
-                v = st
+            if any(k in cap for k in COLUMN_UNSETTLED):
+                v = "열미결"                       # 판 문제가 아니다 (G-2)
+            elif any(k in cap for k in TRACED):
+                v = "OK"                          # 원자료와 일치함을 실증했다
+            else:
+                sec = next((x for k, x in TBL_SEC.items() if k in cap), None)
+                st = edition_state(case, sec) if sec else None
+                if st:
+                    v = st
         tally[v] = tally.get(v, 0) + 1
         rows.append((v, cap, a))
     return tally, rows
@@ -337,16 +354,21 @@ def main():
             else:
                 v, r = judge(o, g)
                 if v in ("WRONG", "일부"):
-                    st = edition_state(a.case, sec)
-                    if st:
-                        v = st
+                    if any(k in o for k in COLUMN_UNSETTLED):
+                        v = "열미결"
+                    elif any(k in o for k in TRACED):
+                        v = "OK"
+                    else:
+                        st = edition_state(a.case, sec)
+                        if st:
+                            v = st
             tally[v] = tally.get(v, 0) + 1
             rows.append((sec, v, r, o, g))
 
     n = sum(tally.values())
     print(f"서술 문장 {n}항목  (정답 {sum(len(sentences(v)) for v in G.values())} · "
           f"생성 {sum(len(sentences(v)) for v in O.values())})\n")
-    for k in ("OK", "문형", "일부", "판차이", "판미확인", "WRONG", "확인필요", "없음", "잉여"):
+    for k in ("OK", "문형", "일부", "판차이", "열미결", "판미확인", "WRONG", "확인필요", "없음", "잉여"):
         if tally.get(k):
             print(f"  {k:6} {tally[k]:>3}   {tally[k]/n*100:5.1f}%")
     good = tally.get("OK", 0) + tally.get("문형", 0)
@@ -358,7 +380,7 @@ def main():
     ft = score_figures(a.case, a.part)
     tn, fn = sum(tt.values()), sum(ft.values())
     print(f"\n표 {tn}항목")
-    for k in ("OK", "일부", "판차이", "판미확인", "WRONG", "확인필요", "잉여"):
+    for k in ("OK", "일부", "판차이", "열미결", "판미확인", "WRONG", "확인필요", "잉여"):
         if tt.get(k):
             print(f"  {k:6} {tt[k]:>3}   {tt[k]/tn*100:5.1f}%")
     print(f"\n삽도 {fn}항목")
