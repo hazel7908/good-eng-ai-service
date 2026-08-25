@@ -197,7 +197,7 @@ def 수계(path, info, out, 확인필요):
     return r
 
 
-def 최신확인(store_srcs, 확인필요, offline=False):
+def 최신확인(have, 확인필요, offline=False):
     """발행처에 새 판이 나왔는지 **보고서를 시작할 때 한 번** 본다.
 
     ⚠️ **막지 않는다.** 네트워크·사이트 개편 어느 것이 어긋나도 보유 판으로 진행하고
@@ -210,7 +210,7 @@ def 최신확인(store_srcs, 확인필요, offline=False):
     확인해야 하는지** 보이게 한다.
     """
     if offline:
-        return {s: "⏭ 확인 안 함 (--offline)" for s in store_srcs}
+        return {s: "⏭ 확인 안 함 (--offline)" for s in have}, []
     sys.path.insert(0, str(ROOT / "catalog"))
     try:
         from build_stats_values import WATCH
@@ -218,7 +218,7 @@ def 최신확인(store_srcs, 확인필요, offline=False):
         확인필요("통계.최신판 확인", "판단", f"감시기를 못 불렀다 ({e})")
         return {}
     out, 미확인, 신판 = {}, [], []
-    for src in sorted(store_srcs):
+    for src in sorted(have):
         fn = WATCH.get(src)
         if not fn:
             out[src] = "❓ 발행처 미확인 — **직접 확인 필요**"
@@ -229,11 +229,17 @@ def 최신확인(store_srcs, 확인필요, offline=False):
         except Exception as e:
             out[src] = f"⚠️ 조회 실패 ({type(e).__name__}) — 보유 판으로 진행"
             continue
-        out[src] = (f"✅ 발행처 최신 {latest} 확인" if latest else
-                    "⚠️ 목록에서 연도를 못 읽었다")
-        if latest:
-            out[src] += f" ({latest})"
+        if not latest:
+            out[src] = "⚠️ 목록에서 연도를 못 읽었다"
+            continue
+        # ⚠️ **보유 판과 비교해야 한다.** 예전에는 조회만 되면 무조건 "새 판" 으로 세서
+        #    이미 그 판을 쓰고 있는데도 🔴 이 떴다 (fill-report 에 그대로 나갔다).
+        mine = have[src]
+        if latest > mine:
+            out[src] = f"🔴 발행처 최신 {latest} — 보유 {mine}"
             신판.append((src, latest))
+        else:
+            out[src] = f"✅ 발행처 최신 {latest} 확인 — 보유와 같다"
     if 미확인:
         확인필요("통계.최신판 확인", "판단",
                  f"**발행처를 몰라 최신인지 확인하지 못한 자료 {len(미확인)}종** — "
@@ -285,8 +291,11 @@ def build(case, refresh=False, land_source="통계연보", offline=False):
     def 확인필요(항목, 분류, 사유):
         out["_확인필요"].append({"항목": 항목, "분류": 분류, "사유": 사유})
 
-    srcs = sorted({s for (s, _y) in store})
-    latest_state, 신판 = 최신확인(srcs, 확인필요, offline)
+    # 자료별 **보유 최신 판** — 발행처와 이걸 비교한다
+    have = {}
+    for (src, y) in store:
+        have[src] = max(have.get(src, 0), y)
+    latest_state, 신판 = 최신확인(have, 확인필요, offline)
 
     # ── 새 판이 있으면 **받아서 값 저장소를 갱신한다** ─────────────────
     #    ⚠️ **최초 생성 때만** 갈아탄다. 이미 vars 가 있고 판이 고정돼 있으면
