@@ -76,10 +76,24 @@ def load_values():
     return out
 
 
-def pick_edition(store, 자료):
-    """그 자료의 **가장 새 판**을 고른다."""
+def pick_edition(store, 자료, frozen=None, refresh=False):
+    """쓸 판을 고른다 — **고정이 기본이다.**
+
+    한 보고서 안에서 판이 섞이면 출처 주석이 거짓말이 된다. 그래서 최초 생성 때 고른
+    판을 vars 에 박아 두고, 재생성은 **그대로 쓴다.** 새 판으로 갈아타는 것은
+    `--refresh` 를 줄 때만 — 눈에 보이는 행위여야 한다.
+
+    ⚠️ 예전에는 늘 `max()` 를 골랐다. 문서에는 "재생성은 vars 의 판을 그대로 쓴다" 고
+       적어 놓고 코드는 매번 최신으로 갈아탔다 — 설계와 구현이 어긋나 있었다.
+    """
     yrs = [y for (s, y) in store if s == 자료]
-    return max(yrs) if yrs else None
+    if not yrs:
+        return None
+    if not refresh and frozen and 자료 in frozen:
+        keep = frozen[자료].get("판")
+        if keep in yrs:
+            return keep
+    return max(yrs)
 
 
 def 사업정보(case_dir):
@@ -186,6 +200,15 @@ def build(case, refresh=False):
     if not (case_dir / "input/사업개요.txt").exists():
         sys.exit(f"ERROR: {case_dir}/input/사업개요.txt 없음")
 
+    # 이미 만든 vars 가 있으면 **그때 고른 판**을 물려받는다 (`--refresh` 면 무시)
+    vp = case_dir / "vars/regional-overview.json"
+    frozen = {}
+    if vp.exists() and not refresh:
+        try:
+            frozen = json.loads(vp.read_text(encoding="utf-8")).get("_통계판", {})
+        except Exception:
+            frozen = {}
+
     info = 사업정보(case_dir)
     시군 = info["시군"]
     if 시군 == CHECK:
@@ -240,7 +263,7 @@ def build(case, refresh=False):
     # ── 전국 통계 (값 저장소 — 오프라인) ────────────────────────────────
     for sec in FROM_VALUES:
         자료 = SOURCES[sec]["자료"]
-        yr = pick_edition(store, 자료)
+        yr = pick_edition(store, 자료, frozen, refresh)
         if yr is None:
             out["통계"][sec] = CHECK
             확인필요(f"통계.{sec}", "자료부재", f"{자료} 값 저장소에 없음 — build_stats_values 실행")
@@ -377,17 +400,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("case")
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--refresh", action="store_true", help="판을 다시 고른다")
+    ap.add_argument("--refresh", action="store_true",
+                    help="**고정된 판을 버리고 최신으로 갈아탄다** (기본은 고정)")
     a = ap.parse_args()
 
+    _vp = ROOT / "cases/small-env" / a.case / "vars/regional-overview.json"
+    frozen_before = (json.loads(_vp.read_text(encoding="utf-8")).get("_통계판")
+                     if _vp.exists() else {})
     v = build(a.case, refresh=a.refresh)
     filled = sum(1 for x in v["통계"].values()
                  if x not in (CHECK,) and x != [] and x is not None)
     print(f"# {a.case} — 통계 {filled}/{len(v['통계'])} 절 채움 · "
           f"확인필요 {len(v['_확인필요'])}건")
-    print("\n## 고정된 판")
-    for k, s in v["_통계판"].items():
-        print(f"   {k}: {s}")
+    print("\n## 고정된 판" + ("  (--refresh — 최신으로 갈아탐)" if a.refresh else ""))
+    for k, st in v["_통계판"].items():
+        was = (frozen_before or {}).get(k, {}).get("판")
+        mark = f"   ← {was}판에서 갈아탐" if was and st.get("판") and was != st["판"] else ""
+        print(f"   {k}: {st}{mark}")
     print("\n## 확인 필요")
     for c in v["_확인필요"]:
         print(f"   [{c['분류']}] {c['항목']} — {c['사유']}")

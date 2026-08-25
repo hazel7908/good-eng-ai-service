@@ -13,6 +13,7 @@
     python catalog/build_stats_values.py                  # 로컬 원자료 전부
     python catalog/build_stats_values.py --list           # 무엇이 있고 무엇이 없나
     python catalog/build_stats_values.py --show 괴산군     # 판을 가로질러 본다
+    python catalog/build_stats_values.py --check-new      # 발행처에 새 판이 나왔나
 
 출력이 **둘로 갈린다** — 기준은 *다시 만들 수 있는가* 다 (`CLAUDE.md` 삽도 대목과 같은 규약).
 
@@ -89,6 +90,106 @@ NAME_TO_SRC = [
     (r"산업단지현황조사", "전국산업단지현황통계"),
     (r"산림유전자원보호구역", "산림유전자원보호구역 지정 현황"),
 ]
+
+
+
+# ── 신판 감시 ───────────────────────────────────────────────────────────────
+# 발행처 목록에서 **최신 판 연도**를 읽는다. 파일은 안 받는다 — 확인만 한다.
+#
+# ⚠️ **발행처를 아는 자료가 전부가 아니다.** 아래 넷만 확인된 경로가 있고 나머지는
+#    `stats_registry.py` 에서 `❓ 미확인` 이다. 확인 못 한 것을 "최신" 이라고 말하면
+#    안 되므로 **모른다고 보고**한다 (`common.md` 환각 금지).
+def _get(url):
+    """⚠️ 하수도정보시스템은 **TLS 협상이 까다롭다** — 기본 어댑터로는 `SSLError` 가 난다.
+    보안 수준을 낮춘 컨텍스트를 붙인다 (사내에서 `curl -sk` 를 쓰는 것과 같은 이유)."""
+    import ssl
+    import urllib.request
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    ctx.set_ciphers("DEFAULT@SECLEVEL=1")
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, context=ctx, timeout=60) as r:
+        return type("R", (), {"text": r.read().decode("utf-8", "replace")})()
+
+
+def _latest_waternow():
+    """국가상수도정보시스템 발간자료 — `2024년 기후에너지환경부 통계자료`."""
+    h = _get("https://www.waternow.go.kr/web/board/STAT?pMENUID=9").text
+    ys = [int(m) for m in re.findall(r"(20\d\d)년\s*[가-힣]*\s*통계\s*자료", h)]
+    return max(ys) if ys else None
+
+
+def _latest_hasudo():
+    """하수도정보시스템 자료실 — `2025년 하수도통계`.
+
+    ⚠️ 같은 해에 `작성방법`·`교육자료` 게시물도 올라온다. 제목이 **통계로 끝나는 것**만 센다."""
+    h = _get("https://www.hasudoinfo.or.kr/bbs/lay1/WS10000015/list.do").text
+    ys = [int(m) for m in re.findall(r"(20\d\d)년\s*하수도통계\s*<", h)]
+    return max(ys) if ys else None
+
+
+def _latest_recycling():
+    """자원순환정보시스템 — `전국 폐기물 발생 및 처리현황(2024년)`."""
+    h = _get("https://www.recycling-info.or.kr/rrs/stat/envStatList.do"
+             "?bbsId=BBSMSTR_000000000002&s_nttSj=KEC006").text
+    ys = [int(m) for m in re.findall(r"처리현황\((20\d\d)년\)", h)]
+    return max(ys) if ys else None
+
+
+def _latest_kicox():
+    """공공데이터포털 전국산업단지현황통계 — 파일명에 `_20250930` 꼴로 박힌다."""
+    h = _get("https://www.data.go.kr/data/3041272/fileData.do").text
+    ys = [int(m[:4]) for m in re.findall(r"현황통계_(20\d\d)\d{4}", h)]
+    return max(ys) if ys else None
+
+
+WATCH = {
+    "상수도통계": _latest_waternow,
+    "하수도통계": _latest_hasudo,
+    "전국 폐기물 발생 및 처리현황": _latest_recycling,
+    "전국산업단지현황통계": _latest_kicox,
+}
+
+
+def check_new():
+    """보유 판 ↔ 발행처 최신 판. **파일은 받지 않는다.**"""
+    man = (json.loads(MANIFEST.read_text(encoding="utf-8"))
+           if MANIFEST.exists() else {"판": []})
+    have = {}
+    for e in man["판"]:
+        have[e["자료"]] = max(have.get(e["자료"], 0), e["판"])
+
+    print("# 신판 감시 — 보유 ↔ 발행처\n")
+    print("| 자료 | 보유 | 발행처 최신 | |")
+    print("|---|:--:|:--:|:--:|")
+    todo, unknown = [], []
+    for src, yr in sorted(have.items()):
+        fn = WATCH.get(src)
+        if not fn:
+            print(f"| {src} | {yr} | ❓ | **발행처 미확인** |")
+            unknown.append(src)
+            continue
+        try:
+            latest = fn()
+        except Exception as e:
+            print(f"| {src} | {yr} | ⚠️ | 조회 실패 ({type(e).__name__}) |")
+            continue
+        if latest is None:
+            print(f"| {src} | {yr} | ⚠️ | 목록에서 연도를 못 읽었다 |")
+        elif latest > yr:
+            print(f"| {src} | {yr} | **{latest}** | 🔴 **새 판** |")
+            todo.append((src, latest))
+        else:
+            print(f"| {src} | {yr} | {latest} | ✅ 최신 |")
+
+    print(f"\n감시 {len(have) - len(unknown)} / 보유 {len(have)}종")
+    if unknown:
+        print(f"⚠️ **발행처 미확인 {len(unknown)}종** — 확인 전까지 '최신' 이라 말할 수 없다: "
+              + " · ".join(unknown))
+    print("\n🔴 받아야 할 것: " + (" · ".join(f"{s} {y}판" for s, y in todo)
+                                  if todo else "없음"))
+    return todo
 
 
 def edition_of(path):
@@ -180,8 +281,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--list", action="store_true", help="원자료 보유 현황만 본다")
     ap.add_argument("--show", metavar="시군", help="한 시군을 판마다 나란히 본다")
+    ap.add_argument("--check-new", action="store_true", help="발행처에 새 판이 나왔나")
     a = ap.parse_args()
 
+    if a.check_new:
+        check_new()
+        return 0
     if a.show:
         return show(a.show)
 
