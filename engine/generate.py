@@ -1151,6 +1151,44 @@ def slots_regional_overview(v):
     # 2.3.1 다. 저황유 공급지역 — 법령 별표10의2 전문이 인풋에 없다
     out["저황유_공급지역"] = CHECK
 
+    # ── 2.3 · 2.5 서술 문장 ★ (2026-08-25 2차) ────────────────────────
+    # 1차에서 2.6·2.7 만 뚫었는데 같은 결함이 2.3·2.5 에도 있었다.
+    # `원주` 같은 지명이 아니라 **숫자만 남은 자리**라 지명 검사에 안 걸렸다.
+
+    # 2.5.1 도로 — vars 의 `합계` 행이 개통연장·포장률을 다 갖고 있다
+    rd = st.get("2.5.1 도로")
+    if isinstance(rd, dict) and isinstance(rd.get("합계"), dict):
+        g = lambda k: (rd.get(k) or {}).get("개통연장")
+        for tok, key in (("고속", "고속도로"), ("국도", "일반국도"),
+                         ("지방", "지방도"), ("시군", "시군도"), ("합계", "합계")):
+            out[f"도로_{tok}"] = _num(g(key)) if g(key) else CHECK
+        pv = rd["합계"].get("포장률")
+        out["도로_포장률"] = _num(pv) if pv is not None else CHECK
+    else:
+        for tok in ("고속", "국도", "지방", "시군", "합계", "포장률"):
+            out[f"도로_{tok}"] = CHECK
+
+    # 2.5.4 자동차 — 순위는 **대수에서 계산한다** (정답 문장이 자기 표와 어긋난 전례가 있다)
+    car = st.get("2.5.4 자동차")
+    if isinstance(car, dict) and car.get("합계"):
+        종 = [(k, car.get(k) or 0) for k in
+              ("승용차", "승합차", "화물차", "특수차", "이륜자동차")]
+        out["자동차_순위"] = "> ".join(k for k, _ in sorted(종, key=lambda x: -x[1]))
+        out["자동차_합계"] = _num(car["합계"])
+    else:
+        out["자동차_순위"] = out["자동차_합계"] = CHECK
+
+    # 2.3.3 야생생물 — 이격거리는 정온시설 좌표가 있어야 나온다. 개소만 쓴다.
+    wl = st.get("2.3.3 야생생물 보호구역")
+    out["야생생물_서술"] = (
+        f"지정현황은 {len(wl)}개소가 지정·관리되고 있는 것으로 조사되었다."
+        if isinstance(wl, list) and wl else CHECK)
+
+    # 2.3.2 수변구역 · 설치제한 — **있음/없음 자체가 갈린다.**
+    # 값만 뚫으면 "지정돼 있다" 는 단정이 남는다. 모르면 서술을 통째로 비운다.
+    out["수변구역_서술"] = CHECK
+    out["설치제한_서술"] = CHECK
+
     # ── 2.2.2 용도지역 서술 ────────────────────────────────────────────
     z = st.get("2.2.2 용도지역")
     if isinstance(z, dict) and z.get("합계"):
