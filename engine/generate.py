@@ -323,11 +323,16 @@ def figure_names(hwpx_path):
     with zipfile.ZipFile(hwpx_path) as z:
         sec = "".join(z.read(n).decode("utf-8") for n in z.namelist()
                       if re.match(r"Contents/section\d+\.xml$", n))
-    ids = re.findall(r'binaryItemIDRef="(image\d+)"', sec)
-    names = re.findall(r"원본 그림의 이름: ([^\r<&]+)", sec)
+    # 🚨 `binaryItemIDRef` 목록과 이름 목록을 **순서로 짝지으면 안 된다.**
+    #    이름이 없는 그림이 섞여 있다 (수식·기호 등 14장). 그렇게 짝지었다가
+    #    엉뚱한 그림을 지웠다 (2026-08-24). **`hp:pic` 블록 안에서 함께 읽는다.**
     out = {}
-    for i, nm in zip(ids, names):
-        out.setdefault(i, nm.strip())
+    for m in re.finditer(r"<hp:pic\b.*?</hp:pic>", sec, re.S):
+        blk = m.group(0)
+        i = re.search(r'binaryItemIDRef="(image\d+)"', blk)
+        nm = re.search(r"원본 그림의 이름: ([^\r<&]+)", blk)
+        if i and nm:                      # 이름이 있는 것만 = 원본 파일에서 온 그림
+            out.setdefault(i.group(1), nm.group(1).strip())
     return out
 
 
@@ -350,15 +355,18 @@ def blank_figures(hwpx_path, template_path):
     with zipfile.ZipFile(template_path) as zt:
         base = {i.filename: zt.read(i.filename) for i in zt.infolist()
                 if i.filename.startswith("BinData")}
+    # 🚨 **이름으로 고르지 않는다.** `CLP…` 는 붙여넣기 이름이라 제외했더니
+    #    `원주시 행정구역` 지도(image1.BMP)가 그대로 살아남았다 (2026-08-24 실측).
+    #    판정 근거는 **바이트가 베이스와 같은가 + 크기**다 — 이름은 로그에만 쓴다.
+    #    베이스와 바이트가 같다 = 한 번도 안 갈아 끼웠다 = **다른 사업 그림**이다.
     names = figure_names(hwpx_path)
-    # 이름이 `CLP` 로 시작하면 붙여넣기 개체다 — 사업 고유 그림이 아니므로 둔다
-    targets = {k for k, v in names.items() if not v.upper().startswith("CLP")}
 
     ph = Image.new("RGB", (900, 620), "white")
     d = ImageDraw.Draw(ph)
     d.rectangle([6, 6, 893, 613], outline="#c00000", width=4)
     d.text((330, 295), "[ 삽도 필요 ]", fill="#c00000")
-    buf = io.BytesIO(); ph.save(buf, format="PNG")
+    buf = io.BytesIO()
+    ph.save(buf, format="PNG")
 
     tmp = hwpx_path + ".tmp"
     if os.path.exists(tmp):
@@ -369,48 +377,75 @@ def blank_figures(hwpx_path, template_path):
             stem = re.sub(r"\.[^.]+$", "", item.filename.split("/")[-1])
             same_as_base = (item.filename in base
                             and zin.read(item.filename) == base[item.filename])
-            if stem in targets and same_as_base:
+            # 두 근거를 **합집합**으로 쓴다 — 어느 하나만 믿으면 샌다.
+            #   · 이름이 있다  = 원본 파일에서 온 사업 고유 그림 (크기 무관)
+            #   · 300KB 이상  = 삽도·사진 (이름이 없어도 잡는다)
+            # 교차 확인이 `수계모식도`(20KB)·`생태자연도`(154KB)를 잡아내 알게 됐다.
+            big = (same_as_base
+                   and len(base[item.filename]) >= FIGURE_MIN_BYTES)
+            if same_as_base and (big or stem in names):
                 info = zipfile.ZipInfo(item.filename)
                 info.compress_type = item.compress_type
                 zout.writestr(info, buf.getvalue())
                 n += 1
             else:
-                if stem in targets:
+                if item.filename in base and zin.read(item.filename) != base[item.filename]:
                     kept += 1
                 zout.writestr(item, zin.read(item.filename))
     os.replace(tmp, hwpx_path)
     if n:
-        print(f"  삽도 {n}장을 [삽도 필요] 로 비웠다 (교체된 것 {kept}장은 유지)")
+        shown = [names[k] for k in names if k in {re.sub(r"\.[^.]+$", "", f.split("/")[-1]) for f in base}][:4]
+        print(f"  삽도 {n}장을 [삽도 필요] 로 비웠다 (이미 갈아 끼운 것 {kept}장은 유지)")
     return n
 
 
-def check_stale_figures(hwpx_path, template_path):
-    """베이스와 동일한 그림이 남아 있으면 경고한다 — **재발 방지 장치**.
+FIGURE_MIN_BYTES = 300 * 1024      # 삽도·사진은 크다. 수식·기호 그림은 작다
 
-    삽도는 텍스트 검사에 안 걸리므로, 이 검사가 없으면 다른 사업 그림이
-    조용히 실려 나간다. 육안 확인 없이도 잡히게 한다.
+
+def check_stale_figures(hwpx_path, template_path):
+    """베이스 그림이 남아 있는지 **매핑에 기대지 않고** 검사한다.
+
+    🚨 **왜 이렇게 만드는가** (2026-08-24 실패에서 배웠다)
+    처음 만든 검사는 `blank_figures()` 와 **같은 pic→이름 매핑**을 썼다.
+    그 매핑이 틀렸는데 검사도 같은 매핑을 쓰니 **"잔존 없음 ✅" 를 내면서
+    엉뚱한 그림 13장을 지우고 진짜 원주 삽도는 그대로 뒀다.**
+    PDF 를 눈으로 보고서야 잡혔다.
+
+    → **검사는 수정과 다른 근거를 써야 한다.** 여기서는 매핑을 아예 안 쓰고
+       **바이트 비교 + 크기**만 본다. 둘이 어긋나면 그 자체가 경보다.
     """
     with zipfile.ZipFile(template_path) as zt:
         base = {i.filename: zt.read(i.filename) for i in zt.infolist()
                 if i.filename.startswith("BinData")}
-    names = figure_names(hwpx_path)
-    stale = []
+    named = {k for k, v in figure_names(hwpx_path).items()}
+    stale_big, stale_small = [], []
     with zipfile.ZipFile(hwpx_path) as z:
-        for stem, nm in names.items():
-            if nm.upper().startswith("CLP"):
+        for fn, data in base.items():
+            try:
+                if z.read(fn) != data:
+                    continue                      # 갈아 끼웠다
+            except KeyError:
                 continue
-            for fn in base:
-                if re.sub(r"\.[^.]+$", "", fn.split("/")[-1]) == stem:
-                    if z.read(fn) == base[fn]:
-                        stale.append(f"{stem}({nm})")
-                    break
-    if stale:
-        print(f"⚠️ 베이스 삽도가 그대로인 것 {len(stale)}장 — 다른 사업 그림이 실린다")
-        for s in stale[:6]:
-            print(f"     {s}")
+            stem = re.sub(r"\.[^.]+$", "", fn.split("/")[-1])
+            big = len(data) >= FIGURE_MIN_BYTES or stem in named
+            (stale_big if big else stale_small).append((fn, len(data)))
+
+    # 교차 확인 — 이름 기준과 크기 기준이 어긋나면 둘 중 하나가 틀렸다
+    by_name = {fn for fn, _ in stale_big + stale_small
+               if re.sub(r"\.[^.]+$", "", fn.split("/")[-1]) in named}
+
+    if stale_big:
+        print(f"⚠️ 베이스 그림이 그대로인 것 {len(stale_big)}장 (300KB 이상) "
+              f"— **다른 사업 삽도가 실린다**")
+        for fn, sz in sorted(stale_big, key=lambda x: -x[1])[:6]:
+            print(f"     {fn}  {sz/1024/1024:.2f}MB")
     else:
-        print("삽도 잔존 없음 ✅")
-    return stale
+        print(f"삽도 잔존 없음 ✅ (작은 그림 {len(stale_small)}장은 서식 요소라 유지)")
+
+    if by_name and not stale_big:
+        print(f"⚠️ 교차 확인 불일치 — 이름 기준으로는 {len(by_name)}장이 남았다고 나온다. "
+              f"매핑을 의심할 것")
+    return stale_big
 
 
 # ============================================================
