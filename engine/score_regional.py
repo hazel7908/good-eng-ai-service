@@ -99,8 +99,25 @@ def sentences(block):
 
 
 # 절 → 그 절이 인용하는 통계 자료 (vars `_통계판` 의 키)
+# ⚠️ **절 번호로 자료를 정하면 안 된다.** 2.7 한 절이 자료 셋을 쓴다 —
+#    공공하수·분뇨는 하수도통계, 음식물류는 음식물류 현황, 매립·소각은 폐기물 현황.
+#    `"2.7" → 하수도통계` 로 뭉뚱그렸더니 **음식물류가 하수도통계의 알리바이를 빌려**
+#    `판차이` 로 분류됐다 (실제로는 발행처 미확인이다). 표 캡션마다 자료를 적는다.
 SEC_SOURCE = {"2.2": "지자체 통계연보", "2.5": "지자체 통계연보",
               "2.6": "상수도통계", "2.7": "하수도통계"}
+
+# 표 캡션·서술 문장 **양쪽에 걸리는 조각**으로 적는다 — 문장은 `매립처리시설 현황`
+# 이 아니라 `매립시설을 운영 중` 이라고 쓴다. 짧게 잡되 다른 절에 없는 말로 고른다.
+TBL_SOURCE = {
+    "지목별 토지이용": "지자체 통계연보", "용도지역 현황": "지자체 통계연보",
+    "도로현황": "지자체 통계연보", "자동차 등록현황": "지자체 통계연보",
+    "문화재": "지자체 통계연보",
+    "취수장": "상수도통계", "정수장": "상수도통계",
+    "하수처리시설": "하수도통계", "분뇨": "하수도통계",
+    "음식물류": "음식물류 폐기물 처리시설 현황",
+    "매립": "전국 폐기물 발생 및 처리현황",
+    "소각": "전국 폐기물 발생 및 처리현황",
+}
 
 
 # 역추적으로 **원자료와 일치함을 실증한** 절 (맥 실증 2026-08-26).
@@ -115,27 +132,24 @@ TRACED = {"분뇨처리시설", "공공하수처리시설"}
 COLUMN_UNSETTLED = {"취수장", "정수장"}
 
 
-def edition_state(case, sec):
-    """그 절이 쓰는 통계가 **발행처 최신임이 확인됐는가**.
-
-    `build_vars_regional.py` 가 생성 때 발행처를 확인하고 `_통계판.최신확인` 에 적는다.
-    값이 정답지와 달라도 **최신이 확인된 자료면 우리가 틀린 게 아니다.**
-
-    ⚠️ 다만 `확인됨` 이 곧 `옳다` 는 아니다 — 우리 값이 그 판 원자료와 맞는지
-    (**역추적 실증**)는 원자료가 있는 쪽에서 따로 해야 한다. 그걸 빼면 진짜 오류가
-    숨는다 — 매립에서 정답지 자릿수 오류가 그렇게 숨어 있었다.
-    """
-    src = SEC_SOURCE.get(sec)
-    if not src:
-        return None
+def source_state(case, src):
+    """자료 하나가 **발행처 최신임이 확인됐는가**. `_통계판.최신확인` 을 읽는다."""
     f = ROOT / "cases/small-env" / case / "vars/regional-overview.json"
     if not f.exists():
         return None
     e = json.loads(f.read_text(encoding="utf-8")).get("_통계판", {}).get(src, {})
-    mark = str(e.get("최신확인", ""))
-    if mark.startswith("✅"):
-        return "판차이"          # 발행처 최신 확인 — 자료가 갱신된 것이다
-    return "판미확인"             # 최신인지 모른다 — 옳은지도 모른다
+    return "판차이" if str(e.get("최신확인", "")).startswith("✅") else "판미확인"
+
+
+def table_state(case, text, sec=None):
+    """**글에 적힌 것으로** 자료를 찾아 판정한다. 절 번호는 마지막 수단이다.
+
+    ⚠️ 절 번호로 정하면 틀린다 — 2.7 한 절이 자료 셋을 쓴다.
+    """
+    src = next((v for k, v in TBL_SOURCE.items() if k in text), None)
+    if not src and sec:
+        src = SEC_SOURCE.get(sec)
+    return source_state(case, src) if src else None
 
 
 def judge(o, g):
@@ -306,8 +320,7 @@ def score_tables(case, part, gold_lines):
             elif any(k in cap for k in TRACED):
                 v = "OK"                          # 원자료와 일치함을 실증했다
             else:
-                sec = next((x for k, x in TBL_SEC.items() if k in cap), None)
-                st = edition_state(case, sec) if sec else None
+                st = table_state(case, cap)
                 if st:
                     v = st
         tally[v] = tally.get(v, 0) + 1
@@ -359,7 +372,7 @@ def main():
                     elif any(k in o for k in TRACED):
                         v = "OK"
                     else:
-                        st = edition_state(a.case, sec)
+                        st = table_state(a.case, o, sec)
                         if st:
                             v = st
             tally[v] = tally.get(v, 0) + 1
