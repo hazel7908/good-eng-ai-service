@@ -143,6 +143,39 @@ def set_bold(hwp, on):
     hwp.HAction.Execute("CharShape", hwp.HParameterSet.HCharShape.HSet)
 
 
+def set_text_color(hwp, color):
+    """현재 선택 영역의 글자 색. 선택이 없으면 커서 위치의 기본값만 바뀐다."""
+    hwp.HAction.GetDefault("CharShape", hwp.HParameterSet.HCharShape.HSet)
+    hwp.HParameterSet.HCharShape.TextColor = color
+    hwp.HAction.Execute("CharShape", hwp.HParameterSet.HCharShape.HSet)
+
+
+def color_markers(hwp, texts, color=None, limit=2000):
+    """`[확인 필요]`·`[모델링 필요]` 를 빨간 글자로 바꾼다 (미팅 요청 4, 08-13).
+
+    찾기(`RepeatFind`)는 일치 구간을 **선택 상태로** 남기므로 그 위에 CharShape 를
+    적용하면 글꼴·크기는 그대로 두고 색만 바뀐다. 찾기/바꾸기의 `ReplaceCharShape`
+    를 쓰지 않는 이유가 이것이다 — 그쪽은 기본 글자모양을 통째로 덮어쓴다.
+    """
+    if color is None:
+        color = hwp.RGBColor(255, 0, 0)
+    total = 0
+    for t in texts:
+        hwp.HAction.Run("MoveDocBegin")
+        n, last = 0, None
+        while n < limit and find_fwd(hwp, t):
+            pos = hwp.GetPos()
+            if pos == last:                 # 커서가 안 움직이면 순환이다
+                break
+            last = pos
+            set_text_color(hwp, color)
+            n += 1
+        if n:
+            print(f"  '{t}' {n}건 빨강 처리")
+        total += n
+    return total
+
+
 def bold_row(hwp, anchor, ncells, on, skip=0):
     """앵커 셀부터 오른쪽으로 ncells 칸의 글자를 굵게/보통으로 바꾼다."""
     if not find_in_table(hwp, anchor, skip=skip):
@@ -1615,6 +1648,9 @@ def main():
     # 골든셋·베이스 문서에는 en-dash 가 한 개도 없다 — 전부 InsertText 가 만든 것이다.
     print("  [정리] 빠른 교정이 바꾼 en-dash 되돌리기")
     fr(hwp, "P – ", "P - ")
+
+    print("  [표시] 미확정 항목 빨간 글자")
+    color_markers(hwp, [MISSING, MODELING])
 
     print("\n[4/4] 저장...")
     hwp.SaveAs(str(output), "HWPX")
