@@ -30,6 +30,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "engine"))
 
+sys.path.insert(0, str(ROOT / "catalog"))
+import build_stats_values as BSV                           # noqa: E402
 import stats_extract as YB                                 # noqa: E402
 import stats_irregular as IRR                              # noqa: E402
 import stats_pdf as PDF                                    # noqa: E402
@@ -195,7 +197,51 @@ def 수계(path, info, out, 확인필요):
     return r
 
 
-def build(case, refresh=False, land_source="통계연보"):
+def 최신확인(store_srcs, 확인필요, offline=False):
+    """발행처에 새 판이 나왔는지 **보고서를 시작할 때 한 번** 본다.
+
+    ⚠️ **막지 않는다.** 네트워크·사이트 개편 어느 것이 어긋나도 보유 판으로 진행하고
+    사실만 적는다 — 통계 확인 때문에 보고서 생성이 멈추면 안 된다.
+
+    ⚠️ **자동으로 받아 갈아타지 않는다.** 새 판이 있어도 알리기만 한다. 갈아타는 것은
+    `--refresh` 를 줄 때만이다 — 한 보고서 안에서 판이 섞이면 출처 주석이 거짓말이 된다.
+
+    반환 `{자료: 상태}`. 상태는 fill-report 에 그대로 실려 **실무자가 무엇을 직접
+    확인해야 하는지** 보이게 한다.
+    """
+    if offline:
+        return {s: "⏭ 확인 안 함 (--offline)" for s in store_srcs}
+    sys.path.insert(0, str(ROOT / "catalog"))
+    try:
+        from build_stats_values import WATCH
+    except Exception as e:
+        확인필요("통계.최신판 확인", "판단", f"감시기를 못 불렀다 ({e})")
+        return {}
+    out, 미확인, 신판 = {}, [], []
+    for src in sorted(store_srcs):
+        fn = WATCH.get(src)
+        if not fn:
+            out[src] = "❓ 발행처 미확인 — **직접 확인 필요**"
+            미확인.append(src)
+            continue
+        try:
+            latest = fn()
+        except Exception as e:
+            out[src] = f"⚠️ 조회 실패 ({type(e).__name__}) — 보유 판으로 진행"
+            continue
+        out[src] = (f"✅ 발행처 최신 {latest} 확인" if latest else
+                    "⚠️ 목록에서 연도를 못 읽었다")
+        if latest:
+            out[src] += f" ({latest})"
+            신판.append((src, latest))
+    if 미확인:
+        확인필요("통계.최신판 확인", "판단",
+                 f"**발행처를 몰라 최신인지 확인하지 못한 자료 {len(미확인)}종** — "
+                 f"직접 확인해 주십시오: {' · '.join(미확인)}")
+    return out, 신판
+
+
+def build(case, refresh=False, land_source="통계연보", offline=False):
     case_dir = ROOT / "cases/small-env" / case
     if not (case_dir / "input/사업개요.txt").exists():
         sys.exit(f"ERROR: {case_dir}/input/사업개요.txt 없음")
@@ -239,6 +285,37 @@ def build(case, refresh=False, land_source="통계연보"):
     def 확인필요(항목, 분류, 사유):
         out["_확인필요"].append({"항목": 항목, "분류": 분류, "사유": 사유})
 
+    srcs = sorted({s for (s, _y) in store})
+    latest_state, 신판 = 최신확인(srcs, 확인필요, offline)
+
+    # ── 새 판이 있으면 **받아서 값 저장소를 갱신한다** ─────────────────
+    #    ⚠️ **최초 생성 때만** 갈아탄다. 이미 vars 가 있고 판이 고정돼 있으면
+    #       그대로 쓴다 — 한 보고서 안에서 판이 섞이면 출처 주석이 거짓말이 된다.
+    #       고정을 무시하려면 `--refresh`.
+    #    ⚠️ **실패해도 막지 않는다.** 받다 어긋나면 보유 판으로 진행하고 사실만 적는다.
+    for src, yr in 신판:
+        if frozen and src in frozen and not refresh:
+            확인필요("통계.최신판 확인", "판단",
+                     f"🔴 **{src} {yr}판이 나와 있다** — 이 보고서는 "
+                     f"{frozen[src].get('판')}판으로 **고정**돼 있어 그대로 쓴다. "
+                     "갈아타려면 `--refresh` 를 줄 것")
+            continue
+        확인필요("통계.최신판 확인", "판단", f"🔽 {src} {yr}판을 받는 중…")
+        path, err = BSV.download_latest(src, yr)
+        if err:
+            확인필요("통계.최신판 확인", "판단",
+                     f"⚠️ **{src} {yr}판을 못 받았다** ({err}) — 보유 판으로 진행한다")
+            continue
+        try:
+            BSV.rebuild_one(path)
+            store.clear()
+            store.update(load_values())
+            확인필요("통계.최신판 확인", "판단",
+                     f"✅ **{src} {yr}판으로 갱신했다** ({path.name})")
+        except Exception as e:
+            확인필요("통계.최신판 확인", "판단",
+                     f"⚠️ {src} {yr}판 적재 실패 ({e}) — 보유 판으로 진행한다")
+
     # ── 좌표 먼저 ─────────────────────────────────────────────────────
     #    ⚠️ **수계 조회가 좌표를 쓴다.** 예전에는 지오코딩이 절 소싱보다 뒤에 있어
     #       하천을 못 찾고 원주 기본값(`섬강`)으로 떨어졌다.
@@ -271,7 +348,8 @@ def build(case, refresh=False, land_source="통계연보"):
         blk = store[(자료, yr)]["절"].get(sec, {})
         rows = blk.get("값", {}).get(gun_key(시군), [])
         out["통계"][sec] = rows
-        out["_통계판"][자료] = {"판": yr, "지문": 지문.get((자료, yr), CHECK)}
+        out["_통계판"][자료] = {"판": yr, "지문": 지문.get((자료, yr), CHECK),
+                                "최신확인": latest_state.get(자료, CHECK)}
         if not rows:
             확인필요(f"통계.{sec}", "판단",
                      f"{시군} 해당 행 0 — 실제로 없는지(0개소) 표기 차이인지 확인")
@@ -325,7 +403,15 @@ def build(case, refresh=False, land_source="통계연보"):
         확인필요("통계.통계연보 6절", "자료부재",
                  f"통계연보가 **스캔 PDF** ({yb[0].name}) — 값을 못 꺼낸다 (확인요청 F-4)")
     else:
-        out["_통계판"]["지자체 통계연보"] = {"파일": yb[0].name}
+        out["_통계판"]["지자체 통계연보"] = {
+            "파일": yb[0].name,
+            # ⚠️ 229개 지자체가 각자 발행해 감시가 구조적으로 안 된다.
+            #    천안시 통계 누리집의 통계연보 페이지는 지금 "준비중" 이고 KOSIS 에도 없다
+            "최신확인": "❓ 발행처가 지자체마다 달라 확인 불가 — **직접 확인 필요** (F-4)"}
+        확인필요("통계.통계연보 최신판", "판단",
+                 f"**{시군} 통계연보가 최신판인지 확인하지 못했다** — 지자체마다 발행처가 "
+                 "달라 자동 확인이 안 된다. 지금 쓰는 것은 "
+                 f"`{yb[0].name}` 이다. 더 새 판이 있는지 확인해 주십시오 (F-4 · G-7)")
         면 = info["하위행정구역"] if info["하위행정구역"] != CHECK else None
         try:
             book = YB.YearBook(str(yb[0]))
@@ -425,6 +511,8 @@ def main():
     #    자동으로 갈아타지 않는다 (확인요청 G-7).
     ap.add_argument("--land-source", choices=["통계연보", "지적통계"], default="통계연보",
                     help="2.2.1 지목별 토지이용의 출처 (기본: 통계연보)")
+    ap.add_argument("--offline", action="store_true",
+                    help="발행처 확인을 건너뛴다 (네트워크 없는 환경)")
     ap.add_argument("--refresh", action="store_true",
                     help="**고정된 판을 버리고 최신으로 갈아탄다** (기본은 고정)")
     a = ap.parse_args()
@@ -432,7 +520,8 @@ def main():
     _vp = ROOT / "cases/small-env" / a.case / "vars/regional-overview.json"
     frozen_before = (json.loads(_vp.read_text(encoding="utf-8")).get("_통계판")
                      if _vp.exists() else {})
-    v = build(a.case, refresh=a.refresh, land_source=a.land_source)
+    v = build(a.case, refresh=a.refresh, land_source=a.land_source,
+              offline=a.offline)
     filled = sum(1 for x in v["통계"].values()
                  if x not in (CHECK,) and x != [] and x is not None)
     print(f"# {a.case} — 통계 {filled}/{len(v['통계'])} 절 채움 · "
