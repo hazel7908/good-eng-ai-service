@@ -332,18 +332,32 @@ def score_tables(case, part, gold_lines):
 
 
 # 삽도 6종 — `rules/small-env/regional-overview.md` §1 (8/8 사업 공통)
+# 골든셋 8/8 공통 삽도 (`rules/small-env/regional-overview.md` §1)
 FIGURES = ["생태·자연도", "식생보전등급도", "수계흐름모식도", "수계도",
            "정온시설 및 개발시설 현황", "지역개황도"]
 
+# ⚠️ **사업에만 있는 삽도.** 8건 중 2건(천안·충주)에만 있는데 고정 목록으로 세면
+#    **분모에서 조용히 사라진다** — 안 뚫은 문장이 분모에서 사라졌던 것과 같은 함정
+#    (validation.md §1). 정답에 캡션이 있으면 분모에 넣는다.
+#    ⚠️ 캡션을 정규식으로 긁으면 `충청남도`·`농도`·`한도` 가 걸린다. 이름을 적는다.
+OPTIONAL_FIGURES = ["수질오염총량 단위유역도"]
 
-def score_figures(case, part):
+
+def figures_of(gold_lines):
+    """그 사업의 삽도 목록 — **분모를 정답에서 뽑는다.**"""
+    txt = "\n".join(gold_lines)
+    return FIGURES + [f for f in OPTIONAL_FIGURES if f in txt]
+
+
+def score_figures(case, part, gold_lines=None):
     """`[삽도 필요]` 자리표시면 MISSING 이다. 채운 삽도가 생기면 여기서 갈린다."""
+    figs = figures_of(gold_lines) if gold_lines else FIGURES
     p = ROOT / "cases/small-env" / case / part / "output.hwpx"
     z = zipfile.ZipFile(p)
     names = [n for n in z.namelist() if n.startswith("BinData/")]
     filled = sum(1 for n in names if z.getinfo(n).file_size > 300_000)
-    return {"MISSING": len(FIGURES) - min(filled, len(FIGURES)),
-            **({"OK": min(filled, len(FIGURES))} if filled else {})}
+    return {"MISSING": len(figs) - min(filled, len(figs)),
+            **({"OK": min(filled, len(figs))} if filled else {})}
 
 
 def main():
@@ -393,7 +407,7 @@ def main():
     # ── 표 · 삽도 ────────────────────────────────────────────────
     gl = gold.read_text(encoding="utf-8").splitlines()
     tt, trows = score_tables(a.case, a.part, gl)
-    ft = score_figures(a.case, a.part)
+    ft = score_figures(a.case, a.part, gold.read_text(encoding="utf-8").splitlines())
     tn, fn = sum(tt.values()), sum(ft.values())
     print(f"\n표 {tn}항목")
     for k in ("OK", "일부", "판차이", "열미결", "판미확인", "WRONG", "확인필요", "잉여"):
