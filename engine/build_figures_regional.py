@@ -130,12 +130,27 @@ def crop_to_frame(base_png, kind, center_px, ppm):
     return [cx - left, cy - top], (cw, ch)
 
 
-def render(base, els, out_path, frame_px=None):
+def spec_doc(base, els, frame_px=None):
     doc = {"elements": els}
     if base:
         doc["base"] = str(base)
     elif frame_px:
         doc["canvas"] = list(frame_px)      # 지도가 없는 도식 — 액자 크기로 그린다
+    return doc
+
+
+def render_psd(base, els, out_path, frame_px=None):
+    """레이어드 PSD 산출 (클라이언트 요청 §9-2) — 고칠 수 있게 층으로 떨군다.
+
+    ⚠️ **베이스 이미지가 지워지기 전에** 불러야 한다 (`_base_*` 는 뒤에서 청소된다).
+    크기는 PNG 처럼 액자로 줄이지 않는다 — 실무 PSD 도 문서보다 큰 원본을 둔다
+    (NAS 실측: 700×450 문서에 1813×799 베이스)."""
+    import figure_psd
+    return figure_psd.build(spec_doc(base, els, frame_px), out_path, check=True)
+
+
+def render(base, els, out_path, frame_px=None):
+    doc = spec_doc(base, els, frame_px)
     spec = Path(out_path).with_suffix(".spec.json")
     spec.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
     r = subprocess.run([sys.executable, str(ROOT / "engine/figure_overlay.py"),
@@ -313,6 +328,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("case")
     ap.add_argument("--only")
+    ap.add_argument("--psd", action="store_true",
+                    help="삽도별 레이어드 PSD 도 만든다 (실무자 편집용 · 계획 §9-2)")
     a = ap.parse_args()
 
     case_dir = ROOT / "cases/small-env" / a.case
@@ -370,6 +387,17 @@ def main():
         if err or not out.exists():
             skipped.append((kind, f"렌더 실패: {err}"))
             print(f"  ✗ {kind:16s} 렌더 실패 — {err}"); continue
+
+        if a.psd:
+            # ★ 베이스 청소(아래 `_*` 글롭) 전에 만든다 — 지워지면 층을 못 뽑는다
+            try:
+                p = render_psd(ctx.get("base"), els, out.with_suffix(".psd"),
+                               frame_px=(W, H))
+                print(f"    PSD {p.name} {p.stat().st_size/1e6:.0f}MB")
+            except SystemExit as e:
+                print(f"  ⚠ {kind:16s} PSD 검증 실패 — {e}")
+            except Exception as e:
+                print(f"  ⚠ {kind:16s} PSD 실패 — {type(e).__name__}: {e}")
 
         # 액자 픽셀로 정확히 맞춘다 — 비율은 이미 잘라 낼 때 맞췄다
         from PIL import Image

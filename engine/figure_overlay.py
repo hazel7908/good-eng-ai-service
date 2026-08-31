@@ -163,8 +163,17 @@ def draw_parcels(im, polygons, color="red", k=1.0, width=None, fill=0):
             md.polygon([tuple(p) for p in poly], fill=255)
 
     if fill:
-        tint = Image.new("RGB", im.size, c)
-        im.paste(Image.blend(im.convert("RGB"), tint, fill), mask=mask)
+        # ⚠️ **밑그림과 섞지 않는다.** 예전에는 `blend(im, tint, fill)` 로 현재 화면과
+        # 섞었는데, 그러면 이 요소를 **투명 레이어에 따로 그릴 수 없다** (빈 레이어의
+        # RGB 는 검정이라 색이 죽는다). 같은 결과를 알파로 얹으면 밑그림을 안 읽는다 —
+        # 베이스 위에 합성하면 base*(1-fill) + c*fill 로 수식이 같다 (PSD 층 분리 전제).
+        if im.mode == "RGBA":
+            wash = Image.new("RGBA", im.size, (0, 0, 0, 0))
+            wash.paste(Image.new("RGBA", im.size, c + (int(round(255 * fill)),)), mask=mask)
+            im.alpha_composite(wash)
+        else:
+            im.paste(Image.blend(im.convert("RGB"), Image.new("RGB", im.size, c), fill),
+                     mask=mask)
 
     # 안쪽을 w 만큼 깎아 낸 것과의 차이 = 두께 w 의 테두리
     inner = mask
@@ -623,20 +632,97 @@ def draw_watercourse(im, nodes, links, total=None, k=1.0):
 DISPATCH_NEEDS_IMAGE = {"zone", "legend"}
 
 
-def render(spec, out_path=None):
-    if spec.get("base"):
-        im = Image.open(Path(spec["base"])).convert("RGBA")
-    else:
-        # 지도가 없는 도식(수계흐름모식도 등) — 빈 캔버스에 그린다.
-        # `canvas` 를 안 주면 **내용에 맞춰 크기를 잡는다** (노드가 많으면 옆이 잘린다).
-        if spec.get("canvas"):
-            w, h = spec["canvas"]
-        else:
-            wc = next((e for e in spec.get("elements", []) if e["type"] == "watercourse"), None)
-            w, h = watercourse_size(wc["nodes"]) if wc else (1600, 500)
-        im = Image.new("RGBA", (int(w), int(h)), (255, 255, 255, 255))
-    k = _scaled(im)
+def _draw_element(im, el, k, F, pos):
+    """요소 하나를 `im` 에 그린다 — **평면 렌더와 PSD 층 렌더가 공유하는 유일한 분기.**
+
+    ⚠️ 여기를 복사해 층 렌더를 따로 만들지 말 것. 두 벌이 되면 조용히 갈라진다
+    (`hwpx.md` — "검사와 수정은 다른 근거를 써야 한다"의 반대편 짝: **그리는 코드는 한 벌**)."""
     d = ImageDraw.Draw(im)
+    t = el["type"]
+    if t == "target":
+        draw_target(d, el["at"], k)
+    elif t == "label":
+        draw_label(d, el["at"], el["text"], k, el.get("from"), F(34))
+    elif t == "boundary":
+        draw_boundary(d, el["points"], el.get("color", "yellow"), k)
+    elif t == "zone":
+        draw_zone(im, el["points"], el.get("label"), k, F(30))
+    elif t == "flow":
+        draw_flow(d, el["path"], el.get("count", 5), k)
+    elif t == "parcels":
+        draw_parcels(im, el["polygons"], el.get("color", "red"), k,
+                     el.get("width"), el.get("fill", 0))
+    elif t == "rings":
+        draw_rings(im, el["origin"], el["radii_m"], el["px_per_m"], k, F(30),
+                   el.get("label_deg", 213), color=el.get("color", (255, 255, 255)),
+                   short=el.get("short"), fill=el.get("fill"))
+    elif t == "polar":
+        # 정답 정온시설 분포도는 마커·라벨이 **초록**이다 (평창 실측).
+        # 색을 안 주면 표적 빨강을 쓴다 — 삽도 종류마다 달라 spec 에서 정한다.
+        draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26),
+                   tuple(el["dot"]) if el.get("dot") else None,
+                   el.get("adjacent_m"))
+    elif t == "watercourse":
+        # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.
+        # 캔버스 크기를 내용에서 잡는데 그 크기로 다시 배율을 매기면 서로 물려 넘친다.
+        draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), 1.0)
+    elif t == "title":
+        # 크기를 안 주면 골든셋 7/7 비율을 쓴다 — 폭 16.7% · 높이 5.8%
+        draw_title(im, el.get("at") or [im.width / 2, im.height * 0.055],
+                   el["text"],
+                   el.get("width", im.width * 0.167),
+                   el.get("height", im.height * 0.058), k, el.get("size"))
+    elif t == "admin":
+        draw_admin(im, pos(el, "north") if not el.get("at") else el["at"],
+                   el["text"], k, el.get("size"))
+    elif t == "river":
+        draw_river(im, el["at"], el["text"], k, el.get("size"),
+                   el.get("vertical", True))
+    elif t == "place":
+        draw_place(d, el["at"], el["text"], k, F(el.get("size", 38)))
+    elif t == "scalebar":
+        length = el.get("length_px") or round(im.width * DEFAULT_SCALEBAR_RATIO)
+        label = el.get("label")
+        if not label and el.get("px_per_m"):
+            # `px_per_m` 을 주면 라벨을 계산한다 — map_fetch 가 돌려주는 그 값이다.
+            # 막대 길이에 해당하는 실제 거리를 **읽기 좋은 눈금**으로 내린다.
+            raw = length / float(el["px_per_m"])
+            nice = [10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000]
+            pick = max([n for n in nice if n <= raw], default=nice[0])
+            length = round(pick * float(el["px_per_m"]))       # 눈금에 맞춰 막대도 줄인다
+            label = f"{pick}m" if pick < 1000 else f"{pick/1000:g}km"
+        draw_scalebar(d, pos(el, "scalebar"), length, label or "", k, F(26))
+    elif t == "north":
+        draw_north(d, pos(el, "north"), k, F(26), el.get("style", "compass"))
+    elif t == "legend":
+        orient = el.get("orient", "v")
+        draw_legend(im, pos(el, "legend_h" if orient == "h" else "legend_v"),
+                    [(c, s) for c, s in el["items"]], k, F(26),
+                    el.get("title"), orient, el.get("swatch", "fill"))
+    else:
+        raise ValueError(f"모르는 요소: {t}")
+    return t
+
+
+def canvas_for(spec):
+    """spec 이 요구하는 캔버스 — 베이스 지도가 있으면 그것, 없으면 빈 판.
+
+    `render()` 와 PSD 층 렌더가 **같은 크기**를 얻어야 층이 어긋나지 않는다."""
+    if spec.get("base"):
+        return Image.open(Path(spec["base"])).convert("RGBA")
+    # 지도가 없는 도식(수계흐름모식도 등) — 빈 캔버스에 그린다.
+    # `canvas` 를 안 주면 **내용에 맞춰 크기를 잡는다** (노드가 많으면 옆이 잘린다).
+    if spec.get("canvas"):
+        w, h = spec["canvas"]
+    else:
+        wc = next((e for e in spec.get("elements", []) if e["type"] == "watercourse"), None)
+        w, h = watercourse_size(wc["nodes"]) if wc else (1600, 500)
+    return Image.new("RGBA", (int(w), int(h)), (255, 255, 255, 255))
+
+
+def _helpers(im):
+    """배율·폰트 캐시·기본 위치 — 평면/층 렌더가 공유한다."""
+    k = _scaled(im)
     font_cache = {}
 
     def F(sz):
@@ -656,81 +742,13 @@ def render(spec, out_path=None):
         rx, ry = DEFAULT_POS[key]
         return [round(im.width * rx), round(im.height * ry)]
 
-    drawn = []
-    for el in spec.get("elements", []):
-        t = el["type"]
-        if t == "target":
-            draw_target(d, el["at"], k)
-        elif t == "label":
-            draw_label(d, el["at"], el["text"], k, el.get("from"), F(34))
-        elif t == "boundary":
-            draw_boundary(d, el["points"], el.get("color", "yellow"), k)
-        elif t == "zone":
-            draw_zone(im, el["points"], el.get("label"), k, F(30))
-            d = ImageDraw.Draw(im)          # alpha_composite 후 draw 재생성
-        elif t == "flow":
-            draw_flow(d, el["path"], el.get("count", 5), k)
-        elif t == "parcels":
-            draw_parcels(im, el["polygons"], el.get("color", "red"), k,
-                         el.get("width"), el.get("fill", 0))
-            d = ImageDraw.Draw(im)
-        elif t == "rings":
-            draw_rings(im, el["origin"], el["radii_m"], el["px_per_m"], k, F(30),
-                       el.get("label_deg", 213), color=el.get("color", (255, 255, 255)),
-                       short=el.get("short"), fill=el.get("fill"))
-            d = ImageDraw.Draw(im)
-        elif t == "polar":
-            # 정답 정온시설 분포도는 마커·라벨이 **초록**이다 (평창 실측).
-            # 색을 안 주면 표적 빨강을 쓴다 — 삽도 종류마다 달라 spec 에서 정한다.
-            draw_polar(im, el["origin"], el["items"], el["px_per_m"], k, F(26),
-                       tuple(el["dot"]) if el.get("dot") else None,
-                       el.get("adjacent_m"))
-            d = ImageDraw.Draw(im)
-        elif t == "watercourse":
-            # 모식도는 **자기 크기가 절대적**이라 배율을 고정한다.
-            # 캔버스 크기를 내용에서 잡는데 그 크기로 다시 배율을 매기면 서로 물려 넘친다.
-            draw_watercourse(im, el["nodes"], el.get("links", []), el.get("total"), 1.0)
-            d = ImageDraw.Draw(im)
-        elif t == "title":
-            # 크기를 안 주면 골든셋 7/7 비율을 쓴다 — 폭 16.7% · 높이 5.8%
-            draw_title(im, el.get("at") or [im.width / 2, im.height * 0.055],
-                       el["text"],
-                       el.get("width", im.width * 0.167),
-                       el.get("height", im.height * 0.058), k, el.get("size"))
-            d = ImageDraw.Draw(im)
-        elif t == "admin":
-            draw_admin(im, pos(el, "north") if not el.get("at") else el["at"],
-                       el["text"], k, el.get("size"))
-            d = ImageDraw.Draw(im)
-        elif t == "river":
-            draw_river(im, el["at"], el["text"], k, el.get("size"),
-                       el.get("vertical", True))
-            d = ImageDraw.Draw(im)
-        elif t == "place":
-            draw_place(d, el["at"], el["text"], k, F(el.get("size", 38)))
-        elif t == "scalebar":
-            length = el.get("length_px") or round(im.width * DEFAULT_SCALEBAR_RATIO)
-            label = el.get("label")
-            if not label and el.get("px_per_m"):
-                # `px_per_m` 을 주면 라벨을 계산한다 — map_fetch 가 돌려주는 그 값이다.
-                # 막대 길이에 해당하는 실제 거리를 **읽기 좋은 눈금**으로 내린다.
-                raw = length / float(el["px_per_m"])
-                nice = [10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000]
-                pick = max([n for n in nice if n <= raw], default=nice[0])
-                length = round(pick * float(el["px_per_m"]))       # 눈금에 맞춰 막대도 줄인다
-                label = f"{pick}m" if pick < 1000 else f"{pick/1000:g}km"
-            draw_scalebar(d, pos(el, "scalebar"), length, label or "", k, F(26))
-        elif t == "north":
-            draw_north(d, pos(el, "north"), k, F(26), el.get("style", "compass"))
-        elif t == "legend":
-            orient = el.get("orient", "v")
-            draw_legend(im, pos(el, "legend_h" if orient == "h" else "legend_v"),
-                        [(c, s) for c, s in el["items"]], k, F(26),
-                        el.get("title"), orient, el.get("swatch", "fill"))
-            d = ImageDraw.Draw(im)
-        else:
-            raise ValueError(f"모르는 요소: {t}")
-        drawn.append(t)
+    return k, F, pos
+
+
+def render(spec, out_path=None):
+    im = canvas_for(spec)
+    k, F, pos = _helpers(im)
+    drawn = [_draw_element(im, el, k, F, pos) for el in spec.get("elements", [])]
 
     if out_path:
         im.convert("RGB").save(out_path, quality=92)
@@ -746,19 +764,32 @@ def demo(base=None, out=None):
     out = Path(out or ROOT / "raw_data/figure_demo.jpg")
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    if base and Path(base).exists():
-        base_path = Path(base)
-    else:
-        base_path = out.with_name("_demo_base.png")
-        im = Image.new("RGB", (1600, 1200), (238, 236, 226))
-        g = ImageDraw.Draw(im)
-        for x in range(0, 1600, 80):
-            g.line([(x, 0), (x, 1200)], fill=(214, 212, 202))
-        for y in range(0, 1200, 80):
-            g.line([(0, y), (1600, y)], fill=(214, 212, 202))
-        im.save(base_path)
+    base_path = Path(base) if base and Path(base).exists() \
+        else demo_base(out.with_name("_demo_base.png"))
+    spec = demo_spec(base_path)
+    _, drawn = render(spec, out)
+    print(f"요소 {len(drawn)}개 렌더 — {', '.join(drawn)}")
+    print(f"→ {out}  ({out.stat().st_size/1024:.0f}KB)")
+    return out
 
-    spec = {
+
+def demo_base(path):
+    """격자 캔버스 — 실제 삽도 베이스(사람이 캡처한 지도)의 대체물."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    im = Image.new("RGB", (1600, 1200), (238, 236, 226))
+    g = ImageDraw.Draw(im)
+    for x in range(0, 1600, 80):
+        g.line([(x, 0), (x, 1200)], fill=(214, 212, 202))
+    for y in range(0, 1200, 80):
+        g.line([(0, y), (1600, y)], fill=(214, 212, 202))
+    im.save(path)
+    return path
+
+
+def demo_spec(base_path):
+    """전 요소 시험 spec — 평면 데모와 PSD 데모가 **같은 것**을 쓴다."""
+    return {
         "base": str(base_path),
         "elements": [
             {"type": "zone", "points": [[1120, 120], [1420, 150], [1390, 430], [1100, 380]],
@@ -784,10 +815,6 @@ def demo(base=None, out=None):
              "items": [["yellow", "사업계획지구"], ["cyan", "상수원보호구역"]]},
         ],
     }
-    _, drawn = render(spec, out)
-    print(f"요소 {len(drawn)}개 렌더 — {', '.join(drawn)}")
-    print(f"→ {out}  ({out.stat().st_size/1024:.0f}KB)")
-    return out
 
 
 def main():
