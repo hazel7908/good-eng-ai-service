@@ -40,7 +40,7 @@ SPECS = {
 
 def keep_only(hwp, start_anchor, end_anchor):
     """start_anchor 문단부터 end_anchor 문단 직전까지만 남기고 나머지를 지운다."""
-    from generate import find_fwd
+    from hwp_util import find_fwd
 
     # ── 뒤쪽 먼저 ── 앞을 먼저 지우면 문단 번호가 밀린다
     hwp.MovePos(2)

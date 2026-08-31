@@ -108,7 +108,7 @@ def main():
     if not img_map:
         sys.exit("\n넣을 그림이 없다.")
     sys.path.insert(0, str(ROOT / "engine"))
-    from generate import replace_images, check_figures
+    from hwp_util import replace_images, check_figures
     print()
     replace_images(str(out), img_map)
     check_figures(str(out), str(ROOT / "templates" / a.category / f"{a.part}.hwpx"))

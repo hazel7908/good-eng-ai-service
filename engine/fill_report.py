@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from generate import MISSING, PART_HANDLERS
+from generate import MISSING, load_part_handlers
 
 ROOT = Path(__file__).parent.parent
 
@@ -48,7 +48,7 @@ def build(category, part, case):
     vars_path = ROOT / "cases" / category / case / "vars" / f"{part}.json"
     v = json.loads(vars_path.read_text(encoding="utf-8"))
 
-    build_slots, _ = PART_HANDLERS[part]
+    build_slots, _ = load_part_handlers(category, part)
     slots = build_slots(v)
 
     checks = v.get("_확인필요", [])
@@ -118,7 +118,7 @@ def build(category, part, case):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("category")
-    ap.add_argument("part", choices=sorted(PART_HANDLERS))
+    ap.add_argument("part")
     ap.add_argument("case")
     a = ap.parse_args()
     out, ask, warn, filled = build(a.category, a.part, a.case)

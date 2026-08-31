@@ -491,7 +491,7 @@ def normalize(hwp, tokens):
     이래도 매칭되지만 `generate.py` 의 잔여 토큰 검사(raw XML 비교)가 무력해진다.
     찾은 자리는 선택 상태이므로 같은 문자열을 다시 넣으면 서식이 하나로 합쳐진다.
     """
-    from generate import find_fwd
+    from hwp_util import find_fwd
     for t in tokens:
         tok = "{{%s}}" % t
         hwp.MovePos(2)
@@ -551,7 +551,7 @@ def keep_captions_with_table(dst):
 
 def build(spec, src, dst):
     import win32com.client
-    from generate import fr, find_in_table, set_cell, right
+    from hwp_util import fr, find_in_table, set_cell, right
 
     shutil.copy(src, dst)
     print(f"[1/4] 복사: {dst.name}")
@@ -676,6 +676,28 @@ def verify(spec, dst):
     return not (want - found) and not (found - want)
 
 
+def load_spec(category, part):
+    """R2 — 명세를 templates/{카테고리}/{파트}.spec.py 에서 읽는다 (신규 파트 표준).
+
+    spec.py 는 모듈 상수 SPEC(dict: source/src/replace/cells/expect) 하나를 내보낸다.
+    파일이 없으면 인라인 SPECS 로 폴백 — 기존 3파트는 Windows 회귀 검증 후 이주한다.
+    """
+    import importlib.util
+    p = ROOT / "templates" / category / f"{part}.spec.py"
+    if p.exists():
+        s = importlib.util.spec_from_file_location(
+            f"spec_{category}_{part}".replace("-", "_"), p)
+        mod = importlib.util.module_from_spec(s)
+        s.loader.exec_module(mod)
+        return mod.SPEC
+    if part in SPECS:
+        return SPECS[part]
+    ext = sorted(f"{q.parent.name}/{q.name[:-8]}"
+                 for q in (ROOT / "templates").glob("*/*.spec.py"))
+    sys.exit(f"ERROR: '{part}' 명세 없음 — templates/{category}/{part}.spec.py 를 만들 것.\n"
+             f"  인라인: {sorted(SPECS)} · 외부: {ext}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="베이스 문서(빈칸) 생성")
     ap.add_argument("category")
@@ -683,9 +705,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="매칭 검사만 (한글 불필요)")
     a = ap.parse_args()
 
-    if a.part not in SPECS:
-        sys.exit(f"ERROR: '{a.part}' 명세 없음. 지원: {list(SPECS)}")
-    spec = SPECS[a.part]
+    spec = load_spec(a.category, a.part)
 
     gold = ROOT / "golden" / a.category / spec["source"]
     # 원본이 golden/ 밖(raw_data)에 있는 파트는 `src` 로 지정한다 (대기질 — hwp 변환본)
