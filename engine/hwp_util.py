@@ -608,7 +608,10 @@ def write_at(hwp, anchor, row_off, col_off, vals, skip=0, row_after=0, missing=N
         down(hwp, row_after)
     miss = MISSING if missing is None else missing
     for val in vals:
-        set_cell(hwp, str(val) if val not in (None, "") else miss)
+        # ⚠️ `None` 과 `""` 는 뜻이 다르다. **None = 자료 없음**(→ `[확인 필요]`),
+        #    **"" = 원래 빈 칸**(→ 그대로 비움). 둘을 묶으면 원본이 비워 둔 비고 칸마다
+        #    `[확인 필요]` 가 찍힌다 (2026-08-31 0724 피해방지 표에서 8건).
+        set_cell(hwp, miss if val is None else str(val))
         right(hwp)
     return True
 
