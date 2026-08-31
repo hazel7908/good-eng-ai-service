@@ -576,6 +576,43 @@ def fill_by_col(hwp, anchor, row_off, values, max_steps=40, skip=0):
     return True
 
 
+def write_at(hwp, anchor, row_off, col_off, vals, skip=0, row_after=0, missing=None):
+    """앵커에서 `row_off` 행 아래 · `col_off` 칸 오른쪽부터 vals 를 차례로 쓴다.
+
+    표 채우기의 **표준 이동 방식**이다. 커서를 이어서 움직이지 말고 늘 여기를 쓸 것 —
+    2026-08-31 수질·기상·0400 세 파트에서 나온 표 결함 여덟 가지가 전부
+    "어림으로 이어서 움직인" 탓이었다:
+
+      행: 앵커가 머리행이 아님 · 머리행이 두 줄 · 마지막 칸의 `right()` 가 이미 다음
+          행으로 넘어갔는데 또 `down()` · 앵커 셀을 덮어써 재탐색 실패 ·
+          **세로 병합 칸에서 `down()` 무효**
+      열: **병합 라벨 칸인데 `col_begin()` 부터 씀** · 열 수 오인
+      표: `skip` 미전달로 다른 표 · 빈칸 치환이 앵커와 같은 문자열을 새로 만듦
+
+    - `col_off`: 왼쪽 라벨 칸 수. **A열이 세로 병합 라벨인 표가 흔하다** — 0 으로 두면
+      시군·읍면 칸에 값이 박힌다.
+    - `row_after`: 열 이동 **뒤에** 내려갈 행 수. 세로 병합 칸에서는 `down()` 이 안 먹으므로
+      병합을 벗어난 뒤 내려가야 한다.
+    - `missing`: None 인 값에 쓸 문자열 (기본 `[확인 필요]`).
+
+    ⚠️ **자료가 없다고 표를 건너뛰지 말 것.** 건너뛰면 기준 사업 값이 그대로 실린다
+    (rule §6-3 · 청양 골든셋). 행 수만큼 None 을 넘겨 비운다.
+    """
+    if not find_in_table(hwp, anchor, skip=skip):
+        print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 스킵")
+        return False
+    down(hwp, row_off)
+    col_begin(hwp)
+    right(hwp, col_off)
+    if row_after:
+        down(hwp, row_after)
+    miss = MISSING if missing is None else missing
+    for val in vals:
+        set_cell(hwp, str(val) if val not in (None, "") else miss)
+        right(hwp)
+    return True
+
+
 def blank_row(hwp, anchor, row_off, keep_first=0, max_steps=40, skip=0):
     """목표 행의 칸을 전부 `[확인 필요]` 로 비운다.
 

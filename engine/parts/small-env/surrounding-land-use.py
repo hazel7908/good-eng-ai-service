@@ -8,7 +8,8 @@
 """
 from collections import OrderedDict
 
-from hwp_util import MISSING, col_begin, down, find_in_table, fit_rows, right, set_cell
+from hwp_util import (MISSING, col_begin, down, find_in_table, fit_rows,
+                      right, set_cell, write_at)
 
 
 def compute(v):
@@ -56,34 +57,6 @@ def build_slots(v):
     }
 
 
-def _write(hwp, cell, anchor, row_off, col_off, vals, skip=0, row_after=0):
-    """앵커에서 `row_off` 행 아래, `col_off` 칸 오른쪽부터 vals 를 쓴다.
-
-    🚨 **A열이 병합된 라벨 칸인 표가 많다** (0400 세 표 전부). `col_begin()` 으로
-       시작하면 병합 칸(시군·읍면)에 값을 써서 표가 무너진다 — 실제로 편입토지조서의
-       `원주시/호저면/무장리` 칸에 지번이 박혔다 (2026-08-31 되먹임 실측).
-       그래서 **라벨 칸 수(col_off)를 호출자가 명시**한다.
-    ⚠️ 행마다 앵커에서 다시 찾아 **절대 오프셋**으로 간다. 이어서 `down()` 하면
-       마지막 칸의 `right()` 가 이미 다음 행으로 넘어가 한 행씩 밀린다.
-    """
-    if not find_in_table(hwp, anchor, skip=skip):
-        print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 스킵")
-        return False
-    down(hwp, row_off)
-    col_begin(hwp)
-    right(hwp, col_off)
-    # 🚨 `row_after` — **세로 병합 칸에서는 `down()` 이 안 먹는다.** 앵커
-    #    `사업계획지구` 는 두 행에 걸친 A칸이라 `down(1)` 해도 제자리고, 결국 면적 행에
-    #    구성비 값을 덮어썼다 (2026-08-31 실측). 병합을 벗어난 뒤(=col_off 이동 후)
-    #    내려가면 정상으로 움직인다.
-    if row_after:
-        down(hwp, row_after)
-    for val in vals:
-        cell(val)
-        right(hwp)
-    return True
-
-
 def build_tables(hwp, v):
     """표 편집 5종. 앵커·오프셋·열 시작은 2026-08-31 셀 주소 실측 확정.
 
@@ -93,7 +66,7 @@ def build_tables(hwp, v):
     """
     r = compute(v)
     cell = lambda x: set_cell(hwp, str(x) if x not in (None, "") else MISSING)
-    W = lambda *a, **k: _write(hwp, cell, *a, **k)
+    W = lambda *a, **k: write_at(hwp, *a, **k)      # 공용 이동 규약 (hwp_util)
 
     # ⚠️ 자료가 없어도 **건너뛰지 않는다** — 건너뛰면 기준 사업(원주) 값이 그대로 실린다
     #    (rule §6-3 · 청양 골든셋). 행 수만큼 [확인 필요] 로 비운다.
