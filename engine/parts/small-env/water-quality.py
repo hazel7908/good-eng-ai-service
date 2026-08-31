@@ -202,7 +202,27 @@ def _basin_rows(hwp, anchor, n_rows, fill_one, skip=0, has_total=False):
             blank_row(hwp, anchor, BASE_BASINS, keep_first=1, skip=skip)
         print("    유역 수 미상 — 행 유지하고 [확인 필요] 로 비움")
         return False                                        # 합계 계산은 건너뛴다
-    fit_rows(hwp, anchor, BASE_BASINS, n_rows)
+    # 🚨 **`fit_rows` 를 쓰면 안 된다.** 그쪽은 `find_in_table(anchor)` 를 skip 없이
+    #    다시 부른다 — 같은 앵커를 쓰는 표가 7개라 **전부 첫 표(B3)로 끌려가** 거기에
+    #    겹쳐 쓴다. 원주(2유역) 재생성에서 `배수유역 1` 표가 8개로 늘고 내용이 통째로
+    #    밀렸다 (2026-08-31 실측). blank_row 의 skip 누락과 같은 부류다.
+    cur = BASE_BASINS
+    while cur > n_rows:                       # 줄이기 — 마지막 데이터 행을 지운다
+        if not find_in_table(hwp, anchor, skip=skip):
+            return False
+        down(hwp, cur - 1)                    # 앵커 행이 곧 첫 데이터 행 (오프셋 0부터)
+        hwp.HAction.Run("TableDeleteRow")
+        cur -= 1
+    while cur < n_rows:                       # 늘리기 — 마지막 데이터 행 **아래**에 넣는다.
+        if not find_in_table(hwp, anchor, skip=skip):
+            return False
+        down(hwp, cur - 1)
+        # ⚠️ `TableAppendRow` 는 **표 맨 끝**에 붙어 합계 행 아래로 간다. 여기선 안 된다.
+        hwp.HAction.Run("TableInsertLowerRow")
+        cur += 1
+    if not find_in_table(hwp, anchor, skip=skip):
+        return False
+    col_begin(hwp)
     for i in range(n_rows):
         if i:
             down(hwp)
@@ -290,15 +310,24 @@ def build_tables(hwp, v):
         for val in [f"배수유역 {i+1}", _f(b["ha"], 4), r["C"], gi.get("강우강도"),
                     _f(b.get("cms"), 4), _comma(b.get("cmd")), "-"]:
             cell(val); right(hwp)
-    _basin_rows(hwp, "배수유역 1", n, runoff, skip=1, has_total=True)
+    if _basin_rows(hwp, "배수유역 1", n, runoff, skip=1, has_total=True):
+        down(hwp); col_begin(hwp); right(hwp)          # 합계 행 (=SUM 필드를 값으로 덮는다)
+        cell(_f(sum(b["ha"] for b in bs), 4)); right(hwp, 3)
+        cell(_f(r["cms합"], 4)); right(hwp)
+        cell(_comma(r["cmd합"]))
 
     print("  B7 — 토사유출량 산정결과")
     def sediment(i):
         b = bs[i]
+        # ⚠️ **6열이다 — 비고 열이 없다.** 7값을 쓰면 한 칸씩 밀려 유역 2 의
+        #    토사유출량 자리에 `-` 가 들어간다 (2026-08-31 원주 재생성 실측).
         for val in [f"배수유역 {i+1}", _f(b["ha"], 4), r["S"], r["비중"],
-                    gi.get("강우일수"), _f(b.get("qs"), 4), "-"]:
+                    gi.get("강우일수"), _f(b.get("qs"), 4)]:
             cell(val); right(hwp)
-    _basin_rows(hwp, "배수유역 1", n, sediment, skip=2, has_total=True)
+    if _basin_rows(hwp, "배수유역 1", n, sediment, skip=2, has_total=True):
+        down(hwp); col_begin(hwp); right(hwp)          # 합계 행
+        cell(_f(sum(b["ha"] for b in bs), 4)); right(hwp, 4)
+        cell(_f(r["qs합"], 4))
 
     print("  B8 — 무처리 SS (유역별 행 + 합계 필드 덮기)")
     def untreated(i):
@@ -354,6 +383,10 @@ def build_tables(hwp, v):
         b = bs[i]
         row = spec_rows[i] if i < len(spec_rows) else {}
         vol = b.get("침사지", (None, None, None))[2]
+        # ⚠️ **5열이고 WLH 는 한 칸이다** (셀 주소 실측 A~E · `D2="2.5 × 5.0 × 2.0"`).
+        #    추출 텍스트에서는 셀 안 줄바꿈 때문에 `2.5 / × / 5.0 / × / 2.0` 다섯 줄로
+        #    보이지만 칸은 하나다 — **평면화된 텍스트로 열 수를 세면 안 된다**
+        #    (2026-08-31: 9칸으로 잘못 읽고 고쳤다가 되돌렸다).
         for val in [f"배수유역 {i+1}", _comma(b["㎡"], 0),
                     f"{row.get('용량', MISSING)}({_f(vol, 1)})",
                     row.get("WLH", MISSING), "-"]:
