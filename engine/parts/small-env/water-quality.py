@@ -402,10 +402,20 @@ def build_tables(hwp, v):
                     "2단 설치"]:
             cell(val); right(hwp)
     if _basin_rows(hwp, "배수유역 1", n, effect, skip=6, has_total=True):
-        down(hwp); col_begin(hwp); right(hwp, 2)           # 합계 행 (필드 덮기)
+        # 🚨 **합계 행은 6칸이다** — 토사유출량 `=SUM` 3칸 + 토사농도 `=AVG` 3칸.
+        #    앞서 SUM 3칸만 덮었더니 AVG 3칸이 `잘못된 계산식` 으로 나갔다 (9건 =
+        #    3칸 × XML 3회, 2026-08-31 채점에서 발각). 행 수가 사업마다 달라지는 표에서
+        #    한글 계산 필드는 참조가 깨진다 — **엔진이 값으로 직접 쓴다.**
+        #    ⚠️ 빈칸도 아니고 원주 값 유출도 아니라 기존 게이트 ①②③ 을 전부 통과했다.
+        eff = r["효율"]
+        down(hwp); col_begin(hwp); right(hwp, 2)           # 합계 행
         for val in [_f(r["qs합"], 4),
-                    _f(sum(b.get("qs_1단") or 0 for b in bs), 4) if r["효율"] else MISSING,
-                    _f(sum(b.get("qs_2단") or 0 for b in bs), 4) if r["효율"] else MISSING]:
+                    _f(sum(b.get("qs_1단") or 0 for b in bs), 4) if eff else MISSING,
+                    _f(sum(b.get("qs_2단") or 0 for b in bs), 4) if eff else MISSING,
+                    # 농도는 유역 공통값이라 평균 = 그 값 자체 (원주 426.17/85.23/17.05)
+                    _f(r["무처리SS"], 2),
+                    _f(r["SS_1단"], 2) if eff else MISSING,
+                    _f(r["SS_2단"], 2) if eff else MISSING]:
             cell(val); right(hwp)
 
     print("  B15 — 최종 혼합 (1단·2단)")
