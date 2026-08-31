@@ -576,14 +576,16 @@ def fill_by_col(hwp, anchor, row_off, values, max_steps=40, skip=0):
     return True
 
 
-def blank_row(hwp, anchor, row_off, keep_first=0, max_steps=40):
+def blank_row(hwp, anchor, row_off, keep_first=0, max_steps=40, skip=0):
     """목표 행의 칸을 전부 `[확인 필요]` 로 비운다.
 
     자료가 없어 채우지 못하는 표에 쓴다. **원주 값을 남기면 안 되기 때문**이다 —
     다른 사업 이름 아래 남의 통계가 실린다 (rule §6-3, 청양 골든셋).
     keep_first: 왼쪽에서 이만큼의 칸은 건드리지 않는다 (항목명·라벨 열).
+    skip: 같은 앵커가 여러 표에 있을 때 몇 번째를 쓸지 (find_in_table 과 같은 뜻).
+          ⚠️ 없으면 **언제나 첫 표**를 지운다 — 수질 배수유역 표 7개가 같은 앵커다.
     """
-    if not find_in_table(hwp, anchor):
+    if not find_in_table(hwp, anchor, skip=skip):
         return False
     down(hwp, row_off)
     here = cell_addr(hwp)
