@@ -232,6 +232,10 @@ def main():
     )
     args = parser.parse_args()
 
+    if not args.input.strip():
+        # 빈 문자열이면 Path("") == '.' 이 되어 **레포 전체를 배치 추출**해 버린다
+        # (2026-08-31 실사고 — golden/ 안에 쓰레기 출력 디렉토리 생성). 명시적으로 거부한다.
+        sys.exit("ERROR: 입력 경로가 비어 있음 — 파일/디렉토리를 지정할 것")
     input_path = Path(args.input)
 
     if input_path.is_dir():
