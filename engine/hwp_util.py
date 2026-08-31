@@ -8,6 +8,7 @@ hwp 인자를 받는 함수는 Windows + 한글 전용이지만, 모듈 import �
 import io
 import os
 import re
+import sys
 import zipfile
 from pathlib import Path
 
@@ -15,6 +16,64 @@ ROOT = Path(__file__).parent.parent
 PLACEHOLDER = "{{%s}}"          # 베이스 문서의 빈칸 표기
 MISSING = "[확인 필요]"          # 값이 없을 때 출력할 문자열
 MODELING = "[모델링 필요]"       # AERMOD 출력이 없을 때 (대기질 rule §2-5)
+
+
+# ============================================================
+# 세션 열기·닫기 — 2026-08-31 회귀에서 얻은 방어 3종
+# ============================================================
+def console_utf8():
+    """표준 출력을 UTF-8 로 고정한다.
+
+    ⚠️ **cp949 에는 em-dash(—, U+2014) 가 없다.** 파이프로 실행하면 콘솔 인코딩이
+    cp949 가 되고, 진행 로그 한 줄(`표 6 — 소음측정결과`)이 UnicodeEncodeError 를
+    던져 **생성이 표 편집 도중에 죽는다.** 로그 한 글자가 산출물을 날리는 셈이라
+    출력 인코딩을 아예 고정한다 (2026-08-31 실측 — 아래 open_hwp 주석과 한 사건).
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
+
+def open_hwp(path, visible=False):
+    """한글을 띄우고 문서를 연다 — **편집 가능 상태임을 확인하고** 넘긴다.
+
+    🚨 **읽기 전용이면 표 편집이 조용히 전부 무시된다** (2026-08-31 실측).
+    `EditMode == 0` 일 때 `InsertText`·`AllReplace` 는 **정상 동작하는데**
+    `Table*` 액션(`TableRightCell`·`TableLowerCell`·`TableColBegin`·`TableAppendRow`)
+    만 `False` 를 돌려주고 아무 일도 안 한다. 그 결과가 최악이다 —
+    빈칸은 다 채워지고 표만 **기준 사업(원주) 값 그대로** 남는다. 경고도 없고
+    `빈칸 잔여 0` 도 통과한다. 실제로 천안 소음진동 표 6·7·14·21·22·24·25 가
+    전부 원주 값으로 나갔다 (앵커 셀에는 마지막 값이 덮여 `21.2`·`[확인 필요]`).
+
+    원인은 **앞선 실행이 남긴 한글 프로세스**다. 생성이 도중에 죽으면 `Quit()` 이
+    안 불려 한글이 템플릿을 붙든 채 살아남고, 다음 실행은 같은 파일을 **읽기 전용**
+    으로 연다. 그래서 여기서 EditMode 를 확인하고 되돌린다.
+    """
+    import win32com.client
+    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
+    hwp.XHwpWindows.Item(0).Visible = visible
+    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
+    hwp.Open(str(path))
+    try:
+        mode = hwp.EditMode
+    except Exception:
+        return hwp                      # 속성이 없는 버전이면 확인을 건너뛴다
+    if mode != 1:
+        print("  ⚠️ 문서가 읽기 전용으로 열렸다 (EditMode=0) — 표 편집이 통째로 무시된다.")
+        print("     앞선 실행이 남긴 한글 프로세스가 이 파일을 붙들고 있을 때 그렇다.")
+        print("     되돌리는 중… (근본 해결: taskkill /F /IM Hwp.exe)")
+        try:
+            hwp.EditMode = 1
+        except Exception as e:
+            print(f"     EditMode 설정 실패: {e}")
+        if getattr(hwp, "EditMode", 0) != 1:
+            hwp.Quit()
+            sys.exit("ERROR: 편집 불가 상태다. 한글을 모두 닫고 다시 실행할 것 "
+                     "— 이대로 두면 표가 기준 사업 값으로 나간다")
+        print("     ✅ 편집 가능 상태로 되돌렸다")
+    return hwp
 
 
 # ============================================================

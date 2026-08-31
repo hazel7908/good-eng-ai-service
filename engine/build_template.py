@@ -29,6 +29,9 @@ import time
 import zipfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from hwp_util import console_utf8, open_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
+
 ROOT = Path(__file__).parent.parent
 
 
@@ -530,10 +533,7 @@ def keep_captions_with_table(dst):
     idxs, tops = caption_paras(dst)
     print(f"  캡션 문단 {len(idxs)}개에 KeepWithNext 적용")
 
-    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
-    hwp.XHwpWindows.Item(0).Visible = False
-    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-    hwp.Open(str(dst))
+    hwp = open_hwp(dst)
 
     for i in idxs:
         hwp.SetPos(0, i, 0)
@@ -556,10 +556,7 @@ def build(spec, src, dst):
     shutil.copy(src, dst)
     print(f"[1/4] 복사: {dst.name}")
 
-    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
-    hwp.XHwpWindows.Item(0).Visible = False
-    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-    hwp.Open(str(dst))
+    hwp = open_hwp(dst)
     print("[2/4] 한글 열기 완료")
 
     print(f"[3/4] 찾기/바꾸기 {len(spec['replace'])}건...")
@@ -699,6 +696,7 @@ def load_spec(category, part):
 
 
 def main():
+    console_utf8()
     ap = argparse.ArgumentParser(description="베이스 문서(빈칸) 생성")
     ap.add_argument("category")
     ap.add_argument("part")

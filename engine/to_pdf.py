@@ -19,6 +19,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from hwp_util import console_utf8, open_hwp   # noqa: E402
+
 ROOT = Path(__file__).parent.parent
 
 
@@ -29,10 +32,7 @@ def to_pdf(src: Path, dst: Path):
     if dst.exists():
         dst.unlink()
 
-    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
-    hwp.XHwpWindows.Item(0).Visible = False
-    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-    hwp.Open(str(src))
+    hwp = open_hwp(src)
 
     # 한글의 PDF 저장. 포맷 문자열이 버전마다 다를 수 있어 순서대로 시도한다.
     ok = False
@@ -53,6 +53,7 @@ def to_pdf(src: Path, dst: Path):
 
 
 def main():
+    console_utf8()
     ap = argparse.ArgumentParser(description="HWPX → PDF (육안 확인용)")
     ap.add_argument("hwpx")
     ap.add_argument("--out", help="출력 PDF 경로 (기본: 같은 폴더 output.pdf)")

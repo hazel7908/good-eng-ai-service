@@ -25,6 +25,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from hwp_util import console_utf8, open_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
+
 ROOT = Path(__file__).parent.parent
 
 # 조건 → (시작 앵커, 끝 앵커). 끝 앵커 **직전**까지 남는다.
@@ -65,6 +68,7 @@ def keep_only(hwp, start_anchor, end_anchor):
 
 
 def main():
+    console_utf8()
     ap = argparse.ArgumentParser(description="절 조각 빌더")
     ap.add_argument("category")
     ap.add_argument("part")
@@ -91,10 +95,7 @@ def main():
     print(f"범위 : '{spec['start']}'  ~  '{spec['end']}' 직전")
 
     import win32com.client
-    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
-    hwp.XHwpWindows.Item(0).Visible = False
-    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-    hwp.Open(str(work))
+    hwp = open_hwp(work)
 
     print("[1/2] 절 바깥 삭제...")
     keep_only(hwp, spec["start"], spec["end"])

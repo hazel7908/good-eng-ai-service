@@ -20,6 +20,9 @@ import sys
 import zipfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from hwp_util import console_utf8          # noqa: E402  (경로 삽입 뒤라야 한다)
+
 ROOT = Path(__file__).parent.parent
 TOKEN = re.compile(r"\{\{[^}]{1,40}\}\}")
 MARKS = ["[확인 필요]", "[모델링 필요]", "[현장조사 필요]", "[실무자 확인]"]
@@ -32,6 +35,7 @@ def doc_text(path):
 
 
 def main():
+    console_utf8()
     if len(sys.argv) != 4:
         sys.exit(__doc__)
     category, part, case = sys.argv[1:4]
@@ -56,7 +60,11 @@ def main():
     if template.exists():
         r = subprocess.run([sys.executable, str(ROOT / "engine" / "leak_check.py"),
                             str(template), str(output)],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True,
+                           # ⚠️ 기본 인코딩(cp949)으로 읽으면 자식의 한글 출력에서
+                           #    UnicodeDecodeError 가 나 stdout 이 통째로 없어진다.
+                           #    유출이 있을 때 그 내역을 못 찍는다 (2026-08-31).
+                           encoding="utf-8", errors="replace")
         leaked = r.returncode != 0
         fails += 1 if leaked else 0
         print(f"② 기준 사업 유출 {'❌' if leaked else '✅'}")

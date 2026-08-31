@@ -28,7 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))          # parts 가 hwp_util·calc 를 찾도록
 
 from hwp_util import (MISSING, MODELING, PLACEHOLDER, ROOT, check_figures,
-                      color_markers, fr, replace_images)
+                      color_markers, console_utf8, fr, open_hwp, replace_images)
 
 PARTS_DIR = Path(__file__).parent / "parts"
 
@@ -67,6 +67,7 @@ def load_part_handlers(category, part):
 # 메인
 # ============================================================
 def main():
+    console_utf8()          # cp949 콘솔에서 진행 로그가 생성을 죽이지 않도록
     ap = argparse.ArgumentParser(description="HWPX 보고서 생성")
     ap.add_argument("category"); ap.add_argument("part"); ap.add_argument("case")
     ap.add_argument("--raw-dir", help="삽도 원본 JPG 디렉터리")
@@ -108,29 +109,40 @@ def main():
         sys.exit("ERROR: pywin32 미설치 (Windows 전용). 계산 확인은 engine/calc.py")
 
     print("[1/4] 한글 시작...")
-    hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
-    hwp.XHwpWindows.Item(0).Visible = False
-    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-    hwp.Open(str(template))
+    # 🚨 읽기 전용으로 열리면 표 편집이 **조용히 전부 무시된다** — open_hwp 주석 참조
+    hwp = open_hwp(template)
 
-    print(f"\n[2/4] 빈칸 치환 ({len(slots)}건)...")
-    for k, val in slots.items():
-        fr(hwp, PLACEHOLDER % k, str(val))
+    # ⚠️ try/finally 가 방어의 나머지 절반이다. 도중에 예외가 나면 Quit() 이 안 불려
+    #    한글이 템플릿을 붙든 채 살아남고, **다음 실행이 읽기 전용으로 열려** 표가
+    #    기준 사업 값 그대로 나간다 (2026-08-31 실측 — 진행 로그 한 줄의 인코딩
+    #    오류가 천안 소음진동 표 7개를 원주 값으로 만들었다).
+    saved = False
+    try:
+        print(f"\n[2/4] 빈칸 치환 ({len(slots)}건)...")
+        for k, val in slots.items():
+            fr(hwp, PLACEHOLDER % k, str(val))
 
-    print("\n[3/4] 표 편집...")
-    build_tables(hwp, v)
+        print("\n[3/4] 표 편집...")
+        build_tables(hwp, v)
 
-    # 한글 빠른 교정이 셀에 넣은 'P - 1' 의 하이픈을 en-dash(–) 로 바꾼다.
-    # 골든셋·베이스 문서에는 en-dash 가 한 개도 없다 — 전부 InsertText 가 만든 것이다.
-    print("  [정리] 빠른 교정이 바꾼 en-dash 되돌리기")
-    fr(hwp, "P – ", "P - ")
+        # 한글 빠른 교정이 셀에 넣은 'P - 1' 의 하이픈을 en-dash(–) 로 바꾼다.
+        # 골든셋·베이스 문서에는 en-dash 가 한 개도 없다 — 전부 InsertText 가 만든 것이다.
+        print("  [정리] 빠른 교정이 바꾼 en-dash 되돌리기")
+        fr(hwp, "P – ", "P - ")
 
-    print("  [표시] 미확정 항목 빨간 글자")
-    color_markers(hwp, [MISSING, MODELING])
+        print("  [표시] 미확정 항목 빨간 글자")
+        color_markers(hwp, [MISSING, MODELING])
 
-    print("\n[4/4] 저장...")
-    hwp.SaveAs(str(output), "HWPX")
-    hwp.Quit()
+        print("\n[4/4] 저장...")
+        hwp.SaveAs(str(output), "HWPX")
+        saved = True
+    finally:
+        try:
+            hwp.Quit()
+        except Exception:
+            pass
+    if not saved:
+        sys.exit("ERROR: 생성이 중단됐다 — 위 오류를 먼저 고칠 것")
     time.sleep(2)
 
     if a.raw_dir:
