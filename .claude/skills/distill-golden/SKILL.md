@@ -126,19 +126,23 @@ done
 - **표는 빈칸을 뚫지 않는다** — 엔진이 앵커 문자열로 셀을 찾으므로 지우면 실패
 - 같은 토큰이 여러 곳이면 전부 표기
 
-### 7단계 — 엔진 핸들러 추가
+### 7단계 — 엔진 핸들러 추가 (2026-08-31 R1 이후)
+
+**`engine/parts/{카테고리}/{파트}.py` 파일을 만들면 자동 등록된다** — generate.py 는 건드리지 않는다.
 
 ```python
-# engine/generate.py
-PART_HANDLERS = {
-    "noise-vib": (slots_noise_vib, tables_noise_vib),
-    "{새 파트}": (slots_xxx, tables_xxx),      # ← 추가
-}
+# engine/parts/small-env/{새 파트}.py — 모듈 규약: build_slots / build_tables 를 내보낸다
+from hwp_util import ...          # 공용 한글 API·표 유틸
+
+def build_slots(v): ...           # vars → {토큰: 값}  (Mac --dry-run 으로 점검 가능)
+def build_tables(hwp, v): ...     # 표 편집 (Windows 전용)
 ```
 
-**엔진 본체는 건드리지 않는다.** 파트 고유 로직은 핸들러 안에만 둔다.
+**엔진 본체는 건드리지 않는다.** 파트 고유 로직은 핸들러 파일 안에만 둔다.
+베이스 명세는 `templates/{카테고리}/{파트}.spec.py` (R2 — 인라인 SPECS 는 레거시).
 
-계산은 `engine/calc.py` 에 파트별 상수·함수를 추가하고 `self_test()` 에 검증 행을 넣는다.
+계산은 `engine/calc_{파트}.py` 에 상수·함수를 추가하고 골든셋 검증 행을 내장한다
+(`calc.py`·`calc_air.py` 패턴 — `python engine/calc_xxx.py` 로 자체검증).
 
 ---
 
