@@ -13,6 +13,7 @@
 from hwp_util import MISSING, col_begin, down, find_in_table, right, set_cell
 
 BASE_FIRST_YEAR = "2014"        # 원주 베이스 10년 표의 첫 연도 셀 (C2 앵커)
+BASE_YEARS = 10                 # 10년 표의 데이터 행 수 (고정 — 자료 없을 때 비울 만큼)
 
 
 def _num(x):
@@ -110,36 +111,54 @@ def build_tables(hwp, v):
             right(hwp)
 
     print("  C2 — 기상종합분석 10년 표 (+평균행 필드 덮기)")
-    rows = r["연도별"]
-    if rows and find_in_table(hwp, BASE_FIRST_YEAR):
-        for i, y in enumerate(rows):
-            if i:
-                down(hwp)
-                col_begin(hwp)
-            for val in [y.get("연도"), y.get("평균"), y.get("최고"), y.get("최저"),
-                        y.get("강수량"), y.get("강수일"), y.get("습도"),
-                        y.get("풍속"), y.get("일조")]:
+    # 🚨 **자료가 없다고 건너뛰면 기준 사업(원주) 값이 그대로 실린다.** 천안 첫 생성에서
+    #    18.67·13.45·1,391.7·2,297.6·63.94 가 남았다 (수질 하천일람과 같은 부류).
+    #    행 수는 고정이므로 10년치를 [확인 필요] 로 채운다.
+    rows = r["연도별"] or [{}] * BASE_YEARS
+    if find_in_table(hwp, BASE_FIRST_YEAR):
+        # 🚨 **앵커가 곧 덮어쓸 셀이다.** `2014` 는 첫 행 연도 칸이라, 그 행을 쓰는 순간
+        #    앵커가 사라져 **이후 재탐색이 전부 실패한다** (2026-08-31 실측 — 2015 행이
+        #    원주 값 그대로 남았다). 그래서 **아래 행부터 거꾸로** 채운다:
+        #    첫 행은 맨 마지막에 쓰이므로 앵커가 그때까지 살아 있다.
+        # ⚠️ 행마다 앵커에서 다시 잡아 **절대 오프셋**으로 간다 — 행이 9칸(A~I)이라
+        #    마지막 칸의 `right()` 가 이미 다음 행 첫 칸으로 넘어가서, 이어서 `down()`
+        #    하면 한 행씩 건너뛴다.
+        def write_row(off, vals):
+            if not find_in_table(hwp, BASE_FIRST_YEAR):
+                return
+            down(hwp, off)
+            col_begin(hwp)
+            for val in vals:
                 cell(val)
                 right(hwp)
-        if r["평균행"]:
-            down(hwp)
+
+        # 평균 행(=AVG 필드에 원주 값이 캐시돼 있다)을 **먼저** — 앵커가 아직 살아 있을 때
+        avgrow = r["평균행"] or {}
+        if find_in_table(hwp, BASE_FIRST_YEAR):
+            down(hwp, len(rows))             # 데이터 10행 다음 = 평균 행
             col_begin(hwp)
             right(hwp)                       # '평 균' 라벨 셀 건너뜀
             for k in ("평균", "최고", "최저", "강수량", "강수일", "습도", "풍속", "일조"):
-                cell(r["평균행"][k])
+                cell(avgrow.get(k))
                 right(hwp)
+
+        for i in range(len(rows) - 1, -1, -1):        # 아래 → 위
+            y = rows[i]
+            write_row(i, [y.get("연도"), y.get("평균"), y.get("최고"), y.get("최저"),
+                          y.get("강수량"), y.get("강수일"), y.get("습도"),
+                          y.get("풍속"), y.get("일조")])
 
     print("  C3 — 월별 기온 (3행)")
     mm = r["월별"]
     # ⚠️ skip=1 추정: '평균최고' 는 10년 표 헤더에 먼저 나온다
-    if mm.get("평균최고") and find_in_table(hwp, "평균최고", skip=1):
+    if find_in_table(hwp, "평균최고", skip=1):          # 자료 없으면 비운다 (원주 값 잔존 방지)
         for i, key in enumerate(["평균최고", "평균", "평균최저"]):
-            if i:
-                down(hwp)
-                col_begin(hwp)
+            find_in_table(hwp, "평균최고", skip=1)   # C2 와 같은 이유로 절대 오프셋
+            down(hwp, i)
+            col_begin(hwp)
             # 커서 = 행 라벨 셀 (첫 행은 앵커 자체) → 값 13개(12개월+평균)를 오른쪽으로
             tail = r["최신"].get({"평균최고": "최고", "평균": "평균", "평균최저": "최저"}[key])
-            for val in list(mm[key]) + [tail]:
+            for val in list(mm.get(key) or [None] * 12) + [tail]:
                 right(hwp)
                 cell(val)
 
@@ -149,11 +168,11 @@ def build_tables(hwp, v):
         ("일조시간", "일조", 2, "일조"), ("강수일", "강수일", 1, "강수일"),
         ("평균풍속", "풍속", 1, "풍속"),
     ]:
-        vals = mm.get(key)
-        print(f"  월별 {label} (skip={skip} ⚠️추정)")
-        if vals and find_in_table(hwp, label, skip=skip):
+        vals = mm.get(key) or [None] * 12                # 없으면 비운다
+        print(f"  월별 {label} (skip={skip})")
+        if find_in_table(hwp, label, skip=skip):
             for val in list(vals) + [r["최신"].get(tailkey)]:
                 right(hwp)
                 cell(val)
 
-    print("  기상 표 편집 종료 (⚠️ Windows 검증 전)")
+    print("  기상 표 편집 종료")
