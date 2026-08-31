@@ -39,7 +39,7 @@
       "Bash(python3:*)",
       "Bash(\"C:/Users/user00/AppData/Local/Programs/Python/Python312/python.exe\" \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/scripts/extract_hwp.py\" \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/tests/소음진동/output/괴산_금신리_소음진동_AI생성_hwpapi.hwpx\" -o \"C:/Users/user00/Documents/GitHub/good-eng-ai-service/tests/소음진동/output/생성결과_텍스트추출.txt\")",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)",
+      "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(git pull *)",
       "Bash(git fetch *)",
