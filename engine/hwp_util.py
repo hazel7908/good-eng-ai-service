@@ -8,7 +8,9 @@ hwp 인자를 받는 함수는 Windows + 한글 전용이지만, 모듈 import �
 import io
 import os
 import re
+import subprocess
 import sys
+import time
 import zipfile
 from pathlib import Path
 
@@ -34,6 +36,42 @@ def console_utf8():
             stream.reconfigure(encoding="utf-8", errors="replace")
         except (AttributeError, ValueError):
             pass
+
+
+def _hwp_running():
+    """한글 프로세스가 아직 살아 있는가 (tasklist — 추가 의존성 없이)."""
+    try:
+        r = subprocess.run(["tasklist", "/FI", "IMAGENAME eq Hwp.exe", "/NH"],
+                           capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=10)
+    except Exception:
+        return False                      # 셀 수 없으면 기다리지 않는다
+    return "Hwp.exe" in (r.stdout or "")
+
+
+def quit_hwp(hwp, timeout=40):
+    """한글을 닫고 **프로세스가 실제로 사라질 때까지** 기다린다.
+
+    🚨 `Quit()` 은 곧바로 돌아오지만 프로세스는 몇 초 더 살아 있다. 그 사이에 다음
+    단계가 같은 파일을 열면 **`Open()` 이 영영 안 끝난다** (2026-08-31 실측 —
+    build_template 의 keep_captions_with_table 이 10분 넘게 멈춰 있었다. to_pdf 도
+    같은 자리에서 한 번 걸렸다). 예전 `time.sleep(2)` 로는 모자란다.
+
+    ⚠️ 사람이 한글을 따로 띄워 두었으면 여기서 timeout 만큼 기다렸다가 그냥 넘어간다
+    (판별할 방법이 없다). 자동화 중에는 한글을 열어 두지 말 것.
+    """
+    try:
+        hwp.Quit()
+    except Exception:
+        pass
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if not _hwp_running():
+            time.sleep(1.0)               # 파일 핸들 반환 여유
+            return True
+        time.sleep(0.5)
+    print(f"  ⚠️ 한글 프로세스가 {timeout}초 안에 안 닫혔다 — 다음 열기가 막힐 수 있다")
+    return False
 
 
 def open_hwp(path, visible=False):

@@ -28,7 +28,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))          # parts 가 hwp_util·calc 를 찾도록
 
 from hwp_util import (MISSING, MODELING, PLACEHOLDER, ROOT, check_figures,
-                      color_markers, console_utf8, fr, open_hwp, replace_images)
+                      color_markers, console_utf8, fr, open_hwp, quit_hwp,
+                      replace_images)
 
 PARTS_DIR = Path(__file__).parent / "parts"
 
@@ -137,10 +138,7 @@ def main():
         hwp.SaveAs(str(output), "HWPX")
         saved = True
     finally:
-        try:
-            hwp.Quit()
-        except Exception:
-            pass
+        quit_hwp(hwp)       # 프로세스가 실제로 죽을 때까지 대기 (다음 실행의 읽기 전용 방지)
     if not saved:
         sys.exit("ERROR: 생성이 중단됐다 — 위 오류를 먼저 고칠 것")
     time.sleep(2)

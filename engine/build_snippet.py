@@ -26,7 +26,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import console_utf8, open_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
+from hwp_util import console_utf8, open_hwp, quit_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
 
 ROOT = Path(__file__).parent.parent
 
@@ -104,8 +104,7 @@ def main():
     if dst.exists():
         dst.unlink()
     hwp.SaveAs(str(dst), "HWPX")
-    hwp.Quit()
-    time.sleep(2)
+    quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
     work.unlink(missing_ok=True)
 
     print(f"\n완료: {dst} ({dst.stat().st_size:,} bytes)")

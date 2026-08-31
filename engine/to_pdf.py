@@ -20,7 +20,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import console_utf8, open_hwp   # noqa: E402
+from hwp_util import console_utf8, open_hwp, quit_hwp   # noqa: E402
 
 ROOT = Path(__file__).parent.parent
 
@@ -44,8 +44,7 @@ def to_pdf(src: Path, dst: Path):
         except Exception as e:      # noqa: BLE001 — 어떤 예외든 다음 포맷으로 넘어간다
             print(f"  SaveAs('{fmt}') 실패: {e}")
 
-    hwp.Quit()
-    time.sleep(2)
+    quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
 
     if not ok or not dst.exists():
         sys.exit("ERROR: PDF 저장 실패. 한글 버전이 PDF 내보내기를 지원하는지 확인할 것")

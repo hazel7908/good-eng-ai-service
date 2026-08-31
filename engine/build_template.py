@@ -30,7 +30,8 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import console_utf8, open_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
+from hwp_util import (console_utf8, find_fwd, open_hwp,   # noqa: E402
+                      quit_hwp)
 
 ROOT = Path(__file__).parent.parent
 
@@ -544,14 +545,36 @@ def keep_captions_with_table(dst):
         hwp.HAction.Execute("ParagraphShape", hwp.HParameterSet.HParaShape.HSet)
 
     hwp.SaveAs(str(dst), "HWPX")
-    hwp.Quit()
-    time.sleep(2)
+    quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
     return len(idxs)
+
+
+def replace_para(hwp, para_anchor, text):
+    """앵커가 든 문단을 **통째로** text 로 갈아 끼운다.
+
+    🚨 **한글 계산 필드는 찾기/바꾸기가 안 걸린다.** 필드는 화면에 값을 보여주지만
+    본문 텍스트가 아니라서 `AllReplace` 의 검색 대상이 아니다. 원주 수질 원본의 요약
+    문장 3곳(우수유출량·무처리SS·침사후SS)이 그렇다 — 추출하면 `浵ࡦ` 로 깨져 나온다.
+    그 자리를 빈칸으로 만들려면 **문단을 선택해 평문으로 덮어쓰는** 수밖에 없다.
+    필드는 선택 범위와 함께 사라지고 글자·문단 모양은 그대로 남는다 (clone_para 와 같은 수법).
+
+    ⚠️ para_anchor 는 **필드 앞쪽의 평문**이어야 하고 문서에서 유일해야 한다.
+    """
+    hwp.MovePos(2)
+    if not find_fwd(hwp, para_anchor):
+        print(f"    WARNING: 문단 앵커 '{para_anchor[:28]}' 못 찾음 — 스킵")
+        return False
+    hwp.HAction.Run("MoveParaBegin")
+    hwp.HAction.Run("MoveSelParaEnd")
+    hwp.HAction.GetDefault("InsertText", hwp.HParameterSet.HInsertText.HSet)
+    hwp.HParameterSet.HInsertText.Text = text
+    hwp.HAction.Execute("InsertText", hwp.HParameterSet.HInsertText.HSet)
+    return True
 
 
 def build(spec, src, dst):
     import win32com.client
-    from hwp_util import fr, find_in_table, set_cell, right
+    from hwp_util import fr, find_fwd, find_in_table, set_cell, right
 
     shutil.copy(src, dst)
     print(f"[1/4] 복사: {dst.name}")
@@ -563,6 +586,13 @@ def build(spec, src, dst):
     for old, new in spec["replace"]:
         fr(hwp, old, new)
         print(f"  {old[:46]:48s} -> {new[:40]}")
+
+    paras = spec.get("paras", [])
+    if paras:
+        print(f"  [문단] 계산 필드 자리 {len(paras)}곳 — 평문 토큰으로 재입력")
+        for para_anchor, text in paras:
+            ok = replace_para(hwp, para_anchor, text)
+            print(f"    {'OK ' if ok else 'FAIL'} {para_anchor[:34]}")
 
     for anchor, skip, steps in spec["cells"]:
         print(f"  [셀] {anchor}")
@@ -579,8 +609,7 @@ def build(spec, src, dst):
 
     print("[4/4] 저장...")
     hwp.SaveAs(str(dst), "HWPX")
-    hwp.Quit()
-    time.sleep(2)
+    quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
 
 
 def strip_figures(dst):
