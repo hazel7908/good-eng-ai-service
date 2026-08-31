@@ -23,6 +23,9 @@ def compute(v):
         except (ValueError, TypeError, IndexError):
             continue
     total = sum(by.values())
+    # 표 지목 열은 면적 내림차순이다 (원주 답 99.45 > 전 0.38 > 임 0.17 = 골든 머리 순).
+    # 조서 등장 순으로 쓰면 값이 다른 지목 열에 박힌다.
+    by = OrderedDict(sorted(by.items(), key=lambda kv: -kv[1]))
     r = {"지목합": by, "면적합": total}
     r["지목비율"] = {k: f"{a / total * 100:.2f}" for k, a in by.items()} if total else {}
     uses = v.get("지구용도") or []          # [{"구분": "보전관리지역", "면적": 23}]
