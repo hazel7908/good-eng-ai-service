@@ -8,7 +8,7 @@
    기준 사업(원주 2열) 틀만. 대상사업 기준 셀은 통째 교체(조항 3계열 분기).
 """
 from hwp_util import (MISSING, col_begin, down, find_in_table, fit_rows,
-                      right, set_cell, write_at)
+                      left, right, set_cell, write_at)
 
 
 def compute(v):
@@ -16,7 +16,11 @@ def compute(v):
     rows = v.get("토지이용") or []
     total = sum(x.get("면적") or 0 for x in rows)
     r["토지이용"] = [
-        {**x, "비율": (f"{(x.get('면적') or 0) / total * 100:.2f}" if total else None)}
+        # vars 에 비율이 명시돼 있으면 그것을 쓴다 (기본은 계산).
+        # ⚠️ 원주 원본이 자기모순이다 — 45.23·6.59·40.57 은 반올림인데 `7.61` 만 절사다
+        #    (1061.54/13934×100 = 7.6183). 공식을 절사로 바꾸면 나머지 셋이 깨진다.
+        {**x, "비율": (x.get("비율")
+                     or (f"{(x.get('면적') or 0) / total * 100:.2f}" if total else None))}
         for x in rows
     ]
     r["토지이용_합"] = total
@@ -129,13 +133,41 @@ def build_tables(hwp, v):
         for i, row in enumerate(rows):
             W("수 량", 1 + i, 1, list(row)[-4:] if len(row) >= 4 else row)
 
-    # 🚧 발전설비 표는 손대지 않는다 — `태양광모듈`·`용량`·`인버터` 여러 그룹이 A열에서
-    #    세로 병합된 다층 구조라 행·열을 일반화하지 못했다. 설계값(X)이라 어차피 실무자
-    #    입력이지만, **기준 사업 값이 남는다는 뜻**이므로 다음 세션에서 정리할 것.
-    설비 = (v.get("설비") or {}).get("행") or []
-    if 설비:
-        print("  발전설비 — 🚧 구조 미확정이라 건너뜀 (기준 사업 값 잔존)")
-    else:
-        print("  발전설비 — 🚧 구조 미확정 (기준 사업 값 잔존 — 다음 세션)")
+    print("  발전설비 — 라벨 앵커 12행 + 용량 블록 2×6행")
+    # 실측 구조(2026-08-31 셀 주소): A열 대분류(`태양광모듈` 2~13행 · `인버터` 14~25행)가
+    # **세로 병합**, B=항목, C=발전소명(용량 행만), D=값, E=비고.
+    # 🚨 `down()` 이 병합 블록을 통째로 건너뛰어 **행 오프셋이 불규칙하다**
+    #    (앵커에서 +6 → B8, +7 → B14 로 9~13행을 건너뛴다). 그래서 행 오프셋을 쓰지 않고
+    #    **각 행의 고유 라벨을 앵커로** 잡는다. 용량 블록만 C열로 나온 뒤 `row_after` 로 훑는다.
+    # ⚠️ 라벨 충돌: `무게`⊂`모듈무게`, `정격전압`⊂`개방전압/정격전압` → skip 으로 가른다.
+    seolbi = v.get("설비") or {}
+    항목 = seolbi.get("항목") or {}
+    SIMPLE = [("태양전지방식", 0), ("모듈의정격출력", 0), ("개방전압/정격전압", 0),
+              ("단락전류/최대전류", 0), ("외형크기", 0), ("모듈무게", 0),
+              ("주파수", 0), ("입력전압", 0), ("정격전압", 1), ("출력전압", 0),
+              ("크기(W×D×H)", 0), ("무게", 1)]
+    for lab, sk in SIMPLE:
+        W(lab, 0, 1, [항목.get(lab), "-"], skip=sk, from_anchor=True)
+
+    BASE_CAP = 6            # 발전소 수 (원주 6개소)
+    # 🚨 용량 블록은 **앵커를 한 번만 잡고 C열에 머문 채 한 행씩 내려간다.**
+    #    행마다 재탐색하면(`row_after=i`) 병합 때문에 한 행이 중복된다 — 인버터 블록에서
+    #    `호저 태양광발전소` 가 두 번 찍혔다 (2026-08-31 실측).
+    #    B열(`용량`)이 6행에 걸친 세로 병합이라, 오른쪽으로 한 칸 나와 C열에 선 뒤
+    #    `왼쪽 2칸 → 아래 1행` 으로 다음 행 C 를 잡는다.
+    for key, sk in [("모듈용량", 0), ("인버터용량", 1)]:
+        rows = seolbi.get(key) or [[None] * 3 for _ in range(BASE_CAP)]
+        if not find_in_table(hwp, "용량", skip=sk):
+            print(f"    WARNING: 용량 블록(skip={sk}) 앵커 못 찾음")
+            continue
+        right(hwp)                                  # B(용량) → C(발전소명)
+        for row in rows[:BASE_CAP]:
+            vals = list(row)[:3]
+            for k, val in enumerate(vals):
+                set_cell(hwp, MISSING if val is None else str(val))
+                if k < len(vals) - 1:
+                    right(hwp)
+            left(hwp, len(vals) - 1)                # 다시 C 열로
+            down(hwp)                               # 다음 행
 
     print("  사업개요 표 편집 종료")

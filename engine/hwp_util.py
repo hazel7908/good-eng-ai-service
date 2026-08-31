@@ -576,7 +576,8 @@ def fill_by_col(hwp, anchor, row_off, values, max_steps=40, skip=0):
     return True
 
 
-def write_at(hwp, anchor, row_off, col_off, vals, skip=0, row_after=0, missing=None):
+def write_at(hwp, anchor, row_off, col_off, vals, skip=0, row_after=0, missing=None,
+              from_anchor=False):
     """앵커에서 `row_off` 행 아래 · `col_off` 칸 오른쪽부터 vals 를 차례로 쓴다.
 
     표 채우기의 **표준 이동 방식**이다. 커서를 이어서 움직이지 말고 늘 여기를 쓸 것 —
@@ -589,6 +590,8 @@ def write_at(hwp, anchor, row_off, col_off, vals, skip=0, row_after=0, missing=N
       열: **병합 라벨 칸인데 `col_begin()` 부터 씀** · 열 수 오인
       표: `skip` 미전달로 다른 표 · 빈칸 치환이 앵커와 같은 문자열을 새로 만듦
 
+    - `from_anchor`: 참이면 `col_begin()` 없이 **앵커 칸에서** 오른쪽으로 센다.
+      세로 병합 안쪽 행을 다룰 때 필수다.
     - `col_off`: 왼쪽 라벨 칸 수. **A열이 세로 병합 라벨인 표가 흔하다** — 0 으로 두면
       시군·읍면 칸에 값이 박힌다.
     - `row_after`: 열 이동 **뒤에** 내려갈 행 수. 세로 병합 칸에서는 `down()` 이 안 먹으므로
@@ -602,7 +605,12 @@ def write_at(hwp, anchor, row_off, col_off, vals, skip=0, row_after=0, missing=N
         print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 스킵")
         return False
     down(hwp, row_off)
-    col_begin(hwp)
+    # 🚨 `from_anchor` — **세로 병합 안쪽 행에서는 `col_begin()` 을 쓰면 안 된다.**
+    #    병합의 **맨 위 칸**으로 튀고, 이후 `right()` 가 그 윗행을 훑는다. 0100 발전설비에서
+    #    용량 8행 값이 태양전지방식 2행에 박혔다 (2026-08-31 실측). 앵커 칸에서 바로
+    #    오른쪽으로 세면 그 행에 머문다.
+    if not from_anchor:
+        col_begin(hwp)
     right(hwp, col_off)
     if row_after:
         down(hwp, row_after)
