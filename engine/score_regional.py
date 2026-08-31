@@ -46,6 +46,10 @@ SEC = re.compile(r"^(2\.\d+)(?:\.\d+)?[\s가-힣]")
 NUM = re.compile(r"\d[\d,]*\.?\d*")
 CHECK = "[확인 필요]"
 
+# 파트별 XML 전처리 훅. 기본은 항등 — `score_part.py` 가 수식 읽기를 끼워 넣는다.
+# (지역개황에는 수식이 없어 동작이 바뀌지 않는다.)
+PREPROCESS = staticmethod(lambda xml: xml)
+
 
 def cite(t):
     """법령 인용을 지운다 — 고시번호·개정일은 사업과 무관한데 숫자가 많다."""
@@ -65,6 +69,7 @@ def read_gen(case, part):
     z = zipfile.ZipFile(p)
     xml = "".join(z.read(n).decode("utf-8") for n in sorted(z.namelist())
                   if re.match(r"Contents/section\d+\.xml$", n))
+    xml = PREPROCESS(xml)
     # ⚠️ **표 안 문단을 먼저 걷어낸다.** 표 셀도 `<hp:p>` 라, 안 걷어내면
     #    `[확인 필요]` 로 비운 셀 301개가 전부 "문장" 으로 잡힌다 (2026-08-25 실측).
     while True:
@@ -230,7 +235,7 @@ def tables_of(case, part):
     out = []
     for n in sorted(x for x in z.namelist()
                     if re.match(r"Contents/section\d+\.xml$", x)):
-        xml = z.read(n).decode("utf-8")
+        xml = PREPROCESS(z.read(n).decode("utf-8"))
         # ⚠️ 머리글·바닥글도 표로 짜여 있다 — 본문 표가 아니므로 걷어낸다.
         xml = re.sub(r'<hp:(header|footer)[ >].*?</hp:\1>', " ", xml, flags=re.S)
         pos = 0
@@ -281,7 +286,13 @@ def gold_table(lines, cap, head=""):
     body = []
     for t in lines[bi + 1:]:
         t = t.strip()
-        if t.startswith(("자)", "주)")) or (body and re.match(r"^2\.\d", t)):
+        # ⚠️ **다음 소절에서 끊는다.** 지역개황은 표마다 `자) 출처` 가 따라와 경계가
+        #    저절로 생기는데, 수질의 **수식 표에는 출처 주석이 없다.** 그래서 블록이
+        #    다음 소절(`나) 강우일수`)과 그 아래 표까지 삼켰고, 우리 수식 표에는 없는
+        #    숫자(강우일수 108·월별 강수일)가 정답 쪽에 붙어 **거짓 WRONG** 이 됐다
+        #    (원주·천안 수질 각 4건, 2026-08-31 실측).
+        if t.startswith(("자)", "주)")) or (body and re.match(r"^2\.\d", t)) \
+                or (body and re.match(r"^[가-하]\)\s*\S", t)):
             break
         body.append(t)
         if len(body) > 400:
