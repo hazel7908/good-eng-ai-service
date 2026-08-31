@@ -41,6 +41,8 @@ def build_slots(v):
     tj = v.get("통계", {})
     g = lambda d, k: (d.get(k) if d.get(k) not in (None, "") else MISSING)
     return {
+        # ⚠️ 머리글 전용. spec 에만 뚫고 여기서 값을 안 주면 빈칸이 그대로 남는다.
+        "사업명": g(v.get("사업", {}), "사업명"),
         "위치용도_서술": g(n, "위치용도"),
         "지목구성_서술": g(n, "지목구성"),
         "시군지목_서술": g(n, "시군지목"),      # 지역개황 2.2 값에서 생성 (D2 일반화 대상)
@@ -54,56 +56,88 @@ def build_slots(v):
     }
 
 
+def _write(hwp, cell, anchor, row_off, col_off, vals, skip=0, row_after=0):
+    """앵커에서 `row_off` 행 아래, `col_off` 칸 오른쪽부터 vals 를 쓴다.
+
+    🚨 **A열이 병합된 라벨 칸인 표가 많다** (0400 세 표 전부). `col_begin()` 으로
+       시작하면 병합 칸(시군·읍면)에 값을 써서 표가 무너진다 — 실제로 편입토지조서의
+       `원주시/호저면/무장리` 칸에 지번이 박혔다 (2026-08-31 되먹임 실측).
+       그래서 **라벨 칸 수(col_off)를 호출자가 명시**한다.
+    ⚠️ 행마다 앵커에서 다시 찾아 **절대 오프셋**으로 간다. 이어서 `down()` 하면
+       마지막 칸의 `right()` 가 이미 다음 행으로 넘어가 한 행씩 밀린다.
+    """
+    if not find_in_table(hwp, anchor, skip=skip):
+        print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 스킵")
+        return False
+    down(hwp, row_off)
+    col_begin(hwp)
+    right(hwp, col_off)
+    # 🚨 `row_after` — **세로 병합 칸에서는 `down()` 이 안 먹는다.** 앵커
+    #    `사업계획지구` 는 두 행에 걸친 A칸이라 `down(1)` 해도 제자리고, 결국 면적 행에
+    #    구성비 값을 덮어썼다 (2026-08-31 실측). 병합을 벗어난 뒤(=col_off 이동 후)
+    #    내려가면 정상으로 움직인다.
+    if row_after:
+        down(hwp, row_after)
+    for val in vals:
+        cell(val)
+        right(hwp)
+    return True
+
+
 def build_tables(hwp, v):
+    """표 편집 5종. 앵커·오프셋·열 시작은 2026-08-31 셀 주소 실측 확정.
+
+    구조(원주 실측): 편입토지조서 `지적면적`=D1 머리행, 데이터 2~8행, A=병합 라벨 →
+    값은 B부터 7칸. 시군지목표 `면  적(㎢)`=B2, 4행(2~5), A=병합 → 라벨 B + 값 C~K 9칸.
+    시군용도표 `비도시지역`=O1 머리행, 데이터 3~4행, 값 C~R 11칸(병합 열 건너뜀).
+    """
     r = compute(v)
     cell = lambda x: set_cell(hwp, str(x) if x not in (None, "") else MISSING)
+    W = lambda *a, **k: _write(hwp, cell, *a, **k)
 
-    print("  편입토지조서 (0100 공유)")
+    # ⚠️ 자료가 없어도 **건너뛰지 않는다** — 건너뛰면 기준 사업(원주) 값이 그대로 실린다
+    #    (rule §6-3 · 청양 골든셋). 행 수만큼 [확인 필요] 로 비운다.
+    print("  편입토지조서 (0100 공유) — 값은 B열부터 7칸")
     js = (v.get("조서") or {}).get("행") or []
-    if js and find_in_table(hwp, "지적면적"):
-        fit_rows(hwp, "지적면적", 7, len(js))
-        for i, row in enumerate(js):
-            if i:
-                down(hwp); col_begin(hwp)
-            for val in row:
-                cell(val); right(hwp)
+    BASE_JS = 7
+    rows = js or [[None] * 7 for _ in range(BASE_JS)]
+    if find_in_table(hwp, "지적면적"):
+        fit_rows(hwp, "지적면적", BASE_JS, len(rows))
+        for i, row in enumerate(rows):
+            W("지적면적", 1 + i, 1, list(row)[-7:] if len(row) >= 7 else row)
 
-    print("  시군·읍면 지목 표 / 시군 용도지역 표 — 지역개황 원천 (vars 행)")
-    for name, anchor, base in [("시군지목표", "구성비(%)", 4),
-                               ("시군용도표", "비도시지역", 2)]:
-        rows = (v.get(name) or {}).get("행") or []
-        if not rows:
-            print(f"    {name} — 값 없음 (원주 잔존 ⚠️)")
-            continue
-        if find_in_table(hwp, anchor):
-            down(hwp); col_begin(hwp)
-            for i, row in enumerate(rows):
-                if i:
-                    down(hwp); col_begin(hwp)
-                for val in row:
-                    cell(val); right(hwp)
+    print("  시군·읍면 지목 표 — 값은 C열부터 9칸")
+    sj = (v.get("시군지목표") or {}).get("행") or []
+    rows = sj or [[None] * 9 for _ in range(4)]
+    for i, row in enumerate(rows[:4]):
+        W("면  적(㎢)", i, 2, list(row)[-9:] if len(row) >= 9 else row)
 
+    print("  시군 용도지역 표 — 값은 C열부터 11칸")
+    sy = (v.get("시군용도표") or {}).get("행") or []
+    rows = sy or [[None] * 11 for _ in range(2)]
+    for i, row in enumerate(rows[:2]):
+        W("비도시지역", 2 + i, 2, list(row)[-11:] if len(row) >= 11 else row)
+
+    # ⚠️ 구성비 행도 라벨 칸(B=)을 건너뛴다 — col_off 를 1 로 두면
+    #    라벨을 덮어써 표에서  가 사라진다 (2026-08-31 실측).
     print("  사업지구 지목 표 (조서 유도)")
-    if r["지목합"] and find_in_table(hwp, "사업계획지구", skip=0):
-        # 행 2개: 면적/구성비 — 열은 지목 수에 따라 가변 ⚠️ Windows 확정
-        down(hwp); right(hwp)
-        cell(f"{r['면적합']:,.0f}")
-        for a in r["지목합"].values():
-            right(hwp); cell(f"{a:,.0f}")
-        down(hwp); col_begin(hwp); right(hwp, 2)
-        cell("100.00")
-        for p in r["지목비율"].values():
-            right(hwp); cell(p)
+    jm = r["지목합"]
+    if jm:
+        W("사업계획지구", 0, 2, [f"{r['면적합']:,.0f}"] + [f"{a:,.0f}" for a in jm.values()])
+        W("사업계획지구", 0, 2, ["100.00"] + list(r["지목비율"].values()), row_after=1)
+    else:
+        W("사업계획지구", 0, 2, [None] * 4)
+        W("사업계획지구", 0, 2, [None] * 4, row_after=1)
 
     print("  사업지구 용도 표")
-    if r["용도비율"] and find_in_table(hwp, "보전관리지역"):
-        down(hwp); right(hwp)
-        cell(f"{r['용도합']:,.0f}")
-        for x in r["용도비율"]:
-            right(hwp); cell(f"{x.get('면적'):,.0f}" if x.get("면적") else MISSING)
-        down(hwp); col_begin(hwp); right(hwp, 2)
-        cell("100.00")
-        for x in r["용도비율"]:
-            right(hwp); cell(x.get("비율"))
+    uz = r["용도비율"]
+    if uz:
+        W("보전관리지역", 1, 2,
+          [f"{r['용도합']:,.0f}"] + [f"{x.get('면적'):,.0f}" if x.get("면적") else MISSING
+                                    for x in uz])
+        W("보전관리지역", 2, 2, ["100.00"] + [x.get("비율") for x in uz])
+    else:
+        W("보전관리지역", 1, 2, [None] * 3)
+        W("보전관리지역", 2, 2, [None] * 3)
 
-    print("  0400 표 편집 종료 (⚠️ Windows 검증 전)")
+    print("  0400 표 편집 종료")
