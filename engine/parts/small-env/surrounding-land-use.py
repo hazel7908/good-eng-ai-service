@@ -57,6 +57,26 @@ def build_slots(v):
     }
 
 
+def joseo_total(rows):
+    """편입토지조서 합계 행 4칸 — 지적면적·사업부지·진출입로·소계 합.
+
+    ⚠️ 합계 행은 `=SUM` **계산 필드**다. 데이터 행만 채우고 두면 참조가 깨지거나
+    기준 사업 값이 캐시된 채 남는다 (천안 0100 에 원주 `203,155`·`13,858`·`13,934` 가
+    그대로 있었다 — 2026-08-31 실측). **엔진이 값으로 직접 쓴다.**
+    행 꼴: [지번, 지목, 지적면적, 사업부지, 진출입로, 소계, 비고]
+    """
+    def num(x):
+        try:
+            return float(str(x).replace(",", ""))
+        except (TypeError, ValueError):
+            return None
+    out = []
+    for idx in (2, 3, 4, 5):
+        vals = [num(r[idx]) for r in rows if len(r) > idx and num(r[idx]) is not None]
+        out.append(f"{sum(vals):,.0f}" if vals else None)
+    return out
+
+
 def build_tables(hwp, v):
     """표 편집 5종. 앵커·오프셋·열 시작은 2026-08-31 셀 주소 실측 확정.
 
@@ -78,6 +98,8 @@ def build_tables(hwp, v):
         fit_rows(hwp, "지적면적", BASE_JS, len(rows))
         for i, row in enumerate(rows):
             W("지적면적", 1 + i, 1, list(row)[-7:] if len(row) >= 7 else row)
+        # 합계 행 — A(합계)는 A~C 병합이라 오른쪽 1칸이 곧 D열이다
+        W("지적면적", 1 + len(rows), 1, joseo_total(js) + ["-"])
 
     print("  시군·읍면 지목 표 — 값은 C열부터 9칸")
     sj = (v.get("시군지목표") or {}).get("행") or []
