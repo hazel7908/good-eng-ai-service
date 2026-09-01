@@ -37,15 +37,30 @@ import score_regional as S  # noqa: E402  — 표 파서 한 벌 (score_part 와
 ROOT = S.ROOT
 NUM = re.compile(r"\d[\d,]*\.?\d*")
 
-# ── 기준 사업(원주) 지명·시설명 — 증거 문서 §1 실측 + 골든 지명 ──────────────────
-# ⚠️ 베이스가 원주가 아닌 파트가 생기면 (대기질=청주) 이 목록을 파트별로 가른다.
-BASE_NAMES = {
-    "원주시", "호저면", "무장리", "호저로", "생담길", "태장동", "가현동", "흥업면",
-    "사제리", "지정면", "가곡리", "문막", "섬강", "귀둔천",
-    "원주기업도시", "원주분뇨처리장", "원주공공하수처리장", "강원바이오에너지",
-    "원주기상", "원주(114)",
+# ── 카테고리별 기준 사업 지명·시설명 (2026-09-01 분리 — 재해 베이스는 원주가 아니다)
+# ⚠️ 같은 카테고리라도 베이스가 갈리는 파트가 생기면 (소환 대기질=청주) 파트별로 또 가른다.
+CATEGORY_BASE = {
+    "small-env": {          # 기준: 원주 무장리 — 증거 문서 §1 실측 + 골든 지명
+        "시군": "원주시",
+        "이름들": {"원주시", "호저면", "무장리", "호저로", "생담길", "태장동", "가현동",
+                 "흥업면", "사제리", "지정면", "가곡리", "문막", "섬강", "귀둔천",
+                 "원주기업도시", "원주분뇨처리장", "원주공공하수처리장", "강원바이오에너지",
+                 "원주기상", "원주(114)"},
+        "상위": ("강원특별자치도", "강원도"),
+    },
+    "small-disaster": {     # 기준: 천안 삼성리 서식 세트 (_variants §0-1)
+        "시군": "천안시",
+        "이름들": {"천안시", "목천읍", "삼성리", "동남구", "맹곡천", "이상용"},
+        "상위": ("충청남도", "충남"),
+    },
+    "disaster-review": {    # 기준: 원주 태장동 (실사업 최종본 — rules/disaster-review)
+        "시군": "원주시",
+        "이름들": {"원주시", "태장동", "가현동"},
+        "상위": ("강원특별자치도", "강원도"),
+    },
+    # disaster-impact: 베이스 미정 (소재평 파생 예정) — 정해지면 등록. 미등록 카테고리는
+    # 검사를 건너뛰며 그 사실을 출력한다 (조용한 무의미 검사 방지).
 }
-BASE_UPPER = ("강원특별자치도", "강원도")          # 뒤섞인 값 탐지용 상위 행정구역
 
 # 오탐 예외 (§3) — 줄에 이 패턴이 있으면 '유출'이 아니라 '문맥 확인'으로 낮춘다.
 CONTEXT_OK = [
@@ -101,26 +116,33 @@ def check(category, part, case, detail=False):
     if not base_p.exists():
         sys.exit(f"베이스 없음 — {base_p}")
 
+    base_cfg = CATEGORY_BASE.get(category)
+    if base_cfg is None:
+        print(f"'{category}' 는 기준 사업 지명이 미등록 — 표 유출 검사를 건너뜀 "
+              f"(CATEGORY_BASE 에 등록할 것. 조용한 무의미 검사보다 낫다)")
+        return True
+
     # 대상 사업 시군 — vars 에서. 되먹임이면 검사 자체가 무의미하다 (§4 ⚠️).
     시군 = None
     for vp in sorted((ROOT / "cases" / category / case / "vars").glob("*.json")):
         시군 = json.loads(vp.read_text(encoding="utf-8")).get("사업", {}).get("시군")
         if 시군:
             break
-    if 시군 == "원주시":
+    if 시군 == base_cfg["시군"]:
         print("되먹임(기준 사업 자기 생성) — 표 유출 검사는 무의미하다. 건너뜀 (증거 문서 §4)")
         return True
 
     fail, warn = [], []
 
     # ── ① 지명 유출 + 뒤섞인 값
+    names, upper = base_cfg["이름들"], base_cfg["상위"]
     for ln in _lines(out_p):
-        hits = [w for w in BASE_NAMES if w in ln]
-        mixed = 시군 and any(u in ln for u in BASE_UPPER) and 시군 in ln
+        hits = [w for w in names if w in ln]
+        mixed = 시군 and any(u in ln for u in upper) and 시군 in ln
         if not hits and not mixed:
             continue
         soft = any(p.search(ln) for p in CONTEXT_OK)
-        row = (("뒤섞임" if mixed else "지명"), ", ".join(hits) or f"{BASE_UPPER[1]}+{시군}",
+        row = (("뒤섞임" if mixed else "지명"), ", ".join(hits) or f"{upper[-1]}+{시군}",
                ln.strip()[:70])
         (warn if soft else fail).append(row)
 
