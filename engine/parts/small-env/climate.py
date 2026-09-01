@@ -6,8 +6,10 @@
 명세: templates/small-env/climate.slots.md. 요약 문장 값은 vars 의 월별·연도별
 데이터에서 **유도**한다 (vars 에 중복 저장 금지 — slots.md).
 
-⚠️ build_tables 는 Windows 미검증. 특히 월별 표 앵커(강수량·일조시간 등)는
-   조사내용 표 셀(L14)·10년 표 헤더에도 걸린다 — skip 값은 추정이며 Windows 확정 대상.
+✅ build_tables Windows 실측 확정 (2026-09-01 원주 되먹임 — 10년 표 10/10 ·
+   평균 행 8/8 원본 캐시값 일치 · 월별 표 7/8). 월별 표 skip 도 실측으로 확정했다.
+   🚨 C2 앵커는 연도(`2014`)가 아니라 **머리행 라벨**(`평균최고`)이다 — 빈칸 치환이
+   `{{기간시작}}`→`2014` 로 바꾸면서 조사내용 표에 같은 문자열이 생겨 **그 표를 파괴했다.**
 값 표기: vars 의 문자열을 그대로 쓴다 (연보 표기 보존 — 재포맷 금지).
 """
 from hwp_util import MISSING, col_begin, down, find_in_table, right, set_cell

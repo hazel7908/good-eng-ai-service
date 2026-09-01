@@ -4,7 +4,8 @@
 
 규약: build_slots / build_tables. 지식: rules/small-env/land-use.md.
 compute 는 0400(surrounding-land-use)의 것을 그대로 쓴다 — 세 파트 값 불일치 금지.
-⚠️ build_tables Windows 미검증. 문서 내 표 순서(9개):
+✅ build_tables Windows 실측 확정 (2026-09-01 원주 되먹임 **diff 0줄** — 표 7개
+   원본 완전 재현). 이동은 공용 `hwp_util.write_at` 규약. 문서 내 표 순서(9개):
    현황조사내용 → 시군지목 → 지구지목 → 시군용도 → 지구용도 → 조서
    → 영향예측내용 → 토지이용계획 → 피해방지계획
 """
