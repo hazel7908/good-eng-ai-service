@@ -68,6 +68,15 @@ CONTEXT_OK = [
     re.compile(r"동쪽|서쪽|남쪽|북쪽|인접|접하|경계"),   # 접경 설명 (지형지질 0725 실측)
 ]
 
+# 부분문자열 덫 (§3) — 기준 지명이 **다른 낱말 안**에 들어가 걸리는 자리.
+# 지명 뒤에 이 글자가 붙으면 그 지명 히트는 버린다. 줄 전체를 낮추는 CONTEXT_OK 와 달리
+# **그 히트만** 떨어뜨리므로 같은 줄의 진짜 유출은 살아남는다.
+#   실측: `지정면적(천㎡)` ⊃ `지정면` (지역개황 산업단지 표, 2026-09-01 Windows).
+SUBSTRING_TRAP = {
+    "지정면": "적",       # 지정면적
+    "문막": "장",         # (문막장… 방어용, 미관측)
+}
+
 # 표 동일이 **정상**인 캡션 (법령·참조표·수식 상수표 — 실측한 것만, 늘려 간다)
 ALLOW_IDENTICAL = [
     "환경기준", "규제기준", "배출허용기준", "기초유출계수", "토사유출량 원단위",
@@ -123,9 +132,20 @@ def check(category, part, case, detail=False):
         return True
 
     # 대상 사업 시군 — vars 에서. 되먹임이면 검사 자체가 무의미하다 (§4 ⚠️).
+    # ⚠️ **`시군` 키가 없는 카테고리가 있다** — 재해 vars 는 `위치` 한 줄만 갖는다.
+    #    그러면 되먹임인데도 스킵이 안 걸려 **자기 지명이 전부 유출로 뜬다**
+    #    (재해 첫 베이스 3장에서 14건. 2026-09-01 Windows 실측).
+    #    `시군` 이 없으면 `위치`·`주소_일원` 에서 기준 시군을 찾아 되먹임을 판정한다.
     시군 = None
     for vp in sorted((ROOT / "cases" / category / case / "vars").glob("*.json")):
-        시군 = json.loads(vp.read_text(encoding="utf-8")).get("사업", {}).get("시군")
+        사업 = json.loads(vp.read_text(encoding="utf-8")).get("사업", {})
+        시군 = 사업.get("시군")
+        if 시군:
+            break
+        for k in ("위치", "주소_일원"):
+            if base_cfg["시군"] in str(사업.get(k) or ""):
+                시군 = base_cfg["시군"]
+                break
         if 시군:
             break
     if 시군 == base_cfg["시군"]:
@@ -137,7 +157,9 @@ def check(category, part, case, detail=False):
     # ── ① 지명 유출 + 뒤섞인 값
     names, upper = base_cfg["이름들"], base_cfg["상위"]
     for ln in _lines(out_p):
-        hits = [w for w in names if w in ln]
+        hits = [w for w in names if w in ln
+                and not all(ln[i + len(w):i + len(w) + 1] == SUBSTRING_TRAP.get(w)
+                            for i in range(len(ln)) if ln.startswith(w, i))]
         mixed = 시군 and any(u in ln for u in upper) and 시군 in ln
         if not hits and not mixed:
             continue

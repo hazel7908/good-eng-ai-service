@@ -13,6 +13,12 @@ def _c(x):
     return None if x in (None, "") else f"{x:,}" if isinstance(x, (int, float)) else str(x)
 
 
+def _sum(xs):
+    """면적 합계. ⚠️ 정수로 떨어지면 정수로 — `3133.0` 이 `3,133.0` 으로 찍힌다."""
+    t = sum(x or 0 for x in xs)
+    return int(t) if float(t).is_integer() else round(t, 1)
+
+
 def build_slots(v):
     sa, sul = v.get("사업", {}), v.get("서술", {})
     g = lambda d, k: (d.get(k) if d.get(k) not in (None, "") else MISSING)
@@ -42,32 +48,59 @@ def build_tables(hwp, v):
     조서 = v.get("조서") or []
     if 조서:
         fit_rows(hwp, "신청면적(㎡)", 5, len(조서))          # 베이스 데이터 행 5 (천안 실측)
+        # ⚠️ **col_off=1** — 실측: 앵커 `신청면적(㎡)`=E1(머리행) · A=위치(세로 병합) ·
+        #    B=지번 · C=지목 · D=지적 · E=신청면적 · F=비고. 2 로 두면 지번이 지목 칸에
+        #    들어가 한 칸씩 밀린다.
+        # 🚨 A열(위치)은 **세로 병합 한 칸**이라 값 열만 쓰면 기준 사업이 남는다 —
+        #    베이스에 `천안시 동남구/목천읍 삼성리` 가 그대로 있다 (소환 0100 과 같은 자리).
+        write_at(hwp, "신청면적(㎡)", 1, 0, [(v.get("사업") or {}).get("조서_위치")])
         for i, row in enumerate(조서):                       # [지번, 지목, 지적, 신청면적, 비고]
-            write_at(hwp, "신청면적(㎡)", i + 1, 2,
+            write_at(hwp, "신청면적(㎡)", i + 1, 1,
                      [row[0], row[1], _c(row[2]), _c(row[3]), row[4] or ""])
         합계 = [sum(r[2] for r in 조서), sum(r[3] for r in 조서)]
-        write_at(hwp, "합                      계", 0, 3, [_c(합계[0]), _c(합계[1])],
+        # ⚠️ 합계 칸은 **A:C 3칸 병합** — `from_anchor` 에서 오른쪽 한 번이면 벌써 D열이다.
+        #    3 을 주면 F열(비고)까지 넘어가고, 마지막 칸이라 되돌아가지 못해 **덮어쓴다**
+        #    (되먹임에서 비고에 `3,133` 이 찍혔다). 실측: A7[1x3]=합계 · D7=지적 · E7=신청면적.
+        write_at(hwp, "합                      계", 0, 1, [_c(합계[0]), _c(합계[1])],
                  from_anchor=True)                           # 합계 행 (계산 필드 자리) ⚠️
     else:
         for i in range(1, 6):
             blank_row(hwp, "신청면적(㎡)", i, keep_first=0)   # 지번까지 사업 고유 — 전부 비움
 
-    # ── 토지이용 총괄 (투수/불투수 2행 × 현황·계획 면적/구성비 4값)
+    # ── 토지이용 3표 — 앵커 실측 확정 (2026-09-01 KeyIndicator)
+    #    `토지이용현황`=B1 · `토지이용계획`=D1 은 **총괄 표 머리행에만** 있다(각 1회).
+    #    개별 현황·계획 표는 머리가 `구 분` 이고, 그 문자열은 표 5곳에 있다:
+    #      skip0=총괄 · skip1=토지이용현황 · skip2=토지이용계획 · skip3=협의대상 · skip4=사업개요
+    #    → 개별 표는 `구 분` + skip 으로 잡는다. 앞선 코드가 `토지이용현황/계획` 을 개별 표
+    #      앵커로 써서 **7건 전부 '못 찾음'** 이었다 (되먹임 실측).
     총괄 = tj.get("총괄") or {}
-    for i, key in ((1, "투수"), (2, "불투수")):
+    # 총괄 데이터: +1 계 · +2 투수지역 · +3 불투수지역 (실측)
+    for off, key in ((2, "투수"), (3, "불투수")):
         r = 총괄.get(key) or [None] * 4
-        write_at(hwp, "토지이용계획", i, 1, [_c(x) for x in r])   # 앵커=머리행 '토지이용계획' ⚠️skip 확인
+        write_at(hwp, "구 분", off, 1, [_c(x) for x in r], skip=0)
 
-    # ── 토지이용현황 / 토지이용계획 표 (지목·용도별 n행 — 라벨까지 사업 고유)
-    for 앵커, rows, base in (("토지이용현황", tj.get("현황"), 2), ("토지이용계획", tj.get("계획"), 5)):
-        # ⚠️ 같은 문자열이 총괄 표 머리에도 있다 — skip 실측 필수 (find_in_table 충돌 부류)
+    # ⚠️ **두 표의 열 기준이 다르다** (XML 셀 주소 실측):
+    #    현황 = `A1[1x2]='구 분'` 병합 머리 → 데이터 행에 **빈 A열 여백**이 있어 지목이 B열.
+    #    계획 = 병합 없음 → 지목이 A열.
+    #    현황을 col 0 으로 쓰면 한 칸씩 왼쪽으로 밀려 **구성비 칸의 기준 사업 값이 살아남는다**
+    #    (되먹임에서 `98.37`·`1.63` 이 한 번 더 나왔다). 합계 행은 둘 다 `계` 가 병합/단독
+    #    첫 칸이라 col 1 로 같다.
+    for sk, rows, base, dcol in ((1, tj.get("현황"), 2, 1),
+                                 (2, tj.get("계획"), 5, 0)):
+        # ⚠️ **데이터는 +2행부터다** — `+1` 은 `계`(합계) 행이다 (실측). +1 로 시작하면
+        #    합계 행이 첫 지목으로 덮이고 뒤가 한 행씩 밀린다 (되먹임에서 `계 3,133 100.00`
+        #    이 사라지고 값이 어긋났다).
         if rows:
-            fit_rows(hwp, 앵커, base, len(rows))
+            fit_rows(hwp, "구 분", base, len(rows), start=2, skip=sk)
             for i, row in enumerate(rows):
-                write_at(hwp, 앵커, i + 1, 0, [row[0], _c(row[1]), _c(row[2]),
-                                               (row[3] if len(row) > 3 else "") or ""], skip=1)
+                write_at(hwp, "구 분", i + 2, dcol,
+                         [row[0], _c(row[1]), _c(row[2]),
+                          (row[3] if len(row) > 3 else "") or ""], skip=sk)
+            # 합계 행 — 안 쓰면 기준 사업 값이 남는다 (다른 사업에서 유출)
+            write_at(hwp, "구 분", 1, 1,
+                     [_c(_sum(x[1] for x in rows)), "100.00", ""], skip=sk)
         else:
-            for i in range(1, base + 1):
-                blank_row(hwp, 앵커, i, keep_first=0, skip=1)
+            for i in range(1, base + 2):          # 계 행 포함
+                blank_row(hwp, "구 분", i, keep_first=0, skip=sk)
 
-    print("  1장 — 조서·토지이용 4표 처리 ⚠️ 앵커 실측 전 (되먹임으로 확정)")
+    print("  1장 — 조서·토지이용 4표 처리 (앵커 실측 확정 2026-09-01)")

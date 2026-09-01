@@ -165,7 +165,10 @@ def set_cell(hwp, text):
         return False
     hwp.HAction.Run("SelectAll")
     hwp.HAction.GetDefault("InsertText", hwp.HParameterSet.HInsertText.HSet)
-    hwp.HParameterSet.HInsertText.Text = str(text)
+    # 한 칸 안 여러 줄은 `\r\n` 이어야 문단이 갈린다 — `\n` 만 주면
+    # 한 줄로 붙는다 (재해 조서 위치 칸 `천안시 동남구 / 목천읍 삼성리` 실측).
+    txt = str(text).replace("\r\n", "\n").replace("\n", "\r\n")
+    hwp.HParameterSet.HInsertText.Text = txt
     hwp.HAction.Execute("InsertText", hwp.HParameterSet.HInsertText.HSet)
     return True
 
@@ -341,7 +344,7 @@ def clone_para(hwp, src_anchor, dst_anchor, text):
     return True
 
 
-def append_rows(hwp, anchor, base_rows, need):
+def append_rows(hwp, anchor, base_rows, need, skip=0):
     """표의 행 수를 need 에 맞춘다. 커서는 anchor 다음 행 첫 칸에 둔다."""
     if need > base_rows:
         down(hwp, base_rows)
@@ -349,7 +352,7 @@ def append_rows(hwp, anchor, base_rows, need):
         hwp.HAction.Run("TableColEnd")
         for _ in range(need - base_rows):
             hwp.HAction.Run("TableAppendRow")
-        find_in_table(hwp, anchor)
+        find_in_table(hwp, anchor, skip=skip)
     down(hwp)
     col_begin(hwp)
 
@@ -496,29 +499,33 @@ def _num(x):
     return str(x)
 
 
-def fit_rows(hwp, anchor, base_rows, need, start=1):
+def fit_rows(hwp, anchor, base_rows, need, start=1, skip=0):
     """앵커 행 아래 **데이터 행 수**를 need 로 맞춘다.
 
     끝나면 커서는 **첫 데이터 행 첫 칸**에 있다.
     `append_rows()` 는 늘리기만 한다 — 줄이는 쪽은 여기서 처리한다.
     시군마다 시설 개수가 달라 양방향이 다 필요하다.
+
+    ⚠️ **`skip` 을 빠뜨리면 다른 표를 자른다.** 앵커가 문서에 여러 번 나오는 표
+    (재해 1장 `구 분` 은 5곳)에서 첫 표의 행을 지우고 커서까지 거기 남는다 —
+    `blank_row` 와 같은 부류의 결함이다 (CLAUDE.md §6 ④).
     """
     # start: 앵커 행에서 **첫 데이터 행까지의 거리**. 머리행이 두 줄인 표(하수)는 2다.
     cur = base_rows
     while cur > need:
-        if not find_in_table(hwp, anchor):
+        if not find_in_table(hwp, anchor, skip=skip):
             print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
             return False
         down(hwp, start - 1 + cur)          # 마지막 데이터 행
         hwp.HAction.Run("TableDeleteRow")
         cur -= 1
     if need > cur:
-        if not find_in_table(hwp, anchor):
+        if not find_in_table(hwp, anchor, skip=skip):
             print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
             return False
-        append_rows(hwp, anchor, cur, need)
+        append_rows(hwp, anchor, cur, need, skip=skip)
         return True
-    if not find_in_table(hwp, anchor):
+    if not find_in_table(hwp, anchor, skip=skip):
         print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 행 조정 스킵")
         return False
     down(hwp, start)

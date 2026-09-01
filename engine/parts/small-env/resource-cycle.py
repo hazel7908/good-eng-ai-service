@@ -145,7 +145,7 @@ def build_tables(hwp, v):
                 continue
             base = spec.get("베이스행", len(rows))
             if base != len(rows):
-                fit_rows(hwp, anchor, base, len(rows))
+                fit_rows(hwp, anchor, base, len(rows), skip=spec.get("skip", 0))
             for i, row in enumerate(rows):
                 if i:
                     down(hwp)
