@@ -13,7 +13,8 @@ import math
 
 from calc_waste import household_unit_kgpd, waste_oil_lpd
 from calc_water import sewage_unit_Lpd
-from hwp_util import MISSING, col_begin, down, find_in_table, fit_rows, right, set_cell
+from hwp_util import (MISSING, blank_row, col_begin, down, find_in_table, fit_rows,
+                      right, set_cell, write_at)
 
 
 def compute(v):
@@ -83,6 +84,20 @@ def build_tables(hwp, v):
     hd = v.get("현황", {})
     r = compute(v)
     cell = lambda x: set_cell(hwp, str(x) if x not in (None, "") else MISSING)
+
+    # ── 성상별 5표 선(先)비우기 — vars 에 없으면 **기준 사업 값이 그대로 남는다**
+    #    (천안 채점 WRONG 5, 2026-08-31 실증 — "값 없음, 스킵"이 바로 그 함정이었다).
+    #    다섯 표 모두 데이터가 `원주시` 라벨 한 행뿐이라, 라벨 셀을 문서 순서대로 찾아
+    #    행을 비우고 라벨만 새 시군으로 바꾼다. vars 가 준 표는 아래 채움 루프가 덮는다.
+    #    ⚠️ 되먹임(시군=원주시)이면 치환 뒤에도 라벨이 `원주시`라 다음 탐색이 같은 표를
+    #    다시 문다 — skip=i 로 전진시킨다 (기상 C2 앵커 재생성 결함과 같은 부류).
+    시군 = v.get("사업", {}).get("시군")
+    for i in range(5):
+        sk = i if 시군 == "원주시" else 0
+        if not blank_row(hwp, "원주시", 0, keep_first=1, skip=sk):
+            print(f"    WARNING: 성상별 {i+1}번째 표 — '원주시' 라벨 못 찾음")
+            continue
+        write_at(hwp, "원주시", 0, 0, [시군], skip=sk)   # 라벨 칸 = 시군 (없으면 [확인 필요])
 
     # 성상별 5표 + 기초시설 5표 — vars 에 {표이름: {"앵커": str, "skip": int, "행": [[...]]}}
     # 꼴로 담는다 (지역개황 2.7 과 동일 구조 — D2 일반화 전까지의 범용 채움).
