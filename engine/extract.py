@@ -35,6 +35,16 @@ except ImportError:
     sys.exit(1)
 
 
+def _sanitize(text: str) -> str:
+    """UTF-8 로 못 쓰는 문자를 걷어낸다.
+
+    ⚠️ HWP 본문에 **짝 없는 서로게이트**가 섞여 있는 문서가 있다 — 원주 동식물상(0711,
+    73MB)이 그랬다. 그대로 `write_text` 하면 `UnicodeEncodeError` 로 **추출이 통째로
+    실패한다** (2026-09-01 실측). 파일 하나가 아니라 그 문서 전체를 잃는다.
+    """
+    return text.encode("utf-8", "replace").decode("utf-8")
+
+
 def extract_hwp(filepath: str) -> str:
     """
     HWP (바이너리) 파일에서 텍스트를 추출합니다.
@@ -210,7 +220,7 @@ def process_directory(input_dir: str, output_dir: str) -> list[dict]:
 
         try:
             text = extract(str(filepath))
-            out_file.write_text(text, encoding="utf-8")
+            out_file.write_text(_sanitize(text), encoding="utf-8")
             results.append(
                 {"file": str(rel), "status": "success", "chars": len(text)}
             )
@@ -258,7 +268,7 @@ def main():
         if args.output:
             out_path = Path(args.output)
             out_path.parent.mkdir(parents=True, exist_ok=True)
-            out_path.write_text(text, encoding="utf-8")
+            out_path.write_text(_sanitize(text), encoding="utf-8")
             print(f"저장 완료: {args.output} ({len(text)}자)")
         else:
             print(text)

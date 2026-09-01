@@ -1,0 +1,828 @@
+록
+부-
+제8장 부 록
+면 무장리 578번지 일원 태양광발전시설 조성사업
+부-
+8.1 인용 문헌 및 참고한 자료
+8.1 인용 문헌 및 참고한 자료
+8.1.1 인용 및 참고문헌
+가. 공 통
+환경영향평가법
+환경영향평가법 시행령
+통계연보 2024. 원주시
+횡성 377122
+전략환경영향평가 업무 매뉴얼 2023. 2, 환경부
+환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.04.13., 일부개정)
+환경영향평가 평가범위 설정 가이드라인(대기질ㆍ악취ㆍ소음진동)2013. 환경부
+환경영향평가 스코핑 가이드라인, 2011. 환경부
+대기보전특별대책지역지정 및 동지역내 대기오염저감을 위한 종합대책(환경부고시 제2018-23호, 2018.02.09.)
+대기관리권역의 대기환경개선에 관한 특별법 시행령(대통령령 제35465호, 2025. 04. 22. 일부개정)[별표1]
+대기환경보전법 시행령 [별표10의2] <개정 2023. 12. 26.>
+연료용 유류 등의 황함유기준(환경부고시 제2015-201호, 2015.10.12.) 별표
+팔당ㆍ대청호 상수원 수질보전 특별대책지역 지정 및 특별종합대책(환경부고시 제2025-46호, 2025. 03. 24. 일부개정)
+상수원호소 지정(환경부고시 제2018-6호, 2018. 01. 18, 일부개정)
+상수원보호구역 지정현황(2024년 12월 기준). 환경부
+4대강 수계 수변구역 지정현황(2024년 기준). 환경부
+배출허용기준(폐수)적용을 위한 지역지정 규정(환경부고시 제2007-107호, 2007. 07. 06)
+한강유역 폐수배출시설 설치제한을 위한 대상 지역 및 시설 지정(환경부고시 제2025-102호, 2025.6.2.)
+생태·경관보전지역 지정 현황(‘24.5월 기준). 환경부
+2025 국립공원기본통계. 국립공원관리공단
+2023 도립·군립공원 기본통계. 환경부
+백두대간보호지역 지정현황(산림청 고시 제2019-75호. 2019.11.05.)
+습지보호지역 지정 및 람사르습지 등록 현황(2024.12월 기준). 환경부
+야생생물 보호구역 현황(17년 12월 기준). 환경부
+2018 산림유전자원보호구역 지정 세부현황. 산림청
+“2022~2023년도 전국 겨울철 조류 동시 센서스, 2022 환경부 국립생물자원관
+환경정책기본법 시행령 별표1 [시행 2023.7.4] [대통령령 제33591호, 2023.6.27., 일부개정]
+소음진동관리법 시행규칙 별표8<개정 2019.12.31.>
+소음ㆍ진동관리법 시행규칙 [별표11] <개정 2019. 12. 31>
+환경분쟁 피해배상액 산정기준 조정ㆍ보완시행, 2008, 중앙환경분쟁조정위원회
+산업입지정보시스템(https://www.industryland.or.kr/)
+2023 상수도통계(2024.12.27.) 환경부
+2023 상수도통계(2024.12.27.) 환경부
+2023년 음식물류 폐기물 처리시설 현황(24.07.01.기준). 환경부
+전국 폐기물 발생 및 처리현황(2023년도) 2024. 환경부/한국환경공단
+환경지리정보(http://egis.me.go.kr)
+권역별 하천일람(2020)
+건설공사표준품셈 2025. 한국건설연구원
+국토환경성평가지도(//ecvam.neins.go.kr/main.do汫h)
+수질오염총량관리기술지침
+나. 자연생태환경
+(1) 동․식물상
+Braun-Blanquet(1964)
+환경부. 2012a. "자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호)
+전략환경영향평가 업무 매뉴얼 2015. 12, 환경부
+National Census of Vegetation office of Environment. Japan. pp. 7∼36. 1976.
+생태·자연도 작성지침, 2015, 환경부
+Raunkaier, C. 1934. The Life Form of Plants and Statistical Plant Geography. Clarendon Press, Oxford.
+자연환경조사방법 및 등급분류기준 등에 관한규정(환경부훈령 제1008호, 2012)
+「제5차 전국자연환경조사 양동 2021」, 「제5차 전국자연환경조사 횡성 2021」, 「제5차 전국자연환경조사 문막 2023」, 「제5차 전국자연환경조사 원주 2023」, 「원주시 호저면 무장리 31-3번지 태양광 부지조성사업 2025 (주)더써밋솔라원」, 「원주시 호저면 주산리 606-11번지 일원 전원마을단지 조성공사 2022 천일산업(주)」
+환경부 환경지리정보(http://egis.me.go.kr/egis)
+귀화생물에 의한 생태계 영향조사(1) 1995, 국립환경연구원
+다. 생활환경
+(1) 기 상
+기상연보(2014~2023). 기상청, 원주기상관측소
+(2) 대기질
+대기오염물질배출계수 2015. 국립환경과학원
+Compilation of Air Pollutant Emission Factors, 1999, EPA
+환경영향의 합리적 예측평가를 위한 기법연구, 2002.12, 한국환경정책․평가연구원
+Fugitive dust control technology, NDC, 1983.
+대기환경보전법 제43조 제1항 및 동법 시행령 제44조(비산먼지 발생사업), 시행규칙 제58조(비산먼지 발생사업의 신고 등)
+대기환경보전법 시행규칙 제58조 제4항 관련 별표 14 “비산먼지 발생을 억제하기 위한 시설의 설치 및 필요한 조치에 관한 기준“
+Compilation of Air Pollutant Emission Factor, 1997, US, EPA
+Compilation of Air Pollutant Emission Factors AP42, Miscellaneous Sources, 13.2.2 unpaved Roads, 13.2.2-12, 2003.12.03, US. EPA
+(3) 수 질
+하수도 시설기준, 2011. 환경부
+한국 확률강우량도 개정, 2012.04,, 국토해양부
+사전재해영향성검토 협의 실무지침(2023, 국민안전처)
+확률강우량 활용시스템(www.k-idf.re.kr)
+환경부 제정 하수도시설기준 2011. 한국상하수도협회
+사방시설 설계기준, 전강현, 1984, 일본골프사업연감
+(4) 지형․지질
+국토지리정보원의 1:5,000 수치지형도
+표고 및 경사분석 program : ArcView GIS 3.3
+한국지질자원연구원(http://gmap.kigam.re.kr/)-1:50,000 원주도폭
+한국의 지질유산 정보구축 및 관리방안(이수재, 2008, KEI 기본과제 연구보고서)
+한국의 지질노두 150선, 2004, 한국지질자원연구원
+환경성평가서 작성안내서-면적사업 : 지형․지질 항목(KEI EIA-2009-1. v2-1.)
+건설공사 비탈면 설계기준, 2011. 12. 국토해양부
+토석정보시스템(http://www.tocycle.com)
+(5) 친환경적 자원순환
+폐기물 관리법 시행규칙 제14조 “폐기물 처리 등의 구체적인 기준·방법”
+(6) 소음․진동
+건설기계류 소음특성, 국립환경과학원. 2003
+환경영향평가서 작성지침. 환경부
+환경진동의 저감대책에 관한 조사연구(Ⅰ), 국립환경연구원
+소음·진동관리법 제22조
+공사장 소음·진동관리지침서(2006.12, 환경부)
+공사장 환경분쟁사건 소음․진동도 산출방법 개선방법(13쪽), 2007. 중앙환경분쟁조정위원회
+(7) 경 관
+개발사업 등에 대한 자연경관 심의 지침(환경부예규 제726호, 2023.4.10)
+「자연환경보전법」(이하 ‘법’이라 한다) 제28조(자연경관영향의 협의 등), 제29조(자연경관 심의위원회 구성 및 운영)
+동법 시행령 제20조(자연경관영향의 협의 또는 검토대상), 제21조(자연경관심의위원회의 구성) 및 제22조(자연경관심의위원회의 운영 등)
+8.1.2 환경현황 조사 및 환경영향예측 자료
+가. 동·식물상 조사자료
+(1) 현지조사표 및 증빙자료
+조사개시 영수증
+조사종료 영수증
+식물상조사
+육상동물상조사
+탐문조사
+나. 환경질 측정자료
+(1) 측정기록부
+(2) 측정사진
+측정항목
+대기(A-1)
+측정항목
+수질(W-1)
+측정지점
+원주시 호저면 무장리 595
+측정지점
+원주시 호저면 무장리 561
+- 공란 -
+측정항목
+소음진동(N·V- 1)
+측정지점
+원주시 호저면 생담길 120
+다. 대기질 모델링 출력결과(AERMOD)
+(1) 공사시
+(가) PM-10
+CO STARTING
+CO TITLEONE  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod
+CO MODELOPT  dfault CONC
+CO AVERTIME  1 24 annual
+CO POLLUTID  PM-10
+CO RUNORNOT  RUN
+CO ERRORFIL  ERRORS.OUT
+CO EVENTFIL  TESTAERMOD.EVT
+CO FINISHED
+***********
+SO STARTING
+SO LOCATION  A01  AREAPOLY  280267.9  534240.6    37.6
+SO LOCATION  A02  AREAPOLY  280361.8  534246.4    82.3
+SO SRCPARAM  A01  2.9670E-06  3  12
+SO SRCPARAM  A02  8.6886E-06  3  16
+SO AREAVERT  A01  280267.9  534240.6  280288.4  534256.2  280316.0  534246.1
+SO AREAVERT  A01  280318.5  534222.5  280301.3  534195.4  280282.3  534197.3
+SO AREAVERT  A01  280246.8  534183.6  280241.4  534182.3  280242.1  534219.1
+SO AREAVERT  A01  280249.4  534221.4  280261.2  534246.7  280268.0  534249.3
+SO AREAVERT  A02  280361.8  534246.4  280368.7  534258.6  280462.9  534303.8
+SO AREAVERT  A02  280486.7  534287.0  280467.3  534253.1  280442.4  534218.8
+SO AREAVERT  A02  280406.3  534196.8  280422.0  534183.6  280452.7  534143.5
+SO AREAVERT  A02  280506.7  534135.4  280508.0  534112.2  280494.2  534101.8
+SO AREAVERT  A02  280463.4  534117.2  280382.6  534164.6  280372.6  534184.9
+SO AREAVERT  A02  280381.9  534221.0
+** TIME       SRCID         1-9    9-12   12-13  13-18  18-24
+**            -----         ----   ----   ----   ----   ----
+SO EMISFACT   A01   HROFDY  8*0.00 3*1.0  1*0.0  5*1.0  7*0.00
+SO CONCUNIT   1.0E6  grams/sec    micrograms/m**3
+SO SRCGROUP ALL
+SO FINISHED
+RE STARTING
+RE INCLUDED  airbase.map
+RE FINISHED
+ME STARTING
+ME SURFFILE AERMOD.sfc
+ME PROFFILE AERMOD.pfl
+ME SURFDATA 43114 2023 원주
+ME UAIRDATA 47122 2023 오산
+ME PROFBASE 10.0
+ME FINISHED
+***********
+OU STARTING
+OU RECTABLE 24 4th
+OU PLOTFILE 24 ALL 4th DP.DAT
+OU FINISHED
+*** Message Summary For AERMOD Model Setup ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            1 Warning Message(s)
+A Total of            0 Informational Message(s)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+OU W540      52        OUTQA: No RECTABLE/MAXTABLE/DAYTABLE for Average Period         001-HR
+***********************************
+*** SETUP Finishes Successfully ***
+***********************************
+*** AERMOD - VERSION  19191 ***   ***  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod    ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:24:00
+PAGE   1
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   4TH HIGHEST 24-HR AVERAGE CONCENTRATION   VALUES FOR SOURCE GROUP:  ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF PM-10    IN MICROGRAMS/M**3                          **
+X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)              X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+280496.00    534202.00        4.80468c (23122024)                280067.00    533867.00        6.40701c (23100224)
+280298.00    533790.00       18.03646c (23121824)                280256.00    534877.00        1.96794c (23090324)
+280962.00    534838.00        0.26210  (23021924)
+*** AERMOD - VERSION  19191 ***   ***  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod    ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:24:00
+PAGE  25
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE SUMMARY OF HIGHEST 24-HR RESULTS ***
+** CONC OF PM-10    IN MICROGRAMS/M**3                          **
+DATE                                                                    NETWORK
+GROUP ID                          AVERAGE CONC     (YYMMDDHH)             RECEPTOR  (XR, YR, ZELEV, ZHILL, ZFLAG)    OF TYPE  GRID-ID
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ALL      HIGH   4TH HIGH VALUE IS     131.76676c ON 23121924: AT (  280448.00,   534246.00,    82.80,   128.00,    0.00)  GC  CART1
+*** RECEPTOR TYPES:  GC = GRIDCART
+GP = GRIDPOLR
+DC = DISCCART
+DP = DISCPOLR
+*** AERMOD - VERSION  19191 ***   ***  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod    ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:24:00
+PAGE  27
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** Message Summary : AERMOD Model Execution ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            1 Warning Message(s)
+A Total of         1601 Informational Message(s)
+A Total of         8760 Hours Were Processed
+A Total of         1529 Calm Hours Identified
+A Total of           72 Missing Hours Identified (  0.82 Percent)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+OU W540      52        OUTQA: No RECTABLE/MAXTABLE/DAYTABLE for Average Period         001-HR
+************************************
+*** AERMOD Finishes Successfully ***
+************************************
+(나) PM-2.5
+CO STARTING
+CO TITLEONE  원주시 태장동 공동주택 개발사업 aermod
+CO MODELOPT  dfault CONC
+CO AVERTIME  1 24 annual
+CO POLLUTID  PM-10
+CO RUNORNOT  RUN
+CO ERRORFIL  ERRORS.OUT
+CO EVENTFIL  TESTAERMOD.EVT
+CO FINISHED
+***********
+SO STARTING
+SO LOCATION  A01  AREAPOLY  280267.9  534240.6    37.6
+SO LOCATION  A02  AREAPOLY  280361.8  534246.4    82.3
+SO SRCPARAM  A01  8.4822E-07  3  12
+SO SRCPARAM  A02  2.4839E-06  3  16
+SO AREAVERT  A01  280267.9  534240.6  280288.4  534256.2  280316.0  534246.1
+SO AREAVERT  A01  280318.5  534222.5  280301.3  534195.4  280282.3  534197.3
+SO AREAVERT  A01  280246.8  534183.6  280241.4  534182.3  280242.1  534219.1
+SO AREAVERT  A01  280249.4  534221.4  280261.2  534246.7  280268.0  534249.3
+SO AREAVERT  A02  280361.8  534246.4  280368.7  534258.6  280462.9  534303.8
+SO AREAVERT  A02  280486.7  534287.0  280467.3  534253.1  280442.4  534218.8
+SO AREAVERT  A02  280406.3  534196.8  280422.0  534183.6  280452.7  534143.5
+SO AREAVERT  A02  280506.7  534135.4  280508.0  534112.2  280494.2  534101.8
+SO AREAVERT  A02  280463.4  534117.2  280382.6  534164.6  280372.6  534184.9
+SO AREAVERT  A02  280381.9  534221.0
+** TIME       SRCID         1-9    9-12   12-13  13-18  18-24
+**            -----         ----   ----   ----   ----   ----
+SO EMISFACT   A01   HROFDY  8*0.00 3*1.0  1*0.0  5*1.0  7*0.00
+SO CONCUNIT   1.0E6  grams/sec    micrograms/m**3
+SO SRCGROUP ALL
+SO FINISHED
+RE STARTING
+RE INCLUDED  airbase.map
+RE FINISHED
+ME STARTING
+ME SURFFILE AERMOD.sfc
+ME PROFFILE AERMOD.pfl
+ME SURFDATA 43114 2023 원주
+ME UAIRDATA 47122 2023 오산
+ME PROFBASE 10.0
+ME FINISHED
+***********
+OU STARTING
+OU RECTABLE 24 4th
+OU PLOTFILE 24 ALL 4th DP.DAT
+OU FINISHED
+*** Message Summary For AERMOD Model Setup ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            1 Warning Message(s)
+A Total of            0 Informational Message(s)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+OU W540      50        OUTQA: No RECTABLE/MAXTABLE/DAYTABLE for Average Period         001-HR
+***********************************
+*** SETUP Finishes Successfully ***
+***********************************
+*** AERMOD - VERSION  19191 ***   ***  원주시 태장동 공동주택 개발사업 aermod                              ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:23:54
+PAGE   1
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   4TH HIGHEST 24-HR AVERAGE CONCENTRATION   VALUES FOR SOURCE GROUP:  ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF PM-10    IN MICROGRAMS/M**3                          **
+X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)              X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+280496.00    534202.00        1.37356c (23122024)                280067.00    533867.00        1.83164c (23100224)
+280298.00    533790.00        5.15627c (23121824)                280256.00    534877.00        0.56260c (23090324)
+280962.00    534838.00        0.07493  (23021924)
+*** AERMOD - VERSION  19191 ***   ***  원주시 태장동 공동주택 개발사업 aermod                              ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:23:54
+PAGE  25
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE SUMMARY OF HIGHEST 24-HR RESULTS ***
+** CONC OF PM-10    IN MICROGRAMS/M**3                          **
+DATE                                                                    NETWORK
+GROUP ID                          AVERAGE CONC     (YYMMDDHH)             RECEPTOR  (XR, YR, ZELEV, ZHILL, ZFLAG)    OF TYPE  GRID-ID
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ALL      HIGH   4TH HIGH VALUE IS      37.66953c ON 23121924: AT (  280448.00,   534246.00,    82.80,   128.00,    0.00)  GC  CART1
+*** RECEPTOR TYPES:  GC = GRIDCART
+GP = GRIDPOLR
+DC = DISCCART
+DP = DISCPOLR
+*** AERMOD - VERSION  19191 ***   ***  원주시 태장동 공동주택 개발사업 aermod                              ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:23:54
+PAGE  27
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** Message Summary : AERMOD Model Execution ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            1 Warning Message(s)
+A Total of         1601 Informational Message(s)
+A Total of         8760 Hours Were Processed
+A Total of         1529 Calm Hours Identified
+A Total of           72 Missing Hours Identified (  0.82 Percent)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+OU W540      50        OUTQA: No RECTABLE/MAXTABLE/DAYTABLE for Average Period         001-HR
+************************************
+*** AERMOD Finishes Successfully ***
+************************************
+(다) NO2
+CO STARTING
+CO TITLEONE  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod
+CO MODELOPT  dfault CONC
+CO AVERTIME  1 24 annual
+CO POLLUTID  NO2
+CO RUNORNOT  RUN
+CO ERRORFIL  ERRORS.OUT
+CO EVENTFIL  TESTAERMOD.EVT
+CO FINISHED
+***********
+SO STARTING
+SO LOCATION  A01  AREAPOLY  280267.9  534240.6    37.6
+SO LOCATION  A02  AREAPOLY  280361.8  534246.4    82.3
+SO SRCPARAM  A01  3.0235E-06  3  12
+SO SRCPARAM  A02  8.8539E-06  3  16
+SO AREAVERT  A01  280267.9  534240.6  280288.4  534256.2  280316.0  534246.1
+SO AREAVERT  A01  280318.5  534222.5  280301.3  534195.4  280282.3  534197.3
+SO AREAVERT  A01  280246.8  534183.6  280241.4  534182.3  280242.1  534219.1
+SO AREAVERT  A01  280249.4  534221.4  280261.2  534246.7  280268.0  534249.3
+SO AREAVERT  A02  280361.8  534246.4  280368.7  534258.6  280462.9  534303.8
+SO AREAVERT  A02  280486.7  534287.0  280467.3  534253.1  280442.4  534218.8
+SO AREAVERT  A02  280406.3  534196.8  280422.0  534183.6  280452.7  534143.5
+SO AREAVERT  A02  280506.7  534135.4  280508.0  534112.2  280494.2  534101.8
+SO AREAVERT  A02  280463.4  534117.2  280382.6  534164.6  280372.6  534184.9
+SO AREAVERT  A02  280381.9  534221.0
+** TIME       SRCID         1-9    9-12   12-13  13-18  18-24
+**            -----         ----   ----   ----   ----   ----
+SO EMISFACT   A01   HROFDY  8*0.00 3*1.0  1*0.0  5*1.0  7*0.00
+SO CONCUNIT  0.4869E06  GRAMS/SEC-METER**2    PPB
+SO SRCGROUP ALL
+SO FINISHED
+RE STARTING
+RE INCLUDED  airbase.map
+RE FINISHED
+ME STARTING
+ME SURFFILE AERMOD.sfc
+ME PROFFILE AERMOD.pfl
+ME SURFDATA 43114 2023 원주
+ME UAIRDATA 47122 2023 오산
+ME PROFBASE 10.0
+ME FINISHED
+***********
+OU STARTING
+OU RECTABLE 24 4th
+OU PLOTFILE 24 ALL 4th DN.DAT
+OU FINISHED
+*** Message Summary For AERMOD Model Setup ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            3 Warning Message(s)
+A Total of            0 Informational Message(s)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+CO W361       9       COCARD: Multiyear PERIOD/ANNUAL values for NO2/SO2 require MULTYEAR Opt
+CO W362       9       COCARD: Multiyear 1h NO2/SO2 processing not applicable for    24-hr Ave
+OU W540      52        OUTQA: No RECTABLE/MAXTABLE/DAYTABLE for Average Period         001-HR
+***********************************
+*** SETUP Finishes Successfully ***
+***********************************
+*** AERMOD - VERSION  19191 ***   ***  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod    ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:30:58
+PAGE   1
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   4TH HIGHEST 24-HR AVERAGE CONCENTRATION   VALUES FOR SOURCE GROUP:  ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF NO2      IN PPB                                      **
+X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)              X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+280496.00    534202.00        2.38391c (23122024)                280067.00    533867.00        3.17892c (23100224)
+280298.00    533790.00        8.94903c (23121824)                280256.00    534877.00        0.97642c (23090324)
+280962.00    534838.00        0.13005  (23021924)
+*** AERMOD - VERSION  19191 ***   ***  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod    ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:30:58
+PAGE  25
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE SUMMARY OF HIGHEST 24-HR RESULTS ***
+** CONC OF NO2      IN PPB                                      **
+DATE                                                                    NETWORK
+GROUP ID                          AVERAGE CONC     (YYMMDDHH)             RECEPTOR  (XR, YR, ZELEV, ZHILL, ZFLAG)    OF TYPE  GRID-ID
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ALL      HIGH   4TH HIGH VALUE IS      65.37782c ON 23121924: AT (  280448.00,   534246.00,    82.80,   128.00,    0.00)  GC  CART1
+*** RECEPTOR TYPES:  GC = GRIDCART
+GP = GRIDPOLR
+DC = DISCCART
+DP = DISCPOLR
+*** AERMOD - VERSION  19191 ***   ***  원주시 호저면 무장리 578번지 일원 태양광발전시설 조성사업 aermod    ***        07/08/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        10:30:58
+PAGE  27
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** Message Summary : AERMOD Model Execution ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            3 Warning Message(s)
+A Total of         1601 Informational Message(s)
+A Total of         8760 Hours Were Processed
+A Total of         1529 Calm Hours Identified
+A Total of           72 Missing Hours Identified (  0.82 Percent)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+CO W361       9       COCARD: Multiyear PERIOD/ANNUAL values for NO2/SO2 require MULTYEAR Opt
+CO W362       9       COCARD: Multiyear 1h NO2/SO2 processing not applicable for    24-hr Ave
+OU W540      52        OUTQA: No RECTABLE/MAXTABLE/DAYTABLE for Average Period         001-HR
+************************************
+*** AERMOD Finishes Successfully ***
+************************************
+8.2 평가 참여자 인적사항
+8.2.1 환경영향평가업자 등의 인적사항
+가. 환경영향평가업자 : (주)좋은이엔지
+<표 8.2-1> 환경영향평가업자 지정현황
+구 분
+지정일자
+지정기관
+지정번호
+(주)좋은이엔지
+2004.7.2
+원주지방환경청
+제원-024호
+나. 조사 분야별 조사자 인적사항
+<표 8.2-2> 분야별 참여자 명단
+참여분야
+성명
+면허등록분야
+자격사항
+자격 및 면허
+총괄
+사업책임기술자
+이현호
+총괄
+환경영향평가사
+151030170G
+전아름
+총괄
+환경교육학사
+-
+자연생태환경
+동⸳식물상
+김주식
+자연생태환경
+환경공학석사
+-
+경다연
+자연생태환경
+식물보호기사
+17201130014I
+이인규
+-
+식물학박사
+-
+임훈
+-
+농학석사
+-
+토지환경
+지형ㆍ지질
+이시연
+토지환경
+수질환경기사
+20204270071H
+토지이용
+김시형
+토지환경
+도시계획석사
+-
+생활환경
+대기질
+김윤경
+생활환경 및 기타
+환경공학학사
+-
+및
+수질
+박윤식
+생활환경 및 기타
+수질환경기사
+88207020215J
+기타
+기타
+백엽
+생활환경 및 기타
+환경공학석사
+-
+다. 환경영향평가업 등록증
+부-
+8.2 평가 참여자 인적사항
+8.2.2 용역계약 관련 서류
+가. 용역계약서
+나. 환경영향평가용역 등의 원도급 및 하도급률 검토서
+8.3 용어해설
+부-
+부-
+8.3 용어해설
+8.3.1 일반적인 용어
+<표 8.3-1> 일반적인 용어
+용 어
+해 설
+환경
+•인간을 포함한 온갖 생물을 둘러싸고 있으면서 생명체에 영향을 미치는 외계를 말함
+소규모
+환경영향평가
+•환경보전이 필요한 지역이나 난개발이 우려되어 계획적 개발이 필요한 지역에서 개발사업을 시행할 때에 입지의 타당성과 환경에 미치는 영향을 미리 조사․예측․평가하여 환경보전방안을 마련하는 것을 말함
+영향
+•사업의 시행으로 인하여 환경에 변화를 가져오는 모든 직․간접적인 영향과 긍정․ 부정적 영향, 장․단기적 영향을 말함
+저감
+•환경에 미치는 영향을 제거, 감소, 완화시키는 것을 말함
+환경영향요소
+•사업계획의 내용 중 환경에 미치는 영향의 원인이 되는 요소를 말함
+환경기준
+•사람의 건강을 보호하고 생활환경을 보존하기 위한 기준을 말함. 대기, 수질, 소음․진동 등에 대한 기준을 두고 있으며, 환경정책기본법에 근거함. 또한, 환경기준은 규제기준이라기보다 정부가 지향하는 일종의 목표기준임
+8.3.2 항목별 전문용어
+<표 8.3-2> 항목별 전문용어
+용 어
+해 설
+동
+․
+식
+물
+상
+생태계
+•자연군집의 생물과 그의 환경(물리․화학)을 포함한 기능적 계(系)
+식생
+•어느 일정한 공간에 모여사는 식생의 전체를 말하며, 식물 공동체라고도 표현함. 식생은 어떤 크기나 단위를 한정하거나 또는 식물이 살아있는 상태를 말하는 것이 아닌 일정공간에 나 있는 식물의 집단
+군락
+•동일한 환경에 적응해서 생활하는 식물의 집단
+군집
+•특정한 지역 및 물리적 생활장소에서 생활하고 있는 개체군의 집합체.
+서식지
+•개체군이 자신의 생존에 필요한 환경조건을 구비한 곳에 집단적으로 살아가는 장소
+피도
+•식물군락에 있어 각 종류의 식물이 차지하는 비율
+상관
+•식물이나 식물군락의 외형적인 판단으로 전체적인 군락의 분포상황을 파악하는 방법
+식피
+•지면을 덮고 있는 식물의 정도(%)
+현존식생도
+•현존식생도의 분석을 지도상에 표시한 것으로 현존식생은 장래의 자연군락이 인간의 간섭에 의하여 여러 가지 상태로 변화된 대상군락과 잔존한 자연군락의 구체적인 분포를 지도상에 나타낸 것
+<표 계속> 항목별 전문용어
+용 어
+해 설
+동
+․
+식
+물
+상
+녹지자연도
+(DGN)
+•현존식생의 상태, 식생의 종류, 생육상태, 토지이용현황 등 인간의 간섭정도에 따라 0~10까지의 등급으로 나타낸 것으로 현존 자연성이 어느 정도 남아 있는가를 표현함과 동시에 도시의 개발 등에 따라 자연파괴가 어느 정도 진행되고 있는가의 지표
+생태자연도
+•산․하천․내륙습지․호소․농지․도시 등에 대하여 자연환경을 생태적 가치, 자연성, 경관적 가치 등에 따라 등급화하여 작성된 지도
+식물상
+•식물이 광합성에 의해 1년 동안 축적한 유기물량에서 호흡량을 제외한 값(ton/yr)
+현존량
+•식물이 초식동물에게 먹히고 남은 유기물 양(ton)
+순생산량
+•식물이 일년동안 생산해 내는 양(ton/yr)
+임상
+•임분의 수종 구성상태임. 임상의 구분은 수종에 의하여 침엽수림․활엽수림․혼효림․죽림으로 구분함. 이와 같은 임상구분의 기준은 산림 경영목적, 학자, 나라에 따라 다름
+우점도
+•종의 군집내에 있어서 우열의 비율을 종합적으로 나타내는 척도
+우점종
+•하나 또는 몇몇종이 군집내에서 그 중요도가 높을 때
+종조성
+•군집분류를 수행할 때 군집내외 종 구성상황을 파악하여 표징종(indicator species)을 찾아내는 수단
+천이현상
+•한 군의 식물이 한 방향으로 불가역적으로 변화하는 비율
+귀화식물
+•그 지역에 있는 고유종이 아닌 인간의 매개에 의해 그 지역의 기후 풍토에 적응하는 식물
+교목
+•정확한 기준은 없으나 매개 임산에서 가장 높은 수관(canopy)을 형성하는 수목으로 통상 나무의 높이가 8m 이상을 말함.
+아교목
+•교목 다음으로 층위를 형성하는 수목으로 나무 높이가 2~8m인 것을 말함
+도시화지수
+•귀화식물의 분포율로 도시화의 정도를 나타내는 지수
+파충류
+•척추동물의 한 강
+포유류
+•척추동물의 한 강을 이루는 동물군으로 현생종은 4,000여 종이 알려져 있으며, 형태․습성․분포 등이 매우 다양함
+기
+상
+기온
+•대기의 온도를 말하며, 태양의 방사열에 의해 발생되고, 기상대에서는 백엽상 속의 온도계의 구부가 지상 1.2~1.5m 정도의 높이가 되도록 해서 측정함.
+강수량
+•지표면에 떨어진 강수의 양으로서 비, 눈, 우박 등을 포함한 양을 나타냄
+상대습도
+•단위 부피의 공기속에 함유되어 있는 수증기의 실림과 그 온도에서 단위 부피속에 함유할 수 있는 극한의 수증기 밀도와의 비를 백분율로 나타낸 것을 말함.
+평균풍속
+•대기 중을 공기가 이동한 거리와 그것에 요한 시간의 비, 즉 단위시간에 대기가 이동한 거리를 말함
+일조시간
+•태양의 직사광선이 지표를 비추는 시간의 길이를 말하며, 일조시수라고도 함
+<표 계속> 항목별 전문용어
+용 어
+해 설
+대
+기
+질
+대기오염
+•정상적인 대기의 조성과 아주 다른 성분으로 구성된 대기로서 그로 인하여 인간 생활의 안전 및 건강에 위협을 주거나, 사람만이 아닌 기타 동․식물도 포함되어야 하며, 동상이나 미술품에 손상을 입히는 경우도 포함되어야 함. 대기오염의 원인에는 먼지나 연기, 자동차 배출가스 등이 있음
+대기오염
+물질
+•대기오염원의 원인이 되는 가스․입자상물질 또는 악취물질로서 총리령으로 정하는 것
+가스
+•물질의 연소, 합성, 분해시에 발생하거나 물리적 성질에 의하여 발생하는 기체상승물질
+대기오염원
+•자동차, 각종 공장, 화력발전소, 가정 등의 난방, 항공기, 선박 등이 대기오염을 일으키는 원인이며, 이 가운데 일산화탄소화 탄화수소를 가장 많이 발생시키는 것은 자동차임. 또한 질소산화물과 유황산화물을 가장 많이 발생시키는 것은 공장 및 화력발전소임
+미세먼지
+(PM-10)
+•비산먼지 중 직경이 10㎛이하인 먼지(10-micrometer particle)
+아황산가스
+(SO2)
+•무색의 자극성이 강한 액화되기 쉬운 기체로 대기오염의 지표가 됨(Sulfer Dioxide)
+이산화질소
+(NO2)
+•적갈색의 자극성 기체로 차량의 가속과 고온연소시 다량 발생함
+일산화탄소
+(CO)
+•무색, 무취, 무미의 기체로 질식성이 강함
+오존
+(O3)
+•산화성이 강한 물질로 무색, 무미, 해초냄새의 기체
+납
+(Pb)
+•1.0㎎/일을 넘으면 배설량을 넘어서 체내에 축적되어 만성중독을 일으키며, 폐나 소화기, 피부 등을 통하여 흡수되어 피로, 변비, 도통, 관절염, 근육마비, 뇌 손상 등을 일으킴
+ppm
+•백만분율(Parts per Million)
+ppb
+•10억분율(Parts per Billion)
+TM
+•좌표계(Transverse Mercatior)
+수
+질
+수질오염
+•수질이 자연수의 성격을 상실한 상태. 즉, 인간활동에 의하여 발생하는 오염물질이 지표수나 지하수에 유입하여 수질의 저하를 초래하고 수자원 이용이나 생태계를 파괴하는 현상
+수질오염
+물질
+•수질오염의 요인이 되는 물질로서 환경부령으로 정하는 것
+pH
+•수소이온농도(Hydrogenion Exponent)를 말하며, 물의 액성 지표가 됨.
+<표 계속> 항목별 전문용어
+용 어
+해 설
+수
+질
+BOD
+•생물화학적 산소요구량(Biochemical Oxygen Demand)을 말하며 오수 중의 유기물이 호기성 미생물에 의해 분해될 때 소비되는 산소량(20℃에서 5일간)을 ppm 또는 ㎎/ℓ로 표시한 것
+COD
+•화학적 산소요구량(Chemical Oxygen Demand)으로 ppm 또는 ㎎/ℓ로 표시한 것
+DO
+•용존산소량(Dissolved Oxygen)으로 수중에 용해되어 있는 분자상의 산소를 말함. 일반적으로 ppm으로 표시되며, 수중에 용해된 양은 온도, 기압 등에 따라 달라짐.
+SS
+•부유물질(Suspended Solid)로 수중에 부유하는 용해되지 않는 물질을 말하며, 탁도를 유발함.
+T-N
+•총질소(Total Nitrogen)
+T-P
+•총인(Toal Phosphorus)
+대장균군
+•대장균 및 대장균과 극히 유사한 성질을 가진 균의 총칭으로 사람 및 온혈동물의 장내에 기생하는 세균의 일종으로 유당을 분해하여 산과 가스를 생성하는 호기성균으로 병원성 세균오염의 지표
+MPN
+•대장균군의 수를 나타내기 위하여 최적확수(MPN)라는 용어를 사용하는데 이는 검수 100㎖에 있는 세균의 수를 뜻함.
+NH3-N
+•암모니아성 질소로 물속에 녹아있는 질소 성분 중 NH4+의 형태로 존재함.
+NO3-N
+•질산성 질소로 물속에 녹아있는 질소 성분 중 NH3-의 형태로 존재함.
+KMnO4
+•산화제인 KMnO4에 의해 유기물이 산화되며, 이 때 소비되는 KMnO4의 양
+오수 및 폐수
+•일반가정, 사무소, 사업장, 공장 등에서 생활 및 생산활동에서 발생하는 폐수
+상수원
+보호구역
+•상수원의 확보와 수질 보전을 위하여 필요하다고 인정되는 지역에 대하여 수도법과 금강․낙동강․영상강․섬진강수계 및 한강물관리 법령에 따라 환경부장관 또는 시․도지사가 지정․공고한 구역
+수변구역
+•금강․낙동강․영상강․섬진강수계 및 한강수계의 수질을 보전하기 위하여 상수원으로 이용되는 댐(계획홍수위선 기준)과 그 상류지역 중 일정 지역에 대하여 환경부장관이 지정․고시한 구역
+취수장
+•수력발전․관개․상수도 등의 용수를 위해서는 먼저 강이나 저수지에 있는 물을 끌어들인 다음, 이 물을 다시 정수장으로 보내하는데 이때 강이나 저수지의 원수를 끌어들여 정수장으로 보내는 역할을 하는 시설
+정수장
+•수원에서 송수되어 온 원수를 급배수 지역의 근교에서 사용목적의 수질로 정화하는 시설
+상수도
+•보건위생 및 소화가 주요 목적인 계통적인 급수설비로 일반적으로 수도라 하면  상수도를 가리키나, 하수나 공업용 수도와 구별할 때는 상수도라 함. 수도법에는   파이프에 의하여 음료수를 공급하는 것이 수도의 조건으로 되어 있음.
+하수처리
+구역
+•하수를 공공 하수도로 배제할 수 있고, 동시에 종말처리장을 처리할 수 있도록 공용 개시가 공시된 구역
+<표 계속> 항목별 전문용어
+용 어
+해 설
+토이지용
+토지이용
+•인간이 토지를 이용하는 행위를 통틀어 이르는 말
+지목
+•토지의 주된 용도에 따라 토지의 종류를 구분하여 지적공부에 등록한 것
+용도지역
+•토지의 이용 및 건축물의 용도․건폐율․용적률․높이 등을 제한함으로써 토지를 경제적․효율적으로 이용하고 공공복리의 증진을 도모하기 위하여 서로 중복되지 않게 도시․군관리계획으로 결정하는 지역
+지
+형
+․
+지
+질
+지형
+•지표면의 기복형태
+표고
+•표고의 기준이 되는 수평면인 수준기준면으로부터 지표 위 어느 점까지의 연직거리를 말함.
+경사
+•지층면이 주향에 대해 직각 방향으로 경사진 각도의 방향
+지질도
+•지각 내 지질의 분포상태, 지층의 주향자, 경사, 단층 등을 표시한 지도
+백두대간
+•백두산 병사봉에서 지리산 천왕봉에 이르는 길이 약 1,470km의 산줄기
+노두
+•광맥, 암석이나 지층, 석탄층 따위가 지표에 드러난 부분
+화석
+•지질시대에 생존한 동식물의 유해와 활동 흔적 따위가 퇴적물 중에 매몰된 채로 또는 지상에 남아있는 것을 통틀어 이르는 것을 말함.
+동굴
+•자연적으로 생긴 깊고 넓은 큰 군
+능선
+•산등성이를 따라 죽 이어진 선. ‘산등성이’로 순화
+정맥
+•산경표에서 산맥을 크기에 따라 위계를 나누었을 때 가장 작은 단위
+비탈면
+•절․성토 공사로 인해 발생하는 경사진 지형으로 법면, 사면이라고도 함.
+토량
+•건축 공사 따위에서 파내거나 옮겨야 할 일정한 양의 흙
+지반고
+•지반의 높이
+계획고
+•미리 헤아려 하기로 한 양적 목표
+친환경적
+자원순환
+생활폐기물
+•인간의 모든 생활에서 사용되었으나 그 필요성을 잃어 사용치 않고 버리게된 사업폐기물 이외의 물질
+사업장
+폐기물
+•대기환경보전법, 수질환경보전법 또는 소음․진동규제법의 규정에 의거하여 배출시설을 설치․운영하는 사업장, 기타 대통령령으리 정하는 사업장에서 발생되는 폐기물
+지정폐기물
+•사업장폐기물 중 폐유, 폐산 등 주변 환경을 오염시킬 수 있는 유해한 물질로서 대통령으로 정하는 물질
+건설폐기물
+•토목․건설공사 등과 관련하여 배출되는 폐기물로서 지정폐기물 및 사업장생활계  폐기물을 제외한 폐기물
+분뇨
+•소화기관으로부터 배설되는 비뇨기관으로부터 배출되는 소변 등의 배설물을 말함. 분뇨의 수분을 제외한 성분은 탄수화물․지방․단백질이고, 각종 전염병균과 기생충란이 있어 그 처리가 국민보건상 중요함.
+분뇨
+처리시설
+•분뇨를 침전․분해 등의 방법으로 처리하는 시설
+폐기물
+처리시설
+•폐기물을 소각, 기계적․화학적․생물학적 처리 또는 매립 등을 통해 처리하는 시설
+<표 계속> 항목별 전문용어
+용 어
+해 설
+소음
+․
+진
+동
+소음
+•기계, 기구, 시설 기타 물체의 사용으로 인하여 발생되는 강한 소리를 말함.
+dB
+•소음의 크기 등을 나타내는데 사용되는 단위
+dB(A)
+•소음도의 단위로 소음계의 청감보정회로 주파수 보정특성이 A회로로 구분되어 측정한 지시치
+Leq
+•등가소음도(Equivalent Sound Lecel)라 하며, 변동이 심한 소음의 평가방법으로 소음에너지를 시간적으로 평균하여 이를 대수 변수로 변환시킨 것을 말함.
+SPL
+•음압도라 하여 일반적으로 가청한계는 60(N/㎥), 즉 130dB정도임.
+진동
+•기계, 기구, 시설 기타물질의 사용으로 인하여 발생하는 강한 흔들림을 말함.
+dB(V)
+•진동레벨의 단위로 진동레벨의 감각보정회로(수직)를 통해 측정된 가속도레벨의 지시치
+주파수
+•교류의 전파와 전자파 또는 진동 등이 주기적으로 매번 되풀이되는 횟수를 말하며, 단위는 Hz를 사용함.
+정온시설
+•고요하고 평온한 상태를 유지하여 하는 시설
+경
+관
+경관
+•산이나 들, 강, 바다 따위의 자연이나 지역의 풍경. 또는 기후, 지형, 토양 따위의 자연적 요소에 대하여 인간의 활동이 작용하여 만들어낸 지역의 통일된 특성
+생태․경관
+보전지역
+•생물다양성이 풍부하여 생태적으로 중요하거나 자연경관이 수려하여 특별히 보전할 가치가 큰 지역으로서 환경부장관이 자연환경보전법에 의하여 지정․고시한 지역
+자연공원
+•국립공원․도립공원 및 군립공원으로 지정받은 공원을 말하며, 자연생태계나 자연 및 문화경관을 대표할만한 지역으로 지정받은 공원
+백두대간
+보호지역
+•백두대간 중 특별히 보호할 필요가 있다고 인전되어 산림청장이 백두대간 보호에 관한 법률에 따라 지정․고시하는 지역
+야생동식물보호구역
+•멸종위기야생동․식물 등을 보호하기 위하여 특별보호구역에 준하여 보호할 필요가 있는 지역에 대하여 시․도지시 또는 시장․군수․구청장이 야생동․식물보호법에 따라 지정․고시한 구역
+스카이라인
+•지평선 또는 하늘과 맞닿은 것처럼 보이는 산이나 건물 따위의 윤곽선
+경관영향
+•사업시행으로 인하여 경과에 변화를 가져오는 모든 해로운 영향으로서 직․간접적인 영향 및 장․단기적인 영향을 총괄하여 말함.
+조망점
+•다수의 사람들에 의해 경관을 감상할 수 있는 전망지점으로 위치가 확보되는 지점
