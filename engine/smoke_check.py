@@ -98,6 +98,13 @@ def main():
     if r2.stdout.strip():
         print("   " + r2.stdout.strip().replace("\n", "\n   "))
 
+    # ⚠️ 자식이 **죽어도** returncode 는 0 이 아니다 — stderr 를 안 찍으면 크래시가
+    #    "유출 있음" 으로 둔갑한다. 실제로 table_leak 이 cp949 에서 죽어 네 파트가
+    #    거짓 실패로 나왔다 (2026-09-01).
+    if t_leak and not r2.stdout.strip() and r2.stderr.strip():
+        print("   ⚠️ 검사기가 죽었다 (유출이 아니라 오류):")
+        print("   " + r2.stderr.strip().splitlines()[-1])
+
     # ③ [확인 필요] 목록 — 실패가 아니라 실무자 작업 목록이다
     counts = {m: xml.count(m) for m in MARKS if xml.count(m)}
     total = sum(counts.values())

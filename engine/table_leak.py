@@ -29,6 +29,9 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from hwp_util import console_utf8   # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).parent))
 import score_regional as S  # noqa: E402  — 표 파서 한 벌 (score_part 와 같은 규약)
 
 ROOT = S.ROOT
@@ -148,6 +151,7 @@ def check(category, part, case, detail=False):
 
 
 def main():
+    console_utf8()   # ⚠️ cp949 에는 ✅·⚠️ 가 없다 — 파이프로 돌면 죽는다
     ap = argparse.ArgumentParser(description="표 유출 검사 — 산출물 vs 베이스")
     ap.add_argument("category")
     ap.add_argument("part")

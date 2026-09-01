@@ -96,6 +96,11 @@ def build_tables(hwp, v):
     rows = js or [[None] * 7 for _ in range(BASE_JS)]
     if find_in_table(hwp, "지적면적"):
         fit_rows(hwp, "지적면적", BASE_JS, len(rows))
+        # 🚨 A열(행정구역)은 **세로 병합 한 칸**이라 값 열만 쓰면 기준 사업이 남는다 —
+        #    천안 산출물에 `원주시`·`호저면`·`무장리` 가 그대로 있었다 (2026-09-01
+        #    표유출검사 적발. 지번 셀은 비웠는데 이 칸만 남아 기존 게이트를 다 통과했다).
+        #    조서의 행정구역은 **편입토지조서 원문에서 오는 값**이라 vars 로 받는다.
+        W("지적면적", 1, 0, [(v.get("조서") or {}).get("행정구역")])
         for i, row in enumerate(rows):
             W("지적면적", 1 + i, 1, list(row)[-7:] if len(row) >= 7 else row)
         W("지적면적", 1 + len(rows), 1, joseo_total(js) + ["-"])   # 합계 행 (=SUM 필드 덮기)
