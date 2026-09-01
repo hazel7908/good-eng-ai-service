@@ -10,6 +10,7 @@
     python engine/build_env_status_vars.py 원주_무장리
 """
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -22,6 +23,30 @@ def _load(case, part):
     if not p.exists():
         return None
     return json.loads(p.read_text(encoding="utf-8"))
+
+
+def _find_yearbook(시군):
+    """통계연보 엑셀판(zip/폴더) 자동 탐색 → (경로, 판연도).
+
+    규약: `raw_data/web/stats_yearbook/{시군에서 시·군 뗀 이름}/` 아래 —
+    폴더명·파일명의 `20NN` 이 판연도다 (원주 2024 웹 재배포판으로 확립, 2026-09-01).
+    NAS 관행 위치(`raw_data/nas/stats/…`)도 본다. 여럿이면 최신판."""
+    if not 시군:
+        return None, None
+    best = (None, None)
+    for base in (ROOT / "raw_data/web/stats_yearbook" / 시군[:-1],
+                 *(ROOT / "raw_data/nas/stats").glob(f"*{시군[:-1]}*")):
+        if not base.exists():
+            continue
+        for p in sorted(base.iterdir()):
+            m = re.search(r"(20\d{2})", p.name)
+            if not m:
+                continue
+            if p.is_dir() or p.suffix.lower() == ".zip":
+                has_xlsx = any(True for _ in p.glob("*.xls*")) if p.is_dir() else True
+                if has_xlsx and (best[1] is None or int(m.group(1)) > best[1]):
+                    best = (p, int(m.group(1)))
+    return best
 
 
 def build(case):
@@ -103,10 +128,28 @@ def build(case):
     miss("생태계 현황 표", "동식물상(0711) 현지조사 결과 인용")
     miss("산줄기_서술", "산경표 서술 — 자동 소스 없음 (rule ②)")
 
-    # ── 5.3 사회·경제 — 지역개황 2.9 원천인데 지역개황 vars 가 2.9 를 아직 안 담는다
-    사회 = {"통계연보연도": None, "인구_시군서술": None, "인구_읍면서술": None,
-          "인구동태_서술": None, "주거_서술": None, "산단_서술": None, "산업_서술": None}
-    miss("사회.* (5.3 전체)", "지역개황 vars 에 2.9 인구·주거·산업 값 없음 — 통계연보 소싱 확장 대기")
+    # ── 5.3 사회·경제 — 통계연보 원천 (⚠️ 지역개황에는 인구 절이 없다 — 0200 재사용이
+    #    아니라 같은 원자료를 stats_extract.extract_0500 으로 직접 뽑는다)
+    사회 = {"통계연보연도": None, "인구추이": None, "읍면인구": None,
+          "인구동태": None, "주택": None, "사업체": None}
+    yb_path, yb_year = _find_yearbook(시군)
+    if yb_path:
+        try:
+            sys.path.insert(0, str(ROOT / "engine"))
+            from stats_extract import extract_0500
+            got = extract_0500(yb_path, 읍면=읍면)
+            사회.update({"통계연보연도": yb_year, "인구추이": got["인구추이"],
+                       "읍면인구": got["읍면"], "인구동태": got["인구동태"],
+                       "주택": got["주택"], "사업체": got["사업체"]})
+            print(f"  통계연보 {yb_year}판 ← {Path(yb_path).name}")
+        except Exception as e:                      # openpyxl 부재 등 — 러프 원칙: 비운 채 감
+            miss("사회.* (5.3)", f"통계연보 추출 실패: {e}")
+    else:
+        miss("사회.* (5.3 전체)", f"통계연보 원자료 없음 — raw_data/web/stats_yearbook/{(시군 or '')[:-1]}/ "
+                              "에 엑셀판(zip/폴더)을 두면 자동 추출된다 (확인요청 F-4)")
+    miss("산단_서술·산단 표", "지역개황 2.5.3 재사용은 표 서식 변이(원주 6열↔천안 4열) 판단 뒤 — 확인요청 참조")
+    if 사회["주택"]:
+        miss("주거_서술 '총가구수'", "골든 갈림 — 원주는 주택수 합계를, 천안은 일반가구수를 '총가구수'로 서술 (1:1). 원주 문형 채택")
 
     out = {
         "_meta": {"카테고리": "small-env", "파트": "env-status", "사업": case,
@@ -115,7 +158,7 @@ def build(case):
                   "원천": {"noise-vib": bool(nv), "air-quality": bool(aq),
                            "water-quality": bool(wq), "project-overview": bool(po),
                            "regional-overview": bool(ro)}},
-        "사업": {"사업명": 사업명, "시군": 시군, "읍면": 읍면},
+        "사업": {"사업명": 사업명, "시군": 시군, "읍면": 읍면, "리": g(ro, "사업", "리")},
         "조사": 조사,
         "측정": 측정,
         "생태": 생태,

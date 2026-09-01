@@ -413,6 +413,188 @@ GOLDEN_CHEONAN = {
 }
 
 
+# ═══ 0500 환경현황 5.3 — 인구·주택·사업체 (build_env_status_vars.py 가 부른다) ═══
+# ⚠️ 지역개황(0200)에는 인구 절이 없다 — 이 표들은 0500 의 5.3 에만 쓰인다.
+#    같은 통계연보 원자료를 쓰므로 이 모듈에 둔다 (원천 단일화).
+#    검증: `--self-test-0500` — 원주 2024 기본통계(웹 재배포판) vs 원주 env-status 골든.
+
+def _numc(v):
+    """통계연보 셀 → 숫자. '35,145' 같은 콤마 문자열 판이 있다 (원주 2022 사업체 행 실측).
+    '…'(자료없음)·'-'·빈칸은 None."""
+    if v is None:
+        return None
+    s = str(v).strip().replace(",", "")
+    if s in ("", "…", "-", "···"):
+        return None
+    try:
+        return int(s) if re.fullmatch(r"-?\d+", s) else float(s)
+    except ValueError:
+        return None
+
+
+def _year_rows_loose(ws, label_col=1, max_row=300):
+    """연도 행 — `20221)` 처럼 **각주 번호가 붙은 판**이 있다 (원주 사업체 총괄 실측).
+    `_year_rows` 의 fullmatch 는 그 행을 놓친다 — 접두 매칭으로 줍는다."""
+    out = {}
+    for i, row in enumerate(ws.iter_rows(min_row=1, max_row=max_row, values_only=True), 1):
+        v = row[label_col - 1]
+        if v is None:
+            continue
+        m = re.match(r"((?:19|20)\d{2})(?:\d?\))?$", _norm(v).replace(",", ""))
+        if m:
+            out[int(m.group(1))] = i
+    return out
+
+
+def _find_col(ws, hdr_rows, key, lo=1, hi=None):
+    """헤더 행 구간에서 라벨이 key 로 시작하는 열. 행 우선 (`도시지역인구1)` 사고 방지)."""
+    hi = hi or ws.max_column
+    for r in hdr_rows:
+        for c in range(lo, hi + 1):
+            if _norm(ws.cell(r, c).value).startswith(key):
+                return c
+    return None
+
+
+def 인구_연별(yb, n=5):
+    """읍면동별 세대·인구 시트의 **연별(시 전체) 행** → [[연, 세대, 인구, 남, 여, 세대당]…].
+
+    등록인구 **합계**(한국인+외국인) 기준 — 골든 5.3 인구추이가 이 열이다 (원주 2023
+    366,279 = 한국인 361,503 + 외국인, 실측). 세대당은 시트에 없어 계산한다 (표시 1자리).
+    ⚠️ 이 시트에 `=SUM` 수식이 살아 있는 판이 있다 — data_only 캐시로 읽힌다 (원주 2020~21)."""
+    ws = yb.sheet(r"인구", r"읍.?면.?동별\s*세대")
+    if ws is None:
+        return None
+    yrs = _year_rows(ws)
+    out = []
+    for y in sorted(yrs)[-n:]:
+        r = _row_values(ws, yrs[y])
+        세대, 인구, 남, 여 = (_numc(r[1]), _numc(r[2]), _numc(r[3]), _numc(r[4]))
+        세대당 = round(인구 / 세대, 1) if 인구 and 세대 else None
+        out.append([y, 세대, 인구, 남, 여, 세대당])
+    return out or None
+
+
+def 인구_읍면(yb, 읍면):
+    """최신 연도 블록의 읍면동 행 → {세대, 인구, 남, 여}. (연별 행 아래 붙어 있다)"""
+    ws = yb.sheet(r"인구", r"읍.?면.?동별\s*세대")
+    if ws is None:
+        return None
+    r = _region_row(ws, 읍면)
+    if r is None:
+        return None
+    v = _row_values(ws, r)
+    return {"세대": _numc(v[1]), "인구": _numc(v[2]), "남": _numc(v[3]), "여": _numc(v[4])}
+
+
+def 인구동태(yb, n=5):
+    """인구동태(출생·사망) + 인구이동(전입·전출) 두 시트 → [[연, 출생, 사망, 전입, 전출]…].
+
+    순증감(▲▼)은 여기서 계산하지 않는다 — 조립(핸들러)이 표시 계층이다.
+    ⚠️ 연도 행 뒤에 월별 행(`1월`…)이 붙는다 — `_year_rows` 가 연도만 줍는다."""
+    d = yb.sheet(r"인구", r"인구동태$|^\d[\s.]*인구동태")
+    m = yb.sheet(r"인구", r"인구이동")
+    if d is None or m is None:
+        return None
+    yd, ym = _year_rows(d), _year_rows(m)
+    out = []
+    for y in sorted(set(yd) & set(ym))[-n:]:
+        rd, rm = _row_values(d, yd[y]), _row_values(m, ym[y])
+        out.append([y, _numc(rd[1]), _numc(rd[4]), _numc(rm[1]), _numc(rm[4])])
+    return out or None
+
+
+def 주택현황(yb, n=5):
+    """주택현황·보급률 → [[연, 가구, 합계, 단독, 아파트, 연립, 다세대, 비거주, 보급률]…].
+
+    열은 라벨로 찾는다 — 단독주택 아래 `다가구주택` 내수 열이 끼어 있어 (원주 실측)
+    자리 수를 세면 밀린다. 골든 표에 다가구 열은 없다."""
+    ws = yb.sheet(r"주택", r"주택\s*현황")
+    if ws is None:
+        return None
+    h = _header_row(ws, "연별") or 4
+    hdr = list(range(h, h + 3))
+    cols = {k: _find_col(ws, hdr, k) for k in
+            ("일반가구", "합계", "단독주택", "아파트", "연립주택", "다세대", "비거주", "주택보급률")}
+    yrs = _year_rows(ws)
+    out = []
+    for y in sorted(yrs)[-n:]:
+        r = _row_values(ws, yrs[y])
+        g = lambda k: _numc(r[cols[k] - 1]) if cols.get(k) else None
+        out.append([y, g("일반가구"), g("합계"), g("단독주택"), g("아파트"),
+                    g("연립주택"), g("다세대"), g("비거주"), g("주택보급률")])
+    return out or None
+
+
+def 사업체총괄(yb):
+    """사업체 총괄 최신 연도 행 → {연도, 사업체: {계, 개인, 회사법인, 회사이외, 비법인},
+    종사자: {…}}. 조직형태 블록마다 (사업체, 종사자) 열 쌍 — 사업체 열을 라벨로 찾고
+    종사자는 그 오른쪽 칸이다.
+    ⚠️ 최신 연도 라벨에 각주가 붙는다 (`20221)`) — `_year_rows_loose` 로 줍는다."""
+    ws = yb.sheet(r"사업체", r"사업체\s*총괄")
+    if ws is None:
+        return None
+    h = _header_row(ws, "합계") or 4
+    hdr = list(range(h, h + 4))
+    c계 = _find_col(ws, hdr, "사업체수")
+    c종 = _find_col(ws, hdr, "종사자수")
+    blocks = {k: _find_col(ws, hdr, k) for k in ("개인사업체", "회사법인", "회사이외", "비법인")}
+    yrs = _year_rows_loose(ws)
+    if not yrs or c계 is None:
+        return None
+    y = max(yrs)
+    r = _row_values(ws, yrs[y])
+    g = lambda c: _numc(r[c - 1]) if c else None
+    return {"연도": y,
+            "사업체": {"계": g(c계), "개인": g(blocks["개인사업체"]), "회사법인": g(blocks["회사법인"]),
+                    "회사이외": g(blocks["회사이외"]), "비법인": g(blocks["비법인"])},
+            "종사자": {"계": g(c종), "개인": g(blocks["개인사업체"] + 1 if blocks["개인사업체"] else None),
+                    "회사법인": g(blocks["회사법인"] + 1 if blocks["회사법인"] else None),
+                    "회사이외": g(blocks["회사이외"] + 1 if blocks["회사이외"] else None),
+                    "비법인": g(blocks["비법인"] + 1 if blocks["비법인"] else None)}}
+
+
+def extract_0500(path, 읍면=None):
+    """0500 5.3 전부 → dict. 없는 것은 None (러프 원칙 — 지어내지 않는다)."""
+    yb = YearBook(path)
+    return {"인구추이": 인구_연별(yb), "읍면": (인구_읍면(yb, 읍면) if 읍면 else None),
+            "인구동태": 인구동태(yb), "주택": 주택현황(yb), "사업체": 사업체총괄(yb)}
+
+
+def self_test_0500(path=None):
+    """원주 2024 기본통계(웹 재배포판) vs **원주 env-status 골든 5.3 값** 대조."""
+    path = path or ROOT / "raw_data/web/stats_yearbook/원주/2024_엑셀"
+    if not Path(path).exists():
+        print(f"[skip] 원주 기본통계가 없습니다: {path}")
+        return True
+    r = extract_0500(path, 읍면="호저면")
+    exp = {  # golden/small-env/원주_무장리/env-status.txt 5.3 (검증 단계에서만 연다)
+        "인구추이[-1]": [2023, 171275, 366279, 181708, 184571, 2.1],
+        "인구추이[0]": [2019, 154583, 352860, 175363, 177497, 2.3],
+        "읍면": {"세대": 1849, "인구": 3527, "남": 1854, "여": 1673},
+        "인구동태[-1]": [2023, 1934, 2644, 47132, 45778],
+        "주택[-1]": [2023, 171190, 171463, 56445, 112208, 1690, 1120, None, 102.06],
+        "사업체.계": (43665, 171895), "사업체.개인": (35145, 63220),
+        "사업체.회사이외": (2017, 44931), "사업체.비법인": (978, 6744),
+    }
+    got = {
+        "인구추이[-1]": r["인구추이"][-1], "인구추이[0]": r["인구추이"][0],
+        "읍면": r["읍면"], "인구동태[-1]": r["인구동태"][-1], "주택[-1]": r["주택"][-1],
+        "사업체.계": (r["사업체"]["사업체"]["계"], r["사업체"]["종사자"]["계"]),
+        "사업체.개인": (r["사업체"]["사업체"]["개인"], r["사업체"]["종사자"]["개인"]),
+        "사업체.회사이외": (r["사업체"]["사업체"]["회사이외"], r["사업체"]["종사자"]["회사이외"]),
+        "사업체.비법인": (r["사업체"]["사업체"]["비법인"], r["사업체"]["종사자"]["비법인"]),
+    }
+    ok = True
+    for k, e in exp.items():
+        mark = "OK" if got[k] == e else "✗"
+        if got[k] != e:
+            ok = False
+        print(f"  {mark} {k:<14} {got[k]}" + ("" if got[k] == e else f"  ← 기대 {e}"))
+    print("0500 자체검증", "통과" if ok else "실패")
+    return ok
+
+
 def self_test(path=None):
     path = path or ROOT / "raw_data/nas/stats/천안_화덕리/천안_2023"
     if not Path(path).exists():
@@ -496,8 +678,12 @@ def main():
     ap.add_argument("--year", type=int, help="연도 행 (없으면 최신)")
     ap.add_argument("--what", default="land", choices=["land", "vehicle", "sheets"])
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--self-test-0500", action="store_true",
+                    help="0500 5.3 추출 vs 원주 env-status 골든")
     a = ap.parse_args()
 
+    if a.self_test_0500:
+        sys.exit(0 if self_test_0500(a.path) else 1)
     if a.self_test or not a.path:
         sys.exit(0 if self_test(a.path) else 1)
 
