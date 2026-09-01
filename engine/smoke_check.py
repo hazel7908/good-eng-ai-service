@@ -87,6 +87,17 @@ def main():
     else:
         print(f"② 기준 사업 유출 — 건너뜀 (베이스 없음: {template})")
 
+    # ②-2 표 유출 — leak_check(서술만)가 못 잡는 표 값·지명·뒤섞인 값 (증거인계 문서 §4).
+    #     되먹임(원주)이면 검사기가 스스로 건너뛴다. 경고(표동일)는 실패가 아니다 — 훑기 목록.
+    r2 = subprocess.run([sys.executable, str(ROOT / "engine" / "table_leak.py"),
+                         category, part, case],
+                        capture_output=True, text=True, encoding="utf-8", errors="replace")
+    t_leak = r2.returncode != 0
+    fails += 1 if t_leak else 0
+    print(f"②-2 표 유출 {'❌' if t_leak else '✅'}")
+    if r2.stdout.strip():
+        print("   " + r2.stdout.strip().replace("\n", "\n   "))
+
     # ③ [확인 필요] 목록 — 실패가 아니라 실무자 작업 목록이다
     counts = {m: xml.count(m) for m in MARKS if xml.count(m)}
     total = sum(counts.values())

@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""표 유출 검사 — 산출물 vs 베이스. **`smoke_check` 가 못 잡는 자리**를 잡는다.
+
+증거 인계: docs/20260901_표유출검사_증거인계.md (Windows → Mac). 0100·0500·0726 이
+게이트 "통과"인데 기준 사업(원주) 값·지명·캡션이 실려 나갔다 — leak_check 는 서술
+문장만 보기 때문이다. 어려운 것은 탐지가 아니라 **오탐 제어**다 (같은 문서 §3).
+
+두 갈래 (§4 제안 그대로):
+  ① 지명 유출  — 기준 사업의 시군·읍면·리·하천·시설명이 산출물에 남았는가.
+               + **뒤섞인 값**: 기준 사업 상위 행정구역(강원)과 새 시군이 한 줄에
+               동시 출현 (`강원도 천안시 가현동 156` — 값 비교로는 못 잡는 최악 유형).
+  ② 표 동일   — 산출물 표의 숫자 시퀀스가 베이스와 **완전히 같다** (지정폐 `11|3|1|7`
+               처럼 작은 수 유출은 값 목록 대조가 놓친다 — 표 단위 동일성만 잡는다).
+               법령·참조표는 같아야 정상이라 FAIL 이 아니라 **사람 훑기 목록**으로 낸다.
+
+⚠️ **되먹임(기준 사업 자기 생성)에는 무의미하다** — 전부 "유출"이라 거부한다 (§4 ⚠️).
+⚠️ 검사는 수정과 다른 근거를 쓴다 (hwpx.md 🚨) — 핸들러의 앵커·spec 을 일절 참조하지
+   않고 **문서 바이트에서 직접** 읽는다.
+
+    python engine/table_leak.py small-env resource-cycle 천안_화덕리
+    python engine/table_leak.py small-env env-status 천안_화덕리 --detail
+"""
+import argparse
+import json
+import re
+import sys
+import zipfile
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+import score_regional as S  # noqa: E402  — 표 파서 한 벌 (score_part 와 같은 규약)
+
+ROOT = S.ROOT
+NUM = re.compile(r"\d[\d,]*\.?\d*")
+
+# ── 기준 사업(원주) 지명·시설명 — 증거 문서 §1 실측 + 골든 지명 ──────────────────
+# ⚠️ 베이스가 원주가 아닌 파트가 생기면 (대기질=청주) 이 목록을 파트별로 가른다.
+BASE_NAMES = {
+    "원주시", "호저면", "무장리", "호저로", "생담길", "태장동", "가현동", "흥업면",
+    "사제리", "지정면", "가곡리", "문막", "섬강", "귀둔천",
+    "원주기업도시", "원주분뇨처리장", "원주공공하수처리장", "강원바이오에너지",
+    "원주기상", "원주(114)",
+}
+BASE_UPPER = ("강원특별자치도", "강원도")          # 뒤섞인 값 탐지용 상위 행정구역
+
+# 오탐 예외 (§3) — 줄에 이 패턴이 있으면 '유출'이 아니라 '문맥 확인'으로 낮춘다.
+CONTEXT_OK = [
+    re.compile(r"춘천시.*강릉시|강릉시.*춘천시"),      # 저황유 별표10의2 법령 지역 목록
+    re.compile(r"동쪽|서쪽|남쪽|북쪽|인접|접하|경계"),   # 접경 설명 (지형지질 0725 실측)
+]
+
+# 표 동일이 **정상**인 캡션 (법령·참조표·수식 상수표 — 실측한 것만, 늘려 간다)
+ALLOW_IDENTICAL = [
+    "환경기준", "규제기준", "배출허용기준", "기초유출계수", "토사유출량 원단위",
+    "침전속도", "지역별 보정", "소음도", "원단위", "법칙", "산정식",
+    "실시근거",                       # 0100 — 시행령 별표 면적 기준 (법령 인용표)
+]
+
+
+def _tables(hwpx):
+    """(캡션, 숫자 시퀀스) 목록 — score_regional 파서로 최상위 표만."""
+    z = zipfile.ZipFile(hwpx)
+    out = []
+    for n in sorted(x for x in z.namelist()
+                    if re.match(r"Contents/section\d+\.xml$", x)):
+        xml = z.read(n).decode("utf-8")
+        xml = re.sub(r"<hp:(header|footer)[ >].*?</hp:\1>", " ", xml, flags=re.S)
+        pos = 0
+        for a, b in S._top_tables(xml):
+            cells = [c for c in S._text(xml[a:b]) if c]
+            caps = [c for c in S._text(xml[pos:a]) if c]
+            pos = b
+            if not cells:
+                continue
+            cap = next((c for c in reversed(caps) if len(c) >= 4
+                        and not c.startswith(("자)", "주)"))), "")
+            out.append((cap, tuple(NUM.findall(" ".join(cells)))))
+    return out
+
+
+def _lines(hwpx):
+    """전체 텍스트 줄 — 머리글 **포함** (사업명 유출 전례, _category.md 5-1 ②)."""
+    z = zipfile.ZipFile(hwpx)
+    out = []
+    for n in sorted(x for x in z.namelist()
+                    if re.match(r"Contents/(section\d+|header\d*)\.xml$", x)):
+        out += [t for t in re.findall(r"<hp:t[^>]*>([^<]*)</hp:t>",
+                                      z.read(n).decode("utf-8")) if t.strip()]
+    return out
+
+
+def check(category, part, case, detail=False):
+    out_p = ROOT / "cases" / category / case / part / "output.hwpx"
+    base_p = ROOT / "templates" / category / f"{part}.hwpx"
+    if not out_p.exists():
+        sys.exit(f"산출물 없음 — {out_p}")
+    if not base_p.exists():
+        sys.exit(f"베이스 없음 — {base_p}")
+
+    # 대상 사업 시군 — vars 에서. 되먹임이면 검사 자체가 무의미하다 (§4 ⚠️).
+    시군 = None
+    for vp in sorted((ROOT / "cases" / category / case / "vars").glob("*.json")):
+        시군 = json.loads(vp.read_text(encoding="utf-8")).get("사업", {}).get("시군")
+        if 시군:
+            break
+    if 시군 == "원주시":
+        print("되먹임(기준 사업 자기 생성) — 표 유출 검사는 무의미하다. 건너뜀 (증거 문서 §4)")
+        return True
+
+    fail, warn = [], []
+
+    # ── ① 지명 유출 + 뒤섞인 값
+    for ln in _lines(out_p):
+        hits = [w for w in BASE_NAMES if w in ln]
+        mixed = 시군 and any(u in ln for u in BASE_UPPER) and 시군 in ln
+        if not hits and not mixed:
+            continue
+        soft = any(p.search(ln) for p in CONTEXT_OK)
+        row = (("뒤섞임" if mixed else "지명"), ", ".join(hits) or f"{BASE_UPPER[1]}+{시군}",
+               ln.strip()[:70])
+        (warn if soft else fail).append(row)
+
+    # ── ② 표 동일 — 숫자 시퀀스 완전 일치 (빈 시퀀스 제외)
+    bt, ot = _tables(base_p), _tables(out_p)
+    base_seqs = {seq: cap for cap, seq in bt if seq}
+    for cap, seq in ot:
+        if not seq or seq not in base_seqs:
+            continue
+        if any(k in cap for k in ALLOW_IDENTICAL):
+            continue                        # 법령·참조표·수식 상수 — 같아야 정상
+        # 숫자 3개 미만이거나 전부 한 자리(지점 번호 `1 1 1`·연도 조각)면 신호가 아니다
+        if len(seq) < 3 or all(len(x.replace(",", "").replace(".", "")) < 2 for x in seq):
+            continue
+        warn.append(("표동일", cap[:30] or "(캡션 없음)",
+                     " ".join(seq[:8]) + (" …" if len(seq) > 8 else "")))
+
+    for kind, what, ctx in fail:
+        print(f"  🚨 {kind:<4} {what:<20} | {ctx}")
+    shown = warn if detail else warn[:15]
+    for kind, what, ctx in shown:
+        print(f"  ⚠️ {kind:<4} {what:<20} | {ctx}")
+    if len(warn) > len(shown):
+        print(f"  … 경고 {len(warn) - len(shown)}건 더 (--detail)")
+    print(f"\n{'🚨 유출 ' + str(len(fail)) + '건 — 내보내면 안 된다' if fail else '✅ 유출 0'}"
+          f" · 훑어볼 경고 {len(warn)}건")
+    return not fail
+
+
+def main():
+    ap = argparse.ArgumentParser(description="표 유출 검사 — 산출물 vs 베이스")
+    ap.add_argument("category")
+    ap.add_argument("part")
+    ap.add_argument("case")
+    ap.add_argument("--detail", action="store_true")
+    a = ap.parse_args()
+    sys.exit(0 if check(a.category, a.part, a.case, a.detail) else 1)
+
+
+if __name__ == "__main__":
+    main()
