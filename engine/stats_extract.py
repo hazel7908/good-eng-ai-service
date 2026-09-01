@@ -22,6 +22,11 @@ try:
 except ImportError:
     sys.exit("openpyxl 이 필요합니다: .venv/bin/pip install openpyxl")
 
+try:
+    import xlrd                    # 구형 .xls 배포판 (괴산 64회 실측 — 편이 전부 .xls 다)
+except ImportError:
+    xlrd = None
+
 ROOT = Path(__file__).resolve().parent.parent
 
 # ── 절 → (편 패턴, 시트 패턴) 매핑 ────────────────────────────────────────────
@@ -50,8 +55,45 @@ def _norm(s):
     return re.sub(r"[\s ]+", "", str(s)).replace("·", "")
 
 
+class _XlsCell:
+    __slots__ = ("value",)
+
+    def __init__(self, v):
+        self.value = v
+
+
+class _XlsSheet:
+    """xlrd 시트를 openpyxl 워크시트 모양으로 감싼다 — 구형 .xls 배포판용 (괴산 64회).
+
+    ⚠️ xlrd 는 정수도 float 로 준다 (`2019.0`) — 그대로 두면 `_year_rows` 의
+    연도 fullmatch 가 조용히 실패한다. 정수형 float 는 int 로 바꾼다."""
+
+    def __init__(self, sh):
+        self._s, self.title = sh, sh.name
+        self.max_row, self.max_column = sh.nrows, sh.ncols
+
+    @staticmethod
+    def _v(x):
+        if x in ("", None):
+            return None
+        if isinstance(x, float) and x == int(x):
+            return int(x)
+        return x
+
+    def cell(self, r, c):
+        if 1 <= r <= self.max_row and 1 <= c <= self.max_column:
+            return _XlsCell(self._v(self._s.cell_value(r - 1, c - 1)))
+        return _XlsCell(None)
+
+    def iter_rows(self, min_row=1, max_row=None, max_col=None, values_only=True):
+        max_row = min(max_row or self.max_row, self.max_row)
+        max_col = min(max_col or self.max_column, self.max_column)
+        for r in range(min_row, max_row + 1):
+            yield tuple(self._v(self._s.cell_value(r - 1, c)) for c in range(max_col))
+
+
 class YearBook:
-    """통계연보 한 판(版). zip 이든 풀린 폴더든 같게 다룬다."""
+    """통계연보 한 판(版). zip 이든 풀린 폴더든, .xlsx 든 구형 .xls 든 같게 다룬다."""
 
     def __init__(self, path):
         self.path = Path(path)
@@ -81,13 +123,24 @@ class YearBook:
         return sorted(self._books)
 
     def sheet(self, vol_pat, sheet_pat):
-        """편 패턴·시트 패턴으로 워크시트를 찾는다. 이름이 지자체마다 조금씩 다르므로 정규식."""
+        """편 패턴·시트 패턴으로 워크시트를 찾는다. 이름이 지자체마다 조금씩 다르므로 정규식.
+
+        ⚠️ 시트명은 공백을 지우고 매칭한다 — 괴산은 `2읍면별세대및인구(주민등록)` 처럼
+        공백 없이 붙여 쓴다. 패턴의 `\\s*` 는 남겨도 되지만 이름 쪽 공백은 못 믿는다."""
         for name, blob in self._books.items():
             if not re.search(vol_pat, name):
                 continue
+            if name.lower().endswith(".xls"):          # 구형 판 (괴산 64회)
+                if xlrd is None:
+                    sys.exit(".xls 판입니다 — xlrd 가 필요합니다: .venv/bin/pip install xlrd")
+                wb = xlrd.open_workbook(file_contents=blob)
+                for sn in wb.sheet_names():
+                    if re.search(sheet_pat, sn) or re.search(sheet_pat, _norm(sn)):
+                        return _XlsSheet(wb.sheet_by_name(sn))
+                continue
             wb = openpyxl.load_workbook(io.BytesIO(blob), data_only=True)
             for sn in wb.sheetnames:
-                if re.search(sheet_pat, sn):
+                if re.search(sheet_pat, sn) or re.search(sheet_pat, _norm(sn)):
                     return wb[sn]
         return None
 
@@ -457,27 +510,27 @@ def _find_col(ws, hdr_rows, key, lo=1, hi=None):
 
 
 def 인구_연별(yb, n=5):
-    """읍면동별 세대·인구 시트의 **연별(시 전체) 행** → [[연, 세대, 인구, 남, 여, 세대당]…].
+    """읍면동별 세대·인구 시트의 **연별(시 전체) 행** → [[연, 세대, 인구, 남, 여]…].
 
     등록인구 **합계**(한국인+외국인) 기준 — 골든 5.3 인구추이가 이 열이다 (원주 2023
-    366,279 = 한국인 361,503 + 외국인, 실측). 세대당은 시트에 없어 계산한다 (표시 1자리).
-    ⚠️ 이 시트에 `=SUM` 수식이 살아 있는 판이 있다 — data_only 캐시로 읽힌다 (원주 2020~21)."""
-    ws = yb.sheet(r"인구", r"읍.?면.?동별\s*세대")
+    366,279 = 한국인 361,503 + 외국인, 실측). **세대당은 여기서 계산하지 않는다** —
+    표기 자릿수가 사업마다 갈린다 (원주·천안 1자리 ↔ 괴산 2자리, 2:1). 표시 계층(핸들러)의 일이다.
+    ⚠️ 이 시트에 `=SUM` 수식이 살아 있는 판이 있다 — data_only 캐시로 읽힌다 (원주 2020~21).
+    ⚠️ 연도 라벨이 `2 0 1 9`(균등분할 문자열)·`2019.0`(float) 인 판이 있다 — 둘 다 처리됨."""
+    ws = yb.sheet(r"인구", r"읍.?면.?동?별\s*세대")
     if ws is None:
         return None
     yrs = _year_rows(ws)
     out = []
     for y in sorted(yrs)[-n:]:
         r = _row_values(ws, yrs[y])
-        세대, 인구, 남, 여 = (_numc(r[1]), _numc(r[2]), _numc(r[3]), _numc(r[4]))
-        세대당 = round(인구 / 세대, 1) if 인구 and 세대 else None
-        out.append([y, 세대, 인구, 남, 여, 세대당])
+        out.append([y, _numc(r[1]), _numc(r[2]), _numc(r[3]), _numc(r[4])])
     return out or None
 
 
 def 인구_읍면(yb, 읍면):
     """최신 연도 블록의 읍면동 행 → {세대, 인구, 남, 여}. (연별 행 아래 붙어 있다)"""
-    ws = yb.sheet(r"인구", r"읍.?면.?동별\s*세대")
+    ws = yb.sheet(r"인구", r"읍.?면.?동?별\s*세대")
     if ws is None:
         return None
     r = _region_row(ws, 읍면)
@@ -561,36 +614,59 @@ def extract_0500(path, 읍면=None):
             "인구동태": 인구동태(yb), "주택": 주택현황(yb), "사업체": 사업체총괄(yb)}
 
 
-def self_test_0500(path=None):
-    """원주 2024 기본통계(웹 재배포판) vs **원주 env-status 골든 5.3 값** 대조."""
-    path = path or ROOT / "raw_data/web/stats_yearbook/원주/2024_엑셀"
-    if not Path(path).exists():
-        print(f"[skip] 원주 기본통계가 없습니다: {path}")
-        return True
-    r = extract_0500(path, 읍면="호저면")
-    exp = {  # golden/small-env/원주_무장리/env-status.txt 5.3 (검증 단계에서만 연다)
-        "인구추이[-1]": [2023, 171275, 366279, 181708, 184571, 2.1],
-        "인구추이[0]": [2019, 154583, 352860, 175363, 177497, 2.3],
+# 사업별 골든 5.3 기대값 (검증 단계에서만 연다). 인구추이 행은 [연, 세대, 인구, 남, 여].
+# ⚠️ 세대당·보급률 표기는 갈림(2:1)이라 여기 안 넣는다 — 값만 대조한다.
+_0500_CASES = {
+    "원주": {  # 원주_무장리 · 2024 기본통계 (.xlsx zip, 웹 재배포판)
+        "읍면이름": "호저면",
+        "인구추이[-1]": [2023, 171275, 366279, 181708, 184571],
+        "인구추이[0]": [2019, 154583, 352860, 175363, 177497],
         "읍면": {"세대": 1849, "인구": 3527, "남": 1854, "여": 1673},
         "인구동태[-1]": [2023, 1934, 2644, 47132, 45778],
         "주택[-1]": [2023, 171190, 171463, 56445, 112208, 1690, 1120, None, 102.06],
         "사업체.계": (43665, 171895), "사업체.개인": (35145, 63220),
         "사업체.회사이외": (2017, 44931), "사업체.비법인": (978, 6744),
-    }
-    got = {
-        "인구추이[-1]": r["인구추이"][-1], "인구추이[0]": r["인구추이"][0],
-        "읍면": r["읍면"], "인구동태[-1]": r["인구동태"][-1], "주택[-1]": r["주택"][-1],
-        "사업체.계": (r["사업체"]["사업체"]["계"], r["사업체"]["종사자"]["계"]),
-        "사업체.개인": (r["사업체"]["사업체"]["개인"], r["사업체"]["종사자"]["개인"]),
-        "사업체.회사이외": (r["사업체"]["사업체"]["회사이외"], r["사업체"]["종사자"]["회사이외"]),
-        "사업체.비법인": (r["사업체"]["사업체"]["비법인"], r["사업체"]["종사자"]["비법인"]),
-    }
+    },
+    "괴산": {  # 괴산_금신리 · 제64회(=골든 인용 '통계연보 2024') — 구형 .xls, 시트명 공백 없음
+        "읍면이름": "청안면",
+        "인구추이[-1]": [2023, 21304, 37804, 19738, 18066],
+        "인구추이[0]": [2019, 21256, 40149, 20643, 19506],
+        "읍면": {"세대": 2035, "인구": 3451, "남": 1795, "여": 1656},
+        "인구동태[-1]": [2023, 63, 605, 3489, 3397],
+        "인구동태[2]": [2021, 83, 541, 5541, 6208],      # 사회적 증감 음수(▼667) 케이스
+        "주택[-1]": [2023, 18191, 18332, 14557, 1375, 288, 507, 315, 100.8],
+        "사업체.계": (5231, 19481), "사업체.개인": (3839, 5514),
+        "사업체.비법인": (187, 656),
+    },
+}
+
+
+def self_test_0500(path=None):
+    """통계연보 추출 vs env-status 골든 5.3 값 — **n≥2 사업 대조** (n=1 일반화 금지)."""
     ok = True
-    for k, e in exp.items():
-        mark = "OK" if got[k] == e else "✗"
-        if got[k] != e:
-            ok = False
-        print(f"  {mark} {k:<14} {got[k]}" + ("" if got[k] == e else f"  ← 기대 {e}"))
+    for name, exp in _0500_CASES.items():
+        base = Path(path) if path else ROOT / "raw_data/web/stats_yearbook" / name / "2024_엑셀"
+        if not base.exists():
+            print(f"[skip] {name} 통계연보가 없습니다: {base}")
+            continue
+        exp = dict(exp)
+        r = extract_0500(base, 읍면=exp.pop("읍면이름"))
+        got = {
+            "인구추이[-1]": r["인구추이"][-1], "인구추이[0]": r["인구추이"][0],
+            "읍면": r["읍면"], "인구동태[-1]": r["인구동태"][-1],
+            "인구동태[2]": r["인구동태"][2] if len(r["인구동태"]) > 2 else None,
+            "주택[-1]": r["주택"][-1],
+            **{f"사업체.{k}": (r["사업체"]["사업체"][k], r["사업체"]["종사자"][k])
+               for k in ("계", "개인", "회사이외", "비법인")},
+        }
+        n_ok = 0
+        for k, e in exp.items():
+            good = got.get(k) == e
+            n_ok += good
+            ok = ok and good
+            print(f"  {'OK' if good else '✗'} {name}.{k:<14} {got.get(k)}"
+                  + ("" if good else f"  ← 기대 {e}"))
+        print(f"{name} {n_ok}/{len(exp)}")
     print("0500 자체검증", "통과" if ok else "실패")
     return ok
 
