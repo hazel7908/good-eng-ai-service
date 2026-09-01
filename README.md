@@ -78,11 +78,16 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │       ├── validate-report/       검증 워크플로우 (PDF 육안 확인 포함)
 │       └── nas-survey/            NAS 재조사 — 전수 크롤 → diff (주기 운영)
 │
-├── templates/small-env/         ▓ 베이스 문서
+├── templates/small-env/         ▓ 베이스 문서 — 소환 11파트 전부
 │   ├── noise-vib.hwpx (+.slots.md)   토큰 36종 · 빈칸 명세
 │   ├── air-quality.hwpx (+.slots.md) 토큰 19종
 │   ├── regional-overview.hwpx (+.slots.md)  토큰 29종 · 지역개황(제2장)
+│   ├── project-overview · target-area · surrounding-land-use · env-status  ┐ 08-31
+│   ├── climate · water-quality · land-use · resource-cycle                 ┘ ~09-01
 │   └── noise-vib.snippets/           조건부 절 조각 (절 삽입은 보류 중)
+│
+├── templates/small-disaster/    ▓ 소재평 베이스 (2026-09-01) — 기준=천안 삼성리 서식
+│   └── project-overview · target-area · conclusion .hwpx   토큰 22+9+12
 │
 ├── golden/small-env/            ▓ 골든셋 — 생성 중 접근 금지, 검증 전용
 ├── golden/small-disaster/       ▓ 재해 골든셋 (천안 삼성리·충주 지방정원, 09-01) + disaster-review/ 1건
