@@ -87,6 +87,8 @@ def build_tables(hwp, v):
         blank_row(hwp, "해 당 식 생 형", i)
 
     # ── 5.1.4 생태계 현황 표 (식물/포유류/양서파충류/조류/육상곤충류 5행 × 종수·법정보호종)
+    # ✅ 여기만 col_off=0 이 맞다 — 앵커 `분류군종수` 가 **B열 머리**라 A열 분류군명
+    #    (식물·포유류…)은 그대로 남는다 (실측 확인).
     for i in range(1, 6):
         write_at(hwp, "분류군종수", i, 0, [None, None], from_anchor=True)
 
@@ -103,7 +105,10 @@ def build_tables(hwp, v):
                           ("DO (㎎/L)", "DO", True), ("T-P (㎎/L)", "T-P", True),
                           ("T-N (㎎/L)", "T-N", False), ("유량 (㎥/s)", "유량", False)]:
         vals = [값.get(키)] + ([등급.get(키)] if 등급도 else [])
-        write_at(hwp, 라벨, 0, 0, vals, from_anchor=True)
+        # ⚠️ **col_off=1** — 앵커(`pH`·`BOD (㎎/L)`…)가 곧 **A열 라벨 칸**이다. 0 으로 두면
+        #    라벨을 값으로 덮어써 표에서 항목명이 사라진다 (2026-09-01 원주 되먹임 실측:
+        #    생성물에 `BOD` 가 아예 없었다). 값은 B열부터.
+        write_at(hwp, 라벨, 0, 1, vals, from_anchor=True)
 
     # ── 5.2 소음 표 — N-1 행: 주간 4회+평균, 야간 2회+평균. 기준행 값 2칸.
     #    앵커 "측정횟수"(머리행 라벨) — ⚠️ 부머리행(1회/2회…) 있어 row_off=2 추정, 실측 확정.
@@ -111,7 +116,8 @@ def build_tables(hwp, v):
     주 = (소음.get("주간") or [None] * 4) + [소음.get("주간_평균")]
     야 = (소음.get("야간") or [None] * 2) + [소음.get("야간_평균")]
     write_at(hwp, "측정횟수", 2, 1, [_f1(x) for x in 주 + 야])
-    write_at(hwp, "소음환경기준(일반지역", 0, 0,
+    # ⚠️ col_off=1 — 앵커가 기준 라벨 칸이다 (수질 표와 같은 이유)
+    write_at(hwp, "소음환경기준(일반지역", 0, 1,
              [mz.get("소음기준_주간"), mz.get("소음기준_야간")], from_anchor=True)
 
     # ── 5.2 진동 표 — V-1 행: 주간 2회+평균, 심야 1회+평균. 기준행 값 2칸.
@@ -119,7 +125,7 @@ def build_tables(hwp, v):
     주v = (진동.get("주간") or [None] * 2) + [진동.get("주간_평균")]
     심v = (진동.get("심야") or [None] * 1) + [진동.get("심야_평균")]
     write_at(hwp, "주 간(dB(V))", 2, 1, [_f1(x) for x in 주v + 심v])
-    write_at(hwp, "생활진동 규제기준(", 0, 0,
+    write_at(hwp, "생활진동 규제기준(", 0, 1,
              [mz.get("진동기준_주간"), mz.get("진동기준_심야")], from_anchor=True)
 
     # ── 5.3 사회·경제 표 6개 — 지역개황 2.9 소싱 확장 전이라 전부 비운다.
