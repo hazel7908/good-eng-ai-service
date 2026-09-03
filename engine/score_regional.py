@@ -41,6 +41,9 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+# 카테고리 — 지역개황 채점은 소환 고정이지만, score_part 가 재해 채점 때 갈아 끼운다
+# (경로 다섯 곳이 `small-env` 로 박혀 있던 것을 2026-09-02 에 전역으로 뺐다).
+CATEGORY = "small-env"
 END = re.compile(r"(조사|확인|나타났|예측)되었다")
 SEC = re.compile(r"^(2\.\d+)(?:\.\d+)?[\s가-힣]")
 NUM = re.compile(r"\d[\d,]*\.?\d*")
@@ -65,7 +68,7 @@ def nums(t):
 
 def read_gen(case, part):
     """생성물 — hwpx 에서 문단 텍스트를 뽑는다 (txt 는 낡아 있을 수 있다)."""
-    p = ROOT / "cases/small-env" / case / part / "output.hwpx"
+    p = ROOT / "cases" / CATEGORY / case / part / "output.hwpx"
     z = zipfile.ZipFile(p)
     xml = "".join(z.read(n).decode("utf-8") for n in sorted(z.namelist())
                   if re.match(r"Contents/section\d+\.xml$", n))
@@ -142,7 +145,7 @@ COLUMN_UNSETTLED = {"취수장", "정수장"}
 
 def source_state(case, src):
     """자료 하나가 **발행처 최신임이 확인됐는가**. `_통계판.최신확인` 을 읽는다."""
-    f = ROOT / "cases/small-env" / case / "vars/regional-overview.json"
+    f = ROOT / "cases" / CATEGORY / case / "vars/regional-overview.json"
     if not f.exists():
         return None
     e = json.loads(f.read_text(encoding="utf-8")).get("_통계판", {}).get(src, {})
@@ -230,7 +233,7 @@ def tables_of(case, part):
     캡션은 표 **바로 앞 문단**이다 (`_category.md` 3단 구조: 서술 → 표 → 출처).
     ⚠️ 셀에 글자가 하나도 없는 표는 **삽도 액자**다 — 표로 세지 않는다.
     """
-    p = ROOT / "cases/small-env" / case / part / "output.hwpx"
+    p = ROOT / "cases" / CATEGORY / case / part / "output.hwpx"
     z = zipfile.ZipFile(p)
     out = []
     for n in sorted(x for x in z.namelist()
@@ -291,7 +294,9 @@ def gold_table(lines, cap, head=""):
         #    다음 소절(`나) 강우일수`)과 그 아래 표까지 삼켰고, 우리 수식 표에는 없는
         #    숫자(강우일수 108·월별 강수일)가 정답 쪽에 붙어 **거짓 WRONG** 이 됐다
         #    (원주·천안 수질 각 4건, 2026-08-31 실측).
-        if t.startswith(("자)", "주)")) or (body and re.match(r"^2\.\d", t)) \
+        # 재해 골든은 절·표·삽도 제목 앞에 자동번호 필드 잔재 `楴䵴` 가 붙는다 — 그 줄이
+        # 곧 다음 블록의 시작이다. 소환 골든엔 없어 영향 없음 (2026-09-02).
+        if t.startswith(("자)", "주)", "楴䵴")) or (body and re.match(r"^2\.\d", t)) \
                 or (body and re.match(r"^[가-하]\)\s*\S", t)):
             break
         body.append(t)
@@ -363,7 +368,7 @@ def figures_of(gold_lines):
 def score_figures(case, part, gold_lines=None):
     """`[삽도 필요]` 자리표시면 MISSING 이다. 채운 삽도가 생기면 여기서 갈린다."""
     figs = figures_of(gold_lines) if gold_lines else FIGURES
-    p = ROOT / "cases/small-env" / case / part / "output.hwpx"
+    p = ROOT / "cases" / CATEGORY / case / part / "output.hwpx"
     z = zipfile.ZipFile(p)
     names = [n for n in z.namelist() if n.startswith("BinData/")]
     filled = sum(1 for n in names if z.getinfo(n).file_size > 300_000)
@@ -378,7 +383,7 @@ def main():
     ap.add_argument("--detail", action="store_true")
     a = ap.parse_args()
 
-    gold = ROOT / "golden/small-env" / a.case / f"{a.part}.txt"
+    gold = ROOT / "golden" / CATEGORY / a.case / f"{a.part}.txt"
     if not gold.exists():
         sys.exit(f"정답 없음 — {gold}")
     G = group(gold.read_text(encoding="utf-8").splitlines())

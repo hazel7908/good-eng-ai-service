@@ -48,18 +48,54 @@ def _with_equations(xml):
                   lambda m: f"<hp:t>{m.group(1)}</hp:t>", xml, flags=re.S)
 
 
-def score(case, part):
-    gold = ROOT / "golden/small-env" / case / f"{part}.txt"
+MARK = "楴䵴"   # hwp 추출의 자동번호 필드 잔재 — 재해 골든의 절·표·삽도 제목 앞에 붙는다
+
+
+def _disaster_grouper(gold_lines):
+    """재해 파트 절 나누기 — `가.` 3단이 없다. **골든의 `楴䵴` 제목 줄을 경계**로 묶고,
+    같은 제목 줄이 생성물에서는 마커 없이 나오므로 제목 집합으로 양쪽을 똑같이 가른다.
+    (`small-disaster/_variants.md` §2 — 절 번호가 자동 필드라 텍스트에 숫자가 없다.)"""
+    heads = {ln.strip().lstrip(MARK).strip() for ln in gold_lines if ln.strip().startswith(MARK)}
+
+    def norm(x):
+        # 생성물(hwpx) 쪽은 같은 자동번호 필드가 `<hp:titleMark ignore="1"/>` **태그**로 남는다 —
+        # 골든의 `楴䵴` 와 같은 정체다 (2026-09-02 실측). 태그를 벗겨야 제목이 짝을 찾는다.
+        return re.sub(r"<[^>]+>", "", x).strip().lstrip(MARK).strip()
+
+    def group(lines):
+        cur, d = "머리", {}
+        for t in (norm(x) for x in lines):
+            if t in heads and len(t) < 40:
+                cur = t
+            d.setdefault(cur, []).append(t)
+        return d
+    return group
+
+
+def score(case, part, category="small-env"):
+    S.CATEGORY = category                # 경로(cases/golden)를 카테고리로
+    gold = ROOT / "golden" / category / case / f"{part}.txt"
     if not gold.exists():
         sys.exit(f"정답 없음 — {gold}")
-    out = ROOT / "cases/small-env" / case / part / "output.hwpx"
+    out = ROOT / "cases" / category / case / part / "output.hwpx"
     if not out.exists():
         sys.exit(f"생성물 없음 — {out}\n  먼저 generate.py 로 만든다 (Windows)")
 
-    S.SEC = SEC_PART                     # 절 나누기만 갈아 끼운다
     S.PREPROCESS = _with_equations       # 수식 표를 읽는다 (거짓 WRONG 방지)
-    G = S.group(gold.read_text(encoding="utf-8").splitlines())
-    O = S.group(S.read_gen(case, part))
+    gold_raw = gold.read_text(encoding="utf-8").splitlines()   # 표 대조용 — 마커를 남긴다
+    gold_lines = gold_raw                                       # (gold_table 이 마커 줄에서 블록을 끊는다)
+    if category == "small-env":
+        S.SEC = SEC_PART                 # 절 나누기만 갈아 끼운다
+        grouper = S.group
+    else:
+        # 재해 — 마커 제목 경계로 묶는다. 문장 짝짓기용 골든 줄은 마커를 벗긴다.
+        grouper = _disaster_grouper(gold_raw)
+        gold_lines = [ln.lstrip(MARK) if ln.startswith(MARK) else ln for ln in gold_raw]
+        # 문체가 다르다 — `하였다`(공학 채택)·`판단된다`(공학 판단)·`한다`(계획·시행).
+        # 소환 어미(조사되었다 등)만 보면 재해 서술이 통째로 0항목이 된다 (_category §2).
+        S.END = re.compile(r"(되었다|하였다|판단된다|한다|였다)\.?$")
+    G = grouper(gold_lines)
+    O = grouper(S.read_gen(case, part))
 
     tally, rows = {}, []
     for sec in sorted(set(G) | set(O), key=lambda s: ORDER.get(s, 9)):
@@ -73,8 +109,7 @@ def score(case, part):
             tally[v] = tally.get(v, 0) + 1
             rows.append((sec, v, r, o, g))
 
-    t_tally, t_rows = S.score_tables(case, part,
-                                     gold.read_text(encoding="utf-8").splitlines())
+    t_tally, t_rows = S.score_tables(case, part, gold_raw)     # 마커 있는 줄 — 블록 경계
     return tally, rows, t_tally, t_rows
 
 
@@ -93,11 +128,13 @@ def main():
     ap = argparse.ArgumentParser(description="파트 채점 — 생성물 vs 정답지")
     ap.add_argument("case")
     ap.add_argument("--part", required=True)
+    ap.add_argument("--category", default="small-env",
+                    help="small-env(기본) · small-disaster · disaster-review …")
     ap.add_argument("--detail", action="store_true")
     ap.add_argument("--write", action="store_true", help="validation.md 저장")
     a = ap.parse_args()
 
-    tally, rows, t_tally, t_rows = score(a.case, a.part)
+    tally, rows, t_tally, t_rows = score(a.case, a.part, a.category)
     n, ok, all_t = summary(tally, t_tally)
 
     print(f"# {a.case} · {a.part}\n")
@@ -119,7 +156,7 @@ def main():
             print("  " + " | ".join(str(x)[:50] for x in row))
 
     if a.write:
-        p = ROOT / "cases/small-env" / a.case / a.part / "validation.md"
+        p = ROOT / "cases" / a.category / a.case / a.part / "validation.md"
         lines = [f"# 검증 — {a.case} · {a.part}", "",
                  f"> 자동 채점 `engine/score_part.py`. **정답지는 이 단계에서만 연다.**", "",
                  f"- 항목 {n} (서술 {sum(tally.values())} · 표 {sum(t_tally.values())})",
