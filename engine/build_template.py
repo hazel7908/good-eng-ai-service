@@ -666,6 +666,14 @@ def strip_figures(dst):
         except Exception:
             return 0
 
+    # 🚨 **그림 설명(`shapeComment`)에도 기준 사업이 남는다.** 바이너리만 갈아 끼우면
+    #    한글이 자동 생성한 `원본 그림의 이름: …` 이 그대로 실려 나간다. 부록의 계약서
+    #    스캔은 **파일명 자체가 지번**이었다(`…-목천읍 삼성리 124-7번지 일원…jpg`) —
+    #    화면엔 안 보이지만 그림 속성에는 남고 추출 텍스트에도 잡힌다 (09-03 실측).
+    def scrub(xml):
+        return re.sub(r"(<hp:shapeComment>)(?:(?!</hp:shapeComment>).)*(</hp:shapeComment>)",
+                      r"\g<1>그림입니다.\g<2>", xml, flags=re.S)
+
     with zipfile.ZipFile(dst) as zin, zipfile.ZipFile(tmp, "w") as zout:
         for item in zin.infolist():
             stem = re.sub(r"\.[^.]+$", "", item.filename.split("/")[-1])
@@ -676,6 +684,8 @@ def strip_figures(dst):
                 info.compress_type = item.compress_type
                 zout.writestr(info, buf.getvalue())
                 n += 1
+            elif re.match(r"Contents/section\d+\.xml$", item.filename):
+                zout.writestr(item, scrub(zin.read(item.filename).decode("utf-8")))
             else:
                 zout.writestr(item, zin.read(item.filename))
     os.replace(tmp, dst)
