@@ -28,6 +28,7 @@ def build_slots(v):
     z = v.get("지구지정", {})
     out.update({k: g(z, k) for k in ("급경사지_서술", "위험지구_하천_서술", "위험지구_토사_서술", "최근접위험지구_서술", "침수흔적_서술", "방재시설_요약")})
     out.update({"지반조사_사례": g(j, "지반조사_사례"), "시군약칭": g(s, "시군약칭")})
+    out.update({"조사결과_관련계획": g(z, "조사결과_관련계획"), "조사결과_배수": g(z, "조사결과_배수")})
     return out
 
 
@@ -59,6 +60,11 @@ def build_tables(hwp, v):
     print("  관련계획 조사 본문(≈2,200줄: 방재계획·하천기본계획 표·상위계획) — delete_range(`현황분석` → `기초현황 조사 결과`) ⚠️ 실측")
     if not (v.get("관련계획") or {}).get("본문유지"):
         delete_range(hwp, "현황분석", "기초현황 조사 결과")
+    rows = v.get("방재시설_관리상태") or [[None, None, None]]
+    print(f"  방재시설 관리상태 표(4장과 같은 표) — 앵커 `작동상태` · {len(rows)}행")
+    fit_rows(hwp, "작동상태", 3, len(rows), start=1)
+    for i, row in enumerate(rows):
+        W("작동상태", 1 + i, 0, list(row) + [None] * (3 - len(row)))
     print("  방재시설 현황 표 — 앵커 `주 변 지 역`(머리) · 13행 × (대상지, 주변) ⚠️ 실측")
     cells = (v.get("방재시설") or {}).get("현황") or [[None, None]] * 13
     for i, row in enumerate(cells[:13]):
