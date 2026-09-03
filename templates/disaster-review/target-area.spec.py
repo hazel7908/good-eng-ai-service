@@ -32,7 +32,12 @@ TARGET_AREA_REPLACE = [
 
 SPEC = {
     "source": "원주_태장동",
-    "src": "raw_data/nas/disaster_samples/검토서_원주태장동/2장_대상지역설정.hwpx",   # hwp → hwpx 변환 후
+    "src": "raw_data/nas/disaster_samples/검토서2_원주태장동/2장_대상지역설정.hwpx",
+    # ↑ 실제 수확 폴더는 `검토서2_원주태장동` 이다 (09-03 Windows 확정 — spec 추정은
+    #   `검토서_…` 이었다). 원본 hwp 는 `2장 재해영향성검토 대상지역 설정(작성해야함.hwp`
+    #   (괄호가 안 닫힌 원본 파일명 그대로). 변환본을 골든과 대조해 **내용 일치 확인** —
+    #   차이는 절번호 자동필드(`楴䵴`)·머리글 렌더뿐이다. 같은 폴더의 `검토서서식/` 은
+    #   다른 사업(면적개념 서식)이라 쓰지 않는다.
     "replace": TARGET_AREA_REPLACE,
     "paras": [],
     "cells": [],
