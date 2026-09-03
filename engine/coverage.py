@@ -46,7 +46,7 @@ STATUS = {
         "summary": 0.5, "project-overview": 0.5, "target-area": 0.5, "regional-overview": 0.25, "scoping": 0.25, "public-opinion": 0.25, "alternatives": 0.5, "conservation-goal": 0.5, "flora-fauna": 0.25, "natural-assets": 0.5, "climate": 0.5, "air-quality": 0.25, "greenhouse-gas": 0.25, "water-quality": 0.25, "land-use": 0.25, "soil": 0.25, "topo-geology": 0.25, "resource-cycle": 0.25, "noise-vib": 0.25, "landscape": 0.25, "population-housing": 0.5, "strategic-reflection": 0.5, "mitigation-postmonitoring": 0.5, "unavoidable-impact": 0.5, "resident-damage": 0.5, "conclusion": 0.5, "appendix-1": 0.25, "appendix-2": 0.25, "appendix-3": 0.25, "water-total-load": 0.25
     }),
     "전략 strategic-env": (2, {   # 22파트 실측(⑭, 하천기본계획 표본) — rule 스텁 0.25 · 09-03
-        "summary": 0.5, "plan-overview": 0.25, "alternatives": 0.5, "target-area": 0.5, "regional-overview": 0.25, "scoping": 0.25, "public-opinion": 0.25, "plan-adequacy": 0.25, "flora-fauna": 0.25, "natural-assets": 0.5, "topo-geology": 0.25, "landscape": 0.25, "water-quality": 0.25, "hydrology": 0.25, "climate": 0.5, "air-quality": 0.25, "noise-vib": 0.25, "resource-cycle": 0.5, "socioeconomic": 0.25, "conclusion": 0.5, "appendix": 0.25, "load-allocation-deferral": 0.5
+        "summary": 0.5, "plan-overview": 0.25, "alternatives": 0.5, "target-area": 0.5, "regional-overview": 0.25, "scoping": 0.5, "public-opinion": 0.5, "plan-adequacy": 0.25, "flora-fauna": 0.25, "natural-assets": 0.5, "topo-geology": 0.25, "landscape": 0.25, "water-quality": 0.25, "hydrology": 0.25, "climate": 0.5, "air-quality": 0.25, "noise-vib": 0.25, "resource-cycle": 0.5, "socioeconomic": 0.25, "conclusion": 0.5, "appendix": 0.25, "load-allocation-deferral": 0.5
     }),
 }
 
