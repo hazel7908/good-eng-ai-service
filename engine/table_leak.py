@@ -112,6 +112,69 @@ def _tables(hwpx):
     return out
 
 
+def _cells(hwpx):
+    """표마다 **모든 셀 텍스트 집합** — 중첩표 안까지 (최상위 span 안의 <hp:t> 전부).
+    ②(숫자 시퀀스 동일)가 못 보는 두 자리를 위해 (Windows ⑪ 실측, 2026-09-03):
+      · 중첩표 — 바깥 셀은 비웠는데 안쪽 표의 `43.51`·`1.596`·`3.77` 이 남아 통과
+      · 부분 변경 — 조서처럼 데이터는 비우고 **합계만** 남은 표는 시퀀스가 달라져 통과"""
+    z = zipfile.ZipFile(hwpx)
+    out = []
+    for n in sorted(x for x in z.namelist() if re.match(r"Contents/section\d+\.xml$", x)):
+        xml = re.sub(r"<hp:(header|footer)[ >].*?</hp:\1>", " ",
+                     z.read(n).decode("utf-8"), flags=re.S)
+        pos = 0
+        for a, b in S._top_tables(xml):
+            cells = {c for c in S._text(xml[a:b]) if c}
+            caps = [c for c in S._text(xml[pos:a]) if c]
+            pos = b
+            if not cells:
+                continue
+            cap = next((c for c in reversed(caps) if len(c) >= 4
+                        and not c.startswith(("자)", "주)"))), "")
+            out.append((cap, cells))
+    return out
+
+
+# 구조 상수 — 표의 **고정 열**에 늘 같은 값이 놓이는 것들. 잔존이 아니라 서식이다.
+#   IDF 표 지속시간(분): 천안 수질에서 ③이 1080·1440·2880 을 잔존으로 오탐 (2026-09-03).
+GENERIC_NUMS = {"120", "180", "240", "360", "540", "720", "900", "1080", "1440", "2880", "4320"}
+
+
+def _specific(cell):
+    """기준 사업 **고유값**으로 볼 만한 숫자 셀인가 — 유효 숫자 3자리 이상.
+    `43.51`·`3.77`·`8,527` ✓ · `50`·`30`(빈도)·`2023`(연도)·`100.00`(구성비 합)·`0.05` ✗.
+    ⚠️ 두 자리 소수(첨두홍수량 0.05)는 놓친다 — 골든 대조(채점)가 잡는 층으로 남긴다."""
+    v = cell.strip()
+    if not re.fullmatch(r"[\d,]+(?:\.\d+)?", v):
+        return False
+    d = v.replace(",", "")
+    if d in ("100", "100.0", "100.00") or d in GENERIC_NUMS:
+        return False
+    if "." not in d and 1900 <= int(d) <= 2099:
+        return False
+    return len(d.replace(".", "").lstrip("0")) >= 3
+
+
+def numeric_residue(base_p, out_p, allow=()):
+    """③ 숫자 잔존 — 베이스와 산출물의 **같은 표**(순서 짝)에서 고유 숫자 셀이 그대로면 유출.
+    반환 [(캡션, [잔존 셀…])]. 법령·참조표(allow 캡션)는 같아야 정상이라 제외."""
+    bt, ot = _cells(base_p), _cells(out_p)
+    pairs = list(zip(bt, ot)) if len(bt) == len(ot) else [
+        ((bc, bs), (oc, os_)) for oc, os_ in ot for bc, bs in bt if bc and bc == oc]
+    found = []
+    for (bcap, bcells), (ocap, ocells) in pairs:
+        cap = ocap or bcap
+        if any(k in cap for k in allow):
+            continue
+        if bcells == ocells:
+            continue        # 표 전체가 그대로 = ②(표동일)의 영역 — 정당 동일이 많아 경고로 둔다
+                            # (폐유 표: 같은 표준 품셈 장비면 값이 같다 — 천안 실측 오탐 방지)
+        shared = sorted(c for c in (bcells & ocells) if _specific(c))
+        if shared:
+            found.append((cap[:30] or "(캡션 없음)", shared))
+    return found
+
+
 def _lines(hwpx):
     """전체 텍스트 줄 — 머리글 **포함** (사업명 유출 전례, _category.md 5-1 ②)."""
     z = zipfile.ZipFile(hwpx)
@@ -190,6 +253,10 @@ def check(category, part, case, detail=False):
             continue
         warn.append(("표동일", cap[:30] or "(캡션 없음)",
                      " ".join(seq[:8]) + (" …" if len(seq) > 8 else "")))
+
+    # ── ③ 숫자 잔존 — 셀 단위, 중첩표 포함 (②가 못 보는 두 자리 — Windows ⑪ 인계)
+    for cap, shared in numeric_residue(base_p, out_p, ALLOW_IDENTICAL):
+        fail.append(("숫자잔존", cap, ", ".join(shared[:6]) + (" …" if len(shared) > 6 else "")))
 
     for kind, what, ctx in fail:
         print(f"  🚨 {kind:<4} {what:<20} | {ctx}")
