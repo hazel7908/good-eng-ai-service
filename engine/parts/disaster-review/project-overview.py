@@ -39,9 +39,9 @@ def build_slots(v):
     return out
 
 
-def _blank_all(hwp, anchor, header_rows, limit):
+def _blank_all(hwp, anchor, header_rows, limit, skip=0):
     k = 0
-    while k < limit and find_in_table(hwp, anchor, skip=k):
+    while k < limit and find_in_table(hwp, anchor, skip=skip + k):
         blank_table_here(hwp, header_rows=header_rows); k += 1
     print(f"  비움 `{anchor}` ×{k}" if k else f"    WARNING: 앵커 '{anchor}' 못 찾음")
 
@@ -52,7 +52,11 @@ def build_tables(hwp, v):
     print("  결정 조서 블록 — 도면표시/사유서/도로/용도지역/가구획지 표 비움 (행정계획 문서 인풋)")
     _blank_all(hwp, "도면표시", 3, 12)
     _blank_all(hwp, "변경전 도로명", 1, 1)
-    _blank_all(hwp, "용도지역 결정(대상지)", 3, 1)
+    # 🔬 실측: `용도지역 결정(대상지) : 변경없음` 은 **표가 아니라 문단**이다 —
+    #    앵커로 쓸 수 없다. 그 아래 표(`구 분|면 적(㎡)|구성비(%)|비 고`)를 잡으려면
+    #    표 안 머리가 필요한데 `구성비` 는 이 문서에 표 5곳에 있다 (표5·16·29·31·33).
+    #    🚧 어느 것이 용도지역 결정조서인지 미확정 — 다음 배치에서 skip 실측.
+    #    (지금은 비우지 못한다 = 다른 사업에 원주 값이 나간다.)
     print("  지목별·소유별 토지이용현황 — 전치 표, 행 라벨 앵커(필 지 수·면  적(㎡)·구성비(%)) skip 0/1 ⚠️ 실측")
     for k, key in enumerate(("지목별", "소유별")):
         d = r[key]
@@ -60,4 +64,6 @@ def build_tables(hwp, v):
         W("면  적(㎡)", 0, 1, d["면적"], from_anchor=True, skip=k)
         W("구성비(%)", 0, 1, d["구성비"], from_anchor=True, skip=k)
     print("  토지이용계획(안) — 비움 (골든 값이 남의 사업 잔재)")
-    _blank_all(hwp, "합계", 1, 1)
+    # 🔬 실측: `합계` 는 런이 갈려 한글 찾기에 안 걸린다(추출 텍스트엔 1회 있다).
+    #    토지이용계획(안) 표는 `구성비` 를 가진 다섯 표 중 **마지막**이다 (표33).
+    _blank_all(hwp, "구성비", 1, 1, skip=4)

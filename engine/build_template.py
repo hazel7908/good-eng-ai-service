@@ -757,7 +757,18 @@ def main():
 
     spec = load_spec(a.category, a.part)
 
-    gold = ROOT / "golden" / a.category / spec["source"]
+    # 🔬 `source` 에 설명이 붙은 spec 이 있다 — 재평 8종은 `"천안_삼성리 (소재평 서식 파생)"`.
+    #    파생 카테고리는 **자기 골든이 없고 원본 카테고리 골든을 그대로 쓴다**(같은 파일이니
+    #    드라이런 대조도 거기서 해야 맞다). 괄호 설명을 벗기고, 자기 카테고리에 없으면
+    #    다른 카테고리에서 같은 이름을 찾아 쓴다 — 무엇을 썼는지 찍는다 (09-03).
+    _source = re.sub(r"\s*[(（].*$", "", spec["source"]).strip()
+    gold = ROOT / "golden" / a.category / _source
+    if not gold.exists():
+        alt = [d for d in (ROOT / "golden").glob(f"*/{_source}") if d.is_dir()]
+        if alt:
+            gold = alt[0]
+            print(f"  ℹ️ 골든 대조는 {gold.relative_to(ROOT)} 를 쓴다 "
+                  f"(이 카테고리엔 골든이 없다 — 파생 베이스)")
     # 원본이 golden/ 밖(raw_data)에 있는 파트는 `src` 로 지정한다 (대기질 — hwp 변환본)
     src = ROOT / spec["src"] if "src" in spec else gold / "원본.hwpx"
     if not src.exists():
