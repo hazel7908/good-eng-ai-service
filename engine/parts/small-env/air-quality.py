@@ -248,6 +248,23 @@ def tables_air_quality(hwp, v):
                            f'{m["PM25"] + w["PM25"]:.2f}',
                            f'{m["NO2"] + w["NO2"]:.4f}'] if w else [MODELING] * 3)
 
+    # 🚨 **PP 가 베이스보다 적으면 남는 행에 기준 사업 값이 그대로 남는다.**
+    #    평창(PP 3 < 베이스 5)에서 4·5행의 원주 예측치가 그대로 나갔다 —
+    #    표유출검사 ③이 `1.14·32.00·32.05·32.11·36.00·36.58` 로 잡았다 (09-03).
+    #    행 확장은 병합 구조라 미구현이지만, **줄이는 쪽은 비울 수 있다.**
+    for k in range(n, BASE_ROWS):
+        if find_in_table(hwp, lbl_pr.format(n=k + 1)):
+            right(hwp, 2)
+            fill_row(hwp, [MISSING] * 3)
+            right(hwp); set_cell(hwp, MISSING)
+            right(hwp); set_cell(hwp, MISSING)
+        for lab in ("가중치", "예측치"):
+            if find_in_table(hwp, lab, skip=k):
+                right(hwp)
+                fill_row(hwp, [MODELING] * 3)
+    if n < BASE_ROWS:
+        print(f"    남는 PP 행 {BASE_ROWS - n}개 비움 (기준 사업 예측치 잔존 방지)")
+
     print("  환경보전목표")
     tg = ga.get("환경보전목표", {"PM10": 100, "PM25": 35, "NO2": 0.06})
     for key, label in (("PM10", "PM-10(ppm)"), ("PM25", "PM-2.5(ppm)"), ("NO2", "NO2(ppm)")):

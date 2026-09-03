@@ -103,6 +103,10 @@ ALLOW_IDENTICAL = [
     "환경기준", "규제기준", "배출허용기준", "기초유출계수", "토사유출량 원단위",
     "침전속도", "지역별 보정", "소음도", "원단위", "법칙", "산정식",
     "실시근거",                       # 0100 — 시행령 별표 면적 기준 (법령 인용표)
+    # 표준품셈·배출계수 상수표 — 골든 전수 확인으로 상수임을 확인했다 (09-03):
+    #   `투입장비대수` 138.9·57.2 = 골든 8/8 · `이격거리별 진동도` 10.5·13.3·18.2 = 7/8
+    #   대기질 `배출계수`·`비산먼지 발생량 산정` 12.0·1.75 = 4/4
+    "투입장비대수", "이격거리별 진동도", "배출계수", "비산먼지 발생량 산정",
     "행정사항",                       # 재해 7장 — 자연재해대책법 조문·서식 인용표
                                      #   (숫자열 `6 4 1 3 2 30 …` 은 조문 번호다.
                                      #    충주 첫 다른-사업 생성에서 확인, 09-03)
@@ -173,7 +177,43 @@ def _specific(cell):
     return len(d.replace(".", "").lstrip("0")) >= 3
 
 
-def numeric_residue(base_p, out_p, allow=()):
+def _case_numbers(category, case):
+    """그 사업 vars 에 적힌 모든 숫자 — 자기 값은 잔재로 세지 않기 위한 것."""
+    # ⚠️ **JSON 원문에 정규식을 걸면 안 된다** — `NUM` 의 `[\d,]*` 가 JSON 쉼표까지 삼켜
+    #    `"이격거리_m": 200,` 이 `200,` 으로 잡힌다. 그러면 표의 `200` 과 안 맞아
+    #    자기 값을 못 거른다 (평창 `200·218·531` 이 그렇게 거짓 유출로 떴다. 09-03).
+    #    값을 파싱해서 **숫자 표기 그대로 + 천단위 쉼표 꼴** 둘 다 넣는다.
+    out = set()
+
+    def walk(o):
+        if isinstance(o, bool) or o is None:
+            return
+        if isinstance(o, (int, float)):
+            t = f"{o:g}" if isinstance(o, float) else str(o)
+            out.add(t)
+            out.add(f"{o:,}")
+            if isinstance(o, float):
+                for d in (1, 2, 3, 4):
+                    out.add(f"{o:,.{d}f}")
+                    out.add(f"{o:.{d}f}")
+        elif isinstance(o, str):
+            out.update(NUM.findall(o))
+        elif isinstance(o, dict):
+            for x in o.values():
+                walk(x)
+        elif isinstance(o, list):
+            for x in o:
+                walk(x)
+
+    for vp in (ROOT / "cases" / category / case / "vars").glob("*.json"):
+        try:
+            walk(json.loads(vp.read_text(encoding="utf-8")))
+        except Exception:                                # noqa: BLE001
+            pass
+    return out
+
+
+def numeric_residue(base_p, out_p, allow=(), own=frozenset()):
     """③ 숫자 잔존 — 베이스와 산출물의 **같은 표**(순서 짝)에서 고유 숫자 셀이 그대로면 유출.
     반환 [(캡션, [잔존 셀…])]. 법령·참조표(allow 캡션)는 같아야 정상이라 제외."""
     bt, ot = _cells(base_p), _cells(out_p)
@@ -187,10 +227,19 @@ def numeric_residue(base_p, out_p, allow=()):
         if bcells == ocells:
             continue        # 표 전체가 그대로 = ②(표동일)의 영역 — 정당 동일이 많아 경고로 둔다
                             # (폐유 표: 같은 표준 품셈 장비면 값이 같다 — 천안 실측 오탐 방지)
-        shared = sorted(c for c in (bcells & ocells) if _specific(c))
+        # 🔬 **그 사업 vars 에 있는 값은 잔재가 아니다** — 우연히 기준 사업과 같을 수 있다.
+        #    괴산 소음측정 1회차 `46.9` 가 원주 베이스에도 있어 거짓 유출로 떴다 (09-03).
+        shared = sorted(c for c in (bcells & ocells) if _specific(c) and c not in own)
         if shared:
             found.append((cap[:30] or "(캡션 없음)", shared))
     return found
+
+
+# ⚠️ **한 칸만 겹치는 것은 근거가 약하다.** 부분만 바뀐 표에서 값 하나가 우연히 같을 수
+#    있다 — 실측 2건이 그랬다 (괴산 소음 1회차 `46.9`·청양 P-3 진동 `10.1` 은 **둘 다
+#    그 사업의 골든에 있는 자기 값**인데 원주 베이스와 겹쳤다). 진짜 잔재는 여러 칸이
+#    함께 남는다 (평창 AERMOD `1.14·32.00·32.05·36.58…`). 1건은 경고로 낮춰 눈에는 띄게 둔다.
+RESIDUE_FAIL_MIN = 2
 
 
 def _lines(hwpx):
@@ -273,8 +322,10 @@ def check(category, part, case, detail=False):
                      " ".join(seq[:8]) + (" …" if len(seq) > 8 else "")))
 
     # ── ③ 숫자 잔존 — 셀 단위, 중첩표 포함 (②가 못 보는 두 자리 — Windows ⑪ 인계)
-    for cap, shared in numeric_residue(base_p, out_p, ALLOW_IDENTICAL):
-        fail.append(("숫자잔존", cap, ", ".join(shared[:6]) + (" …" if len(shared) > 6 else "")))
+    own = _case_numbers(category, case)
+    for cap, shared in numeric_residue(base_p, out_p, ALLOW_IDENTICAL, own):
+        row = ("숫자잔존", cap, ", ".join(shared[:6]) + (" …" if len(shared) > 6 else ""))
+        (fail if len(shared) >= RESIDUE_FAIL_MIN else warn).append(row)
 
     for kind, what, ctx in fail:
         print(f"  🚨 {kind:<4} {what:<20} | {ctx}")
