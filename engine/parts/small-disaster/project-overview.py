@@ -13,10 +13,16 @@ def _c(x):
     return None if x in (None, "") else f"{x:,}" if isinstance(x, (int, float)) else str(x)
 
 
-def _sum(xs):
-    """면적 합계. ⚠️ 정수로 떨어지면 정수로 — `3133.0` 이 `3,133.0` 으로 찍힌다."""
-    t = sum(x or 0 for x in xs)
+def _int(t):
+    """⚠️ 정수로 떨어지면 정수로 — `3133.0` 이 `3,133.0` 으로 찍힌다."""
     return int(t) if float(t).is_integer() else round(t, 1)
+
+
+def _add(a, b):
+    """둘 다 없으면 None (=`[확인 필요]`). 한쪽만 있으면 그것을 쓴다."""
+    if a is None and b is None:
+        return None
+    return _int((a or 0) + (b or 0))
 
 
 def build_slots(v):
@@ -64,8 +70,12 @@ def build_tables(hwp, v):
         write_at(hwp, "합                      계", 0, 1, [_c(합계[0]), _c(합계[1])],
                  from_anchor=True)                           # 합계 행 (계산 필드 자리) ⚠️
     else:
+        # ⚠️ **합계 행(+6)까지 비운다.** 데이터 행만 비우면 `8,527`·`3,133` 이 그대로 남는다
+        #    (충주 첫 다른-사업 생성 실측 — 표유출검사도 못 잡았다: 표가 부분만 바뀌면
+        #    ②숫자열 완전 일치가 안 걸린다). 합계 칸 라벨은 keep_first 로 지킨다.
         for i in range(1, 6):
             blank_row(hwp, "신청면적(㎡)", i, keep_first=0)   # 지번까지 사업 고유 — 전부 비움
+        blank_row(hwp, "신청면적(㎡)", 6, keep_first=1)       # 합계 행 — 라벨만 남김
 
     # ── 토지이용 3표 — 앵커 실측 확정 (2026-09-01 KeyIndicator)
     #    `토지이용현황`=B1 · `토지이용계획`=D1 은 **총괄 표 머리행에만** 있다(각 1회).
@@ -78,6 +88,25 @@ def build_tables(hwp, v):
     for off, key in ((2, "투수"), (3, "불투수")):
         r = 총괄.get(key) or [None] * 4
         write_at(hwp, "구 분", off, 1, [_c(x) for x in r], skip=0)
+    # ⚠️ **계 행(+1)도 써야 한다** — 안 쓰면 기준 사업 `3,133.0 100.0 3,133.0 100.0` 이
+    #    그대로 남는다 (충주 실측). 투수+불투수 네 열을 각각 더한다.
+    # 표기는 **소수 한 자리** — 베이스가 `3,133.0`·`100.0` 이다 (투수·불투수 행은
+    # vars 원값 그대로라 `19.85` 처럼 두 자리가 섞인다).
+    투, 불 = 총괄.get("투수"), 총괄.get("불투수")
+    if 투 and 불:
+        계 = [None if (투[i] is None and 불[i] is None) else f"{(투[i] or 0) + (불[i] or 0):,.1f}"
+              for i in range(4)]
+        write_at(hwp, "구 분", 1, 1, 계, skip=0)
+    else:
+        blank_row(hwp, "구 분", 1, keep_first=1, skip=0)
+
+    # 현황·계획 표의 `계` — **행을 더하면 안 된다.** 충주 현황은 `투수지역` 아래
+    # `임야·전·…` 이 딸려 있어 그대로 더하면 261,054 (정답 130,527의 두 배)가 나온다.
+    # 총괄의 투수+불투수가 곧 계다 (열 0·1=현황, 2·3=계획).
+    계면적 = {}
+    if 투 and 불:
+        계면적[1] = _add(투[0], 불[0])          # 현황 — 이쪽 표는 `3,133`(정수) 서식
+        계면적[2] = _add(투[2], 불[2])          # 계획
 
     # ⚠️ **두 표의 열 기준이 다르다** (XML 셀 주소 실측):
     #    현황 = `A1[1x2]='구 분'` 병합 머리 → 데이터 행에 **빈 A열 여백**이 있어 지목이 B열.
@@ -97,8 +126,9 @@ def build_tables(hwp, v):
                          [row[0], _c(row[1]), _c(row[2]),
                           (row[3] if len(row) > 3 else "") or ""], skip=sk)
             # 합계 행 — 안 쓰면 기준 사업 값이 남는다 (다른 사업에서 유출)
+            tot = 계면적.get(sk)
             write_at(hwp, "구 분", 1, 1,
-                     [_c(_sum(x[1] for x in rows)), "100.00", ""], skip=sk)
+                     [_c(_int(tot)) if tot is not None else None, "100.00", ""], skip=sk)
         else:
             for i in range(1, base + 2):          # 계 행 포함
                 blank_row(hwp, "구 분", i, keep_first=0, skip=sk)

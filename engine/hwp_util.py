@@ -663,6 +663,98 @@ def blank_row(hwp, anchor, row_off, keep_first=0, max_steps=40, skip=0):
     return True
 
 
+def table_ctrls(hwp):
+    """문서의 모든 표 컨트롤 → `[(list, para, ctrl), …]`.
+
+    ⚠️ **중첩표는 캐럿 이동으로 찾을 수 없다** (2026-09-03 실측).
+    `cell_addr()` 은 칸 안에 표가 있어도 **바깥 칸 주소**를 그대로 돌려주고,
+    `MoveNextParaBegin` 은 표 문단에서 멈출 뿐 **안으로 들어가지 않는다.**
+    컨트롤 목록의 앵커 위치(`GetAnchorPos`)만이 "이 칸 어느 문단에 표가 있는가"를 준다.
+    """
+    out, ctrl = [], hwp.HeadCtrl
+    while ctrl:
+        if ctrl.CtrlID == "tbl":
+            ap = ctrl.GetAnchorPos(0)
+            out.append((ap.Item("List"), ap.Item("Para"), ctrl))
+        ctrl = ctrl.Next
+    return out
+
+
+def enter_table(hwp, ctrl):
+    """표 컨트롤 **안 첫 칸**으로 캐럿을 옮긴다 (중첩표 진입로)."""
+    hwp.SetPosBySet(ctrl.GetAnchorPos(0))
+    hwp.HAction.Run("MoveNextPos")
+    return cell_addr(hwp) is not None
+
+
+def clear_cell_paras(hwp, skip_paras=(), limit=12):
+    """지금 칸의 **글자 문단만** 비운다. `skip_paras`(표가 앵커된 문단)는 건드리지 않는다.
+
+    🚨 `set_cell()` 은 SelectAll + InsertText 라 **칸 안 표까지 지운다.**
+    표 문단을 빼먹으면 그 표가 통째로 사라진다 — 실제로 7장 표10 이 이렇게 없어졌다
+    (칸 안 문단이 표 하나뿐이었다). `table_ctrls()` 로 표 문단을 먼저 구할 것.
+    """
+    lst = hwp.GetPos()[0]
+    n = 0
+    for _ in range(limit):
+        cur = hwp.GetPos()
+        if cur[0] != lst:
+            break
+        if cur[1] not in skip_paras:
+            hwp.HAction.Run("MoveParaBegin")
+            hwp.HAction.Run("MoveSelParaEnd")
+            hwp.HAction.GetDefault("InsertText", hwp.HParameterSet.HInsertText.HSet)
+            # ⚠️ **빈 문자열은 무시된다** — 선택 영역이 그대로 남는다. 둘째 문단부터
+            #    `""` 를 넣었더니 원문이 통째로 살아남았다 (충주 7장 실측 09-03).
+            #    문단마다 표시를 찍는다 — 실무자에겐 채울 줄 수가 그대로 목록이 된다.
+            hwp.HParameterSet.HInsertText.Text = MISSING
+            hwp.HAction.Execute("InsertText", hwp.HParameterSet.HInsertText.HSet)
+            n += 1
+        if not hwp.HAction.Run("MoveNextParaBegin"):
+            break
+        if hwp.GetPos()[1] == cur[1]:
+            break                                   # 마지막 문단 — 더 못 간다
+    return n
+
+
+def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12):
+    """캐럿이 든 표(중첩표 포함)의 **머리행 아래**를 전부 `[확인 필요]` 로 비운다.
+
+    ⚠️ 머리행은 `TableLowerCell` 횟수로 세면 안 된다 — 첫 열이 머리행 전체에 걸쳐
+    세로 병합된 표(`유역`[2x1])에서는 한 번에 데이터 행을 지나쳐 **첫 행을 빠뜨린다.**
+    **셀 주소의 행 번호**로 판정한다.
+    """
+    col_begin(hwp)
+    for _ in range(max_rows):
+        a = cell_addr(hwp)
+        if not a or a[1] > header_rows:
+            break
+        if not hwp.HAction.Run("TableLowerCell"):
+            return 0
+    n, seen = 0, set()
+    for _ in range(max_rows):
+        a = cell_addr(hwp)
+        if not a:
+            break
+        row = a[1]
+        for _ in range(max_cols):
+            here = cell_addr(hwp)
+            # ⚠️ **같은 칸을 두 번 밟으면 멈춘다.** `TableRightCell` 이 마지막 칸에서
+            #    True 를 돌려주며 제자리에 남는 표가 있어 루프가 끝나지 않았다
+            #    (천안 7장에서 14분 이상 멈춤 — 09-03). 상한만으로는 부족하다.
+            if here in seen:
+                return n
+            seen.add(here)
+            set_cell(hwp, MISSING); n += 1
+            if not hwp.HAction.Run("TableRightCell"):
+                return n                            # 표 마지막 칸
+            if cell_addr(hwp)[1] != row:
+                break                               # 줄바꿈 — 이미 다음 행 첫 칸
+        else:
+            return n
+    return n
+
+
 def fill_after(hwp, anchor, row_off, keep_first, values, max_steps=40):
     """목표 행에서 **앞 keep_first 칸을 건너뛰고** 값을 순서대로 쓴다.
 
