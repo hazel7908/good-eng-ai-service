@@ -6,11 +6,12 @@
 지진 표(비움) · 위험지구 현황 3(내수/토사/사면 — **원주 지구명 유출 1순위**, fit_rows 또는 비움) · 방재시설 현황
 (13행 × 대상지/주변 — vars) · 시설물 목록(비움). 앵커·머리행은 Windows 실측 전 추정.
 """
-from hwp_util import MISSING, blank_table_here, delete_range, find_in_table, fit_rows, write_at
+from hwp_util import (MISSING, blank_table_here, blank_tables, delete_range, find_in_table, fit_rows, write_at)
 
 BLOCK_MARK = "[확인 필요] 이 절의 요약(풍수해저감종합계획·하천기본계획·상위계획 검토)은 시군 문서 인풋 — 기준 사업(원주) 본문은 걷어냈다"
 
-BLANK = [("2011년", 2, 1), ("(호우발생", 3, 1), ("발생시각", 1, 1), ("시설물 구분", 1, 1), ("기     온", 2, 2), ("1월", 1, 3)]
+# ⚠️ `기     온`(공백 낀 머리)은 한글 찾기가 못 찾았다(⑰) → `해면기압`(붙은 조각, 연도별·월별 두 표 공통 머리)
+BLANK = [("2011년", 2, 1), ("(호우발생", 3, 1), ("발생시각", 1, 1), ("시설물 구분", 1, 1), ("해면기압", 2, 2), ("1월", 1, 3)]
 
 
 def build_slots(v):
@@ -33,11 +34,10 @@ def build_slots(v):
 
 
 def _blank_all(hwp, anchor, header_rows, limit):
-    k = 0
-    while k < limit and find_in_table(hwp, anchor, skip=k):
-        blank_table_here(hwp, header_rows=header_rows); k += 1
+    """공용 위임 — skip 을 앵커 생존 여부로 자동 결정."""
+    k = blank_tables(hwp, anchor, header_rows, limit)
     print(f"  비움 `{anchor}` ×{k}" if k else f"    WARNING: 앵커 '{anchor}' 못 찾음 — 기준 사업 값 잔존 위험")
-
+    return k
 
 def build_tables(hwp, v):
     W = lambda *a, **k: write_at(hwp, *a, **k)

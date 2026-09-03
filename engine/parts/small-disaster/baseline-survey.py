@@ -8,7 +8,7 @@
 자료 없는 표는 **비운다**(행 유지·`[확인 필요]`) — 건너뛰면 천안 값이 남는다.
 값 승계: 유역특성은 4장 vars `유역` 과 같은 값(불일치 금지) · 기상은 kma.py(소환 0721 원천).
 """
-from hwp_util import MISSING, blank_row, blank_table_here, find_in_table, fit_rows, josa, write_at
+from hwp_util import (MISSING, blank_row, blank_table_here, blank_tables, find_in_table, fit_rows, josa, write_at)
 
 
 def build_slots(v):
@@ -36,17 +36,10 @@ def build_slots(v):
 
 
 def _blank_all(hwp, anchor, header_rows, limit=6):
-    """같은 머리를 가진 표를 전부 비운다 (자료 없음 = [확인 필요])."""
-    k = 0
-    # 🚧 skip 을 0 으로 고정해 봤더니 **유출이 3건 → 4건으로 늘었다** (09-03 실측) —
-    #    앵커가 머리행이라 살아남는 표에서는 같은 표만 반복해 비우고 둘째 표를 놓친다.
-    #    비우기가 앵커를 지우는 표와 안 지우는 표가 섞여 있어 **한 가지 규칙으로 안 된다.**
-    #    표별로 "앵커가 비우기 범위 안인가"를 실측해 갈라야 한다 (다음 배치).
-    while k < limit and find_in_table(hwp, anchor, skip=k):
-        blank_table_here(hwp, header_rows=header_rows)
-        k += 1
+    """공용 `hwp_util.blank_tables` 위임 — skip 을 앵커 생존 여부로 자동 결정 (충주 3장 3건의 답)."""
+    k = blank_tables(hwp, anchor, header_rows, limit)
     if k == 0:
-        print(f"    WARNING: 앵커 '{anchor}' 못 찾음")
+        print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 기준 사업 값 잔존 위험")
     return k
 
 

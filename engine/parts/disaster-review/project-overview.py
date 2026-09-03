@@ -5,7 +5,7 @@
 표: 결정 조서 블록(~15표) **비움**(행정계획 문서 인풋) · 지목별/소유별 토지이용현황(전치 표 — 행 라벨 앵커) 채움 ·
 토지이용계획(안) 비움(골든이 남의 값). 앵커·오프셋은 Windows 실측 전 추정.
 """
-from hwp_util import MISSING, blank_table_here, find_in_table, write_at
+from hwp_util import MISSING, blank_table_here, blank_tables, find_in_table, write_at
 
 
 def _n(x):
@@ -40,11 +40,10 @@ def build_slots(v):
 
 
 def _blank_all(hwp, anchor, header_rows, limit, skip=0):
-    k = 0
-    while k < limit and find_in_table(hwp, anchor, skip=skip + k):
-        blank_table_here(hwp, header_rows=header_rows); k += 1
+    """공용 위임 — skip 인자는 폐기(앵커 생존 자동 판정). 시그니처는 호출부 호환용."""
+    k = blank_tables(hwp, anchor, header_rows, limit)
     print(f"  비움 `{anchor}` ×{k}" if k else f"    WARNING: 앵커 '{anchor}' 못 찾음")
-
+    return k
 
 def build_tables(hwp, v):
     r = compute(v)
@@ -66,4 +65,8 @@ def build_tables(hwp, v):
     print("  토지이용계획(안) — 비움 (골든 값이 남의 사업 잔재)")
     # 🔬 실측: `합계` 는 런이 갈려 한글 찾기에 안 걸린다(추출 텍스트엔 1회 있다).
     #    토지이용계획(안) 표는 `구성비` 를 가진 다섯 표 중 **마지막**이다 (표33).
-    _blank_all(hwp, "구성비", 1, 1, skip=4)
+    # 용도지역 결정조서 — `용도지역 결정(대상지)` 는 문단·`구성비` 는 표 5곳(⑰ 실측) → **데이터 셀 앵커**
+    # `자연녹지지역`(골든 유일 1회)로 잡는다. 소멸형이라 skip 자동. 표33 토지이용계획(안)은 `합계` 가
+    # 런 분할(⑰) → `근생`(유일 1회). ⚠️ 둘 다 Windows 실측 대기.
+    _blank_all(hwp, "자연녹지지역", 3, 1)
+    _blank_all(hwp, "근생", 1, 1)
