@@ -72,6 +72,58 @@ def _disaster_grouper(gold_lines):
     return group
 
 
+# 절번호가 **텍스트로 살아 있는** 카테고리 — 재평(PDF 추출)·본환·전략(원본에 번호가 평문).
+# 재해(소재평·검토서)의 `楴䵴` 마커와 대비된다 (`disaster-impact/_category.md` §2).
+NUM_HEAD = re.compile(r"^(제 ?\d+ ?장|\d+(?:\.\d+){1,3}\.?)\s*(\S.*)?$")
+PAGE_NO = re.compile(r"^\d+\s*-\s*\d*$")          # PDF 쪽번호 `1-1` · 잘린 `4-`
+
+
+def _join_wrapped(lines):
+    """PDF 추출(재평)의 조판 줄바꿈을 문장으로 이어붙인다 — 앞줄이 한글로 끝나고 종결이
+    아니면서 뒷줄이 머리·불릿·번호가 아니면 한 문장의 연속으로 본다 (rule §2: "이어 붙여 볼 것").
+    ⚠️ 낱말 중간에서 갈린 줄은 공백이 하나 끼지만 `judge` 가 공백을 무시하므로 채점엔 안 걸린다."""
+    out = []
+    for ln in lines:
+        t = ln.strip()
+        if PAGE_NO.match(t):
+            continue
+        if (out and re.search(r"[가-힣,)]$", out[-1]) and not re.search(r"(다|음|함|임|것|됨)\.$", out[-1])
+                and t and not NUM_HEAD.match(t) and not re.match(r"^[•◦○\-·▪—<\[(]", t)
+                and re.match(r"^[가-힣('\"‘“0-9]", t) and len(out[-1]) > 12):
+            out[-1] = out[-1] + " " + t
+        else:
+            out.append(t)
+    return out
+
+
+def _numbered_grouper(gold_lines):
+    """절번호 텍스트 카테고리의 절 나누기 — **번호를 벗긴 제목 집합**으로 양쪽을 가른다.
+
+    산출물 쪽 사정이 갈린다: 본환·전략 산출물은 번호가 평문이라 그대로 오지만, **재평 산출물은
+    소재평 파생 베이스라 번호가 자동필드**(titleMark 태그) — 제목 텍스트만 남는다. 그래서 번호가
+    아니라 제목으로 묶어야 양쪽이 같은 키를 얻는다. 골든의 쪽머리 반복(`제1장 …`)은 같은 키로
+    다시 묶일 뿐이라 무해하다."""
+    heads = {}
+    for ln in gold_lines:
+        m = NUM_HEAD.match(ln.strip())
+        if m and m.group(2) and len(ln.strip()) < 50 and re.search(r"[가-힣]", m.group(2)):
+            heads[m.group(2).strip()] = m.group(2).strip()
+
+    def norm(x):
+        t = re.sub(r"<[^>]+>", "", x).strip()
+        m = NUM_HEAD.match(t)
+        return (m.group(2) or "").strip() if m and m.group(2) else t
+
+    def group(lines):
+        cur, d = "머리", {}
+        for t in (norm(x) for x in lines):
+            if t in heads:
+                cur = t
+            d.setdefault(cur, []).append(t)
+        return d
+    return group
+
+
 def score(case, part, category="small-env"):
     S.CATEGORY = category                # 경로(cases/golden)를 카테고리로
     gold = ROOT / "golden" / category / case / f"{part}.txt"
@@ -87,8 +139,18 @@ def score(case, part, category="small-env"):
     if category == "small-env":
         S.SEC = SEC_PART                 # 절 나누기만 갈아 끼운다
         grouper = S.group
+    elif category in ("env-impact", "strategic-env"):
+        # 본환·전략 — 절번호가 평문. 문체는 소환과 같다(조사되었다 등) — 기본 END 유지.
+        grouper = _numbered_grouper(gold_raw)
+        gold_lines = gold_raw
+    elif category == "disaster-impact":
+        # 재평 — 골든이 PDF 추출이라 절번호는 평문·줄바꿈은 조판 기준. 이어붙인 뒤 절번호로 묶고,
+        # 산출물은 소재평 파생이라 번호가 자동필드 → 제목 집합 매칭(_numbered_grouper 참조).
+        gold_lines = _join_wrapped(gold_raw)
+        grouper = _numbered_grouper(gold_lines)
+        S.END = re.compile(r"(되었다|하였다|판단된다|한다|였다)\.?$")
     else:
-        # 재해 — 마커 제목 경계로 묶는다. 문장 짝짓기용 골든 줄은 마커를 벗긴다.
+        # 재해(소재평·검토서) — 마커 제목 경계로 묶는다. 문장 짝짓기용 골든 줄은 마커를 벗긴다.
         grouper = _disaster_grouper(gold_raw)
         gold_lines = [ln.lstrip(MARK) if ln.startswith(MARK) else ln for ln in gold_raw]
         # 문체가 다르다 — `하였다`(공학 채택)·`판단된다`(공학 판단)·`한다`(계획·시행).

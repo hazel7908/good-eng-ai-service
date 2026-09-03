@@ -36,11 +36,11 @@ STATUS = {
         "6장 유지관리": 0.7, "8장 부록": 0.7,      # 6·8장 베이스+되먹임 09-03 (⑫-2·⑫-3)
     }),
     "재평 disaster-impact": (16, {
-        f"{i}장": 0.5 for i in range(1, 9)      # 소재평 spec+핸들러 준용 층 09-03 (골격 일치 60% — 소재평 베이스 파생 C 프레임)
+        f"{i}장": 0.7 for i in range(1, 9)      # 준용 베이스 8종 빌드 ✅ 09-03 (⑰ — 횡성 1장 다른-사업 생성 게이트 통과)
     }),
     "검토서 disaster-review": (4, {
-        "1장 개요": 0.5, "2장 대상지역": 0.7, "3장 기초현황": 0.5,      # 2장 베이스+되먹임 100% (⑬) · 1·3·4장 C spec+핸들러 09-03
-        "4장 위험요인": 0.5, "5장 부록": 0.1,
+        "1장 개요": 0.7, "2장 대상지역": 0.7, "3장 기초현황": 0.7,      # 1~4장 베이스+되먹임 ✅ 09-03 (⑬·⑰)
+        "4장 위험요인": 0.7, "5장 부록": 0.1,
     }),
     "본환 env-impact": (10, {   # 30파트 실측(⑭) — rule 스텁 0.25 · 요약장 5+8장 spec+핸들러 0.5 (09-03)
         "summary": 0.5, "project-overview": 0.5, "target-area": 0.5, "regional-overview": 0.25, "scoping": 0.25, "public-opinion": 0.25, "alternatives": 0.5, "conservation-goal": 0.5, "flora-fauna": 0.25, "natural-assets": 0.5, "climate": 0.5, "air-quality": 0.25, "greenhouse-gas": 0.25, "water-quality": 0.25, "land-use": 0.25, "soil": 0.25, "topo-geology": 0.25, "resource-cycle": 0.25, "noise-vib": 0.25, "landscape": 0.25, "population-housing": 0.5, "strategic-reflection": 0.5, "mitigation-postmonitoring": 0.5, "unavoidable-impact": 0.5, "resident-damage": 0.5, "conclusion": 0.5, "appendix-1": 0.25, "appendix-2": 0.25, "appendix-3": 0.25, "water-total-load": 0.25
