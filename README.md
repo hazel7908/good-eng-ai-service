@@ -84,6 +84,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── regional-overview.hwpx (+.slots.md)  토큰 29종 · 지역개황(제2장)
 │   ├── project-overview · target-area · surrounding-land-use · env-status  ┐ 08-31
 │   ├── climate · water-quality · land-use · resource-cycle                 ┘ ~09-01
+│   ├── site-suitability · flora-fauna · topo-geology · landscape · appendix · water-total-load  — 09-03 spec·핸들러 (베이스 ⑮ 대기)
 │   └── noise-vib.snippets/           조건부 절 조각 (절 삽입은 보류 중)
 │
 ├── templates/small-disaster/    ▓ 소재평 베이스 (2026-09-01) — 기준=천안 삼성리 서식
