@@ -6,7 +6,7 @@
 표 채움은 소환 0100 조서 경로 이식 — ⚠️ **앵커·오프셋 전부 Windows 실측 전** (평면 추출
 추정, 셀 주소 `KeyIndicator` 로 확정할 것). 되먹임(천안 삼성리 자기 생성)이 첫 검증이다.
 """
-from hwp_util import MISSING, blank_row, fit_rows, write_at
+from hwp_util import MISSING, blank_row, fit_rows, write_at, josa
 
 
 def _c(x):
@@ -42,6 +42,7 @@ def build_slots(v):
         s[f"경위{i+1}"] = 경위[i] if i < len(경위) else MISSING
     for i in range(5):
         s[f"향후{i+1}"] = 향후[i] if i < len(향후) else MISSING
+    s["사업서술_조사"] = josa((v.get("사업") or {}).get("사업서술"), "으로로")
     return s
 
 

@@ -8,7 +8,7 @@
 자료 없는 표는 **비운다**(행 유지·`[확인 필요]`) — 건너뛰면 천안 값이 남는다.
 값 승계: 유역특성은 4장 vars `유역` 과 같은 값(불일치 금지) · 기상은 kma.py(소환 0721 원천).
 """
-from hwp_util import MISSING, blank_row, blank_table_here, find_in_table, fit_rows, write_at
+from hwp_util import MISSING, blank_row, blank_table_here, find_in_table, fit_rows, josa, write_at
 
 
 def build_slots(v):
@@ -22,6 +22,7 @@ def build_slots(v):
                 "관측소_표고": g(ob, "표고"), "관측소_개시일": g(ob, "개시일")})
     out.update({k: g(w, k) for k in ("기상_기간", "평균기온", "평균강수량", "평균풍속", "평균습도")})
     out.update({k: g(t, k) for k in ("토양군", "표토", "배수등급", "지질구성")})
+    out["표토_조사"] = josa(t.get("표토"), "으로로")
     sl = v.get("사면", {})
     out.update({f"급경사_{k}": g(sl, k) for k in ("이하비율", "이하면적", "초과비율", "초과면적")})
     out["산사태_서술"] = g(sl, "산사태_서술")

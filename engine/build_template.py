@@ -671,8 +671,12 @@ def strip_figures(dst):
     #    스캔은 **파일명 자체가 지번**이었다(`…-목천읍 삼성리 124-7번지 일원…jpg`) —
     #    화면엔 안 보이지만 그림 속성에는 남고 추출 텍스트에도 잡힌다 (09-03 실측).
     def scrub(xml):
-        return re.sub(r"(<hp:shapeComment>)(?:(?!</hp:shapeComment>).)*(</hp:shapeComment>)",
-                      r"\g<1>그림입니다.\g<2>", xml, flags=re.S)
+        # ⚠️ 파일명이 든 설명만 청소한다 — 전부 바꾸면 `묶음 개체입니다.`(그룹 개체) 같은 일반 설명까지
+        #    `그림입니다.` 로 덮여 경미한 오기가 난다 (09-03 Windows ⑮ 실측 → Mac 보완).
+        def _one(m):
+            body = m.group(2)
+            return m.group(1) + ("그림입니다." if "원본 그림의 이름" in body else body) + m.group(3)
+        return re.sub(r"(<hp:shapeComment>)((?:(?!</hp:shapeComment>).)*)(</hp:shapeComment>)", _one, xml, flags=re.S)
 
     with zipfile.ZipFile(dst) as zin, zipfile.ZipFile(tmp, "w") as zout:
         for item in zin.infolist():
