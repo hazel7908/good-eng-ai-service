@@ -757,7 +757,14 @@ def main():
     keep_captions_with_table(dst)
 
     print("\n[6/6] 기준 사업 삽도 걷어내기...")
-    strip_figures(dst)
+    # ⚠️ **그림이 전부 서식 고정인 장이 있다.** 소재평 6장의 9장은 사업 사진이 아니라
+    #    **법령 별지 서식 스캔**(협의내용 관리대장·착공/준공 통보서·급경사지 편람)이다.
+    #    모든 사업에 그대로 들어가야 하므로 걷어내면 빈 상자로 나간다 (09-03 실측).
+    #    그런 장은 spec 에 `"keep_figures": True` 를 준다.
+    if spec.get("keep_figures"):
+        print("  건너뜀 — spec keep_figures (그림이 전부 서식 고정인 장)")
+    else:
+        strip_figures(dst)
 
     ok = verify(spec, dst)
     print(f"\n완료: {dst} ({dst.stat().st_size:,} bytes)")
