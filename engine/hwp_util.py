@@ -738,7 +738,7 @@ def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12):
             break
         if not hwp.HAction.Run("TableLowerCell"):
             return 0
-    n, seen = 0, set()
+    n, prev = 0, None
     for _ in range(max_rows):
         a = cell_addr(hwp)
         if not a:
@@ -746,12 +746,15 @@ def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12):
         row = a[1]
         for _ in range(max_cols):
             here = cell_addr(hwp)
-            # ⚠️ **같은 칸을 두 번 밟으면 멈춘다.** `TableRightCell` 이 마지막 칸에서
-            #    True 를 돌려주며 제자리에 남는 표가 있어 루프가 끝나지 않았다
-            #    (천안 7장에서 14분 이상 멈춤 — 09-03). 상한만으로는 부족하다.
-            if here in seen:
+            # ⚠️ 끝나지 않는 표가 있다 — `TableRightCell` 이 마지막 칸에서 True 를 돌려주며
+            #    제자리에 남는다 (천안 7장 14분 멈춤). 그래서 정지 조건이 필요하다.
+            # 🚨 그런데 **셀 주소만으로 판정하면 세로 병합 칸에서 조기 종료된다** —
+            #    병합 칸은 행마다 같은 주소로 다시 나타나는 것이 정상이다. 그걸 "두 번 밟음"
+            #    으로 보고 멈춰 **충주 유역 표가 7셀(1행)만 비워졌다** (09-03 실측).
+            #    → 같은 칸을 **연달아** 밟을 때만 멈춘다 (제자리 = 진전 없음).
+            if here is not None and here == prev:
                 return n
-            seen.add(here)
+            prev = here
             set_cell(hwp, MISSING); n += 1
             if not hwp.HAction.Run("TableRightCell"):
                 return n                            # 표 마지막 칸

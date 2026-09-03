@@ -21,7 +21,10 @@ def paras(path):
     z = zipfile.ZipFile(path)
     xml = "".join(z.read(n).decode("utf-8") for n in sorted(z.namelist())
                   if re.match(r"Contents/section\d+\.xml$", n))
-    return ["".join(re.findall(r"<hp:t>(.*?)</hp:t>", p, re.S))
+    # 🚨 **런 사이 서식 태그가 문장에 섞인다** — 형광펜이 칠해진 문장에서
+    #    `<hp:markpenBegin color="#FFFF00"/>` 가 그대로 들어와 `#FFFF00` 의 `00` 이
+    #    숫자로 잡혔다 (충주 3장 지질도 문장, 09-03). 남은 태그를 벗긴다.
+    return [re.sub(r"<[^>]+>", "", "".join(re.findall(r"<hp:t>(.*?)</hp:t>", p, re.S)))
             for p in re.findall(r"<hp:p[ >].*?</hp:p>", xml, re.S)]
 
 
@@ -38,6 +41,8 @@ def strip_cite(t):
     # ⚠️ **오염물질 이름에 든 숫자는 값이 아니다** — `PM-10`·`PM-2.5` 의 `10,`·`2.5` 가
     #    베이스·산출물 공통이라 유출로 잡혔다 (평창 대기질 09-03). 항목 표기를 지운다.
     t = re.sub(r"PM\s*-?\s*(?:10|2\.5)|NO\s*2|SO\s*2|O\s*3|CO|TSP", " ", t)
+    # 법령 조문 번호 — `제55조`·`제4항`·`제1호` 는 사업과 무관하다 (충주 3장 방재시설 문장).
+    t = re.sub(r"제\s*\d+\s*조(?:의\s*\d+)?|제\s*\d+\s*항|제\s*\d+\s*호", " ", t)
     return t
 
 
