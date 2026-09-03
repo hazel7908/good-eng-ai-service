@@ -16,7 +16,7 @@
     python engine/coverage.py            # 표 + 총계
 """
 
-LADDER = {0.0: "미착수", 0.1: "재료", 0.3: "rule", 0.5: "spec", 0.7: "베이스C+",
+LADDER = {0.0: "미착수", 0.1: "재료", 0.25: "rule스텁", 0.3: "rule", 0.5: "spec", 0.7: "베이스C+",
           0.85: "B", 1.0: "A"}
 
 # {유형: (NAS 건수, {파트: 점수})} — 2026-09-01 실측 기준
@@ -27,8 +27,8 @@ STATUS = {
         "0500 환경현황": 0.8,          # 5.3 통계 자동 + 측정 승계 — B 문턱
         "0100 사업개요": 0.7, "0300 대상지역": 0.7, "0400 주변토지": 0.7,
         "0724 토지이용": 0.7, "0726 자원순환": 0.7,
-        "0600 입지타당성": 0.5, "0711 동식물상": 0.5, "0725 지형지질": 0.5,   # W3 6파트 rule+spec+핸들러 09-03
-        "0728 경관": 0.5, "0800 부록": 0.5, "0840 총량검토서": 0.5,           # (n=1 원주 — 베이스는 지시서 ⑮)
+        "0600 입지타당성": 0.7, "0711 동식물상": 0.7, "0725 지형지질": 0.7,   # W3 6파트 베이스+되먹임 ✅ 09-03 (⑮)
+        "0728 경관": 0.7, "0800 부록": 0.7, "0840 총량검토서": 0.7,           # (n=1 원주 — 종목록·조서 셀은 핸들러 몫)
     }),
     "소재평 small-disaster": (55, {
         "1장 개요": 0.7, "2장 대상지역": 0.7, "7장 결론": 0.7,     # 베이스+되먹임 ✅ 09-01
@@ -42,8 +42,12 @@ STATUS = {
         "1장 개요": 0.5, "2장 대상지역": 0.7, "3장 기초현황": 0.5,      # 2장 베이스+되먹임 100% (⑬) · 1·3·4장 C spec+핸들러 09-03
         "4장 위험요인": 0.5, "5장 부록": 0.1,
     }),
-    "본환 env-impact": (10, {f"파트{i}": 0.0 for i in range(1, 27)}),      # 26단위, W6~7
-    "전략 strategic-env": (2, {f"파트{i}": 0.0 for i in range(1, 20)}),    # 19단위 (준비서 8+본안 11)
+    "본환 env-impact": (10, {   # 30파트 실측(⑭) — rule 스텁(구조 실측+출처 초안, n=1) = 0.25 · 09-03
+        "summary": 0.25, "project-overview": 0.25, "target-area": 0.25, "regional-overview": 0.25, "scoping": 0.25, "public-opinion": 0.25, "alternatives": 0.25, "conservation-goal": 0.25, "flora-fauna": 0.25, "natural-assets": 0.25, "climate": 0.25, "air-quality": 0.25, "greenhouse-gas": 0.25, "water-quality": 0.25, "land-use": 0.25, "soil": 0.25, "topo-geology": 0.25, "resource-cycle": 0.25, "noise-vib": 0.25, "landscape": 0.25, "population-housing": 0.25, "strategic-reflection": 0.25, "mitigation-postmonitoring": 0.25, "unavoidable-impact": 0.25, "resident-damage": 0.25, "conclusion": 0.25, "appendix-1": 0.25, "appendix-2": 0.25, "appendix-3": 0.25, "water-total-load": 0.25
+    }),
+    "전략 strategic-env": (2, {   # 22파트 실측(⑭, 하천기본계획 표본) — rule 스텁 0.25 · 09-03
+        "summary": 0.25, "plan-overview": 0.25, "alternatives": 0.25, "target-area": 0.25, "regional-overview": 0.25, "scoping": 0.25, "public-opinion": 0.25, "plan-adequacy": 0.25, "flora-fauna": 0.25, "natural-assets": 0.25, "topo-geology": 0.25, "landscape": 0.25, "water-quality": 0.25, "hydrology": 0.25, "climate": 0.25, "air-quality": 0.25, "noise-vib": 0.25, "resource-cycle": 0.25, "socioeconomic": 0.25, "conclusion": 0.25, "appendix": 0.25, "load-allocation-deferral": 0.25
+    }),
 }
 
 

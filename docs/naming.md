@@ -163,3 +163,51 @@ NAS 카탈로그 290건의 `보고서종류` 필드에서 도출. 괄호 안은 
 4. **세션을 재시작하고** 해당 폴더의 파일을 열어 rule이 실제로 주입되는지 확인
    - 검증 전에 그 rule 파일을 직접 열면 중복 제거 때문에 **테스트가 무효**가 된다
    - 절차: `repo_restructure_plan.md` §1
+
+## 본환·전략 — 파트 슬러그 ✅ 확정 (2026-09-03, ⑭ 수확분 Mac 확정)
+
+Windows 가 잠정으로 지은 이름을 그대로 확정한다 — 소환과 겹치는 파트는 소환 슬러그(위 표)를 쓰고,
+두 카테고리에만 있는 장은 아래. 번호는 전환계획 §2-2 목차 코드. 골든: `golden/env-impact/횡성_벨라스톤CC/`(30) ·
+`golden/strategic-env/충북_수산천고명천/`(22). 표지·간지·목차·`(작성중)` 중복본은 수확 제외.
+
+| 본환 코드 | 장 | 슬러그 | 소환 대응 |
+|---|---|---|---|
+| 0100 | 1장 요약문 | `summary` | — (본문 요약) |
+| 0200 | 2장 사업의 개요 | `project-overview` | 소환 1장 확장 |
+| 0300 | 3장 평가 대상지역의 설정 | `target-area` | 소환 3장 |
+| 0400 | 4장 지역개황 | `regional-overview` | 소환 2장 축약 |
+| 0500 | 5장 평가항목·범위 심의 결과 | `scoping` | ◆ 고유 |
+| 0600 | 6장 주민의견 수렴 | `public-opinion` | ◆ |
+| 0700 | 7장 대안설정 및 평가 | `alternatives` | ◆ |
+| 0800 | 8장 환경보전목표 | `conservation-goal` | 법령표 (소환 지역개황 2.3 부류) |
+| 0911·0912 | 9.1 동식물상 · 자연환경자산 | `flora-fauna` · `natural-assets`◆ | 소환 7.1.1 |
+| 0921~0923 | 9.2 기상 · 대기질 · 온실가스 | `climate` · `air-quality` · `greenhouse-gas`◆ | 소환 7.2.1·7.2.2 |
+| 0931 | 9.3 수질(수리·수문) | `water-quality` | 소환 7.2.3 대확장 |
+| 0941~0943 | 9.4 토지이용 · 토양 · 지형지질 | `land-use` · `soil`◆ · `topo-geology` | 소환 7.2.4·7.2.5 |
+| 0951~0953 | 9.5 자원순환 · 소음진동 · 위락경관 | `resource-cycle` · `noise-vib` · `landscape` | 소환 7.2.6·7.2.7·7.2.8 |
+| 0961 | 9.6 인구·주거 | `population-housing` | ◆ |
+| 1000 | 10장 전략환경영향평가 협의내용 반영 | `strategic-reflection` | ◆ |
+| 1100 | 11장 저감방안 및 사후환경영향조사 | `mitigation-postmonitoring` | ◆ (요약장) |
+| 1200 | 12장 불가피한 환경영향 | `unavoidable-impact` | ◆ (요약장) |
+| 1300 | 13장 주민 생활환경·재산상 피해 | `resident-damage` | ◆ (요약장) |
+| 1400 | 14장 종합평가 및 결론 | `conclusion` | ◆ |
+| 1500 | 15장 부록 | `appendix-1`(인적사항) · `appendix-2`(조사목록·증빙 스캔) · `appendix-3`(측정·모델링) | 소환 8장 3분할 |
+| — | 수질오염총량검토서 (별첨) | `water-total-load` | 소환 0840 |
+
+| 전략(본안) 장 | 슬러그 | 대응 |
+|---|---|---|
+| 1 요약문 | `summary` | — |
+| 2 개발기본계획의 개요 | `plan-overview` | ◆ (하천기본계획 개요 — 5,891줄) |
+| 3 개발기본계획의 대안 | `alternatives` | 본환 7장 부류 |
+| 4 대상지역의 설정 | `target-area` | 소환 3장 |
+| 5 지역개황 | `regional-overview` | 소환 2장 |
+| 6 환경영향평가협의회 심의 | `scoping` | 본환 5장 |
+| 7 주민·관계기관 의견 | `public-opinion` | 본환 6장 |
+| 8 계획의 적정성 | `plan-adequacy` | ◆ (상위계획 검토 — 검토서 3장 관련계획 부류) |
+| 9 입지의 타당성 | `flora-fauna` `natural-assets` `topo-geology` `landscape` `water-quality` `hydrology`◆ `climate` `air-quality` `noise-vib` `resource-cycle` `socioeconomic`◆ | 소환 6장 검토표 + 7장 분야 현황 |
+| 10 종합평가 및 결론 | `conclusion` | — |
+| 11 부록 | `appendix` | 소환 8장 |
+| 별첨 | `load-allocation-deferral` (오염총량 할당 유보) | ◆ |
+
+⚠️ 전략 골든은 **하천기본계획**(수산천·고명천) 이라 태양광 소환과 사업군이 다르다 — `hydrology` 26,260줄이
+그 증거(하천 수리·수문 본체). 태양광 전략은 표본이 없다.
