@@ -89,7 +89,14 @@ def open_hwp(path, visible=False):
     안 불려 한글이 템플릿을 붙든 채 살아남고, 다음 실행은 같은 파일을 **읽기 전용**
     으로 연다. 그래서 여기서 EditMode 를 확인하고 되돌린다.
     """
+    # 🚨 **잔여 한글 프로세스가 남아 있으면 `Open()` 이 10분+ 멈춘다** (2026-09-03 실측).
+    #    CPU 는 거의 0 인데 안 끝난다 — 크기 문제로 착각하기 쉽다. 12MB 문서가 17분
+    #    멈췄다가, 프로세스를 정리하고 다시 열자 **8.9초**에 끝났다.
+    #    ⚠️ 끊을 때 **파이썬만 죽이면 안 된다** — 셸이 다음 명령으로 넘어가 한글을 또 띄운다.
     import win32com.client
+    if _hwp_running():
+        print("  ⚠️ 앞선 한글 프로세스가 남아 있다 — `Open()` 이 멈출 수 있다 "
+              "(taskkill /F /IM Hwp.exe 로 정리할 것)")
     hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
     hwp.XHwpWindows.Item(0).Visible = visible
     hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")

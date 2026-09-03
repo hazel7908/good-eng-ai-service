@@ -57,8 +57,10 @@ def build_tables(hwp, v):
         for i, row in enumerate(rows):
             W("유역평균경사", 2 + i, 0, list(row) + [None] * (7 - len(row)))
     else:
-        for i in range(6):
-            blank_row(hwp, "유역평균경사", 2 + i, keep_first=2)
+        # 🚨 `blank_row` 는 **한 열만** 지운다(앵커 열). 이걸로 비우면 나머지 칸에
+        #    기준 사업 값이 그대로 남는다 — 충주 3장에서 `0.110, 0.162` 가 실제로
+        #    표유출검사 ③에 걸렸다 (09-03). 행 전체는 `blank_table_here` 다.
+        _blank_all(hwp, "유역평균경사", 2, limit=1)
 
     print("  하천 현황 표 — 앵커 `하 천 명` · 1행 (하천명 셀은 토큰)")
     r = h.get("하천") or {}
@@ -74,15 +76,23 @@ def build_tables(hwp, v):
         for i, row in enumerate(yrs):
             W("평  균", 1 + i, 0, list(row) + [None] * (7 - len(row)))
     else:
-        for i in range(10):
-            blank_row(hwp, "평  균", 1 + i, keep_first=1)
+        _blank_all(hwp, "평  균", 1, limit=1)      # 〃 blank_row 는 한 열만 지운다
 
     print("  토양분포현황 표 2 · 재해발생현황 표 · 시설물 표 — 자료 없으면 비움")
-    _blank_all(hwp, "토양\n부호", 2) or _blank_all(hwp, "통명", 2)
+    # 🔬 실측: 머리는 **1행**(`토양부호|토양통명|…`)이고 줄바꿈이 없다.
+    #    `header_rows=2` 로 두면 **첫 데이터 행(`YdB 예천 양토…`)이 안 지워진다** —
+    #    다른 사업에 천안 토양이 그대로 나간다 (09-03 되먹임 실측).
+    #    ⚠️ 앵커는 `통명` 이다 — XML 상 한 셀인 `토양부호` 는 런이 `토양`/`부호` 로
+    #       갈려 있어 **한글 찾기로는 안 걸린다**(XML 로 읽은 머리 문자열을 그대로
+    #       앵커로 쓰면 안 되는 자리다).
+    _blank_all(hwp, "통명", 1)
     _blank_all(hwp, "이재민", 2)
     _blank_all(hwp, "B등급", 1)
 
     print("  주민탐문 결과표 2 — 앵커 `면담 일시`(머리) · 성명·거주년수 셀 (연령·장소·일시·피해년도·원인은 토큰)")
     for k, row in enumerate((v.get("재해", {}).get("탐문") or [{}, {}])[:2]):
-        W("면담 일시", 1, 0, [row.get("성명")], skip=k)
-        W("면담 일시", 1, 2, [row.get("거주년수")], skip=k)
+        # 🚨 `col_begin` 은 **세로 병합된 A1(`면담 주민` 라벨)** 로 간다 — col 0 에 쓰면
+        #    라벨이 덮이고 뒤가 한 칸씩 밀린다 (실측: A1 이 `최○○` 가 되고 거주년수가
+        #    연령 칸으로 갔다). 실측 배치: A1[2x1] 라벨 · B2[1x2] 성명 · D2 연령 · E2 거주년수.
+        W("면담 일시", 1, 1, [row.get("성명")], skip=k)
+        W("면담 일시", 1, 3, [row.get("거주년수")], skip=k)

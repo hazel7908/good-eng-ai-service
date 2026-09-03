@@ -709,7 +709,11 @@ def verify(spec, dst):
     with zipfile.ZipFile(dst) as zf:
         xml = "".join(zf.read(n).decode("utf-8") for n in sorted(zf.namelist())
                       if re.match(r"Contents/section\d+\.xml$", n))
-    found = set(re.findall(r"\{\{([^}]+)\}\}", xml))
+    # 🚨 **토큰 안에 서식 태그가 낀다.** 원본에서 그 글자에 형광펜·색이 칠해져 있으면
+    #    한글이 런을 갈라 `{{</hp:t>…<hp:markpenBegin/>관측소…}}` 꼴이 된다. 한글 찾기는
+    #    **텍스트만** 보므로 치환·생성에는 문제가 없는데, XML 정규식으로 세는 이 검증만
+    #    깨진 토큰으로 오판한다 (소재평 4장 `{{관측소}}`, 09-03). 태그를 벗기고 센다.
+    found = set(re.findall(r"\{\{([^}]+)\}\}", re.sub(r"<[^>]+>", "", xml)))
     want = set(spec["expect"])
     print(f"\n토큰 {len(found)}종 발견")
     for k in sorted(want & found):

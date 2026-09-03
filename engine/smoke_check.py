@@ -71,7 +71,20 @@ def main():
         print("①-2 계산 필드 오류 0 ✅")
 
     # ② 기준 사업 유출
-    if template.exists():
+    # 🚨 **되먹임에는 원리상 무의미하다** — `leak_check` 는 베이스↔산출물의 **공통 숫자**를
+    #    의심하는데, 기준 사업 자기 생성은 값이 같은 것이 정상이다. ②-2 는 이미 스스로
+    #    건너뛰는데 ② 만 안 건너뛰어 소재평 3장이 **법령 숫자로 거짓 실패**했다
+    #    (`한국지질도(1/50,000)` 의 `00` · `자연재해대책법시행령 제55조` 의 `55`. 09-03).
+    try:
+        sys.path.insert(0, str(ROOT / "engine"))
+        from table_leak import CATEGORY_BASE            # noqa: PLC0415
+        _feedback = (CATEGORY_BASE.get(category) or {}).get("기준사업") == case
+    except Exception:                                    # noqa: BLE001
+        _feedback = False
+    if _feedback:
+        print("② 기준 사업 유출 ✅")
+        print("   되먹임(기준 사업 자기 생성) — 서술 숫자 대조는 무의미하다. 건너뜀")
+    elif template.exists():
         r = subprocess.run([sys.executable, str(ROOT / "engine" / "leak_check.py"),
                             str(template), str(output)],
                            capture_output=True, text=True,
