@@ -1,0 +1,466 @@
+경질 측정결과
+부-
+C 증설사업
+제15장 부     록
+가. 측정사진
+(1) 1차조사
+A-1
+A-2
+A-3
+W-1
+W-2
+W-3
+NV-1(주)
+NV-1(야)
+NV-2(주)
+NV-2(야)
+NV-3(주)
+NV-3(야)
+GW-1
+GW-2
+S-1
+S-2
+- 공란 -
+S-3
+(1) 2차조사
+A – 1
+A - 2
+A – 3
+W - 1
+W - 2
+W - 3
+W – 4
+W - 5
+N·V - 1
+N·V - 2
+N·V - 3
+G·W - 1
+G·W - 2
+S - 1
+S - 2
+S - 3
+나. 시험성적서 및 측정기록부
+(1) 1차 조사
+A – 1
+A –  1
+A – 1
+A - 2
+A – 2
+A – 2
+A - 3
+A - 3
+A - 3
+W - 1
+W - 1
+W - 2
+W - 2
+W - 3
+W - 3
+N·V - 1
+N·V - 2
+N·V - 3
+GW - 1
+GW - 2
+S - 1
+S - 2
+(2) 2차 조사
+A - 1
+A - 1
+A - 1
+A - 2
+A – 2
+A – 2
+A - 3
+A - 3
+A - 3
+W - 1
+W - 1
+W - 2
+W - 2
+W - 3
+W - 3
+W - 4
+W - 4
+W - 5
+W - 5
+N·V - 1
+N·V - 2
+N·V - 3
+G·W - 1
+G·W - 2
+S – 1, 2, 3
+S – 1, 2, 3
+15.6 모델링 입력자료
+15.6.1 대기모델링
+가. 공사시
+-10
+CO STARTING
+CO TITLEONE 벨라스톤C.C 증설사업 aermod
+CO MODELOPT  dfault CONC
+CO AVERTIME  1 24 annual
+CO POLLUTID  PM-10
+CO RUNORNOT  RUN
+CO ERRORFIL  ERRORS.OUT
+CO EVENTFIL  TESTAERMOD.EVT
+CO FINISHED
+***********
+SO STARTING
+SO LOCATION  A01  AREAPOLY  274278.8  539148.5   251.0
+SO LOCATION  A02  AREAPOLY  273827.6  539943.2   206.2
+SO SRCPARAM  A01 2.0475E-05  3  44
+SO SRCPARAM  A02 2.0475E-05  3  39
+SO AREAVERT  A01  274278.8  539148.5  274091.4  539202.7  274056.1  539226.4
+SO AREAVERT  A01  274020.1  539255.7  273966.0  539263.1  273839.0  539243.4
+SO AREAVERT  A01  273817.5  539243.6  273685.8  539266.2  273678.5  539269.4
+SO AREAVERT  A01  273634.9  539274.8  273620.9  539272.7  273565.0  539296.0
+SO AREAVERT  A01  273534.7  539248.9  273530.6  539233.8  273531.2  539196.5
+SO AREAVERT  A01  273505.5  539166.6  273493.2  539158.2  273485.4  539143.8
+SO AREAVERT  A01  273490.5  539084.8  273486.1  539073.3  273473.6  539058.7
+SO AREAVERT  A01  273467.2  539040.9  273467.7  539025.4  273481.5  539002.7
+SO AREAVERT  A01  273544.2  538957.4  273560.1  538952.0  273761.7  538936.4
+SO AREAVERT  A01  273815.3  538917.1  273843.7  538923.5  273886.1  538904.5
+SO AREAVERT  A01  273893.6  538892.0  273915.5  538886.2  273931.3  538890.0
+SO AREAVERT  A01  273966.2  538933.2  273986.6  538952.2  273981.9  539006.5
+SO AREAVERT  A01  274008.5  539015.8  274039.8  539047.5  274082.2  539035.9
+SO AREAVERT  A01  274133.6  539038.6  274163.5  539052.4  274196.0  539058.6
+SO AREAVERT  A01  274252.5  539092.5  274265.9  539135.9
+SO AREAVERT  A02  273827.6  539943.2  273934.5  539989.8  274004.4  540000.4
+SO AREAVERT  A02  274052.7  540018.1  274092.5  540041.2  274135.5  540053.9
+SO AREAVERT  A02  274169.3  540133.1  274192.4  540158.7  274246.3  540178.2
+SO AREAVERT  A02  274284.5  540183.6  274286.0  540146.5  274277.9  540111.9
+SO AREAVERT  A02  274263.2  540087.9  274242.9  540067.9  274247.7  540057.7
+SO AREAVERT  A02  274236.0  539995.8  274163.8  539934.9  274135.6  539996.8
+SO AREAVERT  A02  274113.8  540003.9  274078.3  539954.2  274104.2  539917.3
+SO AREAVERT  A02  273983.6  539762.6  273951.2  539676.1  273935.8  539675.8
+SO AREAVERT  A02  273907.4  539695.1  273877.8  539681.9  273865.1  539684.6
+SO AREAVERT  A02  273856.9  539704.4  273821.9  539719.6  273810.6  539734.6
+SO AREAVERT  A02  273800.3  539736.1  273788.5  539748.6  273781.8  539796.9
+SO AREAVERT  A02  273790.7  539808.5  273803.5  539813.7  273805.7  539823.9
+SO AREAVERT  A02  273800.4  539833.6  273801.4  539874.9  273821.9  539906.4
+** TIME       SRCID         1-9    9-12   12-13  13-18  18-24
+**            -----         ----   ----   ----   ----   ----
+SO EMISFACT   A01   HROFDY  8*0.00 3*1.0  1*0.0  5*1.0  7*0.00
+SO CONCUNIT   1.0E6  grams/sec    micrograms/m**3
+SO SRCGROUP ALL
+SO FINISHED
+RE STARTING
+RE INCLUDED  airbase.map
+RE FINISHED
+ME STARTING
+ME SURFFILE AERMOD.sfc
+ME PROFFILE AERMOD.pfl
+ME SURFDATA 43114 2023 원주
+ME UAIRDATA 47122 2023 오산
+ME PROFBASE 10.0
+ME FINISHED
+***********
+OU STARTING
+OU RECTABLE 24 4th
+OU MAXTABLE ALLAVE  10
+OU PLOTFILE 24 ALL 4th DP.DAT
+OU PLOTFILE annual ALL YP.DAT
+OU FINISHED
+***********************************
+*** SETUP Finishes Successfully ***
+***********************************
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        11:24:29
+PAGE   1
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE ANNUAL AVERAGE CONCENTRATION    VALUES AVERAGED OVER   1 YEARS FOR SOURCE GROUP: ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF PM-10    IN MICROGRAMS/M**3                          **
+X-COORD (M)   Y-COORD (M)        CONC                       X-COORD (M)   Y-COORD (M)        CONC
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00     539160.00       19.66524                      274260.00     539066.00       37.12965
+274218.00     539212.00       42.07477                      274425.00     539303.00       12.09048
+274469.00     540119.00       23.87493                      274874.00     539487.00        4.68693
+273425.00     540819.00        2.43926                      274537.00     538758.00        4.65462
+274344.00     538449.00       11.83686                      273982.00     541369.00        1.47322
+272742.00     537927.00        0.24052                      275189.00     539010.00        1.77783
+271742.00     540134.00        3.47015                      271922.00     539392.00        0.07815
+275528.00     541224.00        0.17406                      275378.00     538126.00        1.20269
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        11:24:29
+PAGE  46
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   4TH HIGHEST 24-HR AVERAGE CONCENTRATION   VALUES FOR SOURCE GROUP:  ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF PM-10    IN MICROGRAMS/M**3                          **
+X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)              X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00    539160.00      135.41420c (23122824)                274260.00    539066.00      151.15182c (23120424)
+274218.00    539212.00      167.28212c (23112224)                274425.00    539303.00       63.05087c (23112724)
+274469.00    540119.00      102.54517  (23111024)                274874.00    539487.00       33.53290c (23120424)
+273425.00    540819.00       16.46259c (23061024)                274537.00    538758.00       24.68067c (23010724)
+274344.00    538449.00       35.85823c (23120624)                273982.00    541369.00       14.36840c (23010924)
+272742.00    537927.00        1.92217c (23021224)                275189.00    539010.00       11.63047c (23120324)
+271742.00    540134.00       20.88584c (23040924)                271922.00    539392.00        0.95134c (23052324)
+275528.00    541224.00        1.32339  (23021924)                275378.00    538126.00       10.12099c (23011324)
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        11:24:29
+PAGE  67
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+(2) PM-2.5
+CO STARTING
+CO TITLEONE 벨라스톤C.C 증설사업 aermod
+CO MODELOPT  dfault CONC
+CO AVERTIME  24 annual
+CO POLLUTID  PM-2.5
+CO RUNORNOT  RUN
+CO ERRORFIL  ERRORS.OUT
+CO EVENTFIL  TESTAERMOD.EVT
+CO FINISHED
+***********
+SO STARTING
+SO LOCATION  A01  AREAPOLY  274278.8  539148.5   251.0
+SO LOCATION  A02  AREAPOLY  273827.6  539943.2   206.2
+SO SRCPARAM  A01 5.4778E-06  3  44
+SO SRCPARAM  A02 5.4778E-06  3  39
+SO AREAVERT  A01  274278.8  539148.5  274091.4  539202.7  274056.1  539226.4
+SO AREAVERT  A01  274020.1  539255.7  273966.0  539263.1  273839.0  539243.4
+SO AREAVERT  A01  273817.5  539243.6  273685.8  539266.2  273678.5  539269.4
+SO AREAVERT  A01  273634.9  539274.8  273620.9  539272.7  273565.0  539296.0
+SO AREAVERT  A01  273534.7  539248.9  273530.6  539233.8  273531.2  539196.5
+SO AREAVERT  A01  273505.5  539166.6  273493.2  539158.2  273485.4  539143.8
+SO AREAVERT  A01  273490.5  539084.8  273486.1  539073.3  273473.6  539058.7
+SO AREAVERT  A01  273467.2  539040.9  273467.7  539025.4  273481.5  539002.7
+SO AREAVERT  A01  273544.2  538957.4  273560.1  538952.0  273761.7  538936.4
+SO AREAVERT  A01  273815.3  538917.1  273843.7  538923.5  273886.1  538904.5
+SO AREAVERT  A01  273893.6  538892.0  273915.5  538886.2  273931.3  538890.0
+SO AREAVERT  A01  273966.2  538933.2  273986.6  538952.2  273981.9  539006.5
+SO AREAVERT  A01  274008.5  539015.8  274039.8  539047.5  274082.2  539035.9
+SO AREAVERT  A01  274133.6  539038.6  274163.5  539052.4  274196.0  539058.6
+SO AREAVERT  A01  274252.5  539092.5  274265.9  539135.9
+SO AREAVERT  A02  273827.6  539943.2  273934.5  539989.8  274004.4  540000.4
+SO AREAVERT  A02  274052.7  540018.1  274092.5  540041.2  274135.5  540053.9
+SO AREAVERT  A02  274169.3  540133.1  274192.4  540158.7  274246.3  540178.2
+SO AREAVERT  A02  274284.5  540183.6  274286.0  540146.5  274277.9  540111.9
+SO AREAVERT  A02  274263.2  540087.9  274242.9  540067.9  274247.7  540057.7
+SO AREAVERT  A02  274236.0  539995.8  274163.8  539934.9  274135.6  539996.8
+SO AREAVERT  A02  274113.8  540003.9  274078.3  539954.2  274104.2  539917.3
+SO AREAVERT  A02  273983.6  539762.6  273951.2  539676.1  273935.8  539675.8
+SO AREAVERT  A02  273907.4  539695.1  273877.8  539681.9  273865.1  539684.6
+SO AREAVERT  A02  273856.9  539704.4  273821.9  539719.6  273810.6  539734.6
+SO AREAVERT  A02  273800.3  539736.1  273788.5  539748.6  273781.8  539796.9
+SO AREAVERT  A02  273790.7  539808.5  273803.5  539813.7  273805.7  539823.9
+SO AREAVERT  A02  273800.4  539833.6  273801.4  539874.9  273821.9  539906.4
+** TIME       SRCID         1-9    9-12   12-13  13-18  18-24
+**            -----         ----   ----   ----   ----   ----
+SO EMISFACT   A01   HROFDY  8*0.00 3*1.0  1*0.0  5*1.0  7*0.00
+SO CONCUNIT   1.0E6  grams/sec    micrograms/m**3
+SO SRCGROUP ALL
+SO FINISHED
+RE STARTING
+RE INCLUDED  airbase.map
+RE FINISHED
+ME STARTING
+ME SURFFILE AERMOD.sfc
+ME PROFFILE AERMOD.pfl
+ME SURFDATA 43114 2023 원주
+ME UAIRDATA 47122 2023 오산
+ME PROFBASE 10.0
+ME FINISHED
+***********
+OU STARTING
+OU RECTABLE 24 4th
+OU MAXTABLE ALLAVE  10
+OU PLOTFILE 24 ALL 4th DP.DAT
+OU PLOTFILE annual ALL YP.DAT
+OU FINISHED
+*** Message Summary For AERMOD Model Setup ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            1 Warning Message(s)
+A Total of            0 Informational Message(s)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+OU W191      70        OUTQA: PM25, 1h NO2 or SO2 w/o MAXIFILE incompatible with EVENTFIL Opt
+***********************************
+*** SETUP Finishes Successfully ***
+***********************************
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        14:05:58
+PAGE   1
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE ANNUAL AVERAGE CONCENTRATION    VALUES AVERAGED OVER   1 YEARS FOR SOURCE GROUP: ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF PM-2.5   IN MICROGRAMS/M**3                          **
+X-COORD (M)   Y-COORD (M)        CONC                       X-COORD (M)   Y-COORD (M)        CONC
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00     539160.00        5.26116                      274260.00     539066.00        9.93352
+274218.00     539212.00       11.25652                      274425.00     539303.00        3.23464
+274469.00     540119.00        6.38740                      274874.00     539487.00        1.25392
+273425.00     540819.00        0.65259                      274537.00     538758.00        1.24528
+274344.00     538449.00        3.16679                      273982.00     541369.00        0.39414
+272742.00     537927.00        0.06435                      275189.00     539010.00        0.47563
+271742.00     540134.00        0.92839                      271922.00     539392.00        0.02091
+275528.00     541224.00        0.04657                      275378.00     538126.00        0.32176
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        14:05:58
+PAGE  46
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   4TH-HIGHEST 24-HR AVERAGE CONCENTRATION    VALUES AVERAGED OVER   1 YEARS FOR SOURCE GROUP: ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF PM-2.5   IN MICROGRAMS/M**3                          **
+X-COORD (M)   Y-COORD (M)        CONC                       X-COORD (M)   Y-COORD (M)        CONC
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00     539160.00       36.22818                      274260.00     539066.00       40.43856
+274218.00     539212.00       44.75399                      274425.00     539303.00       16.86838
+274469.00     540119.00       27.43453                      274874.00     539487.00        8.97126
+273425.00     540819.00        4.40434                      274537.00     538758.00        6.60297
+274344.00     538449.00        9.59337                      273982.00     541369.00        3.84406
+272742.00     537927.00        0.51425                      275189.00     539010.00        3.11157
+271742.00     540134.00        5.58771                      271922.00     539392.00        0.25452
+275528.00     541224.00        0.35405                      275378.00     538126.00        2.70773
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        14:05:58
+PAGE  59
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+(3) NO2
+CO STARTING
+CO TITLEONE 벨라스톤C.C 증설사업 aermod
+CO MODELOPT  dfault CONC
+CO AVERTIME  1 24 annual
+CO POLLUTID  NO2
+CO RUNORNOT  RUN
+CO ERRORFIL  ERRORS.OUT
+CO EVENTFIL  TESTAERMOD.EVT
+CO FINISHED
+***********
+SO STARTING
+SO LOCATION  A01  AREAPOLY  274278.8  539148.5   251.0
+SO LOCATION  A02  AREAPOLY  273827.6  539943.2   206.2
+SO SRCPARAM  A01 9.6932E-07  3  44
+SO SRCPARAM  A02 9.6932E-07  3  39
+SO AREAVERT  A01  274278.8  539148.5  274091.4  539202.7  274056.1  539226.4
+SO AREAVERT  A01  274020.1  539255.7  273966.0  539263.1  273839.0  539243.4
+SO AREAVERT  A01  273817.5  539243.6  273685.8  539266.2  273678.5  539269.4
+SO AREAVERT  A01  273634.9  539274.8  273620.9  539272.7  273565.0  539296.0
+SO AREAVERT  A01  273534.7  539248.9  273530.6  539233.8  273531.2  539196.5
+SO AREAVERT  A01  273505.5  539166.6  273493.2  539158.2  273485.4  539143.8
+SO AREAVERT  A01  273490.5  539084.8  273486.1  539073.3  273473.6  539058.7
+SO AREAVERT  A01  273467.2  539040.9  273467.7  539025.4  273481.5  539002.7
+SO AREAVERT  A01  273544.2  538957.4  273560.1  538952.0  273761.7  538936.4
+SO AREAVERT  A01  273815.3  538917.1  273843.7  538923.5  273886.1  538904.5
+SO AREAVERT  A01  273893.6  538892.0  273915.5  538886.2  273931.3  538890.0
+SO AREAVERT  A01  273966.2  538933.2  273986.6  538952.2  273981.9  539006.5
+SO AREAVERT  A01  274008.5  539015.8  274039.8  539047.5  274082.2  539035.9
+SO AREAVERT  A01  274133.6  539038.6  274163.5  539052.4  274196.0  539058.6
+SO AREAVERT  A01  274252.5  539092.5  274265.9  539135.9
+SO AREAVERT  A02  273827.6  539943.2  273934.5  539989.8  274004.4  540000.4
+SO AREAVERT  A02  274052.7  540018.1  274092.5  540041.2  274135.5  540053.9
+SO AREAVERT  A02  274169.3  540133.1  274192.4  540158.7  274246.3  540178.2
+SO AREAVERT  A02  274284.5  540183.6  274286.0  540146.5  274277.9  540111.9
+SO AREAVERT  A02  274263.2  540087.9  274242.9  540067.9  274247.7  540057.7
+SO AREAVERT  A02  274236.0  539995.8  274163.8  539934.9  274135.6  539996.8
+SO AREAVERT  A02  274113.8  540003.9  274078.3  539954.2  274104.2  539917.3
+SO AREAVERT  A02  273983.6  539762.6  273951.2  539676.1  273935.8  539675.8
+SO AREAVERT  A02  273907.4  539695.1  273877.8  539681.9  273865.1  539684.6
+SO AREAVERT  A02  273856.9  539704.4  273821.9  539719.6  273810.6  539734.6
+SO AREAVERT  A02  273800.3  539736.1  273788.5  539748.6  273781.8  539796.9
+SO AREAVERT  A02  273790.7  539808.5  273803.5  539813.7  273805.7  539823.9
+SO AREAVERT  A02  273800.4  539833.6  273801.4  539874.9  273821.9  539906.4
+** TIME       SRCID         1-9    9-12   12-13  13-18  18-24
+**            -----         ----   ----   ----   ----   ----
+SO EMISFACT   A01   HROFDY  8*0.00 3*1.0  1*0.0  5*1.0  7*0.00
+SO CONCUNIT  0.4869E03  GRAMS/SEC-METER**2    PPM
+SO SRCGROUP ALL
+SO FINISHED
+RE STARTING
+RE INCLUDED  airbase.map
+RE FINISHED
+ME STARTING
+ME SURFFILE AERMOD.sfc
+ME PROFFILE AERMOD.pfl
+ME SURFDATA 43114 2023 원주
+ME UAIRDATA 47122 2023 오산
+ME PROFBASE 10.0
+ME FINISHED
+***********
+OU STARTING
+OU RECTABLE 1 9th
+OU RECTABLE 24 4th
+OU MAXTABLE ALLAVE  10
+OU PLOTFILE 1 ALL 9th HN.DAT
+OU PLOTFILE 24 ALL 4th DN.DAT
+OU PLOTFILE annual ALL YN.DAT
+OU FINISHED
+*** Message Summary For AERMOD Model Setup ***
+--------- Summary of Total Messages --------
+A Total of            0 Fatal Error Message(s)
+A Total of            2 Warning Message(s)
+A Total of            0 Informational Message(s)
+******** FATAL ERROR MESSAGES ********
+***  NONE  ***
+********   WARNING MESSAGES   ********
+CO W361       9       COCARD: Multiyear PERIOD/ANNUAL values for NO2/SO2 require MULTYEAR Opt
+CO W362       9       COCARD: Multiyear 1h NO2/SO2 processing not applicable for    24-hr Ave
+***********************************
+*** SETUP Finishes Successfully ***
+***********************************
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        12:34:46
+PAGE   1
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE ANNUAL AVERAGE CONCENTRATION    VALUES AVERAGED OVER   1 YEARS FOR SOURCE GROUP: ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF NO2      IN PPM                                      **
+X-COORD (M)   Y-COORD (M)        CONC                       X-COORD (M)   Y-COORD (M)        CONC
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00     539160.00        0.00045                      274260.00     539066.00        0.00086
+274218.00     539212.00        0.00097                      274425.00     539303.00        0.00028
+274469.00     540119.00        0.00055                      274874.00     539487.00        0.00011
+273425.00     540819.00        0.00006                      274537.00     538758.00        0.00011
+274344.00     538449.00        0.00027                      273982.00     541369.00        0.00003
+272742.00     537927.00        0.00001                      275189.00     539010.00        0.00004
+271742.00     540134.00        0.00008                      271922.00     539392.00        0.00000
+275528.00     541224.00        0.00000                      275378.00     538126.00        0.00003
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        12:34:46
+PAGE  46
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   9TH HIGHEST  1-HR AVERAGE CONCENTRATION   VALUES FOR SOURCE GROUP:  ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF NO2      IN PPM                                      **
+X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)              X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00    539160.00        0.01498  (23112017)                274260.00    539066.00        0.02094  (23010417)
+274218.00    539212.00        0.03305  (23110817)                274425.00    539303.00        0.01179  (23011617)
+274469.00    540119.00        0.02470  (23082006)                274874.00    539487.00        0.00785  (23020618)
+273425.00    540819.00        0.00577  (23081822)                274537.00    538758.00        0.00565  (23081203)
+274344.00    538449.00        0.00570  (23071003)                273982.00    541369.00        0.00547  (23040802)
+272742.00    537927.00        0.00049  (23010511)                275189.00    539010.00        0.00302  (23111301)
+271742.00    540134.00        0.00492  (23080602)                271922.00    539392.00        0.00026  (23021210)
+275528.00    541224.00        0.00029  (23082919)                275378.00    538126.00        0.00339  (23122807)
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        12:34:46
+PAGE  67
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+*** THE   4TH HIGHEST 24-HR AVERAGE CONCENTRATION   VALUES FOR SOURCE GROUP:  ALL      ***
+INCLUDING SOURCE(S):     A01         , A02         ,
+*** DISCRETE CARTESIAN RECEPTOR POINTS ***
+** CONC OF NO2      IN PPM                                      **
+X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)              X-COORD (M)  Y-COORD (M)        CONC     (YYMMDDHH)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+274350.00    539160.00        0.00312c (23122824)                274260.00    539066.00        0.00348c (23120424)
+274218.00    539212.00        0.00386c (23112224)                274425.00    539303.00        0.00145c (23112724)
+274469.00    540119.00        0.00236  (23111024)                274874.00    539487.00        0.00077c (23120424)
+273425.00    540819.00        0.00038c (23061024)                274537.00    538758.00        0.00057c (23010724)
+274344.00    538449.00        0.00083c (23120624)                273982.00    541369.00        0.00033c (23010924)
+272742.00    537927.00        0.00004c (23021224)                275189.00    539010.00        0.00027c (23120324)
+271742.00    540134.00        0.00048c (23040924)                271922.00    539392.00        0.00002c (23052324)
+275528.00    541224.00        0.00003  (23021924)                275378.00    538126.00        0.00023c (23011324)
+*** AERMOD - VERSION 24142  ***   *** 벨라스톤C.C 증설사업 aermod                                          ***        12/01/25
+*** AERMET - VERSION  21112 ***   ***                                                                      ***        12:34:46
+PAGE  88
+*** MODELOPTs:    RegDFAULT  CONC  ELEV  RURAL
+15.7 참고자료
+- 공 란 -

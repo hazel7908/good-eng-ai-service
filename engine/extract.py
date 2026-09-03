@@ -193,12 +193,18 @@ def extract_hwpx(filepath: str) -> str:
 
 
 def extract(filepath: str) -> str:
-    """파일 확장자에 따라 적절한 추출 함수를 호출합니다."""
+    """파일 확장자에 따라 적절한 추출 함수를 호출합니다.
+
+    🚨 **`_sanitize` 는 여기서 건다.** 예전엔 CLI 쓰기 지점 두 곳에만 걸려 있어
+    `extract()` 를 직접 부르는 코드는 **짝 없는 서로게이트에 그대로 죽었다**
+    (수확기가 전략 `08 계획의 적정성` 에서 UnicodeEncodeError — 09-03).
+    깨진 문서는 드물지 않으니 **추출 자체가 안전한 문자열을 돌려주게** 한다.
+    """
     ext = Path(filepath).suffix.lower()
     if ext == ".hwp":
-        return extract_hwp(filepath)
+        return _sanitize(extract_hwp(filepath))
     elif ext == ".hwpx":
-        return extract_hwpx(filepath)
+        return _sanitize(extract_hwpx(filepath))
     else:
         raise ValueError(f"지원하지 않는 파일 형식: {ext} (HWP 또는 HWPX만 지원)")
 
