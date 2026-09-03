@@ -698,8 +698,13 @@ def verify(spec, dst):
     """저장된 베이스 문서의 토큰을 명세와 대조."""
     import re
     import zipfile
+    # 🚨 **섹션이 여럿인 문서가 있다.** `section0.xml` 만 읽으면 뒤 섹션에 들어간 토큰을
+    #    통째로 못 본다 — 동식물상(4섹션)에서 56종 중 **38종을 MISSING 으로 오판**했다
+    #    (실제로는 전부 뚫려 있었다. 2026-09-03 실측). 빌드는 멀쩡한데 검증만 빨간
+    #    자리라 더 위험하다 — 재빌드를 반복하게 만든다.
     with zipfile.ZipFile(dst) as zf:
-        xml = zf.read("Contents/section0.xml").decode("utf-8")
+        xml = "".join(zf.read(n).decode("utf-8") for n in sorted(zf.namelist())
+                      if re.match(r"Contents/section\d+\.xml$", n))
     found = set(re.findall(r"\{\{([^}]+)\}\}", xml))
     want = set(spec["expect"])
     print(f"\n토큰 {len(found)}종 발견")

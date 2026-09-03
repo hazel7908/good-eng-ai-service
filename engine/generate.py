@@ -22,6 +22,7 @@ import importlib.util
 import json
 import sys
 import time
+import re
 import zipfile
 from pathlib import Path
 
@@ -158,8 +159,12 @@ def main():
     check_figures(str(output), str(template))
 
     # 치환 누락 검사 — 빈칸이 남아 있으면 실패다
+    # 🚨 **섹션이 여럿인 문서가 있다** — `section0.xml` 만 읽으면 뒤 섹션의 빈칸을
+    #    통째로 못 본다. 동식물상은 4섹션이라 이 게이트가 헛통과했다 (09-03).
+    #    `smoke_check`·`leak_check`·`table_leak` 은 이미 전 섹션을 읽는다.
     with zipfile.ZipFile(output) as zf:
-        xml = zf.read("Contents/section0.xml").decode("utf-8")
+        xml = "".join(zf.read(n).decode("utf-8") for n in sorted(zf.namelist())
+                      if re.match(r"Contents/section\d+\.xml$", n))
     left = [k for k in slots if (PLACEHOLDER % k) in xml]
     if left:
         print(f"\n⚠️ 치환되지 않은 빈칸 {len(left)}건: {left}")

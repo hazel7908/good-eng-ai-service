@@ -40,11 +40,15 @@ def build_tables(hwp, v):
     for i, row in enumerate(rows):
         W("시·군·구별 면적(㎢)", 2 + i, 0, list(row) + [None] * (9 - len(row)))
 
-    print("  야생생물 보호구역 표 — 앵커 `면적(㎢)`(첫 출현) · n행 · 소재지 셀은 항상 다시 쓴다")
+    # 🚨 앵커를 `면적(㎢)` 으로 두면 **자연공원 표**가 먼저 걸린다 — 그 표 머리가
+    #    `시·군·구별 면적(㎢)` 이라 **부분문자열로 포함**한다(문서 순서상 자연공원이 앞).
+    #    실제로 자연공원 표의 머리행까지 야생생물 값으로 덮였다 (09-03 되먹임 실측:
+    #    `구분|도별|계` → `11|강원 원주 소초면…|0.059`). 이 표에만 있는 `연번` 을 쓴다.
+    print("  야생생물 보호구역 표 — 앵커 `연번`(이 표 고유) · n행 · 소재지 셀은 항상 다시 쓴다")
     rows = b.get("야생생물표") or [[None, None, None, "-"]]
-    fit_rows(hwp, "면적(㎢)", 3, len(rows), start=1)
+    fit_rows(hwp, "연번", 3, len(rows), start=1)
     for i, row in enumerate(rows):
-        W("면적(㎢)", 1 + i, 0, list(row) + [None] * (4 - len(row)))
+        W("연번", 1 + i, 0, list(row) + [None] * (4 - len(row)))
 
     print("  산림유전자원보호구역 표 — 앵커 `보호구역 명칭` · n행 5칸")
     rows = b.get("산림유전표") or [[None] * 5]
