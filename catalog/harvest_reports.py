@@ -109,6 +109,8 @@ def main():
     ap.add_argument("category", choices=sorted(TARGETS))
     ap.add_argument("--limit", type=int, default=0, help="앞에서 n건만 (속도 측정용)")
     ap.add_argument("--skip-existing", action="store_true", default=True)
+    ap.add_argument("--reextract", action="store_true",
+                    help="이미 받아 둔 원본으로 txt 만 다시 뽑는다 (추출기 개선 후 재추출)")
     args = ap.parse_args()
 
     t = TARGETS[args.category]
@@ -116,6 +118,25 @@ def main():
     out = ROOT / "golden" / args.category / t["사업"]
     raw.mkdir(parents=True, exist_ok=True)
     out.mkdir(parents=True, exist_ok=True)
+
+    if args.reextract:
+        # 🔬 추출기 v2 재추출 — NAS 접속 없이 로컬 원본만 쓴다 (㉒, 09-04).
+        n = 0
+        for frag, slug in t["map"]:
+            hit = [f for f in raw.glob("*.hwp") if frag in f.name]
+            if not hit:
+                print(f"  ⚠️ 로컬 원본 없음: {frag} → {slug}")
+                continue
+            src = sorted(hit, key=lambda x: len(x.name))[0]
+            txt = out / f"{slug}.txt"
+            before = txt.read_text(encoding="utf-8") if txt.exists() else ""
+            txt.write_text(extract(str(src)), encoding="utf-8")
+            after = txt.read_text(encoding="utf-8")
+            n += 1
+            mark = "=" if before == after else "≠"
+            print(f"  {mark} {slug:28} {before.count(chr(10)):>7,}줄 → {after.count(chr(10)):>7,}줄")
+        print(f"재추출 {n}건 → {out}")
+        return
 
     fs = connect()
     nas = SHARE + t["nas"]
