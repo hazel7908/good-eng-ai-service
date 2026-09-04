@@ -282,6 +282,10 @@ def gold_table(lines, cap, head="", skip=0):
             #    **가점**으로만 준다 — 길이가 충분할 때만.
             if len(nk) >= 6 and nk in nt:
                 r = min(1.0, r + 0.3)
+            # **완전 일치(마커 제외)는 포함 매치보다 세게** — `수문관측소 현황` 이 절 제목
+            # `수문관측소 현황 조사`(포함 1.0, 문서 앞쪽)에 밀려 서술 블록을 잡았다 (09-04 실측).
+            if nt.replace("楴䵴", "") == nk:
+                r = 1.05
             cand.append((r, i))
     cand.sort(key=lambda x: (-x[0], x[1]))
     if not cand or cand[0][0] < 0.6:
@@ -327,6 +331,8 @@ def score_tables(case, part, gold_lines):
     tally, rows = {}, []
     seen = {}                                    # 같은 캡션(`<표 계속>`)의 k 번째 → 골든 k 번째 블록
     for cap, cells in tables_of(case, part):
+        # 산출물 셀의 XML 엔티티를 되돌린다 — `&lt;측구 점검…&gt;` 이 그대로면 head 대조가 어긋난다
+        cells = cells.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
         head = " ".join(cells.split()[:3])      # 머리행 앞부분 — 캡션이 없을 때 쓴다
         key = re.sub(r"\s+", "", cap or head)
         g = gold_table(gold_lines, cap, head, skip=seen.get(key, 0))
@@ -339,7 +345,17 @@ def score_tables(case, part, gold_lines):
             if not a and not b:
                 v = "OK"                      # 값 없는 법령표·머리표
             elif CHECK in cells and not (a & b):
-                v = "확인필요"
+                v = "확인필요"                 # ⚠️ 반드시 텍스트 폴백보다 먼저 — 비운 표가 OK 로 둔갑한다
+            elif not a and b:
+                # ⚠️ **서식·텍스트 표는 숫자로 판정하면 안 된다** (2026-09-04). 산출물 표에 숫자가
+                #    아예 없는데 골든 블록에 잡음 숫자(월·조문·이웃 표 경계)가 한둘 섞이면
+                #    전부 WRONG 이 됐다 — 소재평 6장 점검리스트 4건·8장 서식 5건이 이 부류.
+                #    숫자 0 인 표는 **한글 낱말 겹침**으로 가른다 (라벨이 같으면 서식 그대로 = OK).
+                # 분모는 **산출물 쪽**(wa) — 골든 블록이 이웃 표를 삼켜 커져도(재해 골든 §경계)
+                #    "이 표의 라벨이 골든 블록 안에 있는가"로 판정이 유지된다.
+                wa = set(re.findall(r"[가-힣]{2,}", cells))
+                wb = set(re.findall(r"[가-힣]{2,}", g))
+                v = "OK" if not wa or len(wa & wb) / len(wa) >= 0.6 else "WRONG"
             elif b <= a and a:          # 정답 값을 다 담았다 — 더 있어도 감점 아니다
                 v = "OK"
             elif a & b:
