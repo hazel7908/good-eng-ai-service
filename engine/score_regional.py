@@ -256,7 +256,7 @@ def tables_of(case, part):
     return out
 
 
-def gold_table(lines, cap, head=""):
+def gold_table(lines, cap, head="", skip=0):
     """정답 txt 에서 표를 찾아 `자)` 직전까지 가져온다.
 
     ⚠️ 유사도만 쓰면 놓친다 — 정답 캡션에는 `소음환경기준   (단위 : Leq dB(A))`
@@ -269,7 +269,7 @@ def gold_table(lines, cap, head=""):
     keys = [k for k in (cap, head) if k and len(norm(k)) >= 4]
     if not keys:
         return None
-    bi, best = -1, 0.0
+    cand = []                                   # (점수, 줄번호) 전 후보
     for i, t in enumerate(lines):
         t = t.strip()
         if not t or len(t) > 80:
@@ -282,10 +282,16 @@ def gold_table(lines, cap, head=""):
             #    **가점**으로만 준다 — 길이가 충분할 때만.
             if len(nk) >= 6 and nk in nt:
                 r = min(1.0, r + 0.3)
-            if r > best:
-                best, bi = r, i
-    if bi < 0 or best < 0.6:
+            cand.append((r, i))
+    cand.sort(key=lambda x: (-x[0], x[1]))
+    if not cand or cand[0][0] < 0.6:
         return None
+    best = cand[0][0]
+    # `<표 계속>` 처럼 **같은 캡션이 여러 개**면 첫 줄만 잡혀 모든 산출물 표가 한 블록에
+    # 짝지어진다 (09-04 본환 결론 실측). 최고점과 사실상 같은(±0.02) 후보를 문서 순으로
+    # 늘어놓고 `skip` 번째를 쓴다 — 호출부(score_tables)가 캡션 출현 횟수를 센다.
+    ties = sorted(i for r, i in cand if r >= best - 0.02)
+    bi = ties[min(skip, len(ties) - 1)]
     body = []
     for t in lines[bi + 1:]:
         t = t.strip()
@@ -296,8 +302,12 @@ def gold_table(lines, cap, head=""):
         #    (원주·천안 수질 각 4건, 2026-08-31 실측).
         # 재해 골든은 절·표·삽도 제목 앞에 자동번호 필드 잔재 `楴䵴` 가 붙는다 — 그 줄이
         # 곧 다음 블록의 시작이다. 소환 골든엔 없어 영향 없음 (2026-09-02).
+        # 본환·전략은 `<표 계속>` 캡션이 출처 주석 없이 이어진다 — 캡션 꼴과 절번호 제목도
+        # 경계다. 안 끊으면 첫 블록이 뒤 블록들을 전부 삼켜 되먹임조차 `일부` 가 된다 (09-04 실측).
         if t.startswith(("자)", "주)", "楴䵴")) or (body and re.match(r"^2\.\d", t)) \
-                or (body and re.match(r"^[가-하]\)\s*\S", t)):
+                or (body and re.match(r"^[가-하]\)\s*\S", t)) \
+                or (body and re.match(r"^[<\[](표|그림)", t)) \
+                or (body and re.match(r"^제 ?\d+ ?장|^\d+(\.\d+){1,3}\.?\s+[가-힣]", t)):
             break
         body.append(t)
         if len(body) > 400:
@@ -315,9 +325,12 @@ TBL_SEC = {"지목별 토지이용": "2.2", "용도지역 현황": "2.2", "도�
 
 def score_tables(case, part, gold_lines):
     tally, rows = {}, []
+    seen = {}                                    # 같은 캡션(`<표 계속>`)의 k 번째 → 골든 k 번째 블록
     for cap, cells in tables_of(case, part):
         head = " ".join(cells.split()[:3])      # 머리행 앞부분 — 캡션이 없을 때 쓴다
-        g = gold_table(gold_lines, cap, head)
+        key = re.sub(r"\s+", "", cap or head)
+        g = gold_table(gold_lines, cap, head, skip=seen.get(key, 0))
+        seen[key] = seen.get(key, 0) + 1
         a = {m for m in NUM.findall(cite(cells)) if len(m.replace(",", "").replace(".", "")) >= 2}
         if g is None:
             v = "잉여"
