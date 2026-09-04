@@ -182,8 +182,58 @@ def extract_hwpx(filepath: str) -> str:
             except ET.ParseError:
                 continue
 
-            # 모든 텍스트 노드 추출 (네임스페이스 무시)
+            # 🚨 **문단 단위로 잇는다** (2026-09-04). 예전 코드는 모든 요소의 text/tail 을
+            #    각각 strip 해 **별도 줄**로 넣었다 — `<hp:t>1차  :  2025.<hp:fwSpace/>06.…</hp:t>`
+            #    한 셀이 골든에 세 줄로 갈라졌고, spec 생성기가 이어붙이다 앞자리를 잃었다
+            #    (soil 조사시기 `025.06.25` — Windows ㉑ 실측). fwSpace·형광펜 낀 셀 전부가
+            #    같은 부류라 근본을 고친다. 아래 규칙:
+            #    · 한 `<hp:p>` = 한 줄 (셀 안 문단 포함 — 기존 줄 모양과 동일)
+            #    · `fwSpace` → U+2007(고정폭 공백) — 눈에는 공백, **코드로는 구별**된다.
+            #      spec 생성기는 이 문자가 든 줄을 replace 로 뚫으면 안 된다(한글 찾기가
+            #      일반 공백과 다르게 취급) — **paras 로 라우팅**하는 신호다.
+            #    · `tab` → \t · 서식 요소(markpen 등)는 문자 없음 — text/tail 만 잇는다.
+            #    · `<hp:p>` 밖 텍스트(수식 `hp:script` 등)는 예전처럼 별도 줄로 보존한다.
+            def _local(tag):
+                return tag.rsplit("}", 1)[-1]
+
+            in_p = set()
+
+            def _collect(node, parts):
+                """문단 안 텍스트를 문서 순서로 잇는다 — **중첩 문단(글상자·셀 안 p)에는
+                내려가지 않는다**(자기 차례에 별도 줄). 안 막으면 바깥 p 가 안쪽 p 들을
+                통째로 삼켜 같은 문장이 두 번 나온다 (전략 자원순환 폐유저장소 실측)."""
+                for ch in node:
+                    in_p.add(id(ch))
+                    ln = _local(ch.tag)
+                    if ln == "p":
+                        if ch.tail and ch.tail.strip():
+                            parts.append(ch.tail)
+                        continue
+                    if ln == "fwSpace":
+                        parts.append("\u2007")
+                    elif ln == "tab":
+                        parts.append("\t")
+                    if ch.text:
+                        parts.append(ch.text)
+                    _collect(ch, parts)
+                    if ch.tail:
+                        parts.append(ch.tail)
+
+            for para in root.iter():
+                if _local(para.tag) != "p":
+                    continue
+                in_p.add(id(para))
+                parts = []
+                if para.text:
+                    parts.append(para.text)
+                _collect(para, parts)
+                line = "".join(parts).strip()
+                if line:
+                    paragraphs.append(line)
+            # p 에 안 담긴 텍스트 (머리글 밖 수식·개체 설명 등) — 예전 동작 보존
             for elem in root.iter():
+                if id(elem) in in_p or _local(elem.tag) == "p":
+                    continue
                 if elem.text and elem.text.strip():
                     paragraphs.append(elem.text.strip())
                 if elem.tail and elem.tail.strip():
