@@ -1,0 +1,248 @@
+#!/usr/bin/env python3
+"""0300 대상지역·0400 주변토지 vars 조립 빌더 — 형제 파트 vars 승계 (B 승급 2순위).
+
+두 파트는 자체 조사값이 거의 없다 — 0300 은 기상·소음진동·수질·0100 값의 요약,
+0400 은 0100 조서 + 지역개황 2.2 통계의 재배치다. **사실 대장 승계**로 조립한다
+(같은 사실이 파트마다 두 번 조사되지 않게 — `build_env_status_vars`·`build_waste_vars` 전례).
+
+없는 값은 만들지 않는다(환각 금지): 면적·일정·측정항목 표기 등은 None → [확인 필요].
+사용: python engine/build_area_vars.py 천안_화덕리
+"""
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def load(vdir, name):
+    p = vdir / f"{name}.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def save(vdir, name, data):
+    (vdir / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1),
+                                       encoding="utf-8")
+
+
+def build(case: str):
+    vdir = ROOT / "cases" / "small-env" / case / "vars"
+    pj = load(vdir, "project-overview")
+    cl = load(vdir, "climate")
+    nv = load(vdir, "noise-vib")
+    ro = load(vdir, "regional-overview")
+    sa = pj.get("사업", {})
+
+    # ── 0300 대상지역 — 요약 조립
+    gw = cl.get("기상연보", {})
+    기간 = gw.get("기간") or []
+    지점들 = (nv.get("예측", {}) or {}).get("지점") or []
+    ta = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0100(사업·일정)·0721(관측소)·0727(예측지점)"},
+        "사업": {"사업명": sa.get("사업명"), "위치": sa.get("위치"),
+               "면적_㎡": sa.get("면적_㎡"), "시군": sa.get("시군") or "천안시"},
+        "일정": pj.get("일정", {}),
+        "기상": {"관측소": (gw.get("관측소") or {}).get("표기"),
+               "연보기간": f"{기간[0]}~{기간[1]}년" if len(기간) == 2 else None},
+        "지점": {"예측지점수": len(지점들) or None, "조망점수": None},
+        "항목": {"대기": None, "수질": None},
+        "_확인필요": [
+            {"항목": "면적_㎡·착공일·준공일", "분류": "X", "사유": "신청서류 원천(0100 rule §0) — 0100 vars 확정 시 자동 승계"},
+            {"항목": "항목.대기·수질", "분류": "판단", "사유": "측정 항목 나열 표기 관행 미확정 — 측정보고서 원문 표기로 나열할지 rule 확인"},
+            {"항목": "조망점수", "분류": "X", "사유": "경관(0728) vars 미작성 — 그쪽 확정 시 승계"},
+        ],
+    }
+    save(vdir, "target-area", ta)
+
+    # ── 0400 주변토지 — 조서·지목 통계 조립
+    # 시군지목표: 4행(시군 면적·구성비 / 읍면 면적·구성비) × 9칸 — **베이스 열 순서**
+    # (계·임야·답·하천·전·도로·과수원·대지·기타 — 원주 면적순. ⚠️ F-3: 천안 골든은 코드순
+    #  계열이라 열 순서가 갈린다 — 값 집합은 같고 순서는 [실무자 확인]).
+    # `기타` 는 합계 잔차로 계산한다(지목 28종 중 표에 없는 것들의 합 — 환각 아님).
+    JIMOK_COLS = ["임야", "답", "하천", "전", "도로", "과수원", "대"]
+
+    def jimok_rows(d):
+        if not d:
+            return None
+        tot = d.get("합계")
+        vals = [d.get(k) for k in JIMOK_COLS]
+        if tot is None or any(x is None for x in vals):
+            return None
+        etc = round(tot - sum(vals), 2)
+        area = [tot] + vals + [etc]
+        return ([f"{x:,.2f}" for x in area],
+                [f"{x / tot * 100:.2f}" for x in area])
+
+    def yongdo_rows(d):
+        if not d or d.get("합계") is None:
+            return None
+        tot, dosi, bidosi = d["합계"], d.get("도시지역계"), d.get("비도시지역계")
+        parts = [d.get(k) for k in ("주거", "상업", "공업", "녹지")]
+        if None in (dosi, bidosi) or any(x is None for x in parts):
+            return None
+        미지정 = round(dosi - sum(parts), 2)
+        area = [tot, dosi, *parts, 미지정, bidosi, d.get("관리"), d.get("농림"), d.get("보전")]
+        if any(x is None for x in area):
+            return None
+        return ([f"{x:,.2f}" for x in area],
+                [f"{x / tot * 100:.2f}" for x in area])
+
+    # ── D2 정형 문장 조립 — 값 전개형 서술 3종 (0400·0724 공유. 문형 근거: 골든 7건 전수)
+    #   읍면지목 "가장 우세하며"(7/7) · 시군지목 "가장 크며…비교적 높은"(4/7 다수) ·
+    #   시군용도 "비도시지역 먼저 + 면적 병기"(4/5 다수 — 천안만 소수 계열).
+    #   ⚠️ 값은 0200 vars(최신 행 원칙) — 골든이 낡은 행(F-1)이면 숫자가 갈리는데
+    #   그건 정답지 부류다(천안 0200 채점 전례). 채점 시 F-1 사유로 분류할 것.
+    def d2_jimok(d, style):
+        if not d or d.get("합계") is None:
+            return None
+        tot = d["합계"]
+        big_k, big_v = max(((k, x) for k, x in d.items()
+                            if k not in ("합계", "_출처행") and isinstance(x, (int, float))),
+                           key=lambda kv: kv[1])
+        jd = (d.get("전") or 0) + (d.get("답") or 0)
+        f = lambda x: f"{x / tot * 100:.2f}%({x:.2f}㎢)"
+        if style == "시군":
+            return (f"전체면적 {tot:.2f}㎢ 중 {big_k}가 {f(big_v)}로 구성비가 가장 크며, "
+                    f"경작지(전, 답)의 구성비가 {f(jd)}로 비교적 높은 구성비를 나타내는 것으로 조사되었다")
+        return (f"전체면적 {tot:.2f}㎢ 중 ‘{big_k}’의 구성비가 {f(big_v)}로 가장 우세하며, "
+                f"경작지(전, 답)의 구성비가 {f(jd)}로 조사되었다")
+
+    def d2_yongdo(d):
+        if not d or d.get("합계") is None or d.get("비도시지역계") is None:
+            return None
+        tot = d["합계"]
+        f = lambda x: f"{x / tot * 100:.2f}%({x:.2f}㎢)"
+        return (f"전체면적 {tot:.2f}㎢ 중 비도시지역 {f(d['비도시지역계'])}, "
+                f"도시지역 {f(d['도시지역계'])}로 지정되어 있는 것으로 조사되었다")
+
+    t221 = (ro.get("통계") or {}).get("2.2.1 지목별 토지이용") or {}
+    sj_rows = []
+    for key in ("시군", "면"):
+        pair = jimok_rows(t221.get(key))
+        sj_rows += list(pair) if pair else [[None] * 9, [None] * 9]
+    yd = yongdo_rows((ro.get("통계") or {}).get("2.2.2 용도지역"))
+    지목표 = t221
+    slu = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0100(조서·용도)·0200(지목 통계)"},
+        "사업": {"사업명": sa.get("사업명"), "시군": sa.get("시군") or "천안시"},
+        "조서": pj.get("조서", {}),
+        "지구용도": pj.get("토지이용") or [],
+        "서술": {},          # 아래에서 D2 조립으로 채운다
+        "시군지목표": {"행": sj_rows},
+        "시군용도표": {"행": list(yd) if yd else []},
+        "통계": {"통계연보연도": (ro.get("_통계판", {}).get("통계연보", {}) or {}).get("판"),
+               "지목별": 지목표},
+        "_확인필요": [
+            {"항목": "조서·지구용도", "분류": "X", "사유": "0100 편입토지조서가 비어 있음(신청서류 대기) — 확정 시 재실행"},
+            {"항목": "위치용도·지목구성·지구지목·지구용도 서술", "분류": "X", "사유": "조서·신청면적 인풋 대기 (D2 지구 계열 — 값 없이 조립 금지)"},
+        ],
+    }
+
+    # ── D2 서술 채움 (통계 계열 3종 — 시군지목·읍면지목·시군용도)
+    def josa_en(w):
+        ch = (w or "").rstrip()[-1:]
+        return "은" if ch and (ord(ch) - 0xAC00) % 28 else "는"
+    import re as _re
+    위치 = sa.get("위치") or ""
+    m = _re.search(r"([가-힣]+[읍면])\s", 위치)
+    읍면 = m.group(1) if m else None
+    sig = slu["사업"]["시군"]
+    sj_j = d2_jimok(t221.get("시군"), "시군")
+    em_j = d2_jimok(t221.get("면"), "읍면")
+    yd_s = d2_yongdo((ro.get("통계") or {}).get("2.2.2 용도지역"))
+    서술 = {}
+    if sj_j:
+        서술["시군지목"] = f"{sig}{josa_en(sig)} {sj_j}"
+    if em_j and 읍면:
+        full = f"본 사업계획지구가 위치한 {읍면}{josa_en(읍면)} {em_j}"
+        # ⚠️ 0400 베이스는 `{{읍면지목_서술}}되었다.` — `되었다` 를 남긴다 (베이스 실측)
+        서술["읍면지목"] = full[:-3] if full.endswith("되었다") else full
+        slu["_읍면지목_전문"] = full
+    if yd_s:
+        서술["시군용도"] = f"{sig}{josa_en(sig)} {yd_s}"
+    slu["서술"] = 서술
+    save(vdir, "surrounding-land-use", slu)
+
+    # ── 0724 토지이용 — 같은 D2 서술 (전문 꼴) + 통계 승계
+    lu = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0200(D2 서술·통계연보연도)",
+                "주의": "0724 문장은 0400 과 미세 표기 차이(rule ②) — B 러프는 동형 사용"},
+        "사업": {"사업명": sa.get("사업명"), "시군": sig},
+        "현황": {"조사시기": None},
+        "서술": {"시군지목": 서술.get("시군지목"), "읍면지목": slu.get("_읍면지목_전문"),
+               "시군용도": 서술.get("시군용도"), "지구지목": None, "지구용도": None, "내부현황": None},
+        "통계": {"통계연보연도": slu["통계"]["통계연보연도"]},
+        "_확인필요": [
+            {"항목": "지구지목·지구용도·내부현황 서술 · 조사시기", "분류": "X",
+             "사유": "조서·신청서류 인풋 대기 — 0400 과 동시 확정"},
+        ],
+    }
+    save(vdir, "land-use", lu)
+
+    # ── 0840 총량검토서 — 사업 블록 0100 승계 + 계산 인풋 대기 명세
+    # 핵심 인풋(지목별 면적·단위유역)은 실무 산출물 `총량계산.xlsx` 가 원천이다 —
+    # NAS 환25-05 `1. 기타자료/3. 엑셀/250306 총량계산.xlsx` 실존 확인(대기질 D-4 전례).
+    # 용도지역은 소음 '다'+진동 '가'에서 역유추하지 않는다(common.md 매핑 함정의 역방향).
+    wt = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0100(사업)",
+                "인풋대기": "NAS 환25-05/1. 기타자료/3. 엑셀/250306 총량계산.xlsx"},
+        "사업": {"사업명": sa.get("사업명"), "위치": sa.get("위치"),
+               "허가권자": sa.get("허가권자"), "시군": sa.get("시군") or "천안시",
+               "시행자": None, "용도지역": None, "사업기간": None, "착공일": None,
+               "준공일": None, "준공년도": None, "표지연월": None, "면적_㎡": sa.get("면적_㎡")},
+        "배경": {"서술": None}, "실시근거": {}, "경위": {},
+        "총량": {"단위유역": None},
+        "부하": {"시행전_지목": {}, "시행후_지목": {}},
+        "조서": pj.get("조서", {}), "토지이용": pj.get("토지이용") or [],
+        "_확인필요": [
+            {"항목": "시행전·시행후 지목별 면적 · 단위유역", "분류": "X",
+             "사유": "총량계산.xlsx 인풋 대기 — 단위유역은 유역도 근거 없이 추정 금지(병천A 추정 금지)"},
+            {"항목": "용도지역", "분류": "X", "사유": "기준 분류(소음 다·진동 가)에서 역유추 금지 — 신청서류·토지이용계획확인원"},
+            {"항목": "조서·토지이용", "분류": "X", "사유": "0100 신청서류 대기와 동일 — 확정 시 재실행"},
+        ],
+    }
+    save(vdir, "water-total-load", wt)
+
+    # ── 0600 입지타당성 — 승계 15종 중 지금 채울 수 있는 것만 (환각 금지)
+    gj = nv.get("기준", {})
+    ss = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0727(기준 2종)"},
+        "사업": {"사업명": sa.get("사업명"), "시군": sa.get("시군") or "천안시"},
+        "승계": {
+            "소음환경기준_지역": gj.get("소음환경기준_지역"),      # "다" — 측정보고서 원천
+            "생활진동_지역": gj.get("생활진동규제_지역"),
+            # 나머지 13종 — 원천별 대기 명세
+            "식생보전등급": None, "생태자연도": None, "철새도래지": None, "철새도래지_이격": None,
+            "평균경사도": None, "지형변화지수": None, "토공량": None, "면적": None, "지목": None,
+            "단위유역": None, "배출허용기준_지역": None, "수질_하천구분": None, "수질_등급": None,
+        },
+        "_확인필요": [
+            {"항목": "생태자연도·식생보전등급", "분류": "계산", "사유": "EcoBank WFS 판정 가능(골든 8/8) — VWorld 지오코딩 키 재발급 대기(대여 맥북 유실)"},
+            {"항목": "배출허용기준_지역", "분류": "X", "사유": "고시 2007-107 첨부(flSeq 131227247)가 구식 HWP·스캔 PDF — Windows 한글 변환 후 읍면 대조"},
+            {"항목": "단위유역", "분류": "X", "사유": "0840 총량계산.xlsx 인풋과 동시 확정"},
+            {"항목": "평균경사도·지형변화지수·토공량·면적·지목", "분류": "X", "사유": "설계도서·신청서류"},
+            {"항목": "철새도래지·수질 등급", "분류": "X", "사유": "조사·측정 원천 — wq vars 확정 시 승계"},
+        ],
+    }
+    save(vdir, "site-suitability", ss)
+
+    # ── dry-검증 — 핸들러 build_slots 를 실제로 돌려 MISSING 수를 센다
+    sys.path.insert(0, str(ROOT / "engine"))
+    sys.path.insert(0, str(ROOT / "engine" / "parts" / "small-env"))
+    import importlib.util
+    for part, data in (("target-area", ta), ("surrounding-land-use", slu),
+                       ("water-total-load", wt), ("land-use", lu), ("site-suitability", ss)):
+        spec = importlib.util.spec_from_file_location(part.replace("-", "_"),
+                                                      ROOT / "engine" / "parts" / "small-env" / f"{part}.py")
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        slots = m.build_slots(data)
+        miss = [k for k, x in slots.items() if str(x) == "[확인 필요]"]
+        filled = {k: str(x)[:30] for k, x in slots.items() if str(x) != "[확인 필요]"}
+        print(f"✓ {part}: 슬롯 {len(slots)} — 채움 {len(filled)} · 확인필요 {len(miss)}")
+        for k, x in filled.items():
+            print(f"    {k} = {x}")
+
+
+if __name__ == "__main__":
+    build(sys.argv[1] if len(sys.argv) > 1 else "천안_화덕리")

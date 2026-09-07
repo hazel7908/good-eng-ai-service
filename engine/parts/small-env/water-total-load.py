@@ -26,7 +26,12 @@ def _n(x):
 
 
 def _rows(area_by):
-    """지목별 면적 → [지목, 면적, 원BOD, 원TP, 발BOD(3), 발TP(4)] + 표시값 합."""
+    """지목별 면적 → [지목, 면적, 원BOD, 원TP, 발BOD(3), 발TP(4)] + 표시값 합.
+
+    ⚠️ 빈 인풋이면 합계도 None — 빈 dict 의 합 0.000 이 그럴듯한 부하량으로 실리는
+    환각 부류다 (2026-09-07 천안 골격 dry-run 실측: 전·후·차감 전부 0.000 둔갑)."""
+    if not area_by:
+        return [], None, None, None
     out, sb, st = [], 0.0, 0.0
     for jimok, area in (area_by or {}).items():
         a, u = _n(area), UNIT.get(jimok)

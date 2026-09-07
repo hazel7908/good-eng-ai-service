@@ -127,6 +127,8 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── hydro.py                  수계도 — 흐름 화살표·하천명·보호구역 채색
 │   ├── psd_base.py               ⚙ 검증 전용 — 정답 PSD 레이어 추출 (파이프라인 아님)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
+│   ├── build_waste_vars.py       0726 vars 승계 빌더 — 0200 §2.7 → 기초시설표 (B 승급)
+│   ├── build_area_vars.py        0300·0400 vars 조립 — 형제 vars 승계 (B 승급)
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
 │   │  ▸ 검증·측정 (Mac)
@@ -138,6 +140,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── law_scan.py               인용 법령 전수 스캔 — 개정 감시(할 일 7) ①
 │   ├── law_check.py              법제처 API 시행일자 대조 — 〃 ② (키 ~/.lawapi.env)
 │   ├── law_annex.py              현행 별표 본문 값 대조 — 〃 ③ (기준표 8종)
+│   ├── law_update.py             구인용→현행 치환 매핑 생성 — 〃 ④ (생성 훅 ㉙)
 │
 ├── catalog/                     ▓ NAS 카탈로그 (독립 하위시스템)
 │   ├── synology_filestation.py    NAS API 클라이언트 (병렬 크롤)

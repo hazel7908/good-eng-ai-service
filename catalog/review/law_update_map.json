@@ -1,0 +1,563 @@
+{
+ "생성일": "2026-09-07",
+ "원칙": "길이 내림차순 적용·전체 문자열만",
+ "치환": [
+  {
+   "old": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.4.13., 일부개정)",
+   "new": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2025-10호, 2025.10.23., 일부개정)",
+   "근거": "STALE 2023-72→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "env-impact/scoping",
+    "small-env/site-suitability",
+    "small-env/target-area"
+   ]
+  },
+  {
+   "old": "재해영향평가등의 협의 실무지침(행정안전부 고시 제2023-63호, 2023.08.03.)",
+   "new": "재해영향평가등의 협의 실무지침(행정안전부 고시 제2025-30호, 2025.5.1.)",
+   "근거": "STALE 2023-63→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-impact/impact-assessment",
+    "disaster-impact/mitigation",
+    "disaster-impact/project-overview",
+    "small-disaster/baseline-survey",
+    "small-disaster/impact-assessment",
+    "small-disaster/mitigation",
+    "small-disaster/project-overview"
+   ]
+  },
+  {
+   "old": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2025-49호, 2025.3.20)",
+   "new": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2025-10호, 2025.10.23.)",
+   "근거": "STALE 2025-49→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "env-impact/flora-fauna"
+   ]
+  },
+  {
+   "old": "신·재생 에너지 설비의 지원 등에 관한 규정 [산업통상자원부고시 제2025-25호",
+   "new": "신·재생 에너지 설비의 지원 등에 관한 규정 [산업통상자원부고시 제2026-184호",
+   "근거": "STALE 2025-25→2026-184",
+   "현행명": "신ㆍ재생에너지 설비의 지원 등에 관한 규정",
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ]
+  },
+  {
+   "old": "행정안전부 고시 제2023-63호(2023.08) 재해영향평가등의 협의 실무지침",
+   "new": "행정안전부 고시 제2025-30호(2023.08) 재해영향평가등의 협의 실무지침",
+   "근거": "STALE 2023-63→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/target-area"
+   ]
+  },
+  {
+   "old": "환경영향평가서 등 작성 등에 관한 규정 별표3, 환경부고시 제2020-289호",
+   "new": "환경영향평가서 등 작성 등에 관한 규정 별표3, 환경부고시 제2025-10호",
+   "근거": "STALE 2020-289→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "strategic-env/alternatives"
+   ]
+  },
+  {
+   "old": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2020-289호)",
+   "new": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2025-10호)",
+   "근거": "STALE 2020-289→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "환경영향평가서 작성 등에 관한 규정, 환경부고시 제2020-289호",
+   "new": "환경영향평가서 작성 등에 관한 규정, 환경부고시 제2025-10호",
+   "근거": "STALE 2020-289→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "환경영향평가서 작성 등에 관한 규정, 환경부고시 제2023-72호",
+   "new": "환경영향평가서 작성 등에 관한 규정, 환경부고시 제2025-10호",
+   "근거": "STALE 2023-72→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "env-impact/alternatives"
+   ]
+  },
+  {
+   "old": "급경사지 재해위험도 평가기준(행정안전부 고시 제2021-47호)",
+   "new": "급경사지 재해위험도 평가기준(행정안전부 고시 제2023-36호)",
+   "근거": "STALE 2021-47→2023-36",
+   "현행명": "급경사지 재해위험도 평가기준",
+   "parts": [
+    "disaster-review/risk-analysis"
+   ]
+  },
+  {
+   "old": "재해영향평가 등의 협의 실무지침(행정안전부고시 제2021-1호)",
+   "new": "재해영향평가 등의 협의 실무지침(행정안전부고시 제2025-30호)",
+   "근거": "STALE 2021-1→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/risk-analysis"
+   ]
+  },
+  {
+   "old": "재해영향평가 등의 실무지침. 행정안전부 고시 제2023-63호",
+   "new": "재해영향평가 등의 실무지침. 행정안전부 고시 제2025-30호",
+   "근거": "STALE 2023-63→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-impact/mitigation",
+    "small-disaster/mitigation"
+   ]
+  },
+  {
+   "old": "먹는물수질공정시험기준, 국립환경과학원고시 제2023-33호",
+   "new": "먹는물수질공정시험기준, 국립환경과학원고시 제2025-48호",
+   "근거": "STALE 2023-33→2025-48",
+   "현행명": "먹는물수질공정시험기준",
+   "parts": [
+    "env-impact/water-quality"
+   ]
+  },
+  {
+   "old": "수질오염공정시험기준, 국립환경과학원고시 제2022-12호",
+   "new": "수질오염공정시험기준, 국립환경과학원고시 제2025-53호",
+   "근거": "STALE 2022-12→2025-53",
+   "현행명": "수질오염공정시험기준",
+   "parts": [
+    "env-impact/water-quality"
+   ]
+  },
+  {
+   "old": "생태계교란 생물 지정고시, 환경부고시 제2020-285호",
+   "new": "생태계교란 생물 지정고시, 기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2020-285→2025-165",
+   "현행명": "생태계교란 생물 지정 고시",
+   "parts": [
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "재해영향평가등의 실무지침(행정안전부 제2023-63호)",
+   "new": "재해영향평가등의 실무지침(행정안전부 제2025-30호)",
+   "근거": "STALE 2023-63→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/baseline-survey"
+   ]
+  },
+  {
+   "old": "중권역별 물환경 목표기준, 환경부고시 제2018-6호",
+   "new": "중권역별 물환경 목표기준, 기후에너지환경부고시 제2026-121호",
+   "근거": "STALE 2018-6→2026-121",
+   "현행명": "중권역별 물환경 목표기준 고시",
+   "parts": [
+    "env-impact/water-quality"
+   ]
+  },
+  {
+   "old": "「수목원 조성 및 진흥에 관한 법률 시행규칙」",
+   "new": "「수목원·정원의 조성 및 진흥에 관한 법률 시행규칙」",
+   "근거": "법령 개명",
+   "현행명": "수목원·정원의 조성 및 진흥에 관한 법률 시행규칙",
+   "parts": [
+    "strategic-env/appendix"
+   ]
+  },
+  {
+   "old": "「댐건설 및 주변지역지원 등에 관한 법률」",
+   "new": "「댐건설·관리 및 주변지역지원 등에 관한 법률」",
+   "근거": "법령 개명",
+   "현행명": "댐건설·관리 및 주변지역지원 등에 관한 법률",
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey"
+   ]
+  },
+  {
+   "old": "산업통상자원부고시 제2025-25호",
+   "new": "산업통상자원부고시 제2026-184호",
+   "근거": "STALE 2025-25→2026-184",
+   "현행명": "신ㆍ재생에너지 설비의 지원 등에 관한 규정",
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ]
+  },
+  {
+   "old": "국립환경과학원고시 제2018-53호",
+   "new": "국립환경과학원고시 제2022-38호",
+   "근거": "STALE 2018-53→2022-38",
+   "현행명": "토양오염공정시험기준",
+   "parts": [
+    "env-impact/soil"
+   ]
+  },
+  {
+   "old": "국립환경과학원고시 제2022-79호",
+   "new": "국립환경과학원고시 제2026-30호",
+   "근거": "STALE 2022-79→2026-30",
+   "현행명": "소음·진동공정시험기준",
+   "parts": [
+    "env-impact/noise-vib"
+   ]
+  },
+  {
+   "old": "국립환경과학원고시 제2022-12호",
+   "new": "국립환경과학원고시 제2025-53호",
+   "근거": "STALE 2022-12→2025-53",
+   "현행명": "수질오염공정시험기준",
+   "parts": [
+    "env-impact/water-quality"
+   ]
+  },
+  {
+   "old": "국립환경과학원고시 제2023-33호",
+   "new": "국립환경과학원고시 제2025-48호",
+   "근거": "STALE 2023-33→2025-48",
+   "현행명": "먹는물수질공정시험기준",
+   "parts": [
+    "env-impact/water-quality"
+   ]
+  },
+  {
+   "old": "행정안전부 고시 제2023-63호",
+   "new": "행정안전부 고시 제2025-30호",
+   "근거": "STALE 2023-63→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-impact/impact-assessment",
+    "disaster-impact/mitigation",
+    "disaster-impact/project-overview",
+    "disaster-review/target-area",
+    "small-disaster/baseline-survey",
+    "small-disaster/impact-assessment",
+    "small-disaster/mitigation",
+    "small-disaster/project-overview"
+   ]
+  },
+  {
+   "old": "행정안전부 고시 제2021-47호",
+   "new": "행정안전부 고시 제2023-36호",
+   "근거": "STALE 2021-47→2023-36",
+   "현행명": "급경사지 재해위험도 평가기준",
+   "parts": [
+    "disaster-review/risk-analysis"
+   ]
+  },
+  {
+   "old": "지식경제부고시 제2009-193호",
+   "new": "지식경제부고시 제2023-6호",
+   "근거": "STALE 2009-193→2023-6",
+   "현행명": "에너지사용계획 수립 및 협의절차 등에 관한 규정",
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ]
+  },
+  {
+   "old": "행정안전부고시 제2023-63호",
+   "new": "행정안전부고시 제2025-30호",
+   "근거": "STALE 2023-63→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/target-area"
+   ]
+  },
+  {
+   "old": "환경부 고시 제2024-212호",
+   "new": "기후에너지환경부 고시 제2025-165호",
+   "근거": "STALE 2024-212→2025-165",
+   "현행명": "생태계교란 생물 지정 고시",
+   "parts": [
+    "small-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "행정안전부고시 제2021-47호",
+   "new": "행정안전부고시 제2023-36호",
+   "근거": "STALE 2021-47→2023-36",
+   "현행명": "급경사지 재해위험도 평가기준",
+   "parts": [
+    "disaster-review/risk-analysis",
+    "disaster-review/target-area"
+   ]
+  },
+  {
+   "old": "행정안전부 고시 제2019-5호",
+   "new": "행정안전부 고시 제2025-30호",
+   "근거": "STALE 2019-5→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/baseline-survey"
+   ]
+  },
+  {
+   "old": "환경부 고시 제2023-135호",
+   "new": "기후에너지환경부 고시 제2025-165호",
+   "근거": "STALE 2023-135→2025-165",
+   "현행명": "골프장의 중점 환경영향평가항목 및 평가방법 등에 관한 규정",
+   "parts": [
+    "env-impact/scoping"
+   ]
+  },
+  {
+   "old": "환경부 고시 제2006-227호",
+   "new": "기후에너지환경부 고시 제2026-121호",
+   "근거": "STALE 2006-227→2026-121",
+   "현행명": "중권역별 물환경 목표기준 고시",
+   "parts": [
+    "strategic-env/water-quality"
+   ]
+  },
+  {
+   "old": "환경부고시 제2015-201호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2015-201→2025-165",
+   "현행명": "연료용 유류 등의 황함유기준",
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview"
+   ]
+  },
+  {
+   "old": "환경부고시 제2020-289호",
+   "new": "환경부고시 제2025-10호",
+   "근거": "STALE 2020-289→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "strategic-env/alternatives",
+    "strategic-env/appendix",
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "환경부고시 제2025-102호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2025-102→2025-165",
+   "현행명": "한강유역 폐수배출시설 설치제한을 위한 대상 지역 및 시설 지정",
+   "parts": [
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability"
+   ]
+  },
+  {
+   "old": "환경부고시 제2024-212호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2024-212→2025-165",
+   "현행명": "생태계교란 생물 지정 고시",
+   "parts": [
+    "env-impact/flora-fauna",
+    "small-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "행정안전부고시 제2021-1호",
+   "new": "행정안전부고시 제2025-30호",
+   "근거": "STALE 2021-1→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/risk-analysis"
+   ]
+  },
+  {
+   "old": "고용노동부고시 제2020-6호",
+   "new": "고용노동부고시 제2023-34호",
+   "근거": "STALE 2020-6→2023-34",
+   "현행명": "발파 표준안전 작업지침",
+   "parts": [
+    "env-impact/noise-vib"
+   ]
+  },
+  {
+   "old": "행정안전부고시 제2023-1호",
+   "new": "행정안전부고시 제2025-30호",
+   "근거": "STALE 2023-1→2025-30",
+   "현행명": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/risk-analysis"
+   ]
+  },
+  {
+   "old": "환경부고시 제2018-153호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2018-153→2025-165",
+   "현행명": "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법",
+   "parts": [
+    "env-impact/resource-cycle"
+   ]
+  },
+  {
+   "old": "환경부고시 제2020-285호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2020-285→2025-165",
+   "현행명": "생태계교란 생물 지정 고시",
+   "parts": [
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "환경부고시 제2018-23호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2018-23→2025-165",
+   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ]
+  },
+  {
+   "old": "경부 고시 제2018-23호",
+   "new": "경부 고시 제2025-165호",
+   "근거": "STALE 2018-23→2025-165",
+   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
+   "parts": [
+    "small-env/site-suitability"
+   ]
+  },
+  {
+   "old": "환경부고시 제2023-72호",
+   "new": "환경부고시 제2025-10호",
+   "근거": "STALE 2023-72→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/scoping",
+    "env-impact/target-area",
+    "small-env/appendix",
+    "small-env/site-suitability",
+    "small-env/target-area"
+   ]
+  },
+  {
+   "old": "환경부고시 제2025-46호",
+   "new": "기후에너지환경부고시 제2026-212호",
+   "근거": "STALE 2025-46→2026-212",
+   "현행명": "팔당·대청호 상수원 수질보전특별대책지역 지정 및 특별종합대책",
+   "parts": [
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability"
+   ]
+  },
+  {
+   "old": "환경부고시 제2021-59호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2021-59→2025-165",
+   "현행명": "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법",
+   "parts": [
+    "env-impact/water-quality"
+   ]
+  },
+  {
+   "old": "환경부고시 제2025-49호",
+   "new": "환경부고시 제2025-10호",
+   "근거": "STALE 2025-49→2025-10",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "parts": [
+    "env-impact/flora-fauna"
+   ]
+  },
+  {
+   "old": "환경부고시 제2019-47호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2019-47→2025-165",
+   "현행명": "도시생태현황지도의 작성방법에 관한 지침",
+   "parts": [
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "환경부고시 제2018-6호",
+   "new": "기후에너지환경부고시 제2026-121호",
+   "근거": "STALE 2018-6→2026-121",
+   "현행명": "중권역별 물환경 목표기준 고시",
+   "parts": [
+    "env-impact/water-quality",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/hydrology",
+    "strategic-env/regional-overview",
+    "strategic-env/summary",
+    "strategic-env/water-quality"
+   ]
+  },
+  {
+   "old": "「에너지기본법 시행규칙」",
+   "new": "「에너지법 시행규칙」",
+   "근거": "법령 개명",
+   "현행명": "에너지법 시행규칙",
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ]
+  },
+  {
+   "old": "「문화재보호법 시행령」",
+   "new": "「문화유산의 보존 및 활용에 관한 법률 시행령」",
+   "근거": "법령 개명",
+   "현행명": "문화유산의 보존 및 활용에 관한 법률 시행령",
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "「야생동·식물보호법」",
+   "new": "「야생생물 보호 및 관리에 관한 법률」",
+   "근거": "법령 개명",
+   "현행명": "야생생물 보호 및 관리에 관한 법률",
+   "parts": [
+    "env-impact/alternatives",
+    "small-env/flora-fauna"
+   ]
+  },
+  {
+   "old": "「문화재보호법」",
+   "new": "「문화유산의 보존 및 활용에 관한 법률」",
+   "근거": "법령 개명",
+   "현행명": "문화유산의 보존 및 활용에 관한 법률",
+   "parts": [
+    "small-env/flora-fauna"
+   ]
+  }
+ ],
+ "인용오류의심": [
+  {
+   "인용": "자연재해위험개선지구 관리지침(제2023-63호. 행정안전부)",
+   "인용번호": "2023-63",
+   "그 번호의 현행": "재해영향평가등의 협의 실무지침",
+   "parts": [
+    "disaster-review/baseline-survey"
+   ]
+  },
+  {
+   "인용": "발파작업표준안전작업지침 (2020.01.16., 고용노동부고시 제2020-6호)",
+   "인용번호": "2020-6",
+   "그 번호의 현행": "발파 표준안전 작업지침",
+   "parts": [
+    "env-impact/noise-vib"
+   ]
+  }
+ ]
+}
