@@ -134,7 +134,12 @@ def score(case, part, category="small-env"):
         sys.exit(f"생성물 없음 — {out}\n  먼저 generate.py 로 만든다 (Windows)")
 
     S.PREPROCESS = _with_equations       # 수식 표를 읽는다 (거짓 WRONG 방지)
-    gold_raw = gold.read_text(encoding="utf-8").splitlines()   # 표 대조용 — 마커를 남긴다
+    gold_txt = gold.read_text(encoding="utf-8")
+    # 골든 추출 잔재 제어문자(Ā·ŀ·ྠ — 확장 제어 결손 부류)가 캡션에 끼면 표 짝이 어긋나
+    # 거짓 WRONG 이 난다(㉓ resource-cycle 이용객 표 실측). 라틴확장·티베트 블록만 걷는다
+    # — 절번호 마커(楴䵴, CJK)와 한글·단위 문자는 건드리지 않는다.
+    gold_txt = re.sub(r"[Ā-ɏༀ-࿿]", "", gold_txt)
+    gold_raw = gold_txt.splitlines()                           # 표 대조용 — 마커를 남긴다
     gold_lines = gold_raw                                       # (gold_table 이 마커 줄에서 블록을 끊는다)
     if category == "small-env":
         S.SEC = SEC_PART                 # 절 나누기만 갈아 끼운다
