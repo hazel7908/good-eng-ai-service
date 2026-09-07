@@ -87,6 +87,34 @@ def build(case: str):
         return ([f"{x:,.2f}" for x in area],
                 [f"{x / tot * 100:.2f}" for x in area])
 
+    # ── D2 정형 문장 조립 — 값 전개형 서술 3종 (0400·0724 공유. 문형 근거: 골든 7건 전수)
+    #   읍면지목 "가장 우세하며"(7/7) · 시군지목 "가장 크며…비교적 높은"(4/7 다수) ·
+    #   시군용도 "비도시지역 먼저 + 면적 병기"(4/5 다수 — 천안만 소수 계열).
+    #   ⚠️ 값은 0200 vars(최신 행 원칙) — 골든이 낡은 행(F-1)이면 숫자가 갈리는데
+    #   그건 정답지 부류다(천안 0200 채점 전례). 채점 시 F-1 사유로 분류할 것.
+    def d2_jimok(d, style):
+        if not d or d.get("합계") is None:
+            return None
+        tot = d["합계"]
+        big_k, big_v = max(((k, x) for k, x in d.items()
+                            if k not in ("합계", "_출처행") and isinstance(x, (int, float))),
+                           key=lambda kv: kv[1])
+        jd = (d.get("전") or 0) + (d.get("답") or 0)
+        f = lambda x: f"{x / tot * 100:.2f}%({x:.2f}㎢)"
+        if style == "시군":
+            return (f"전체면적 {tot:.2f}㎢ 중 {big_k}가 {f(big_v)}로 구성비가 가장 크며, "
+                    f"경작지(전, 답)의 구성비가 {f(jd)}로 비교적 높은 구성비를 나타내는 것으로 조사되었다")
+        return (f"전체면적 {tot:.2f}㎢ 중 ‘{big_k}’의 구성비가 {f(big_v)}로 가장 우세하며, "
+                f"경작지(전, 답)의 구성비가 {f(jd)}로 조사되었다")
+
+    def d2_yongdo(d):
+        if not d or d.get("합계") is None or d.get("비도시지역계") is None:
+            return None
+        tot = d["합계"]
+        f = lambda x: f"{x / tot * 100:.2f}%({x:.2f}㎢)"
+        return (f"전체면적 {tot:.2f}㎢ 중 비도시지역 {f(d['비도시지역계'])}, "
+                f"도시지역 {f(d['도시지역계'])}로 지정되어 있는 것으로 조사되었다")
+
     t221 = (ro.get("통계") or {}).get("2.2.1 지목별 토지이용") or {}
     sj_rows = []
     for key in ("시군", "면"):
@@ -99,17 +127,57 @@ def build(case: str):
         "사업": {"사업명": sa.get("사업명"), "시군": sa.get("시군") or "천안시"},
         "조서": pj.get("조서", {}),
         "지구용도": pj.get("토지이용") or [],
-        "서술": {},
+        "서술": {},          # 아래에서 D2 조립으로 채운다
         "시군지목표": {"행": sj_rows},
         "시군용도표": {"행": list(yd) if yd else []},
         "통계": {"통계연보연도": (ro.get("_통계판", {}).get("통계연보", {}) or {}).get("판"),
                "지목별": 지목표},
         "_확인필요": [
             {"항목": "조서·지구용도", "분류": "X", "사유": "0100 편입토지조서가 비어 있음(신청서류 대기) — 확정 시 재실행"},
-            {"항목": "서술 8종", "분류": "판단", "사유": "지역개황 2.2 값 기반 문장 생성은 D2(정형 문장 조립) 이식 대상 — B 본작업"},
+            {"항목": "위치용도·지목구성·지구지목·지구용도 서술", "분류": "X", "사유": "조서·신청면적 인풋 대기 (D2 지구 계열 — 값 없이 조립 금지)"},
         ],
     }
+
+    # ── D2 서술 채움 (통계 계열 3종 — 시군지목·읍면지목·시군용도)
+    def josa_en(w):
+        ch = (w or "").rstrip()[-1:]
+        return "은" if ch and (ord(ch) - 0xAC00) % 28 else "는"
+    import re as _re
+    위치 = sa.get("위치") or ""
+    m = _re.search(r"([가-힣]+[읍면])\s", 위치)
+    읍면 = m.group(1) if m else None
+    sig = slu["사업"]["시군"]
+    sj_j = d2_jimok(t221.get("시군"), "시군")
+    em_j = d2_jimok(t221.get("면"), "읍면")
+    yd_s = d2_yongdo((ro.get("통계") or {}).get("2.2.2 용도지역"))
+    서술 = {}
+    if sj_j:
+        서술["시군지목"] = f"{sig}{josa_en(sig)} {sj_j}"
+    if em_j and 읍면:
+        full = f"본 사업계획지구가 위치한 {읍면}{josa_en(읍면)} {em_j}"
+        # ⚠️ 0400 베이스는 `{{읍면지목_서술}}되었다.` — `되었다` 를 남긴다 (베이스 실측)
+        서술["읍면지목"] = full[:-3] if full.endswith("되었다") else full
+        slu["_읍면지목_전문"] = full
+    if yd_s:
+        서술["시군용도"] = f"{sig}{josa_en(sig)} {yd_s}"
+    slu["서술"] = 서술
     save(vdir, "surrounding-land-use", slu)
+
+    # ── 0724 토지이용 — 같은 D2 서술 (전문 꼴) + 통계 승계
+    lu = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0200(D2 서술·통계연보연도)",
+                "주의": "0724 문장은 0400 과 미세 표기 차이(rule ②) — B 러프는 동형 사용"},
+        "사업": {"사업명": sa.get("사업명"), "시군": sig},
+        "현황": {"조사시기": None},
+        "서술": {"시군지목": 서술.get("시군지목"), "읍면지목": slu.get("_읍면지목_전문"),
+               "시군용도": 서술.get("시군용도"), "지구지목": None, "지구용도": None, "내부현황": None},
+        "통계": {"통계연보연도": slu["통계"]["통계연보연도"]},
+        "_확인필요": [
+            {"항목": "지구지목·지구용도·내부현황 서술 · 조사시기", "분류": "X",
+             "사유": "조서·신청서류 인풋 대기 — 0400 과 동시 확정"},
+        ],
+    }
+    save(vdir, "land-use", lu)
 
     # ── 0840 총량검토서 — 사업 블록 0100 승계 + 계산 인풋 대기 명세
     # 핵심 인풋(지목별 면적·단위유역)은 실무 산출물 `총량계산.xlsx` 가 원천이다 —
@@ -140,7 +208,7 @@ def build(case: str):
     sys.path.insert(0, str(ROOT / "engine" / "parts" / "small-env"))
     import importlib.util
     for part, data in (("target-area", ta), ("surrounding-land-use", slu),
-                       ("water-total-load", wt)):
+                       ("water-total-load", wt), ("land-use", lu)):
         spec = importlib.util.spec_from_file_location(part.replace("-", "_"),
                                                       ROOT / "engine" / "parts" / "small-env" / f"{part}.py")
         m = importlib.util.module_from_spec(spec)
