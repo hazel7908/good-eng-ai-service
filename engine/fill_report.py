@@ -109,6 +109,27 @@ def build(category, part, case):
              "골든셋이 있는 사업의 항목별 채점은 같은 폴더 `validation.md`.")
     L.append("")
 
+    # 법령 인용 최신화 (지시서 ㉙) — generate 가 남긴 사이드카를 그대로 싣는다.
+    # 실무자에게 가는 것은 fill-report 뿐이라, **무엇이 최신으로 바뀌었는지**가 여기 없으면
+    # 검토자는 베이스 판과 산출물 판이 다른 이유를 알 수 없다.
+    law = ROOT / "cases" / category / case / part / "law-update.json"
+    if law.exists():
+        d = json.loads(law.read_text(encoding="utf-8"))
+        L.append("## 법령 인용 최신화")
+        L.append("")
+        L.append(f"- 최신 표기로 바꾼 인용 **{d['확인']}건** (시도 {d['시도']}건) — 근거: {d['근거']}")
+        if d.get("구표기잔존"):
+            L.append(f"- ⚠️ **치환 실패 {len(d['구표기잔존'])}건** — 구표기가 그대로 남았다:")
+            for s in d["구표기잔존"]:
+                L.append(f"    - `{s}`")
+        if d.get("인용오류의심"):
+            L.append("- ⚠️ 인용 자체가 의심스러워 **바꾸지 않은 것** (실무자 확인):")
+            for s in d["인용오류의심"]:
+                L.append(f"    - {s}")
+        if d.get("map밖_고시번호"):
+            L.append(f"- 대조표에 없는 고시번호: {', '.join(d['map밖_고시번호'][:10])}")
+        L.append("")
+
     out = ROOT / "cases" / category / case / part / "fill-report.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(L), encoding="utf-8")

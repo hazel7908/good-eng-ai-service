@@ -28,6 +28,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))          # parts 가 hwp_util·calc 를 찾도록
 
+import law_update
+import table_leak
 from hwp_util import (MISSING, MODELING, PLACEHOLDER, ROOT, check_figures,
                       color_markers, console_utf8, fr, open_hwp, quit_hwp,
                       replace_images)
@@ -75,6 +77,8 @@ def main():
     ap.add_argument("--raw-dir", help="삽도 원본 JPG 디렉터리")
     ap.add_argument("--dry-run", action="store_true",
                     help="한글 없이 치환값만 출력 (Mac 에서 vars 점검용)")
+    ap.add_argument("--no-law-update", action="store_true",
+                    help="법령 인용 최신화 훅을 끈다 (되먹임은 자동으로 꺼진다)")
     a = ap.parse_args()
 
     build_slots, build_tables = load_part_handlers(a.category, a.part)
@@ -119,6 +123,7 @@ def main():
     #    기준 사업 값 그대로 나간다 (2026-08-31 실측 — 진행 로그 한 줄의 인코딩
     #    오류가 천안 소음진동 표 7개를 원주 값으로 만들었다).
     saved = False
+    law_n, law_의심 = 0, []
     try:
         print(f"\n[2/4] 빈칸 치환 ({len(slots)}건)...")
         for k, val in slots.items():
@@ -131,6 +136,16 @@ def main():
         # 골든셋·베이스 문서에는 en-dash 가 한 개도 없다 — 전부 InsertText 가 만든 것이다.
         print("  [정리] 빠른 교정이 바꾼 en-dash 되돌리기")
         fr(hwp, "P – ", "P - ")
+
+        # 법령 인용 자동 최신화 (지시서 ㉙) — 베이스는 판 고정, 산출물만 최신이 된다.
+        # ⚠️ 되먹임은 배치 대조가 목적이라 법령 diff 가 섞이면 결함과 구분이 안 된다 → 자동 OFF.
+        기준 = (table_leak.CATEGORY_BASE.get(a.category) or {}).get("기준사업")
+        if a.no_law_update:
+            print("  [법령] --no-law-update — 최신화 건너뜀")
+        elif a.case == 기준:
+            print(f"  [법령] 되먹임({기준}) — 최신화 건너뜀 (배치 대조가 목적)")
+        else:
+            law_n, law_의심 = law_update.apply(hwp, fr, a.category, a.part)
 
         print("  [표시] 미확정 항목 빨간 글자")
         color_markers(hwp, [MISSING, MODELING])
@@ -153,6 +168,25 @@ def main():
         })
 
     print(f"\n완료: {output} ({output.stat().st_size:,} bytes)")
+
+    # 법령 최신화 **사후 검산** — `fr()` 은 몇 건을 바꿨는지 안 알려준다.
+    # 구번호가 그대로 남아 있으면 치환이 조용히 실패한 것이다 (지시서 ㉙ 요구).
+    if law_n:
+        from extract import extract as _ex
+        _t = _ex(str(output))
+        적용, 실패, 미등록 = law_update.verify(_t, a.category, a.part)
+        print(f"  [법령] 검산 — 신표기 {적용}건 확인"
+              + (f" · ❌ 구표기 잔존 {len(실패)}건" if 실패 else " · 구표기 잔존 0"))
+        for e in 실패[:5]:
+            print(f"     ❌ {e['old'][:70]}")
+        if 미등록:
+            print(f"  [법령] map 에 없는 고시번호 {len(미등록)}종 — " + ", ".join(미등록[:6]))
+        (output.parent / "law-update.json").write_text(json.dumps(
+            {"시도": law_n, "확인": 적용, "구표기잔존": [e["old"] for e in 실패],
+             "map밖_고시번호": 미등록,
+             "인용오류의심": [e["인용"] for e in law_의심],
+             "근거": "법제처 API 대조 map " + str(law_update.load().get("생성일", ""))},
+            ensure_ascii=False, indent=1), encoding="utf-8")
 
     # 삽도 — 기준 사업 그림은 **베이스 단계에서 이미 걷어냈다**
     #        (`build_template.strip_figures()`). 여기서는 몇 장이 아직 안 채워졌는지만 센다.
