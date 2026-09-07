@@ -34,6 +34,10 @@ CASES = {
     "옥천_사양리": ("환24-25", "옥천"), "천안_화덕리": ("환25-05", "천안"),
     "청주_호명리": ("환24-01", "청주"), "충주_율능리": ("환25-19", "충주"),
     "평창_수청리": ("환24-17", "평창"),
+    # ⚠️ 이 셋은 **연도 폴더가 아니라 `환경/` 바로 아래**에 있다 (2026-09-07 실측).
+    #    연도만 훑으면 "NAS 폴더 없음" 으로 조용히 빠진다 — 원주는 소환 기준 사업이다.
+    "원주_무장리": ("환25-09", "원주"), "청양_매곡리": ("환25-13", "청양"),
+    "여주_광대리": ("환24-29", "여주"),
 }
 # 슬러그 → 파트 번호. ⚠️ 수리수문(0724)이 끼는 사업은 뒤가 한 칸씩 밀린다 → 대체 번호를 뒤에 둔다.
 NUM = {
@@ -76,10 +80,10 @@ def overlap(old, new):
     return sum(1 for l in o if l in n) / len(o)
 
 
-def walk(fs, p, d=0, out=None):
+def walk(fs, p, d=0, out=None, maxd=5):
     if out is None:
         out = []
-    if d > 3:
+    if d > maxd:   # ⚠️ 옛 사업은 `환NN-NN …/lsy {사업}/…` 로 한 단계 더 깊다
         return out
     try:
         items = fs.list_folder(p)
@@ -87,7 +91,7 @@ def walk(fs, p, d=0, out=None):
         return out
     for it in items:
         if it["isdir"]:
-            walk(fs, it["path"], d + 1, out)
+            walk(fs, it["path"], d + 1, out, maxd)
         else:
             out.append((it["name"], (it.get("additional") or {}).get("size") or 0, it["path"]))
     return out
@@ -98,11 +102,11 @@ def main():
     want = sys.argv[1:] or list(CASES)
     fs = connect()
     folders = {}
-    for y in ("2023", "2024", "2025", "2026"):
+    for sub in ("", "/2023", "/2024", "/2025", "/2026"):
         try:
-            for it in fs.list_folder(f"{SHARE}/0. 평가서/환경/{y}"):
+            for it in fs.list_folder(f"{SHARE}/0. 평가서/환경{sub}"):
                 if it["isdir"]:
-                    folders[it["name"]] = it["path"]
+                    folders.setdefault(it["name"], it["path"])
         except Exception:                                    # noqa: BLE001
             pass
     ok = skip = fail = 0
