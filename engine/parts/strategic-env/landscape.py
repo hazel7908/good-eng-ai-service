@@ -3,7 +3,8 @@
 """strategic-env `landscape` 핸들러 — C 틀 (2026-09-04 Mac). 규약: vars `slots`. 경관 — 보호지역 정형·문화재·조망 서술 수확 + 하천명 · 문화재·조망점·생태자연도 표 비움. BLANK 앵커는 Windows 실측 전 추정."""
 from hwp_util import MISSING, blank_tables
 
-BLANK = [("문화재", 2, 2), ("조망점", 2, 3), ("생태자연도", 1, 3)]
+BLANK = [("문화재", 2, 2), ("조망점", 2, 3), ("생태자연도", 1, 3),
+         ("수종", 1, 1), ("백두대간보호지역", 2, 1)]
 
 
 def build_slots(v):
