@@ -390,3 +390,9 @@ rm -rf "$LOCALAPPDATA/Temp/gen_py"
 낀 셀이 갈라져 spec 생성기가 앞자리를 잃었다, ㉑ soil). `fwSpace` 는 **U+2007** 로 렌더된다 — 골든에서 이
 문자가 든 문자열은 **replace 로 뚫으면 안 된다**(한글 찾기가 일반 공백과 다르게 취급, 조용히 실패) →
 **paras 로 라우팅**하고 앵커는 fwSpace 앞 연속 평문. `engine/spec_verify.py` 가 U+2007 in replace 를 경고한다.
+
+⚠️ **`.hwp` 골든은 fwSpace 가 일반 공백으로 위장된다** (2026-09-07 ㉘ 실증 — 온실주석_1).
+`extract_hwp`(바이너리)가 fwSpace(0x001F)를 일반 공백으로 추출하므로 **spec_verify 의 U+2007
+경고가 안 뜬 채** replace 가 Windows 빌드에서 조용히 MISS 난다. 골든이 .hwp 계열인 파트에서
+replace MISS 가 나면 fwSpace 위장을 의심하고 **paras 로 라우팅**할 것. 문단 전체 치환도 같은
+증상을 낸다(끝 한 글자 남기기) — MISS 3건의 원인이 fwSpace 위장·전문 일치·골든 제어문자 셋이었다.
