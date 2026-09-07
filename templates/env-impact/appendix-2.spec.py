@@ -12,7 +12,7 @@ SPEC = {
     "source": "횡성_벨라스톤CC",
     "src": "raw_data/nas/env-impact/횡성_벨라스톤CC/appendix-2.hwpx",   # 원본 파일명은 Windows 확정
     "replace": REPLACE,
-    "paras": [],
+    "paras": [('벨라스톤C.C 증설사업', '{{사업명}}')],
     "cells": [],
-    "expect": [],
+    "expect": ["사업명", ],
 }

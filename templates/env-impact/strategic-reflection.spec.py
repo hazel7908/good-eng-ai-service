@@ -15,7 +15,7 @@ SPEC = {
     "source": "횡성_벨라스톤CC",
     "src": "raw_data/nas/env-impact/횡성_벨라스톤CC/strategic-reflection.hwpx",   # 원본 파일명은 Windows 확정 (⑭ 수확 폴더)
     "replace": REPLACE,
-    "paras": [],
+    "paras": [('옥계리 807번지 일원의', '{{의견대상_서술}}')],
     "cells": [],
-    "expect": ["반영_도입", "사업명"],
+    "expect": ["의견대상_서술", "반영_도입", "사업명"],
 }

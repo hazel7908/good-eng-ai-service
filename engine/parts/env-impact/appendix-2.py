@@ -20,4 +20,4 @@ def build_tables(hwp, v):
         print("  표 편집 없음")
 
 
-EXPECT = []
+EXPECT = ['사업명', ]
