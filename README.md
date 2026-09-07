@@ -134,6 +134,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── coverage.py               6유형 커버리지 사다리 측정
 │   ├── law_scan.py               인용 법령 전수 스캔 — 개정 감시(할 일 7) ①
 │   ├── law_check.py              법제처 API 시행일자 대조 — 〃 ② (키 ~/.lawapi.env)
+│   ├── law_annex.py              현행 별표 본문 값 대조 — 〃 ③ (기준표 8종)
 │
 ├── catalog/                     ▓ NAS 카탈로그 (독립 하위시스템)
 │   ├── synology_filestation.py    NAS API 클라이언트 (병렬 크롤)
