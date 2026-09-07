@@ -127,6 +127,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── hydro.py                  수계도 — 흐름 화살표·하천명·보호구역 채색
 │   ├── psd_base.py               ⚙ 검증 전용 — 정답 PSD 레이어 추출 (파이프라인 아님)
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
+│   ├── build_waste_vars.py       0726 vars 승계 빌더 — 0200 §2.7 → 기초시설표 (B 승급)
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
 │   │  ▸ 검증·측정 (Mac)

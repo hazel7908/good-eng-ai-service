@@ -183,8 +183,11 @@ def build_tables(hwp, v):
                 right(hwp)
 
     print("  폐유 표")
-    if equip and find_in_table(hwp, "연료사용량"):
-        fit_rows(hwp, "연료사용량", 2, len(equip))
+    # ⚠️ 앵커 `연료사용량` 은 산정식 표의 설명 셀(`◦ 연료사용량 × …`)에 먼저 걸려
+    #    폐유 값이 설명 표를 덮었다 (천안 0726 WRONG 1, 2026-09-07 실측 — 조건 2행 파괴).
+    #    데이터 표 머리 셀의 둘째 문단 `(ℓ/hrㆍ대)` 가 베이스 유일(1회)이라 그걸 쓴다.
+    if equip and find_in_table(hwp, "(ℓ/hrㆍ대)"):
+        fit_rows(hwp, "(ℓ/hrㆍ대)", 2, len(equip))
         down(hwp)
         col_begin(hwp)
         for i, e in enumerate(equip):
