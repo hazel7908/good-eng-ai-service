@@ -3,7 +3,7 @@
 """strategic-env `water-quality` 핸들러 — C 틀 (2026-09-04 Mac). 규약: vars `slots`. 수질 — 수계·측정·저질 서술 수확 + 하천명 · 측정 표 비움 · 수리수문은 별도 파트. BLANK 앵커는 Windows 실측 전 추정."""
 from hwp_util import MISSING, blank_tables
 
-BLANK = [("BOD", 2, 5), ("측정지점", 2, 3), ("저질", 2, 2)]
+BLANK = [("BOD", 2, 5), ("저질", 2, 2), ("유로연장", 1, 2), ("청 정", 1, 1)]
 
 
 def build_slots(v):

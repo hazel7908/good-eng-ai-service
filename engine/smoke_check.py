@@ -25,7 +25,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from hwp_util import console_utf8          # noqa: E402  (경로 삽입 뒤라야 한다)
 
 ROOT = Path(__file__).parent.parent
-TOKEN = re.compile(r"\{\{[^}]{1,40}\}\}")
+# ⚠️ 한글 **수식**에 `{{` 가 나온다 — `sqrt {{tau _{0}} over {rho }}` (전략 수리수문 09-07).
+#    느슨한 `\{\{[^}]+\}\}` 는 이걸 빈칸으로 보고 게이트를 빨갛게 만든다.
+#    토큰 이름은 한글·영숫자·밑줄뿐이다 — 공백·중괄호가 있으면 토큰이 아니다.
+TOKEN = re.compile(r"\{\{[0-9A-Za-z_가-힣]{1,40}\}\}")
 MARKS = ["[확인 필요]", "[모델링 필요]", "[현장조사 필요]", "[실무자 확인]"]
 
 

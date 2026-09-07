@@ -883,7 +883,7 @@ def _josa_self_test():
     return not bad
 
 
-def blank_tables(hwp, anchor, header_rows, limit=6):
+def blank_tables(hwp, anchor, header_rows, limit=6, max_rows=24):
     """같은 앵커를 가진 표를 차례로 비운다 — **skip 을 앵커 생존 여부로 자동 결정** (2026-09-03).
 
     🚨 비우기가 앵커를 **지우는 표**(데이터 행 라벨: `이재민`·`B등급`)와 **안 지우는 표**
@@ -898,7 +898,7 @@ def blank_tables(hwp, anchor, header_rows, limit=6):
     while k < limit and find_in_table(hwp, anchor, skip=skip):
         a = cell_addr(hwp)
         survives = bool(a) and a[1] <= header_rows
-        n = blank_table_here(hwp, header_rows=header_rows)
+        n = blank_table_here(hwp, header_rows=header_rows, max_rows=max_rows)
         print(f"    비움 `{anchor}` #{k + 1} — {n}셀 (앵커 {'머리행' if survives else '데이터행→소멸'})")
         k += 1
         if survives:
