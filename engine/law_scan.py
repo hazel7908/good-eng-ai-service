@@ -52,7 +52,7 @@ SUFFIX_CLASS = [
 
 def norm(name: str) -> str:
     s = name.replace(" ", " ")
-    for d in "ㆍ‧∙･":
+    for d in "ㆍ‧∙･⸳․":
         s = s.replace(d, "·")
     s = re.sub(r"\s+", " ", s).strip()
     return ART.sub("", s).strip()
@@ -60,6 +60,8 @@ def norm(name: str) -> str:
 
 def classify(name: str) -> str:
     if "고시" in name or NOTICE_NO.search(name):
+        return "행정규칙"
+    if name.endswith(("방법", "요령")):        # `…산정방법` 은 고시류다 — `법` 접미 오분류 방지
         return "행정규칙"
     for suf, cls in SUFFIX_CLASS:
         if name.endswith(suf):
@@ -105,7 +107,7 @@ def scan_targets():
 
 def scan():
     laws = defaultdict(lambda: {"class": "", "count": 0, "parts": set(),
-                                "clues": set(), "별표": False, "고시번호": ""})
+                                "clues": set(), "별표": False, "고시번호": "", "샘플": ""})
     std_tables = defaultdict(lambda: {"count": 0, "parts": set()})
     scanned = []
     for cat, part, txt, kind in scan_targets():
@@ -116,14 +118,17 @@ def scan():
             for m in NOTICE.finditer(line):
                 hits.append(norm(f"{m.group(1)} 제{m.group(2).replace(' ', '')}호"))
             for name in hits:
-                # 토큰·장절 참조·한 글자짜리는 법령이 아니다
-                if not name or "{{" in name or len(name) < 3 or re.match(r"^\d+장\b", name):
+                # 토큰·장절 참조·대명사 인용(동법)·한 글자짜리는 법령이 아니다
+                if (not name or "{{" in name or len(name) < 3 or re.match(r"^\d+장\b", name)
+                        or re.match(r"^(동법|같은\s?법)\b", name) or name == "수단·방법"):
                     continue
                 e = laws[name]
                 e["class"] = e["class"] or classify(name)
                 no = NOTICE_NO.search(name)
                 if no:
                     e["고시번호"] = no.group(1)
+                if not e["샘플"]:
+                    e["샘플"] = re.sub(r"\s+", " ", line.strip())[:140]
                 e["count"] += 1
                 e["parts"].add(loc)
                 if BYULPYO.search(line):
@@ -149,7 +154,8 @@ def main():
                "골든원천": sum(1 for *_, k in scanned if k != "베이스")},
         "법령": {k: {"class": v["class"], "count": v["count"],
                    "parts": sorted(v["parts"]), "별표인용": v["별표"],
-                   "고시번호": v["고시번호"], "날짜단서": sorted(v["clues"])}
+                   "고시번호": v["고시번호"], "날짜단서": sorted(v["clues"]),
+                   "샘플": v["샘플"]}
                for k, v in sorted(laws.items(), key=lambda x: -x[1]["count"])},
         "기준표제목": {k: {"count": v["count"], "parts": sorted(v["parts"])}
                   for k, v in sorted(std_tables.items(), key=lambda x: -x[1]["count"])},

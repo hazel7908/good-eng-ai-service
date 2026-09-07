@@ -26,3 +26,4 @@ catalog/data/stats_values/
 
 # KRF 원자료 (87MB · 재취득 가능 — reachfile.py --download)
 raw_data/nas/stats/_national/KRF/
+catalog/review/.law_api_cache/
