@@ -146,10 +146,23 @@ def build_tables(hwp, v):
             base = spec.get("베이스행", len(rows))
             if base != len(rows):
                 fit_rows(hwp, anchor, base, len(rows), skip=spec.get("skip", 0))
+            # 🚨 `find_in_table` 은 캐럿을 **앵커 셀(머리행)** 에 둔다. 거기서 바로 쓰면
+            #    머리 라벨을 덮고 한 칸씩 밀려 **마지막 열이 기준 사업 값으로 남는다**
+            #    (천안 0726 실측 2026-09-07: 분뇨 표 머리 `연계처리장명` 이 시설명으로
+            #    덮이고 그 열에 `원주공공하수처리장` 잔존 · 음식물 표 `220`·`33,432.5` 잔존).
+            #    첫 행도 다른 행과 똑같이 **내려가서 행 머리부터** 쓴다.
+            # ⚠️ `fit_rows` 는 캐럿을 옮긴다 — 그 뒤 `down()` 하면 **한 행을 건너뛴다**
+            #    (매립 표가 그렇게 밀려 첫 행에 원주 소재지·숫자가 남았다).
+            #    행 쓰기 직전에 **앵커를 다시 찾아** 위치를 확정한다.
+            # 🚨 **행마다 앵커에서 다시 찾아 절대 오프셋으로 간다** (CLAUDE.md §6).
+            #    `right()` 는 마지막 열에서 **이미 다음 행 첫 칸으로 넘어간다.** 거기서
+            #    또 `down()` 하면 한 행씩 건너뛴다 — 건너뛴 행에 기준 사업 값이 남는다.
+            #    셀 주소로 실측(2026-09-07): row2 6칸 쓴 뒤 → (A,3), down 하면 (A,4).
             for i, row in enumerate(rows):
-                if i:
+                find_in_table(hwp, anchor, skip=spec.get("skip", 0))
+                for _ in range(i + 1):
                     down(hwp)
-                    col_begin(hwp)
+                col_begin(hwp)
                 for val in row:
                     cell(val)
                     right(hwp)
@@ -188,17 +201,18 @@ def build_tables(hwp, v):
     #    데이터 표 머리 셀의 둘째 문단 `(ℓ/hrㆍ대)` 가 베이스 유일(1회)이라 그걸 쓴다.
     if equip and find_in_table(hwp, "(ℓ/hrㆍ대)"):
         fit_rows(hwp, "(ℓ/hrㆍ대)", 2, len(equip))
-        down(hwp)
-        col_begin(hwp)
-        for i, e in enumerate(equip):
-            if i:
+        for i, e in enumerate(equip):       # 행마다 앵커 재탐색 — 같은 이유 (건너뜀 방지)
+            find_in_table(hwp, "(ℓ/hrㆍ대)")
+            for _ in range(i + 1):
                 down(hwp)
-                col_begin(hwp)
+            col_begin(hwp)
             for val in [e["명"], e["규격"], e["대수"], e.get("연료_lph"),
                         e.get("잡품비_pct"), e.get("폐유")]:
                 cell(val)
                 right(hwp)
-        down(hwp)
+        find_in_table(hwp, "(ℓ/hrㆍ대)")     # 합계 행 = 장비 행 다음
+        for _ in range(len(equip) + 1):
+            down(hwp)
         col_begin(hwp)
         right(hwp, 5)
         cell(f"{r['폐유합']:.2f}" if r["폐유합"] is not None else None)   # 합계 필드 덮기
