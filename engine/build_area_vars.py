@@ -203,12 +203,35 @@ def build(case: str):
     }
     save(vdir, "water-total-load", wt)
 
+    # ── 0600 입지타당성 — 승계 15종 중 지금 채울 수 있는 것만 (환각 금지)
+    gj = nv.get("기준", {})
+    ss = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0727(기준 2종)"},
+        "사업": {"사업명": sa.get("사업명"), "시군": sa.get("시군") or "천안시"},
+        "승계": {
+            "소음환경기준_지역": gj.get("소음환경기준_지역"),      # "다" — 측정보고서 원천
+            "생활진동_지역": gj.get("생활진동규제_지역"),
+            # 나머지 13종 — 원천별 대기 명세
+            "식생보전등급": None, "생태자연도": None, "철새도래지": None, "철새도래지_이격": None,
+            "평균경사도": None, "지형변화지수": None, "토공량": None, "면적": None, "지목": None,
+            "단위유역": None, "배출허용기준_지역": None, "수질_하천구분": None, "수질_등급": None,
+        },
+        "_확인필요": [
+            {"항목": "생태자연도·식생보전등급", "분류": "계산", "사유": "EcoBank WFS 판정 가능(골든 8/8) — VWorld 지오코딩 키 재발급 대기(대여 맥북 유실)"},
+            {"항목": "배출허용기준_지역", "분류": "X", "사유": "고시 2007-107 첨부(flSeq 131227247)가 구식 HWP·스캔 PDF — Windows 한글 변환 후 읍면 대조"},
+            {"항목": "단위유역", "분류": "X", "사유": "0840 총량계산.xlsx 인풋과 동시 확정"},
+            {"항목": "평균경사도·지형변화지수·토공량·면적·지목", "분류": "X", "사유": "설계도서·신청서류"},
+            {"항목": "철새도래지·수질 등급", "분류": "X", "사유": "조사·측정 원천 — wq vars 확정 시 승계"},
+        ],
+    }
+    save(vdir, "site-suitability", ss)
+
     # ── dry-검증 — 핸들러 build_slots 를 실제로 돌려 MISSING 수를 센다
     sys.path.insert(0, str(ROOT / "engine"))
     sys.path.insert(0, str(ROOT / "engine" / "parts" / "small-env"))
     import importlib.util
     for part, data in (("target-area", ta), ("surrounding-land-use", slu),
-                       ("water-total-load", wt), ("land-use", lu)):
+                       ("water-total-load", wt), ("land-use", lu), ("site-suitability", ss)):
         spec = importlib.util.spec_from_file_location(part.replace("-", "_"),
                                                       ROOT / "engine" / "parts" / "small-env" / f"{part}.py")
         m = importlib.util.module_from_spec(spec)
