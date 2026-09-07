@@ -126,6 +126,13 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── build_template.py          베이스 문서 빌더 · build_snippet.py 절 조각
 │   ├── fill_report.py             실무자용 채움 내역서 (플랫폼 무관)
 │   ├── extract.py                 HWP/HWPX 텍스트 추출 · to_pdf.py 육안 검증용
+│   │  ▸ 검증·측정 (Mac)
+│   ├── spec_verify.py            spec 전수 시뮬레이션 (MISS·expect≠토큰·U+2007)
+│   ├── score_part.py             파트 채점 (마커=재해 · 절번호=재평 PDF·본환·전략)
+│   ├── score_regional.py         지역개황·표 채점 (gold_table·score_tables)
+│   ├── leak_check.py             서술 문장 유출 · table_leak.py 표 값 유출 (상보)
+│   ├── coverage.py               6유형 커버리지 사다리 측정
+│   ├── law_scan.py               인용 법령 전수 스캔 — 개정 감시(할 일 7) ①
 │
 ├── catalog/                     ▓ NAS 카탈로그 (독립 하위시스템)
 │   ├── synology_filestation.py    NAS API 클라이언트 (병렬 크롤)

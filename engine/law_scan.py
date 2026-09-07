@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""법령 인용 목록 스캐너 — 법령 개정 감시(할 일 7) ①단계.
+
+베이스 문서 전체(templates/**/*.hwpx)에서 인용 법령을 전수 수집한다.
+베이스 미배치 파트(본환·전략 23종)는 spec 의 골든 원천 txt 를 대신 읽는다 —
+베이스는 그 txt 에서 만들어지므로 인용 목록은 같다.
+
+잡는 것 세 갈래:
+  ① 낫표 인용 「…법」「…시행규칙」 (조문은 벗겨 법령명으로 묶는다)
+  ② 고시 번호 — 낫표 없이 `환경부고시 제2007-107호` 꼴로도 나온다
+  ③ 기준표 제목 — `대기환경기준` 처럼 캡션 없는 맨 줄 (별표 본문 복사 후보)
+
+날짜·판 단서(시행일·법률 제N호·고시연도)를 같은 줄에서 함께 긁는다 —
+연도가 박힌 인용이 낡음 위험 1순위다.
+
+출력: catalog/review/law_citations.json (② 시행일자 대조의 인풋) + stdout 요약
+"""
+import importlib.util
+import json
+import re
+import sys
+from collections import defaultdict
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "engine"))
+from extract import extract_hwpx  # noqa: E402
+
+CATS = ["small-env", "small-disaster", "disaster-impact", "disaster-review",
+        "env-impact", "strategic-env"]
+
+# 낫표 안 조문 표기 — 법령명 뒤에 붙는 것만 벗긴다
+ART = re.compile(r"\s*제\s*\d+\s*조.*$")
+BRACKET = re.compile(r"「([^」]{2,80})」")
+NOTICE = re.compile(r"([가-힣]{2,12}(?:부|처|청|위원회|시|군|도)?\s?고시)\s*제?\s*(\d{4}\s*[-–]\s*\d+)호")
+DATE = re.compile(r"(?:시행\s*)?\b(19|20)\d{2}\s*[.년]\s*\d{1,2}\s*[.월]?(?:\s*\d{1,2})?")
+LAWNO = re.compile(r"(법률|대통령령|환경부령|국토교통부령|행정안전부령|총리령)\s*제\s*[\d,]+호")
+BYULPYO = re.compile(r"별표\s*\d*")
+# 기준표 제목 — 맨 줄 전체가 제목(+단위 표기)인 것만. 앞머리는 번호 표기만 허용
+STD_TITLE = re.compile(r"^(?:\(?\d+\)?[.)]\s*|[가-힣]\.\s*|\(\d+\)\s*)?"
+                       r"([가-힣·]{1,14}\s?(?:환경기준|허용기준|규제기준|방류수수질기준))"
+                       r"\s*(?:\(단위.*)?$")
+NOTICE_NO = re.compile(r"제(\d{4}-\d+)호")
+
+SUFFIX_CLASS = [
+    ("시행규칙", "시행규칙"), ("시행령", "시행령"), ("특별법", "법률"),
+    ("법률", "법률"), ("법", "법률"), ("조례", "자치법규"), ("고시", "행정규칙"),
+    ("훈령", "행정규칙"), ("예규", "행정규칙"), ("지침", "행정규칙"),
+    ("규정", "행정규칙"), ("기준", "행정규칙"), ("규칙", "규칙"),
+]
+
+
+def norm(name: str) -> str:
+    s = name.replace(" ", " ")
+    for d in "ㆍ‧∙･":
+        s = s.replace(d, "·")
+    s = re.sub(r"\s+", " ", s).strip()
+    return ART.sub("", s).strip()
+
+
+def classify(name: str) -> str:
+    if "고시" in name or NOTICE_NO.search(name):
+        return "행정규칙"
+    for suf, cls in SUFFIX_CLASS:
+        if name.endswith(suf):
+            return cls
+    return "기타"
+
+
+def load_spec_source(spec_path: Path):
+    sp = importlib.util.spec_from_file_location("s", spec_path)
+    m = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(m)
+    src = re.sub(r"\s*\(.*\)$", "", m.SPEC["source"])
+    part = spec_path.name.replace(".spec.py", "")
+    cat = spec_path.parent.name
+    gold = ROOT / "golden" / cat / src / f"{part}.txt"
+    if not gold.exists():
+        for alt in (ROOT / "golden").glob(f"*/{src}/{part}.txt"):
+            return alt
+    return gold if gold.exists() else None
+
+
+def scan_targets():
+    """(cat, part, 텍스트, 출처표기) 를 낸다."""
+    for cat in CATS:
+        tdir = ROOT / "templates" / cat
+        if not tdir.exists():
+            continue
+        hwpx_parts = set()
+        for f in sorted(tdir.rglob("*.hwpx")):
+            part = f.stem if f.parent == tdir else f"{f.parent.name}/{f.stem}"
+            hwpx_parts.add(f.stem)
+            yield cat, part, extract_hwpx(str(f)), "베이스"
+        for sf in sorted(tdir.glob("*.spec.py")):
+            part = sf.name.replace(".spec.py", "")
+            if part in hwpx_parts:
+                continue
+            gold = load_spec_source(sf)
+            if gold is None:
+                print(f"⚠️ 골든 원천 없음: {cat}/{part}", file=sys.stderr)
+                continue
+            yield cat, part, gold.read_text(encoding="utf-8"), "골든원천(베이스 대기)"
+
+
+def scan():
+    laws = defaultdict(lambda: {"class": "", "count": 0, "parts": set(),
+                                "clues": set(), "별표": False, "고시번호": ""})
+    std_tables = defaultdict(lambda: {"count": 0, "parts": set()})
+    scanned = []
+    for cat, part, txt, kind in scan_targets():
+        scanned.append((cat, part, kind))
+        loc = f"{cat}/{part}"
+        for line in txt.splitlines():
+            hits = [norm(m) for m in BRACKET.findall(line)]
+            for m in NOTICE.finditer(line):
+                hits.append(norm(f"{m.group(1)} 제{m.group(2).replace(' ', '')}호"))
+            for name in hits:
+                # 토큰·장절 참조·한 글자짜리는 법령이 아니다
+                if not name or "{{" in name or len(name) < 3 or re.match(r"^\d+장\b", name):
+                    continue
+                e = laws[name]
+                e["class"] = e["class"] or classify(name)
+                no = NOTICE_NO.search(name)
+                if no:
+                    e["고시번호"] = no.group(1)
+                e["count"] += 1
+                e["parts"].add(loc)
+                if BYULPYO.search(line):
+                    e["별표"] = True
+                for pat in (DATE, LAWNO):
+                    mm = pat.search(line)
+                    if mm:
+                        e["clues"].add(mm.group(0).strip())
+            m = STD_TITLE.match(line.strip())
+            if m:
+                t = norm(m.group(1))
+                std_tables[t]["count"] += 1
+                std_tables[t]["parts"].add(loc)
+    return laws, std_tables, scanned
+
+
+def main():
+    laws, std_tables, scanned = scan()
+    out = {
+        "생성일": "2026-09-07",
+        "스캔": {"파트수": len(scanned),
+               "베이스": sum(1 for *_, k in scanned if k == "베이스"),
+               "골든원천": sum(1 for *_, k in scanned if k != "베이스")},
+        "법령": {k: {"class": v["class"], "count": v["count"],
+                   "parts": sorted(v["parts"]), "별표인용": v["별표"],
+                   "고시번호": v["고시번호"], "날짜단서": sorted(v["clues"])}
+               for k, v in sorted(laws.items(), key=lambda x: -x[1]["count"])},
+        "기준표제목": {k: {"count": v["count"], "parts": sorted(v["parts"])}
+                  for k, v in sorted(std_tables.items(), key=lambda x: -x[1]["count"])},
+    }
+    dst = ROOT / "catalog" / "review" / "law_citations.json"
+    dst.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    by_class = defaultdict(int)
+    for v in laws.values():
+        by_class[v["class"]] += 1
+    print(f"스캔 {len(scanned)}파트 (베이스 {out['스캔']['베이스']} · 골든원천 {out['스캔']['골든원천']})")
+    print(f"법령 {len(laws)}종 · 인용 {sum(v['count'] for v in laws.values())}건 · "
+          + " ".join(f"{c} {n}" for c, n in sorted(by_class.items(), key=lambda x: -x[1])))
+    print(f"별표 본문 인용 {sum(1 for v in laws.values() if v['별표'])}종 · "
+          f"날짜 단서 보유 {sum(1 for v in laws.values() if v['clues'])}종 · "
+          f"기준표 제목 {len(std_tables)}종")
+    print(f"→ {dst.relative_to(ROOT)}")
+
+
+if __name__ == "__main__":
+    main()

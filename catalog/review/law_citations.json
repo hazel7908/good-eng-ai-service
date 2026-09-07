@@ -1,0 +1,3271 @@
+{
+ "생성일": "2026-09-07",
+ "스캔": {
+  "파트수": 90,
+  "베이스": 67,
+  "골든원천": 23
+ },
+ "법령": {
+  "국토의 계획 및 이용에 관한 법률": {
+   "class": "법률",
+   "count": 55,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "disaster-review/project-overview",
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "env-impact/project-overview",
+    "env-impact/summary",
+    "env-impact/water-total-load",
+    "small-disaster/baseline-survey",
+    "small-env/flora-fauna",
+    "small-env/noise-vib",
+    "small-env/project-overview",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국토의 계획 및 이용에 관한 법률 시행령": {
+   "class": "시행령",
+   "count": 24,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "행정안전부 고시 제2023-63호": {
+   "class": "행정규칙",
+   "count": 23,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-impact/impact-assessment",
+    "disaster-impact/mitigation",
+    "disaster-impact/project-overview",
+    "disaster-review/target-area",
+    "small-disaster/baseline-survey",
+    "small-disaster/impact-assessment",
+    "small-disaster/mitigation",
+    "small-disaster/project-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": [
+    "2023.08",
+    "2023.08.03"
+   ]
+  },
+  "체육시설의 설치·이용에 관한 법률": {
+   "class": "법률",
+   "count": 20,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/landscape",
+    "env-impact/noise-vib",
+    "env-impact/project-overview",
+    "env-impact/summary",
+    "env-impact/topo-geology",
+    "env-impact/water-total-load",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가법": {
+   "class": "법률",
+   "count": 19,
+   "parts": [
+    "env-impact/mitigation-postmonitoring",
+    "env-impact/public-opinion",
+    "env-impact/scoping",
+    "env-impact/water-total-load",
+    "small-env/target-area",
+    "strategic-env/appendix",
+    "strategic-env/load-allocation-deferral",
+    "strategic-env/plan-overview",
+    "strategic-env/public-opinion",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": [
+    "2023.4.13"
+   ]
+  },
+  "재해영향평가등의 협의 실무지침(행정안전부 고시 제2023-63호, 2023.08.03.)": {
+   "class": "행정규칙",
+   "count": 18,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-impact/impact-assessment",
+    "disaster-impact/mitigation",
+    "disaster-impact/project-overview",
+    "small-disaster/baseline-survey",
+    "small-disaster/impact-assessment",
+    "small-disaster/mitigation",
+    "small-disaster/project-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": [
+    "2023.08.03"
+   ]
+  },
+  "하천법": {
+   "class": "법률",
+   "count": 16,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey",
+    "small-env/landscape",
+    "strategic-env/appendix",
+    "strategic-env/load-allocation-deferral",
+    "strategic-env/plan-overview",
+    "strategic-env/public-opinion"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2018-6호": {
+   "class": "행정규칙",
+   "count": 15,
+   "parts": [
+    "env-impact/water-quality",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/hydrology",
+    "strategic-env/regional-overview",
+    "strategic-env/summary",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-6",
+   "날짜단서": [
+    "2018. 01. 18",
+    "2018.01.18",
+    "2018.1"
+   ]
+  },
+  "환경부고시 제2007-107호": {
+   "class": "행정규칙",
+   "count": 14,
+   "parts": [
+    "env-impact/regional-overview",
+    "env-impact/water-quality",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview",
+    "strategic-env/summary",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2007-107",
+   "날짜단서": [
+    "2007. 07. 06",
+    "2009.1.1"
+   ]
+  },
+  "산림청 고시 제2019-75호": {
+   "class": "행정규칙",
+   "count": 12,
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/appendix",
+    "small-env/landscape",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "small-env/topo-geology",
+    "strategic-env/appendix",
+    "strategic-env/landscape",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ],
+   "별표인용": false,
+   "고시번호": "2019-75",
+   "날짜단서": [
+    "2019.11.05"
+   ]
+  },
+  "자연환경보전법": {
+   "class": "법률",
+   "count": 12,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/project-overview",
+    "env-impact/regional-overview",
+    "env-impact/summary",
+    "small-env/appendix",
+    "small-env/flora-fauna",
+    "small-env/landscape",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/flora-fauna",
+    "strategic-env/public-opinion"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": [
+    "2017.11.28",
+    "2020.06.11"
+   ]
+  },
+  "의료법": {
+   "class": "법률",
+   "count": 12,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "초·중등교육법": {
+   "class": "법률",
+   "count": 12,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "고등교육법": {
+   "class": "법률",
+   "count": 12,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "도서관법": {
+   "class": "법률",
+   "count": 12,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경분야 시험·검사 등에 관한 법률": {
+   "class": "법률",
+   "count": 12,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수질오염총량관리기술지침": {
+   "class": "행정규칙",
+   "count": 12,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연재해대책법": {
+   "class": "법률",
+   "count": 11,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-impact/maintenance",
+    "disaster-impact/project-overview",
+    "disaster-impact/target-area",
+    "disaster-review/project-overview",
+    "small-disaster/baseline-survey",
+    "small-disaster/maintenance",
+    "small-disaster/project-overview",
+    "small-disaster/target-area"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하수도법": {
+   "class": "법률",
+   "count": 10,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "env-impact/public-opinion",
+    "env-impact/summary",
+    "env-impact/water-quality",
+    "small-disaster/baseline-survey",
+    "strategic-env/appendix",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2015-201호": {
+   "class": "행정규칙",
+   "count": 9,
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": true,
+   "고시번호": "2015-201",
+   "날짜단서": [
+    "2015. 10. 12",
+    "2015.10.12",
+    "2019. 07. 02",
+    "2021. 10. 14",
+    "2023. 12. 26",
+    "2024. 07. 23",
+    "대통령령 제32059호",
+    "대통령령 제34748호"
+   ]
+  },
+  "환경부고시 제2023-72호": {
+   "class": "행정규칙",
+   "count": 8,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/scoping",
+    "env-impact/target-area",
+    "small-env/appendix",
+    "small-env/site-suitability",
+    "small-env/target-area"
+   ],
+   "별표인용": true,
+   "고시번호": "2023-72",
+   "날짜단서": [
+    "2023. 02",
+    "2023. 2",
+    "2023.04.13",
+    "2023.4.13",
+    "2023.4.23"
+   ]
+  },
+  "폐기물관리법": {
+   "class": "법률",
+   "count": 8,
+   "parts": [
+    "env-impact/regional-overview",
+    "env-impact/resource-cycle",
+    "small-env/regional-overview",
+    "small-env/resource-cycle",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview",
+    "strategic-env/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "건축법": {
+   "class": "법률",
+   "count": 7,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2018-23호": {
+   "class": "행정규칙",
+   "count": 6,
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-23",
+   "날짜단서": [
+    "2018.02.09"
+   ]
+  },
+  "소하천정비법": {
+   "class": "법률",
+   "count": 6,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey",
+    "small-env/landscape"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "학원의 설립·운영 및 과외교습에 관한 법률": {
+   "class": "법률",
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "식품위생법 시행령": {
+   "class": "시행령",
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "음악산업진흥에 관한 법률": {
+   "class": "법률",
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "다중이용업소 안전관리에 관한 특별법 시행규칙": {
+   "class": "시행규칙",
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "도로법": {
+   "class": "법률",
+   "count": 6,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey",
+    "strategic-env/load-allocation-deferral"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재해영향평가등의 협의 실무지침(2025.05, 행정안전부)": {
+   "class": "기타",
+   "count": 6,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2025.05"
+   ]
+  },
+  "환경부고시 제2020-289호": {
+   "class": "행정규칙",
+   "count": 6,
+   "parts": [
+    "strategic-env/alternatives",
+    "strategic-env/appendix",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": true,
+   "고시번호": "2020-289",
+   "날짜단서": []
+  },
+  "홍수량 산정 표준지침(2019, 환경부)": {
+   "class": "기타",
+   "count": 6,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "대기환경보전법": {
+   "class": "법률",
+   "count": 5,
+   "parts": [
+    "env-impact/air-quality",
+    "env-impact/greenhouse-gas",
+    "small-env/air-quality",
+    "strategic-env/air-quality"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "소음·진동관리법": {
+   "class": "법률",
+   "count": 5,
+   "parts": [
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "strategic-env/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.4.13., 일부개정)": {
+   "class": "행정규칙",
+   "count": 5,
+   "parts": [
+    "env-impact/scoping",
+    "small-env/site-suitability",
+    "small-env/target-area"
+   ],
+   "별표인용": true,
+   "고시번호": "2023-72",
+   "날짜단서": [
+    "2023. 02",
+    "2023. 2",
+    "2023.4.13"
+   ]
+  },
+  "환경정책기본법": {
+   "class": "법률",
+   "count": 5,
+   "parts": [
+    "env-impact/air-quality",
+    "env-impact/land-use",
+    "env-impact/noise-vib",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2025-102호": {
+   "class": "행정규칙",
+   "count": 4,
+   "parts": [
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "2025-102",
+   "날짜단서": [
+    "2025.6.2"
+   ]
+  },
+  "수질오염총량관리 기술지침": {
+   "class": "행정규칙",
+   "count": 4,
+   "parts": [
+    "env-impact/water-total-load",
+    "small-env/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "공간정보의 구축 및 관리 등에 관한 법률": {
+   "class": "법률",
+   "count": 4,
+   "parts": [
+    "env-impact/conservation-goal"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "전국 하천 유역 홍수량 산정(2019, 환경부)": {
+   "class": "기타",
+   "count": 4,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "비산먼지 발생을 억제하기 위한 시설의 설치 및 필요한 조치에 관한 기준": {
+   "class": "행정규칙",
+   "count": 3,
+   "parts": [
+    "small-env/air-quality",
+    "strategic-env/air-quality",
+    "strategic-env/appendix"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2025-46호": {
+   "class": "행정규칙",
+   "count": 3,
+   "parts": [
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "2025-46",
+   "날짜단서": [
+    "2025. 03. 24",
+    "2025. 3. 19"
+   ]
+  },
+  "환경분쟁 피해배상액 산정기준 조정·보완시행, 2008, 중앙환경분쟁조정위원회": {
+   "class": "기타",
+   "count": 3,
+   "parts": [
+    "env-impact/noise-vib",
+    "small-env/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "연료용 유류 등의 황함유기준": {
+   "class": "행정규칙",
+   "count": 3,
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/regional-overview",
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": [
+    "2015. 10. 12"
+   ]
+  },
+  "농어촌정비법": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "사방사업법": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "댐건설 및 주변지역지원 등에 관한 법률": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "항만법": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "어촌·어항법": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수정범양토양손실공식(RUSLE)": {
+   "class": "기타",
+   "count": 3,
+   "parts": [
+    "disaster-impact/impact-assessment",
+    "env-impact/water-quality",
+    "small-disaster/impact-assessment"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "산업집적활성화 및 공장설립에 관한 법률": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "env-impact/project-overview",
+    "env-impact/summary",
+    "env-impact/water-total-load"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": [
+    "2023. 3. 31"
+   ]
+  },
+  "생물다양성 보전 및 이용에 관한 법률": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/appendix",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "산업통상자원부고시 제2025-25호": {
+   "class": "행정규칙",
+   "count": 3,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": true,
+   "고시번호": "2025-25",
+   "날짜단서": []
+  },
+  "건설폐기물의 재활용 촉진에 관한 법률": {
+   "class": "법률",
+   "count": 3,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2019-105호": {
+   "class": "행정규칙",
+   "count": 3,
+   "parts": [
+    "strategic-env/appendix",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ],
+   "별표인용": false,
+   "고시번호": "2019-105",
+   "날짜단서": [
+    "2019.06.13"
+   ]
+  },
+  "하천설계기준·해설(2019, 국토부)": {
+   "class": "기타",
+   "count": 3,
+   "parts": [
+    "strategic-env/hydrology",
+    "strategic-env/plan-overview",
+    "strategic-env/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "동법 시행규칙": {
+   "class": "시행규칙",
+   "count": 2,
+   "parts": [
+    "small-env/air-quality",
+    "strategic-env/air-quality"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연공원법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "small-env/flora-fauna",
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "습지보전법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "small-env/flora-fauna",
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2024-212호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2024-212",
+   "날짜단서": []
+  },
+  "개발사업 등에 대한 자연경관 심의지침(예규) 2023.4.10, 환경부": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "small-env/landscape"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2023.4.10"
+   ]
+  },
+  "사업장 소음의 방지대책에 관한 연구(Ⅰ), 1992, 국립환경과학원": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/noise-vib",
+    "small-env/noise-vib.snippets/저감3_방음판넬"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "야생생물 보호 및 관리에 관한 법률": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/regional-overview",
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국토지리정보원": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/topo-geology",
+    "small-env/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "사방시설 설계기준, 전강현, 1984, 일본골프사업연감": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "small-env/water-quality",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부 제정 하수도시설기준 2011. 한국상하수도협회": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "small-env/water-quality",
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연재해대책법시행령": {
+   "class": "시행령",
+   "count": 2,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재난 및 안전관리 기본법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재해예방을 위한 고지배수로 운영관리지침": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "small-disaster/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재해영향평가 등의 실무지침. 행정안전부 고시 제2023-63호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "disaster-impact/mitigation",
+    "small-disaster/mitigation"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": []
+  },
+  "재해연보": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "풍수해저감종합계획": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재해영향평가 등의 협의 실무지침(행정안전부고시 제2021-1호)": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "disaster-review/risk-analysis"
+   ],
+   "별표인용": false,
+   "고시번호": "2021-1",
+   "날짜단서": []
+  },
+  "행정안전부고시 제2021-1호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "disaster-review/risk-analysis"
+   ],
+   "별표인용": false,
+   "고시번호": "2021-1",
+   "날짜단서": []
+  },
+  "행정안전부고시 제2021-47호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "disaster-review/risk-analysis",
+    "disaster-review/target-area"
+   ],
+   "별표인용": false,
+   "고시번호": "2021-47",
+   "날짜단서": [
+    "2021. 7. 9"
+   ]
+  },
+  "한강수계 상수원 수질개선 및 주민지원등에 관한 법률": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "낙동강수계 물관리 및 주민지원등에 관한 법률": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "금강수계 물관리 및 주민지원등에 관한 법률": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "공간정보의 구축 및 관리 등에 관한 법률 시행령": {
+   "class": "시행령",
+   "count": 2,
+   "parts": [
+    "env-impact/conservation-goal"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/conservation-goal",
+    "strategic-env/socioeconomic"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "타. 체육시설의 설치": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/project-overview",
+    "env-impact/summary"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가서등 작성 등에 관한 규정": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "산사태 발생 우려지역 조사 및 취약지역 지정·관리 지침(산림청)": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/public-opinion",
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가서등의 작성 등에 관한 안내서(2025.3.)": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2025.3."
+   ]
+  },
+  "생태계교란 생물 현장관리 핸드북, 2018, 환경부, 국립생태원": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "제5차 전국자연환경조사 지침, 2019, 국립생태원": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수목원 조성 및 진흥에 관한 법률 시행규칙, 별표 1의3": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수목원 조성 및 진흥에 관한 법률 시행규칙, 별표 1의4": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "산림보호법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "문화재보호법 시행령": {
+   "class": "시행령",
+   "count": 2,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "생태면적율 적용 지침 개정, 환경부": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/land-use"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "고용노동부고시 제2020-6호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-6",
+   "날짜단서": [
+    "2020.01.16"
+   ]
+  },
+  "폐기물 관리법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국민기초생활 보장법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2021-59호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2021-59",
+   "날짜단서": []
+  },
+  "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "오염총량관리 기본방침": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/water-total-load",
+    "strategic-env/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2021년 6월"
+   ]
+  },
+  "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법(환경부 고시)": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법 (환경부 고시, 2009.09.28.)": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2009.09.28"
+   ]
+  },
+  "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법(환경부 고시, 2025.10.01.)": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2025.10.01"
+   ]
+  },
+  "비점오염저감시설의 설치 및 관리·운영 매뉴얼": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2020. 10"
+   ]
+  },
+  "수질오염총량관리를 위한 비점오염원 최적관리지침": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "녹색제품 구매촉진에 관한 법률": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "strategic-env/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수단·방법": {
+   "class": "법률",
+   "count": 2,
+   "parts": [
+    "strategic-env/scoping"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가서 작성 등에 관한 규정, 환경부고시 제2020-289호": {
+   "class": "행정규칙",
+   "count": 2,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-289",
+   "날짜단서": []
+  },
+  "한국하천일람(2018.12.31기준, 국토교통부)": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "strategic-env/hydrology",
+    "strategic-env/plan-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2018.12.31"
+   ]
+  },
+  "수자원장기종합계획(2001∼2020)(2016, 국토교통부)": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한국형 수문량 분석 선진화 기술 개발(국토교통부, 2017)": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2019.7"
+   ]
+  },
+  "하천공간 지구지정 기준 및 관리방안(안)(한국건설기술연구원, 2015)": {
+   "class": "기타",
+   "count": 2,
+   "parts": [
+    "strategic-env/plan-overview",
+    "strategic-env/socioeconomic"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국가생물종지식정보시스템(http://www.nature.go.kr), 김준민(2000)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "산림법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "문화재보호법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "야생동․식물보호법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "백두대간보호에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부 고시 제2024-212호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2024-212",
+   "날짜단서": []
+  },
+  "연안관리법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/landscape"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "소음·진동관리법 시행규칙": {
+   "class": "시행규칙",
+   "count": 1,
+   "parts": [
+    "small-env/noise-vib.snippets/저감3_방음판넬"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "전략환경영향평가 업무 매뉴얼 2023. 2, 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2023. 2"
+   ]
+  },
+  "경부 고시 제2018-23호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-23",
+   "날짜단서": [
+    "2018.02.09"
+   ]
+  },
+  "지하수법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "세계유산법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "산지관리법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "small-env/site-suitability"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "전략환경영향평가 업무 매뉴얼 2023. 02, 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/target-area"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2023. 02"
+   ]
+  },
+  "환경영향평가 평가범위 설정 가이드라인(대기질․악취․소음진동)2013. 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/target-area"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가 스코핑 가이드라인, 2011. 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/target-area"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": [
+    "2023.4.13"
+   ]
+  },
+  "한국 확률강우량도 개정, 2012.04,, 국토해양부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2012.04"
+   ]
+  },
+  "건설공사표준품셈 2025. 한국건설연구원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "small-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재해영향평가등의 실무지침(행정안전부 제2023-63호)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": []
+  },
+  "자연재해위험개선지구 관리지침(제2023-63호. 행정안전부)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": []
+  },
+  "지정 고시 제2017-139호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2017-139",
+   "날짜단서": []
+  },
+  "지정 고시 제2019-174호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2019-174",
+   "날짜단서": []
+  },
+  "지정 고시 제2020-380호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-380",
+   "날짜단서": []
+  },
+  "지정 고시 제2022-532호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2022-532",
+   "날짜단서": []
+  },
+  "행정안전부 고시 제2019-5호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "2019-5",
+   "날짜단서": []
+  },
+  "모두를 위한 국토, 함께 누리는 삶터": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연재해대책법 시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "disaster-review/project-overview"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "행정안전부고시 제2023-1호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/risk-analysis"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-1",
+   "날짜단서": []
+  },
+  "급경사지 재해예방에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "disaster-review/risk-analysis"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "급경사지 재해위험도 평가기준(행정안전부 고시 제2021-47호)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/risk-analysis"
+   ],
+   "별표인용": false,
+   "고시번호": "2021-47",
+   "날짜단서": []
+  },
+  "행정안전부 고시 제2021-47호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/risk-analysis"
+   ],
+   "별표인용": false,
+   "고시번호": "2021-47",
+   "날짜단서": []
+  },
+  "행정안전부 고시 제2023-63호(2023.08) 재해영향평가등의 협의 실무지침": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/target-area"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": [
+    "2023.08"
+   ]
+  },
+  "행정안전부고시 제2023-63호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "disaster-review/target-area"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-63",
+   "날짜단서": []
+  },
+  "환경영향평가서 작성 등에 관한 규정, 환경부고시 제2023-72호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/alternatives"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-72",
+   "날짜단서": [
+    "2023.4.23"
+   ]
+  },
+  "야생동⸳식물보호법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/alternatives"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "영산강⸳섬진강수계 물관리 및 주민지원등에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/alternatives"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "어린이놀이시설 안전관리법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/conservation-goal"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국방·군사시설 사업에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/conservation-goal"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "주한미군 공여구역주변지역 등 지원 특별법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/conservation-goal"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "공유수면 관리 및 매립에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/conservation-goal"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "물의 재이용 촉진 및 지원에 관한 법률 시행규칙": {
+   "class": "시행규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한강수계 상수원수질개선 및 주민지원 등에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부 고시 제2023-135호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/scoping"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-135",
+   "날짜단서": []
+  },
+  "환경영향평가서등의 작성 등에 관한 안내서(2024)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/scoping"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국립환경과학원고시 제2018-53호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-53",
+   "날짜단서": []
+  },
+  "위험물안전관리법 시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "화학물질관리법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "송유관 안전관리법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "특정토양오염관리대상시설": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가 평가범위 설정 가이드라인(대기질·악취·소음진동 2013. 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/target-area"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "미세먼지 저감 및 관리에 관한 특별법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/air-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "건설공사장 공사시간 변경·조정 세부이행지침": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/air-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "고농도 미세먼지 비상저감조치 시행지침": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/air-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "PM-2.5 대기환경기준 설정을 위한 연구, 2009.7, 국립환경과학원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/air-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2009.7"
+   ]
+  },
+  "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2025-49호, 2025.3.20)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2025-49",
+   "날짜단서": [
+    "2025.3.20"
+   ]
+  },
+  "환경부고시 제2025-49호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2025-49",
+   "날짜단서": [
+    "2025.3.20"
+   ]
+  },
+  "환경부훈령 제1656호(“자연환경조사방법 및 등급분류기준 등에 관한규정”), 2024, 7. 24., 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "재협의 초안검토의견(GW2025N001)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "생태계교란생물 현장관리 가이드, 2021, 환경부·국립생태원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "제2차 대기환경개선 종합계획": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "대기환경개선 종합계획": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "기후위기 대응을 위한 탄소중립·녹색성장 기본법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2023.6.9",
+    "법률 제19430호"
+   ]
+  },
+  "공공기관의 운영에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "온실가스 배출권의 할당 및 거래에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "온실가스 항목 환경영향평가등 평가지침, 2015": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "에너지기본법 시행규칙": {
+   "class": "시행규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "지식경제부고시 제2009-193호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": true,
+   "고시번호": "2009-193",
+   "날짜단서": []
+  },
+  "국토교통부 고시 제2014-691호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "2014-691",
+   "날짜단서": []
+  },
+  "온실가스 항목 환경영향평가등 평가지침, 2015, 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "신·재생 에너지 설비의 지원 등에 관한 규정 [산업통상자원부고시 제2025-25호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "2025-25",
+   "날짜단서": []
+  },
+  "9.3.1 수질": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "제5차 국가환경종합계획": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/land-use"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "제5차 국가환경종합계획 (’20~’40)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/land-use"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연환경보전법 시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "env-impact/landscape"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "개발사업 등에 대한 자연경관 심의지침": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/landscape"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국립환경과학원고시 제2022-79호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "2022-79",
+   "날짜단서": [
+    "2022.12.1"
+   ]
+  },
+  "환경분쟁피해액 산정기준 조정·보완시행, 환경부(중앙환경분쟁조정위원회)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "건설기계류 소음 특성, 2003, 국립과학연구원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "발파작업표준안전작업지침 (2020.01.16., 고용노동부고시 제2020-6호)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-6",
+   "날짜단서": [
+    "2020.01.16"
+   ]
+  },
+  "도로공사 노천발파 설계·시공 지침, 건설교통부, 2006. 12": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2006. 12"
+   ]
+  },
+  "문화체육관광부고시 제2014-32호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "2014-32",
+   "날짜단서": [
+    "시행 2014. 9. 1"
+   ]
+  },
+  "영산강·섬진강수계 물관리 및 주민지원등에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "env-impact/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "2022 건설공사표준품셈, 국토교통부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2018-153호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-153",
+   "날짜단서": []
+  },
+  "건설공사표준품셈, 2025, 한국건설기술연구원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "조경설계요람, 문석기외 5명 등 1998, 조경출판사": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "2024 하수도통계": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "폐기물관리법 시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "사후환경영향조사의 대상사업 및 기간": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한국지질도 (1/50,000)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한국의 지질유산 정보구축 및 관리방안(이수재, 2008. KEI 기본과제 연구보고서": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한국의 지질노두 150선, 2004, 한국지질자원연구원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한국의 지질유산 정보구축 및 관리방안(이수재, 2008, KEI 기본과제 연구보고서)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "행정안전부고시 제2023-36호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-36",
+   "날짜단서": [
+    "2023. 5."
+   ]
+  },
+  "급경사지 재해위험도 평가기준(행정안전부 고시 제2023-36호)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-36",
+   "날짜단서": []
+  },
+  "행정안전부 고시 제2023-36호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-36",
+   "날짜단서": []
+  },
+  "USGA & The R&A (2023). Distance Insights Report(2023)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "Analysis of Amateur Driving Data 1996–2008": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/topo-geology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "중권역별 물환경 목표기준, 환경부고시 제2018-6호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-6",
+   "날짜단서": []
+  },
+  "횡성군 고시 제2018-154호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2018-154",
+   "날짜단서": []
+  },
+  "횡성군 고시 제2019-225호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2019-225",
+   "날짜단서": []
+  },
+  "횡성군 고시 제2020-49호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-49",
+   "날짜단서": []
+  },
+  "수질오염공정시험기준, 국립환경과학원고시 제2022-12호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2022-12",
+   "날짜단서": []
+  },
+  "먹는물수질공정시험기준, 국립환경과학원고시 제2023-33호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-33",
+   "날짜단서": []
+  },
+  "국립환경과학원고시 제2022-12호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2022-12",
+   "날짜단서": []
+  },
+  "국립환경과학원고시 제2023-33호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2023-33",
+   "날짜단서": []
+  },
+  "동식물상 9.1.1": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하수도시설기준": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "횡성군 고시 제2009-64호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "2009-64",
+   "날짜단서": [
+    "2009.07.24"
+   ]
+  },
+  "횡성군고시 제2020-71호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-71",
+   "날짜단서": [
+    "2020.03.25"
+   ]
+  },
+  "강원도고시 제2022-439호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "2022-439",
+   "날짜단서": [
+    "2022.12.16"
+   ]
+  },
+  "횡성군고시 제2022-243호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "2022-243",
+   "날짜단서": [
+    "2022.12.16"
+   ]
+  },
+  "횡성군 고시 제2025-8호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "2025-8",
+   "날짜단서": [
+    "2025.01.10"
+   ]
+  },
+  "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법(환 경부 고시, 2009.09.28.)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2009.09.28"
+   ]
+  },
+  "건축물의 용도별 오수발생량 및 정화조 처리대상인원 산정방법(환경부 고시, 2009.09.28.)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "env-impact/water-total-load"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2009.09.28"
+   ]
+  },
+  "환경영향평가서 등 작성 등에 관한 규정 별표3, 환경부고시 제2020-289호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/alternatives"
+   ],
+   "별표인용": true,
+   "고시번호": "2020-289",
+   "날짜단서": []
+  },
+  "유통산업발전법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "strategic-env/load-allocation-deferral"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "건설기술진흥법시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "strategic-env/load-allocation-deferral"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한강수계 상수원 수질개선 및 주민지원에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "strategic-env/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2021년 6월"
+   ]
+  },
+  "하천기본계획 수립지침": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/public-opinion"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "월악산국립공원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/scoping"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가법 시행령[별표1]환경영향평가등의 분야별 세부평가항목": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/scoping"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하천법 시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "strategic-env/appendix"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가법 시행령": {
+   "class": "시행령",
+   "count": 1,
+   "parts": [
+    "strategic-env/appendix"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경정책기본법 시행령 [별표] <시행 2020. 5. 27>": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/appendix"
+   ],
+   "별표인용": true,
+   "고시번호": "",
+   "날짜단서": [
+    "시행 2020. 5. 27"
+   ]
+  },
+  "국토지리정보원 고시 제2012- 1577호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/appendix"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "국토지리정보원 고시 제2012-1577호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/appendix"
+   ],
+   "별표인용": false,
+   "고시번호": "2012-1577",
+   "날짜단서": []
+  },
+  "수목원 조성 및 진흥에 관한 법률 시행규칙": {
+   "class": "시행규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/appendix"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "제3차 자연환경보전 기본계획(2016~2025), 2015, 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가서등 작성 등에 관한 규정, 환경부고시 제2020호-289호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연환경조사방법 및 등급분류기준 등에 관한 규정, 2015, 환경부훈령 제1161호": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "자연환경조사 방법 및 등급분류기준 등에 관한 규정": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "야생동물 흔적 도감, 2008, 돌베개": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부고시 제2019-47호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2019-47",
+   "날짜단서": []
+  },
+  "전국 생태·자연도": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2020-289호)": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-289",
+   "날짜단서": []
+  },
+  "생태계교란 생물 지정고시, 환경부고시 제2020-285호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-285",
+   "날짜단서": []
+  },
+  "환경부고시 제2020-285호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "2020-285",
+   "날짜단서": []
+  },
+  "생태계교란 생물, 2012, 환경부·국립환경과학원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경영향저감 우수·미흡 사례집, 2017, 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "생태계교란 생물 현장관리 핸드북, 2016, 환경부(국립생태원)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/flora-fauna"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하천기본계획 수립지침(2018, 국토교통부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "한강홍수통제소 고시 제2015-191호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "2015-191",
+   "날짜단서": []
+  },
+  "한국형 수문량 분석 선진화 기술 개발(2017)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "설계홍수량 산정 요령(2012, 국토교통부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "홍수량 산정 표준 지침(2019, 환경부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "전국 하천유역 홍수량 산정(2019, 환경부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하천설계기준해설, 2019, 국토교통부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하상변동 예측모형의 비교분석(1991, 건설기술연구원)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하상변동량 조사": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수자원장기종합계획(2001∼2020)[제3차 수정계획](2016, 국토교통부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하천수 사용허가업무 매뉴얼(2009, 국토교통부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하천수 사용허가업무 매뉴얼": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "하천수사용 사용허가 업무매뉴얼(2009, 국토해양부)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/hydrology"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "개발사업 등에 대한 자연경관 심의 지침(환경부예규 제561호, 2015.8.31)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/landscape"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2015.8.31"
+   ]
+  },
+  "개발사업 등에 대한 자연경관 심의지침. 2015, 환경부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/landscape"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "건설기계류 소음⸳진동 특성, 2005, 국립환경과학원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "합성소음도 산출식": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "점음원 거리감쇠식": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/noise-vib"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "유역종합치수계획 및 하천기본계획 수립지침(2008.12)": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/plan-adequacy"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2008.12"
+   ]
+  },
+  "충청북도 청주시 설치 및 지원특례에 관한 법률": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "strategic-env/regional-overview"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "사도법": {
+   "class": "법률",
+   "count": 1,
+   "parts": [
+    "strategic-env/socioeconomic"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "확률강우량도 개선 및 보완연구, 2011.11, 국토해양부": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2011.11"
+   ]
+  },
+  "기상연보 2020. 기상청": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": [
+    "2020년 1"
+   ]
+  },
+  "건설공사표준품셈 2021 한국건설연구원": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "2018 제천시 통계연보": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "개인하수처리시설의 방류수수질기준": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "수질오염사고 조치 매뉴얼, 한국환경공단": {
+   "class": "기타",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "",
+   "날짜단서": []
+  },
+  "환경부 고시 제2006-227호": {
+   "class": "행정규칙",
+   "count": 1,
+   "parts": [
+    "strategic-env/water-quality"
+   ],
+   "별표인용": false,
+   "고시번호": "2006-227",
+   "날짜단서": []
+  }
+ },
+ "기준표제목": {
+  "대기환경기준": {
+   "count": 13,
+   "parts": [
+    "env-impact/air-quality",
+    "env-impact/conservation-goal",
+    "small-env/air-quality",
+    "small-env/env-status",
+    "small-env/regional-overview",
+    "strategic-env/regional-overview"
+   ]
+  },
+  "소음환경기준": {
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ]
+  },
+  "생활소음 규제기준": {
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ]
+  },
+  "생활진동 규제기준": {
+   "count": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
+   ]
+  },
+  "수질환경기준": {
+   "count": 5,
+   "parts": [
+    "env-impact/conservation-goal",
+    "small-env/env-status",
+    "small-env/regional-overview",
+    "small-env/water-quality"
+   ]
+  },
+  "생활환경기준": {
+   "count": 4,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/water-quality",
+    "small-env/regional-overview",
+    "strategic-env/regional-overview"
+   ]
+  },
+  "호소생활환경기준": {
+   "count": 4,
+   "parts": [
+    "env-impact/water-quality",
+    "small-env/regional-overview",
+    "strategic-env/regional-overview"
+   ]
+  },
+  "하천생활환경기준": {
+   "count": 4,
+   "parts": [
+    "env-impact/water-quality",
+    "strategic-env/regional-overview",
+    "strategic-env/water-quality"
+   ]
+  }
+ }
+}
