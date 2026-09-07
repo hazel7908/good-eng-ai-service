@@ -42,11 +42,11 @@ STATUS = {
         "1장 개요": 0.7, "2장 대상지역": 0.7, "3장 기초현황": 0.7,      # 1~4장 베이스+되먹임 ✅ 09-03 (⑬·⑰)
         "4장 위험요인": 0.7, "5장 부록": 0.1,
     }),
-    "본환 env-impact": (10, {   # 30파트 실측(⑭) — rule 스텁 0.25 · 베이스+되먹임 13파트 0.7 (09-04 Windows ⑱)
-        "summary": 0.7, "project-overview": 0.7, "target-area": 0.7, "regional-overview": 0.5, "scoping": 0.7, "public-opinion": 0.7, "alternatives": 0.7, "conservation-goal": 0.7, "flora-fauna": 0.5, "natural-assets": 0.7, "climate": 0.7, "air-quality": 0.5, "greenhouse-gas": 0.5, "water-quality": 0.5, "land-use": 0.5, "soil": 0.7, "topo-geology": 0.5, "resource-cycle": 0.5, "noise-vib": 0.5, "landscape": 0.5, "population-housing": 0.7, "strategic-reflection": 0.7, "mitigation-postmonitoring": 0.7, "unavoidable-impact": 0.7, "resident-damage": 0.7, "conclusion": 0.7, "appendix-1": 0.7, "appendix-2": 0.7, "appendix-3": 0.7, "water-total-load": 0.5
+    "본환 env-impact": (10, {   # 30파트 실측(⑭) — rule 스텁 0.25 · **30파트 전부 베이스+되먹임 0.7** (09-07 Windows ㉓·㉔)
+        "summary": 0.7, "project-overview": 0.7, "target-area": 0.7, "regional-overview": 0.7, "scoping": 0.7, "public-opinion": 0.7, "alternatives": 0.7, "conservation-goal": 0.7, "flora-fauna": 0.7, "natural-assets": 0.7, "climate": 0.7, "air-quality": 0.7, "greenhouse-gas": 0.7, "water-quality": 0.7, "land-use": 0.7, "soil": 0.7, "topo-geology": 0.7, "resource-cycle": 0.7, "noise-vib": 0.7, "landscape": 0.7, "population-housing": 0.7, "strategic-reflection": 0.7, "mitigation-postmonitoring": 0.7, "unavoidable-impact": 0.7, "resident-damage": 0.7, "conclusion": 0.7, "appendix-1": 0.7, "appendix-2": 0.7, "appendix-3": 0.7, "water-total-load": 0.7
     }),
-    "전략 strategic-env": (2, {   # 22파트 실측(⑭, 하천기본계획 표본) — 베이스+되먹임 10파트 0.7 (09-04 Windows ⑲)
-        "summary": 0.7, "plan-overview": 0.5, "alternatives": 0.7, "target-area": 0.7, "regional-overview": 0.5, "scoping": 0.7, "public-opinion": 0.7, "plan-adequacy": 0.5, "flora-fauna": 0.5, "natural-assets": 0.7, "topo-geology": 0.5, "landscape": 0.5, "water-quality": 0.5, "hydrology": 0.5, "climate": 0.7, "air-quality": 0.5, "noise-vib": 0.5, "resource-cycle": 0.7, "socioeconomic": 0.5, "conclusion": 0.7, "appendix": 0.5, "load-allocation-deferral": 0.7
+    "전략 strategic-env": (2, {   # 22파트 실측(⑭, 하천기본계획 표본) — **22파트 전부 베이스+되먹임 0.7** (09-07 Windows ㉕·㉖)
+        "summary": 0.7, "plan-overview": 0.7, "alternatives": 0.7, "target-area": 0.7, "regional-overview": 0.7, "scoping": 0.7, "public-opinion": 0.7, "plan-adequacy": 0.7, "flora-fauna": 0.7, "natural-assets": 0.7, "topo-geology": 0.7, "landscape": 0.7, "water-quality": 0.7, "hydrology": 0.7, "climate": 0.7, "air-quality": 0.7, "noise-vib": 0.7, "resource-cycle": 0.7, "socioeconomic": 0.7, "conclusion": 0.7, "appendix": 0.7, "load-allocation-deferral": 0.7
     }),
 }
 

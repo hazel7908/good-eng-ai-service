@@ -84,11 +84,14 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── regional-overview.hwpx (+.slots.md)  토큰 29종 · 지역개황(제2장)
 │   ├── project-overview · target-area · surrounding-land-use · env-status  ┐ 08-31
 │   ├── climate · water-quality · land-use · resource-cycle                 ┘ ~09-01
-│   ├── site-suitability · flora-fauna · topo-geology · landscape · appendix · water-total-load  — 09-03 spec·핸들러 (베이스 ⑮ 대기)
+│   ├── site-suitability · flora-fauna · topo-geology · landscape · appendix · water-total-load  — 09-03 베이스+되먹임
 │   └── noise-vib.snippets/           조건부 절 조각 (절 삽입은 보류 중)
 │
-├── templates/small-disaster/    ▓ 소재평 베이스 (2026-09-01) — 기준=천안 삼성리 서식
-│   └── project-overview · target-area · conclusion .hwpx   토큰 22+9+12
+├── templates/small-disaster/    ▓ 소재평 베이스 8장 — 기준=천안 삼성리 서식
+├── templates/disaster-impact/   ▓ 재평 베이스 8장 (소재평 파생 준용)
+├── templates/disaster-review/   ▓ 검토서 베이스 1~4장 — 기준=원주 태장동
+├── templates/env-impact/        ▓ 본환 베이스 **30파트 전부** (09-07) — 기준=횡성 벨라스톤CC
+├── templates/strategic-env/     ▓ 전략 베이스 **22파트 전부** (09-07) — 기준=충북 수산천·고명천
 │
 ├── golden/small-env/            ▓ 골든셋 — 생성 중 접근 금지, 검증 전용
 ├── golden/small-disaster/       ▓ 재해 골든셋 (천안 삼성리·충주 지방정원, 09-01) + disaster-review/ 1건
