@@ -111,11 +111,36 @@ def build(case: str):
     }
     save(vdir, "surrounding-land-use", slu)
 
+    # ── 0840 총량검토서 — 사업 블록 0100 승계 + 계산 인풋 대기 명세
+    # 핵심 인풋(지목별 면적·단위유역)은 실무 산출물 `총량계산.xlsx` 가 원천이다 —
+    # NAS 환25-05 `1. 기타자료/3. 엑셀/250306 총량계산.xlsx` 실존 확인(대기질 D-4 전례).
+    # 용도지역은 소음 '다'+진동 '가'에서 역유추하지 않는다(common.md 매핑 함정의 역방향).
+    wt = {
+        "_meta": {"빌더": "build_area_vars", "승계": "0100(사업)",
+                "인풋대기": "NAS 환25-05/1. 기타자료/3. 엑셀/250306 총량계산.xlsx"},
+        "사업": {"사업명": sa.get("사업명"), "위치": sa.get("위치"),
+               "허가권자": sa.get("허가권자"), "시군": sa.get("시군") or "천안시",
+               "시행자": None, "용도지역": None, "사업기간": None, "착공일": None,
+               "준공일": None, "준공년도": None, "표지연월": None, "면적_㎡": sa.get("면적_㎡")},
+        "배경": {"서술": None}, "실시근거": {}, "경위": {},
+        "총량": {"단위유역": None},
+        "부하": {"시행전_지목": {}, "시행후_지목": {}},
+        "조서": pj.get("조서", {}), "토지이용": pj.get("토지이용") or [],
+        "_확인필요": [
+            {"항목": "시행전·시행후 지목별 면적 · 단위유역", "분류": "X",
+             "사유": "총량계산.xlsx 인풋 대기 — 단위유역은 유역도 근거 없이 추정 금지(병천A 추정 금지)"},
+            {"항목": "용도지역", "분류": "X", "사유": "기준 분류(소음 다·진동 가)에서 역유추 금지 — 신청서류·토지이용계획확인원"},
+            {"항목": "조서·토지이용", "분류": "X", "사유": "0100 신청서류 대기와 동일 — 확정 시 재실행"},
+        ],
+    }
+    save(vdir, "water-total-load", wt)
+
     # ── dry-검증 — 핸들러 build_slots 를 실제로 돌려 MISSING 수를 센다
     sys.path.insert(0, str(ROOT / "engine"))
     sys.path.insert(0, str(ROOT / "engine" / "parts" / "small-env"))
     import importlib.util
-    for part, data in (("target-area", ta), ("surrounding-land-use", slu)):
+    for part, data in (("target-area", ta), ("surrounding-land-use", slu),
+                       ("water-total-load", wt)):
         spec = importlib.util.spec_from_file_location(part.replace("-", "_"),
                                                       ROOT / "engine" / "parts" / "small-env" / f"{part}.py")
         m = importlib.util.module_from_spec(spec)
