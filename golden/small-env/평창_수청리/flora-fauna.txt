@@ -1,0 +1,4985 @@
+제7장 환경현황, 환경에 미치는 영향의 조사⸱예측․평가 및 환경보전방안
+7.1 자연생태환경
+7.1.1 동⸱식물상
+가. 현 황
+제7장 환경 현황, 환경에 미치는 영향의 조사․예측․평가 및 환경보전방안
+평창군 미탄면 수청리 73번지 일원 태양광발전소 조성사업
+7.1.1 동·식물상
+주) 육수동물상의 경우, 조사지역 내 하도환경이 양호한 수계가 분포하지 않아 조사항목에서 제외하였으며, 문헌조사로 대체하였음.
+① 식생보전
+① 등급
+구 분
+식생보전
+Ⅴ(5)등급
+식생보전
+Ⅴ(2)등급
+합계
+식생
+유형
+도로 및 나지
+이차초원
+면적(㎡)
+467
+17,606
+18,073
+비율(%)
+2.58
+97.42
+100.00
+② 동ㆍ식물상
+구 분
+식 물
+포유류
+양서⸱
+파충류
+조 류
+육상곤충류
+담수어류
+저서성대형 무척추동물
+분류군
+종수
+61과 153분류군
+6과 6종
+4과 5종
+17과 22종
+38과 82종
+-
+-
+법정
+보호종
+✖
+삵
+✖
+✖
+✖
+-
+-
+③ 생태･자연도
+○ 본 사업계획지구의 생태·자연도는 2, 3등급지역으로 고시되었음.
+④ 별도 첨부자료
+○ 현지조사표
+○ 참고문헌
+(1) 조사항목
+(가) 육상동·식물상
+1) 육상식물
+가) 식물상
+① 관속식물 분포
+- 관속식물목록 작성, 생활형(life form) 분석 등
+② 특정식물 분포
+- 보호수ㆍ노거수, 한반도고유종, 희귀식물, 식물구계학적특정식물,
+법정보호종(멸종위기 야생생물ⅠㆍⅡ급, 천연기념물) 등
+③ 귀화식물 현황
+- 귀화식물목록 작성, 도시화지수(UI)ㆍ귀화율(PN) 분석 등
+나) 현존식생
+① 주요 식생의 분석
+- 주요 식생의 종조성적 특징(진단종군 추출)
+- 현존식생도 작성, 주요 식생의 면적분포 등
+- 식생보전등급 작성
+- 식생보전등급별 면적 분석, 식물현존량과 순생산량의 산정
+② 특정식물군락
+- 식생‧생태자원 자연성평가(naturalness), 식생보전등급도 작성
+- 주요 습지, 자연식생 등
+2) 육상동물
+가) 포유류
+- 각 분류군별 분포상황 등
+나) 양서·파충류
+- 각 분류군별 분포상황 등
+다) 조류
+- 각 분류군별 분포상황, 겨울철새 조사 등
+라) 육상곤충류
+- 각 분류군별 분포상황 등
+마) 특정육상동물
+- 문화재청지정 천연기념물, 환경부지정 멸종위기 등급종, 특정개체군,
+한국특산종, 희귀종, 희소종 등
+(나) 생태·자연도
+- 환경부 환경지리정보의 해당입지 생태·자연도 검색
+- 식생보전등급, 동·식물의 분포 등 생태·자연도의 세부현황
+(2) 조사범위 및 조사시기
+중점조사지역 : 사업계획지구 18,073㎡
+광역조사지역 : 사업계획지구의 주변지역
+조사기간 : 2024년 08월 08일
+문헌조사 조사현황
+조사항목
+문헌자료
+육상식물상
+육상동물상
+포유류
+조류
+양서·파충류
+육상곤충
+Ⅰ
+-
+○
+-
+○
+-
+Ⅱ
+○
+○
+○
+○
+○
+Ⅲ
+○
+○
+○
+○
+-
+Ⅳ
+○
+○
+○
+○
+-
+Ⅴ
+○
+○
+○
+○
+○
+자) 문헌조사Ⅰ : 환경부. 2018. ‘제4차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+(3) 조사방법
+(가) 육상동·식물상
+1) 육상식물
+가) 식물상(flora) 및 현존식생 (actual vegetation)
+식생조사지점의 선정에 앞서 사업계획지구 및 사업시행으로 영향이 예상되는 지역의 산림을 상관(physiognomy)적으로 주요 식생의 배분현황을 파악하였다.
+조사지역에 분포하는 식물군락은 유형별로 특징 있는 식물군락을 조사하고, 각 식분에 대하여 Braun-Blanquet(1964)의 식물사회학적 조사방법을 실시하여 정성적으로 추정하였으며, 매목조사를 실시하여 정량적으로 추정하였다.
+조사지 선정은 사업시행으로 직접적으로 훼손되는 지역 중 균질한 곳을 대상으로 최소 면적 이상의 방형구를 설치한 후, 그 내용을 식생조사표에 기재하였다. 또한, 매목조사를 실시하여 교목층과 아교목층의 수고 및 흉고직경을 측정하였다.
+현존식생도는 본 사업계획지구 및 본 사업시행으로 영향이 예상되는 지역의 산림을 상관(相觀)에 의하여 구분한 후 1:5,000의 지형도에 작성하였다.
+조사된 식물상을 라운키에르 생활형(Raunkiaerian life form)에 의해 구분하였다.
+기타 환경부 지정 멸종위기 식물종, 한국특산종 및 학술적 특이군락, 구계학적 특정식물종을 검토하였다.
+사업계획지구와 주변지역에서 발견된 귀화식물을 분석ㆍ분류하여 도시화지수(UI), 귀화율(PN, %)을 산정하여 분포하는 현황을 파악하였다.
+우점도 및 군도의 사정기준(Braun-Blanquet, 1964)
+우점도(Dominance)
+군도(Sociability)
+r
+고립하여 출현하고, 피도는 극히 낮음
+1
+단독으로 생육하는 상태
++
+피도는 낮고, 산재성으로 출현함.
+(5% 미만)
+2
+군 또는 총상으로 생육하는 상태(소군상)
+1
+개체수는 많으나 피도는 낮음. 또는 산재하나 피도는 약간 높음. (5% 미만, 1/10)
+3
+군집, 소반, 방석모양으로 생육하는 상태
+2
+표본구 면적의 1/10~1/4을 덮거나, 혹은 개체수가 많음. (5% 이상 25% 미만)
+4
+소군락, 광반, 카페트모양을 이루는 상태
+(카페트에 구멍이 있는 상태)
+3
+표본구 면적의 1/4~1/2을 덮고, 개체수는 임의(25% 이상 50% 미만)
+5
+대집합, 순개체군을 이루는 상태(카페트상)
+4
+표본구 면적의 1/2~3/4을 덮고, 개체수는 임의(50% 이상 75% 미만)
+-
+-
+5
+표본구 면적의 3/4이상으로 개체수는 임의
+(75% 이상)
+-
+-
+우점도, 군도의 배분 모식도
+Raunkiaer(1934)의 생활형 구분
+구       분
+구   분   개   요
+G
+Geophyte
+(지중식물)
+휴면아가 땅속에 있는 다년초로 지상부는 마른다.
+H
+Hemicryptophytes
+(반지중식물)
+휴면아가 지표 바로 밑에 있는 다년초
+Ch
+Chamephytes
+(지표식물)
+휴면아가 지표면에서 0~0.3m이내에 있는 다년초
+N
+Phanerophytes
+(지상식물-소형)
+저목, 미소지상식물로 휴면아가 지표면에서 0.3~2m사이에 있는 것
+M
+Phanerophytes
+(지상식물-대형)
+대고목, 대형지상식물로 휴면아가 지표면에서 8~30m사이에 있는 것
+HH
+Hydatophytes
+(근수생식물)
+1년생 수생식물, 뿌리가 질흙 속에 있거나 수면에 뜨는 부엽식물
+E
+Epiphytes
+(착생식물)
+바위나 다른 식물체에 붙어서 서식하는 종
+Th
+Therophytes
+(일년생식물)
+월동하지 않는 1년초이거나 월동하는 월년초. 지하에 있는 휴면아가 모체에서 분리 월동하고 모체는 그해에 죽는 영양번식형 1년초와 다년초의 중간형태.
+M: 대형지상식물(교목), N: 소형지상식물(관목), E: 착생식물, Ch: 지표식물
+H: 반지중식물, G: 지중식물, HH: 근생수생식물, Th: 일년생식물
+Raunkiaer의 생활형 분포 모식도
+식물구계학적 특정식물종의 등급 및 평가체계
+등급
+내용
+등급평가점수
+Ⅰ등급
+북방계 및 남방계 식물로써 3개 아구에 분포하는 분류군
+2점
+Ⅱ등급
+비교적 전국적으로 분포하지만 일반적으로 1,000m 이상 되는 지역에 분포하는 분류군
+4점
+Ⅲ등급
+북방계 및 남방계 식물로써 2개 아구에 분포하는 분류군
+6점
+Ⅳ등급
+북방계 및 남방계 식물로써 1개 아구에만 분포하는 분류군
+8점
+Ⅴ등급
+고립하거나 불연속적으로 분포하는 분류군
+10점
+자) 제2차 전국자연환경조사지침 중 일반식물상 조사지침. 2001. 환경부
+희귀식물 및 적색자료 분류기준
+자) 국제자연보존연맹(IUCN) 적색자료 목록 분류기준. 2013
+약칭
+분류기준
+비고
+EX
+최후의 개체가 죽었다는 것에 대한 의심의 여지가 없는 경우
+절멸종
+EW
+한 분류군이 단지 배양상태나 사육상태에서만 생존해 있는 것으로 알려져  있거나, 과거의 서식지가 아닌 외부에 귀화하여 군집을 이루고 있는 경우는 야생에서는 멸종한 것임. 분류군의 과거 활동지역을 기초로 적절한 시기(매일, 계절별, 년간)에 이들이 서식하였거나 가능성이 있는 서식지를 전체에 걸쳐 상세히 조사했을 때, 단 한 개체도 발견되지 않은 경우
+야생멸종
+휘귀식물
+CR
+곧 야생에서 멸종될 수 있는 극심한 위험에 직면한 경우
+멸종위기종
+위기종
+EN
+한 분류군이 멸종임계의 상태는 아니지만 가까운 미래에 멸종될 수 있는 매우 높은 위험에 직면한 경우
+VU
+비록 멸종임계의 상황도 아니고 위기상황도 아니지만 근래에 야생에서 멸종할 높은 위험에 직면한 경우
+취약종
+LR
+한 분류군을 평가할 때 ‘멸종임계’, ‘위기’나 ‘취약’의 분류를 가르는 기준에 부적합할 경우 ‘낮은 위험’이라고 함. 아래와 같이 3개의 하위범주로 구분함
+낮은위험종
+CD
+보호프로그램에서 초점이 되는 분류군으로 적절한 보전조치가 요구되는 경우
+보전조치
+필요종
+NT
+근래는 아니지만 향후 야생에서 멸종할 위기에 근접한 경우
+위기근접종
+LC
+멸종의 위기는 아니지만 약간의 관심이 필요한 경우
+관심필요종
+DD
+자료부족종
+한 분류군의 분포나 군집 현황을 바탕으로 하여 이들의 멸종위험 여부를 직간접적으로 평가하기 위한 충분한 정보가 결여되어 있을 때 ‘자료부족’이라고 함
+NE
+평가불가종
+(일반종)
+한 분류군이 평가기준에 대해 아직 평가되지 않았을 때는 ‘평가불가’라고 함
+나) 식생보전등급
+식생보전등급의 등급분류기준과 해당식생‧생태자원의 자연성평가(自然性評價, naturalness)를 반영하여 조사지역에 분포하는 식생에 대하여 식생보전등급(植生保全等級, Vegetation Conservation Classification)을 평가하였다.
+특히, 식생보전등급의 평가는 천이(遷移)가 거의 극상단계(極上段階)에 있는 자연식생(自然植生, natural vegetation)이나 특수한 입지(立地)에서 유지되고 있는 특이식생(주요습원 등), 그리고 보전의 개연성을 갖는 이차장령림(Ⅱ) 등은 보전 가치의 여부를 평가(評價), 진단(診斷)할 수 있도록 식생유형(植生類型)을 구분(區分)하였다.
+식생보전등급의 평가항목 및 평가요령
+평 가 항 목
+평     가     요     령
+가. 분포 희귀성
+(rarity)
+1) 평가 대상이 되는 식물군락이 한반도 내에서 분포하는 패턴을 의미
+2) 분포면적이 국지적으로 좁으면 높게, 전국적으로 분포하면 낮게 평가
+나. 식생복원 잠재성
+(potentiality)
+1) 평가 대상이 되는 식물군락(식분)이 형성되는데 소요되는 기간(잠재 자연식생의 형성기간)을 의미
+2) 오랜 시간이 요구되면 높게, 짧은 시간에 형성되는 식물군락은 낮게 평가. 다만, 식생 발달기원이 부영화, 식재 등에 의한 것이면 상대적으로 낮은 것으로 평가
+다. 구성식물종 온전성
+(integrity)
+1) 평가 대상이 되는 식물군락의 구성식물종(진단종군)이 해당 입지에 잠재적으로 형성되는 식물사회의 구성식물종인가에 대한 평가를 의미
+2) 이는 입지의 자연식생의 구성종을 엄밀히 파악하는 것으로 삼림의 경우, 흔히 천이 후기종(극상종)으로 구성되면 높게, 초기종의 구성비가 높으면 낮게 평가
+라. 식생구조 온전성
+1) 평가 대상이 되는 식물군락이 해당입지에 전형적으로 발달하는 식생구조(층위구조)가 얼마나 원형에 가까운가를 가지고 판정
+2) 삼림식생은 4층의 식생구조를 가지며, 각 층위는 고유의 식생고(height)와 식피율(coverage)을 가지고 있으므로 층위구조가 온전하면 조전생태학적으로 높게 평가
+마. 중요종 서식
+1) 식물군락은 식물종의 구성으로 이루어지므로 식물종 자체에 대한 보전 생태학적 가치를 평가
+2) 그 분포면적이 좁거나, 중요한 식물종(멸종위기야생생물 Ⅰ‧Ⅱ급 또는 식물구계학적 중요종)이 포함되면 더욱 높게 평가
+바. 식재림 흉고직경
+- 식재림의 경우 가장 큰 개체, 보통 대체의 흉고직경(DBH)을 기록
+자) 환경부. 2012. "자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호)".
+식생보전등급의 등급분류기준
+등 급
+식 생 보 전 등 급 기 준
+Ⅰ등급
+(1) 식생천이의 종국적인 단계에 이른 극상림 또는 그와 유사한 자연림
+㈎ 아고산대 침엽수림(분비나무군락, 구상나무군락, 주목군락 등)
+㈏ 산지 계곡림(고로쇠나무군락, 층층나무군락 등), 하반림(오리나무군락, 비술나무군락 등), 너도밤나무군락 등의 낙엽활엽수림
+(2) 삼림식생 이외의 특수한 입지에 형성된 자연성이 우수한 식생이나 특이식생 중 인위적 간섭의 영향을 거의 받지 않아 자연성이 우수한 식생
+㈎ 해안사구, 단애지, 자연호소, 하천습지, 습원, 염습지, 고산황원, 석회암지대, 아고산초원, 자연암벽 등에 형성된 식생. 다만, 이와 같은 식생유형은 조사자에 의해 규모가 크고 절대보전가치가 있을 경우에만 지형도에 표시하고, 보고서에 기재 사유를 상세히 기술하여야 함
+Ⅱ등급
+(1) 자연식생이 교란된 후 2차 천이에 의해 다시 자연식생에 가까울 정도로 거의 회복된 상태의 삼림식생
+㈎ 군락의 계층구조가 안정되어 있고, 종조성의 대부분이 해당지역의 잠재 자연식생을 반영하고 있음
+㈏ 난․온대 상록활엽수림(동백나무군락, 신갈나무-당단풍군락, 졸참나무군락, 서어나무군락 등의 낙엽활엽수림)
+(2) 특이식생 중 인위적 간섭의 영향을 약하게 받고 있는 식생
+Ⅲ등급
+(1) 자연식생이 교란된 후 2차 천이의 진행에 의하여 회복단계에 들어섰거나 인간에 의한 교란이 지속되고 있는 삼림식생
+㈎ 군락의 계층구조가 불안정하고, 종조성의 대부분이 해당지역의 잠재자연식생을 충분히 반영하지 못함
+㈏ 조림기원 식생이지만 방치되어 자연림과 구별이 어려울 정도로 회복된 경우
+(2) 산지대에 형성된 2차 관목림이나 2차 초원
+(3) 특이식생 중 인위적 간섭의 영향을 심하게 받고 있는 식생
+Ⅳ등급
+(1) 인위적으로 조림된 식재림
+Ⅴ등급
+(1) 2차적으로 형성된 키가 큰 초원식생(묵밭이나 훼손지 등의 억새군락이나 기타 잡초군락 등)
+(2) 2차적으로 형성된 키가 낮은 초원식생(골프장, 공원묘지, 목장 등)
+(3) 과수원이나 유실수 재배지역 및 묘포장
+(4) 논․밭 등의 경작지
+(5) 주거지 또는 시가지
+(6) 강, 호수, 저수지 등에 식생이 없는 수면과 그 하안 및 호안
+자) 환경부. 2012. "자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호)".
+주) 식재림은 인위적으로 조림된 수종 또는 자연적(2차림)으로 형성되었다 하더라도 아까시나무 등의 조림기원 도입종이나 개량종에 의해 식피율이 70%이상인 식물군락으로 한다. 다만, 녹화목적으로 적지적수(適地適樹)가 식재된 경우에는 식재림으로 보지 않는다.
+식생보전등급 평가를 위한 이차림의 식생기원 판정
+층구조
+우점양상 Dominance
+숲지붕층
+비고유(non-native)
+고유(native)
+아교목층,
+관목층
+비고유
+고유
+비고유
+고유
+숲바닥층
+비고유
+고유
+비고유
+고유
+비고유
+고유
+비고유
+고유
+판정
+인공
+인공
+인공
+자연
+인공
+자연
+자연
+자연
+주) 층별 고유종(선구종, 귀화종, 일이년생종, 육림기원종 등을 제외한 종)의 식피율 총합 75%를 기준으로 고유와 비고유로 구분함.
+식생보전등급 평가를 위한 식생지리분포에 대한 세 가지 유형의 판정 매트릭스
+수평적 horizonatal
+수직적 vertical
+전국형
+(national type) H1
+지방형
+(provincial type) H2
+지소형
+(local type) H3
+일반형(multi-zonal type) V1
+H1+V1
+H2+V1
+H3+V1
+편향형(biased type) V2
+H1+V2
+H2+V2
+H3+V2
+집중형(centralized type) V3
+H1+V3
+H2+V3
+H3+V3
+평
+가
+광역분포형(nation-wide distribution)
+H1+V1, H1+V2, H2+V1 분포형
+지역분포형(regional distribution)
+H1+V3, H2+V2, H3+V1 분포형
+국지분포형(local distribuiton)
+H2+V3, H3+V2, H3+V3 분포형
+주) 1. 수평분포형 : 전국형 – 3가지 이상 생물기후형, 지방형 – 2가지 이하 생물기후형, 지소형 – 특정 생물기후형(내륙
+주) 1.생물기후구-중부대륙, 중남부내륙, 남부내륙 생물기후형, 해안 생물기후구 – 동해안중부, 동해안남부, 남해안, 서해
+주) 1.안남부, 서해안중부 생물기후형, 지역생물기후구 – 대구, 대관령, 서울, 제주도, 울릉도 생물기후형)
+주) 2. 수직분포형 : 일반형 – 3개 이상의 수직 분포형, 평향형 – 특정 수직분포 중심지와 복수, 집중형 – 특정 수직 분포
+주) 1.형(고산․아고산 분포형, 냉온대 – 고산지, 산지, 저산지 분포형, 난온대- 난온대 분포형)
+식생보전등급 평가를 위한 상관식생형별 생육형에 대응하는 복원성 평가
+상관식형
+장기(長期)
+중기(中期)
+단기(短期)
+해안식생(C)
+교목성 및 관목성 식생형
+다년생 초본식생형
+일이년생 초본식생형
+해안염습지식생(M)
+관목 식생형
+다년생 초본식생형
+일이년생 초본식생형
+습지식생(담수)(W)
+교목성 관목성 식생형
+다년생 초본군락형
+일이년생 초본군락형
+하천식생(W)
+교목성 연목림형
+(버드나무,왕버들 우점형)
+관목식생형
+초본식생형
+산지 및 저지대초원식생(H)
+-
+다년생 초본군락형
+일이년생 초본군락형
+아고산대식생(S)
+교목성 삼림식생형
+관목식생형,선구식생형
+초본식생형
+고산대식생(S)
+관목식생형
+다년생 초본식생형
+일이년생 초본군락형
+냉온대 산림식생
+(계곡계반림 포함)(B)
+교목성 삼림식생형
+-
+-
+산지대 및 저산지대 암각지 식생(L)
+교목성 소림식생형, 관목식생형
+다년생 초본식생형
+일이년생 초본군락형
+임연식생 및 관목식생(P)
+-
+관목식생형
+초본식생형
+난온대 상록수림(T)
+교목성 삼림식생형
+관목성 삼림식생형(동백나무)
+-
+난온대 하록수림(T)
+교목성 삼림식생형
+-
+-
+경작지 잡초식생(A)
+-
+관목성식생형(버드나무류)
+초본식생형
+노변, 노상식생(R)
+-
+-
+초본식생형
+인공조림식생(F)
+-
+교목성 삼림식생형
+대나무류 식재림
+기타식생(O)
+-
+-
+관목형식생형
+초본식생형
+주) 식물종의 서식처 특이성(habitat specidicity)은 특정 식물종이 요구하는 생태적 최적의 환경입지를 의미하며, 생태적
+주) 입지환경의 생태적 범위(ecological amplitude)가 좁은 식물종일수록 서식처의 특이성이 높은 것으로 고려된다. 식물
+주) 군락은 특정 서식처에 대응하여 그 공간을 점유하기 때문에 수반종의 복원은 식물군락의 복원시간 길이와 밀접한 상
+주) 관관계를 가지므로 식물종의 서식처 특이성 판정을 위한 상대적 개념으로 서식처 복원성을 장기 26년 이상, 중기 25
+주) 년 이하, 단기 5년 이하로 판정함.
+다) 귀화식물의 도시화지수(UI)ㆍ귀화율(PN) 산정
+귀화식물이란 외국에서 들어와 토착화된 식물을 일컫는다. 생명력과 번식력이 강해 토종식물과의 경쟁에서 우세하며, 급격히 증가하는 추세로 현재 대략 321종이 분류되었으며, 일부 귀화식물은 생태계를 교란하는 해로운 식물로 분류되고 있다.
+귀화식물에 대한 분류는 사업계획지구 및 주변지역의 현지조사시 출현한 식물상을 대상으로 참고문헌 「국가생물종지식정보시스템(http://www.nature.go.kr), 김준민(2000)」 등을 참고하여 동정하였다.
+귀화식물 분석 방법
+구 분
+비 고
+도시화지수
+(Urbanization index)
+UI 〓 S/N × 100
+(S : 조사지역의 귀화식물 종수, N : 남한의  관속식물 종수)
+귀화율
+(The Percentage of Naturalized plant species)
+PN(%) 〓 S/N·V × 100
+(S : 조사지역의 귀화식물 종수, N·V : 조사지역의 관속식물 종수)
+라) 생태･자연도
+생태･자연도는 자연환경현황도와 기존의 식생도, 임상도 및 식생보전등급을 활용하여 자연  환경을 생태적 가치, 자연성, 경관적 가치 등에 따라 3등급화하여 작성한 것으로 멸종위기 야생동･식물의 서식지･도래지로서 중요하거나 생물다양성이 풍부한 지역을 보전하고, 다양한 생태계를 대표할 수 있는 지역, 생태계의 표본 지역, 지형 또는 학술적 가치연구 및 자연적 경관보전을 위해 보전이 필요한 지역 등을 파악하기 위하여 작성한 것임. 따라서 이를 참조하여 본 사업계획지구 입지를 선정하는데 위의 사항에 대한 해당 여부 및 기준 등을 파악 하는데 활용하였다.
+생태자연도 등급별 구분기준
+생태자연도
+등      급
+등급별 구분기준
+고려기준
+1등급
+• 야생동․식물보호법 제2조의 규정에 의한 멸종위기야생동․식물의 주된  서식지․도래지 및 주요 생태축 또는 주요 생태통로가 되는 지역
+• 생태계가 특히 우수하거나 경관이 특히 수려한 지역
+• 생물의 지리적 분포한계에 위치하는 생태계 지역 또는 주요 식생의  유형을 대표하는 지역
+• 생물다양성이 특히 풍부하고 보전가치가 큰 생물자원이 존재․분포하고 있는 지역
+• 자연원시림 또는 이에 가까운 산림 및 고산초원
+• 자연상태 또는 이에 가까운 하천․호소․강하구
+- 자연환경의 보전 및 복원
+2등급
+• 1등급 기준에 준하는 지역으로서 장차 보전의 가치가 있는 지역
+• 1등급 권역의 외부지역
+- 자연환경의 보전 및 복원
+- 개발이용시 훼손 최소화
+3등급
+• 1등급 권역, 2등급 권역 및 별도관리지역으로 분류된 지역외의   지역
+- 체계적인 개발 및 이용
+별도관리
+지    역
+• 「산림법」제67조제1항의 규정에 따른 산림유전자원보호림
+• 「자연공원법」제2조제1호의 규정에 따른 자연공원
+• 「문화재보호법」제6조의 규정에 따라 천연기념물로 지정된 구역(동법  제8조의 규정에 따른 보호구역을 포함한다)
+• 「야생동․식물보호법」제27조의 규정에 따른 야생동․식물특별보호구역과  동법 제33조의 규정에 따른 야생동․식물보호구역
+• 「국토의 계획 및 이용에 관한 법률」제40조의 규정에 따른 수산자원  보호구역
+• 「습지보전법」제8조의 규정에 따른 습지보호지역
+• 「백두대간보호에 관한 법률」제6조의 규정에 따른 백두대간보호지역
+• 「자연환경보전법」제12조의 규정에 따른 생태․경관보전지역 및 동법  제24조의 규정에 따른 시․도 생태․경관보전지역 수산자원보전지구
+자) 생태․자연도 작성지침, 2006, 환경부.
+2) 육상동물
+가) 포유류
+본 사업계획지구와 주변지역(이하 “조사지역”)에서 서식이 가능한 지역을 예측하여 이동하면서 배설물, 굴흔적, 족적 등 흔적을 조사하는 간접조사방법(Field-sign method)을 통해 서식종을 확인하였고, 현지 주민들을 대상으로 탐문조사를 실시하였다.
+현지조사의 미흡한 점을 보완하기 위하여 문헌조사「제4차 전국자연환경조사 미탄 2018」, 「평창군 창리 소규모마을하수도 설치사업 2024 평창군」, 「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」, 「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」, 「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」를 병행 실시하였다.
+나) 조류
+조류의 서식반경과 생태특성을 고려하여 새들의 활동성이 높은 조석(朝夕)에 시야가 넓고 조류가 밀집하는 장소에서는 정점조사법(spot census), 그리고 시야가 제한되는 장소에서는 선상조사법(line census)으로 조사하였다.
+한편, 관찰‧청음으로 조류를 동정‧기록하였고, 조류관찰과 조사에는 조류관찰 망원경(Nikon field scope, 20×60)과 쌍안경(Nikon, 8×12)을 이용하였다.
+① 선조사법 (Line Transect Method)
+이 방법은 Line Transect Method, Belt Transect Method, Rode-side Census 등으로 불리는 조사법으로 대상지역 조류가 상대적으로 많고 적음을 구하는 방법이다. 조사지역 및 인근지역의 언덕 등에 적절한 조사로를 설정하여 시속 1.5∼2㎞ 정도로 걸어가면서 그 양쪽의 일정폭 내에서 눈으로 직접 확인하였다.
+인근지역 언덕의 경우에는 위의 조사 방법에 추가하여 일반 참새목에 속한 조류의 울음소리(call & note) 등에 의해 확인된 조류의 종 및 개체수를 기록하였다.
+② 정점 조사법(Point Census Method)
+매 30분씩 종과 개체수를 기록하는 방법으로, 비교적 넓은 행동권을 가지는 수금류(Waterfowl)의 개체수를 파악하는데 적합한 방법임. 넓은 조사구역 내에서 관찰이 용이한 복수의 정점 및 같은 간격으로 배치한 정점을 설치하여 관찰한 조류의 모습을 지도상에 시간과 함께 기록하였다.
+다) 양서·파충류
+직접확인방법(Direct survey)과 간접확인방법(Indirect survey)으로 조사하였다. 성체목측과 포충망을 이용하여 채집하였으며, 양서류 울음소리(Call), 파충류 흔적(Slough, 허물), 그리고 청문조사(Questionnaire method)를 실시하여 서식여부를 확인하였다. 현지조사의 미흡한 점을 보완하기 위하여 문헌조사「제4차 전국자연환경조사 미탄 2018」, 「평창군 창리 소규모마을하수도 설치사업 2024 평창군」, 「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」, 「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」, 「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」를 참고하였다.
+라) 육상곤충류
+조사지역을 이동하면서 포충망(폭 35㎝, 깊이 85㎝)을 이용한 방법(채어잡기, 쓸어잡기, 털어잡기 등)을 실시하였으며, 나비류는 도보로 이동하면서 육안관찰을 실시하였다. 현지조사의 미흡한 점을 보안하기 위하여 문헌조사「평창군 창리 소규모마을하수도 설치사업 2024 평창군」, 「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」를 참고하였다.
+3) 법정보호종
+현장조사는 각 분류군별 생활특성(生活特性, life traits)과 생활사(生活史, life cycle), 그리고 조사지역 토지의 다양한 물리적 환경 등을 고려하여 실시하였다.
+특히, 현지조사에서 확인된 법정보호종(“문화재보호법” 제25조의 문화재청지정 천연기념물, “야생 생물 보호‧관리에 관한 법률” 시행규칙 제2조의 환경부지정 멸종위기야생생물)은 관찰지소와 현장사진을 제시하였다.
+(나) 생태자연도
+생태자연도는 전국자연환경조사 결과(지형경관, 식생, 야생동식물 등)를 종합하여 생태적 가치(생태자연도 작성 지침)를 1ㆍ2ㆍ3등급 및 별도관리권역으로 구분하여 지도(1/25,000)에 표시한 것이다.
+환경지리정보의 자연환경현황도(도엽명·번호 : 미탄 378113 1/25,000 지도)를 이용하여 생태자연지도 위에 사업계획지구를 overlapping하여 작성하였다.
+사업계획지구의 조사현황도
+조사경로의 사진촬영 현황
+(4) 조사결과
+(가) 육상동·식물상
+1) 육상식물
+가) 조사지역의 구계 현황
+본 사업계획지구는 온대 중부 지역의 낙엽활엽수림대에 위치하며, 식물구계지리학상으로 중부아구(Lee & Yim, 1978)에 속한다.
+한반도의 구계도( : 사업계획지구 위치)
+나) 식물상(flora) 및 식생
+① 관속식물 분포현황
+㉮ 문헌조사
+본 사업계획지구는 미탄(378113) 도엽의 E5격자에 위치하였으며, 「평창군 창리 소규모마을하수도 설치사업 2024 평창군」, 「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」, 「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」, 「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」의 문헌을 참고하여 조사되었다.
+문헌조사 결과, 문헌Ⅱ「평창군 창리 소규모마을하수도 설치사업 2024 평창군」에서 54과 114종 2아종 9변종 2품종 127분류군, 문헌Ⅲ「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」에서 49과 97종 1아종, 6변종 2품종 106분류군, 문헌Ⅳ「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」에서 54과 108종 1아종 10변종 2품종 121분류군, 문헌Ⅴ「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」에서 58과 129종 1아종 12변종 2품종 144분류군이 확인되었으며, 법정보호종은 확인되지 않은 것으로 보고되었다.
+㉯ 현지조사
+조사는 본 사업계획지구와 주변지역(이하“조사지역”) 토지의 물리적 타입 즉, 도로 및 나지, 경작지, 이차초원, 산림 등을 고려하여 실시하였다.
+조사지역은 강원도 평창군 미탄면 수청리로 생태자연도는 2, 3등급지역이며, 사업계획지구 내외에 도로 및 나지, 이차초원, 산림 등이 분포해 있는 것으로 조사되었다.
+현지조사 결과, 61과 134종 2아종 14변종 3품종 153분류군이 조사⸱집계되었으며, 법정보호종은 확인되지 않았다.
+조사된 관속식물은 국화과(Compositae) 21분류군, 콩과(Leguminosae) 11분류군, 벼과(Gramineae), 장미과(Rosaceae)가 각각 10분류군, 마디풀과(Polygonaceae)가 8분류군 등의 순으로 나타났다.
+조사지역의 관속식물 집계표(현지조사)
+체	௴Ā	계
+과
+종
+아종
+변종
+품종
+합 계
+양 치 식 물
+3
+3
+-
+1
+-
+4
+나 자 식 물
+2
+4
+-
+-
+-
+4
+피 자 식 물
+56
+127
+2
+13
+3
+145
+쌍자엽식물
+50
+108
+2
+11
+3
+124
+단자엽식물
+6
+19
+-
+2
+-
+21
+합	௴Ā	계
+61
+134
+2
+14
+3
+153
+관속식물의 분류군별 현황(현지조사)
+㉰ 관속식물의 생활형(life form) 분석
+식물의 생활형은 서식환경의 상호작용, 또는 공존식물의 직접적인 종·개체 간 경쟁 등에 좌우되며, 특히 식물군집의 종조성(floristic composition) 뿐만 아니라, 다양한 환경요소에 대한 군집반응 정보를 제공한다.
+현지조사에서 확인된 식물상에 대한 Raunkiaer의 생활형(휴면형)에 따른 생활형을 각 구분별로 살펴보면 반지중식물(H) 50종(32.68%)으로 가장 높게 나타났으며, 그 다음으로 일년생식물(Th)이 45종(29.41%), 소형식물(N), 대형지상식물(M)이 각각 24분류군(15.69%), 지중식물(G) 7분류군(4.58%), 착생식물(E), 근생수생식물(HH), 지표식물(Ch)이 각각 1분류군(0.65%)이 조사지역에서 자생하는 것으로 조사되었다.
+조사지역 관속식물의 생활형 비교 및 분석(현지조사)
+생활형(life form)
+출현종수
+구성비(%)
+한반도(%)
+남한(%)
+RNS(%)
+M
+대형지상식물
+24
+15.69
+16.00
+20.10
+26.00
+N
+소형지상식물
+24
+15.69
+16.20
+14.80
+15.00
+E
+착생식물
+1
+0.65
+1.20
+7.40
+3.00
+Ch
+지표식물
+1
+0.65
+1.50
+1.90
+9.00
+H
+반지중식물
+50
+32.68
+35.10
+23.00
+28.00
+G
+지중식물
+7
+4.58
+15.00
+12.40
+4.00
+HH
+근생수생식물
+1
+0.65
+2.30
+1.40
+2.00
+Th
+일년생식물
+45
+29.41
+12.70
+19.00
+13.00
+합        계
+153
+100.00
+100.00
+100.00
+100.00
+자) Raunkaier, C. 1934. The Life Form of Plants and Statistical Plant Geography. Clarendon Press, Oxford.
+주) RNS : Raunkiaer's Normal Spectrum
+관속식물의 생활형 비교, 분석(현지조사)
+익모초
+사위질빵
+닭의장풀
+박주가리
+질경이
+토끼풀
+달맞이꽃
+붉나무
+애기똥풀
+개망초
+쇠비름
+금불초
+사업계획지구 및 주변지역 관속식물 현황
+조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Pteridophyta
+양치식물문
+Equisetineae
+속새강
+Equisetaceae
+속새과
+Equisetum arvense L.
+쇠뜨기
+○
+○
+○
+○
+G
+Equisetum hyemale L.
+속새
+○
+H
+Ⅱ
+Filicineae
+고사리강
+Ophioglossaceae
+고사리삼과
+Botrychium strictum Und.
+긴꽃고사리삼
+○
+H
+Sceptridium ternatum (Thunb.) Lyon
+고사리삼
+○
+H
+Dennstaedtiaceae
+잔고사리과
+Pteridium aquilinum var. latiusculum (Desv.) Und. ex Heller.
+고사리
+○
+○
+○
+○
+H
+Aspleniaceae
+꼬리고사리과
+Asplenium incisum Thunb.
+꼬리고사리
+○
+H
+Asplenium ruprechtii Kurata
+거미고사리
+○
+E
+Dryopteridaceae
+면마과
+Dryopteris bissetiana (Bak.) C.Chr.
+산족제비고사리
+○
+H
+Dryopteris varia (L.) Kuntze
+족제비고사리
+○
+○
+H
+Ⅲ
+Woodsiaceae
+우드풀과
+Athyrium niponicum (Mett.) Hance
+개고사리
+○
+H
+Athyrium yokoscense (Franch. & Sav.) Christ
+뱀고사리
+○
+H
+Gymnospermae
+나자식물문
+Ginkgoopsida
+은행나무강
+Ginkgoaceae
+은행나무과
+Ginkgo biloba L.
+은행나무
+○
+M
+식
+Pinopsida
+소나무강
+Pinaceae
+소나무과
+Larix kaempferi (Lamb.) Carriére
+일본잎갈나무
+○
+○
+○
+○
+M
+식
+Pinus densiflora Siebold & Zucc.
+소나무
+○
+○
+○
+○
+○
+M
+Pinus koraiensis Siebold & Zucc.
+잣나무
+○
+○
+○
+○
+○
+M
+Ⅰ,식
+Pinus rigida Mill.
+리기다소나무
+○
+○
+○
+○
+M
+식
+Pinus strobus L.
+스트로브잣나무
+○
+M
+식
+Coniferopsida
+구과식물강
+Cupressaceae
+측백나무과
+Juniperus chinensis L.
+향나무
+○
+○
+M
+Ⅲ,식
+Juniperus rigida Siebold & Zucc.
+노간주나무
+○
+○
+○
+○
+○
+N
+Taxaceae
+주목과
+Taxus cuspidata Siebold & Zucc.
+주목
+○
+M
+Ⅲ,VU,식
+Angiospermae
+피자식물문
+Dicotyledoneae
+쌍자엽식물강
+Salicaceae
+버드나무과
+Populus tomentiglandulosa T.B.Lee
+은사시나무
+○
+○
+○
+M
+고
+Salix caprea L.
+호랑버들
+○
+N
+Salix gracilistyla Miq.
+갯버들
+○
+○
+○
+N
+하변
+Salix koreensis Andersson
+버드나무
+○
+○
+○
+○
+○
+M
+하변
+Salix koriyanagi Kimura
+키버들
+○
+N
+고,하변
+Betulaceae
+자작나무과
+Alnus sibirica Fisch. ex Turcz.
+물오리나무
+○
+○
+○
+○
+○
+M
+Betula davurica Pall.
+물박달나무
+○
+○
+○
+○
+M
+Ⅰ
+Betula platyphylla var. japonica (Miq.) Hara
+자작나무
+○
+M
+식
+Corylus heterophylla Fisch. ex Trautv.
+개암나무
+○
+○
+○
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Fagaceae
+참나무과
+Castanea crenata Siebold & Zucc.
+밤나무
+○
+○
+○
+○
+○
+M
+식
+Quercus acutissima Carruth.
+상수리나무
+○
+○
+○
+○
+○
+M
+Quercus aliena Blume
+갈참나무
+○
+○
+○
+○
+M
+Quercus dentata Thunb.
+떡갈나무
+○
+○
+○
+M
+Quercus mongolica Fisch. ex Ledeb.
+신갈나무
+○
+○
+○
+○
+○
+M
+Quercus serrata Thunb.
+졸참나무
+○
+○
+○
+○
+M
+Quercus variabilis Blume
+굴참나무
+○
+○
+○
+○
+○
+M
+Ulmaceae
+느릅나무과
+Ulmus davidiana var. japonica (Rehder) Nakai
+느릅나무
+○
+○
+○
+M
+Zelkova serrata (Thunb.) Makino
+느티나무
+○
+○
+○
+M
+Eucommiaceae
+두충과
+Eucommia ulmoides Oliv.
+두충
+○
+M
+식
+Moraceae
+뽕나무과
+Morus alba L.
+뽕나무
+○
+○
+○
+○
+○
+M
+식
+Morus bombycis Koidz.
+산뽕나무
+○
+○
+M
+Cannabaceae
+삼과
+Humulus japonicus Siebold & Zucc.
+환삼덩굴
+○
+○
+○
+○
+Th
+교
+Urticaceae
+쐐기풀과
+Boehmeria longispica Steud.
+왜모시풀
+○
+H
+Boehmeria spicata (Thunb.) Thunb.
+좀깨잎나무
+○
+H
+Polygonaceae
+마디풀과
+Persicaria modosa
+큰개여뀌
+○
+H
+Persicaria filiformis (Thunb.) Nakai ex Mori
+이삭여뀌
+○
+○
+H
+Persicaria hydropiper (L.) Spach
+여뀌
+○
+○
+○
+Th
+정수
+Persicaria longiseta (Bruijn) Kitag.
+개여뀌
+○
+○
+Th
+Persicaria perfoliata (L.) H.Gross
+며느리배꼽
+○
+○
+○
+Th
+Persicaria senticosa (Meisn.) H.Gross ex Nakai
+며느리밑씻개
+○
+Th
+Persicaria thunbergii (Siebold & Zucc.) H.Gross ex Nakai
+고마리
+○
+○
+○
+○
+Th
+정수
+Polygonum aviculare L.
+마디풀
+○
+○
+○
+Th
+Rumex acetosa L.
+수영
+○
+H
+Rumex crispus L.
+소리쟁이
+○
+○
+○
+○
+○
+H
+귀
+Phytolaccaceae
+자리공과
+Phytolacca americana L.
+미국자리공
+○
+○
+○
+○
+○
+H
+귀
+Portulacaceae
+쇠비름과
+Portulaca oleracea L.
+쇠비름
+○
+○
+○
+Th
+Caryophyllaceae
+석죽과
+Arenaria serpyllifolia L.
+벼룩이자리
+○
+Th
+Silene firma Siebold & Zucc.
+장구채
+○
+○
+Th
+Stellaria aquatica (L.) Scop.
+쇠별꽃
+○
+○
+○
+○
+H
+Stellaria media (L.) Vill.
+별꽃
+○
+○
+○
+Th
+Chenopodiaceae
+명아주과
+Chenopodium album L.
+흰명아주
+○
+Th
+귀
+Chenopodium album var. centrorubrum Makino
+명아주
+○
+○
+○
+Th
+Chenopodium ficifolium Smith
+좀명아주
+○
+Th
+귀
+Amaranthaceae
+비름과
+Achyranthes japonica (Miq.) Nakai
+쇠무릎
+○
+○
+○
+H
+Magnoliaceae
+목련과
+Magnolia kobus DC.
+목련
+○
+M
+Ⅴ,CR,식
+Lauraceae
+녹나무과
+Lindera obtusiloba Blume
+생강나무
+○
+○
+○
+○
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Ranunculaceae
+미나리아재비과
+Aconitum longecassidatum Nakai
+흰진범
+○
+H
+Ⅲ
+Clematis apiifolia DC.
+사위질빵
+○
+○
+○
+○
+○
+H
+Clematis terniflora var. mandshurica (Rupr.) Ohwi
+으아리
+○
+H
+Pulsatilla cernua (Thunb.) Bercht. & J.Presl
+가는잎할미꽃
+○
+H
+Lardizabalaceae
+으름덩굴과
+Akebia quinata (Thunb.) Decne.
+으름덩굴
+○
+○
+○
+N
+Menispermaceae
+새모래덩굴과
+Cocculus trilobus (Thunb.) DC.
+댕댕이덩굴
+○
+○
+○
+○
+N
+Menispermum dauricum DC.
+새모래덩굴
+○
+N
+Aristolochiaceae
+쥐방울덩굴과
+Aristolochia contorta Bunge
+쥐방울덩굴
+○
+H
+Ⅰ,LC
+Paeoniaceae
+작약과
+Paeonia suffruticosa Andr.
+모란
+○
+G
+식
+Actinidiaceae
+다래나무과
+Actinidia arguta (Siebold & Zucc.) Planch. ex Miq.
+다래
+○
+N
+Papaveraceae
+양귀비과
+Chelidonium majus var. asiaticum (Hara) Ohwi
+애기똥풀
+○
+○
+○
+○
+Th
+Fumariaceae
+현호색과
+Corydalis ochotensis Turcz.
+눈괴불주머니
+○
+○
+Th
+Corydalis pallida (Thunb.) Pers.
+괴불주머니
+○
+Th
+Corydalis remota Fisch. ex Maxim.
+현호색
+○
+G
+Corydalis speciosa Maxim.
+산괴불주머니
+○
+Th
+Cruciferae
+십자화과
+Barbarea orthoceras Ledeb.
+나도냉이
+○
+Th
+정수
+Berteroella maximowiczii (Palib.) O.E.Schulz
+장대냉이
+○
+Th
+Capsella bursa-pastoris (L.) L.W.Medicus
+냉이
+○
+○
+○
+○
+○
+Th
+Cardamine fallax L.
+좁쌀냉이
+○
+Th
+Cardamine flexuosa With.
+황새냉이
+○
+○
+○
+Th
+정수
+Cardamine leucantha (Tausch) O.E.Schulz
+미나리냉이
+○
+Th
+정수
+Draba nemorosa L.
+꽃다지
+○
+○
+Th
+Rorippa palustris (Leyss.) Besser
+속속이풀
+○
+H
+T hlaspi arvense L.
+말냉이
+○
+○
+Th
+귀
+Crassulaceae
+돌나물과
+Sedum kamtschaticum Fisch. & Mey.
+기린초
+○
+H
+Sedum sarmentosum Bunge
+돌나물
+○
+○
+○
+H
+Saxifragaceae
+범의귀과
+Deutzia parviflora Bunge
+말발도리
+○
+N
+Mukdenia rossii (Oliv.) Koidz.
+돌단풍
+○
+E
+Ⅱ
+Philadelphus schrenkii Rupr.
+고광나무
+○
+N
+고
+Rosaceae
+장미과
+Agrimonia pilosa Ledeb.
+짚신나물
+○
+H
+Duchesnea indica (Andr.) Focke
+뱀딸기
+○
+○
+○
+H
+Geum aleppicum Jacq.
+큰뱀무
+○
+H
+Potentilla anemonefolia Lehm.
+가락지나물
+○
+H
+Potentilla fragarioides var. major Maxim.
+양지꽃
+○
+○
+H
+Potentilla freyniana Bornm.
+세잎양지꽃
+○
+○
+○
+H
+Potentilla supina L.
+개소시랑개비
+○
+○
+Th
+귀
+Prunus mume Siebold & Zucc.
+매실나무
+○
+M
+식
+Prunus padus L.
+귀룽나무
+○
+M
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Prunus sargentii Rehder
+산벚나무
+○
+○
+○
+○
+M
+Prunus serrulata var. spontanea (Maxim.) E.H.Wilson
+벚나무
+○
+○
+○
+○
+M
+식
+Prunus verecunda (Koidz.) Koehne
+개벚나무
+○
+M
+Prunus yedoensis Matsum.
+왕벚나무
+○
+M
+Ⅴ,CR,식
+Pyrus calleryana var. fauriei (C.K.Schneid.) Rehder
+콩배나무
+○
+N
+Rosa multiflora Thunb.
+찔레나무
+○
+○
+○
+○
+○
+N
+Rubus coreanus Miq.
+복분자딸기
+○
+N
+Rubus crataegifolius Bunge
+산딸기
+○
+○
+○
+○
+○
+N
+Rubus oldhamii Miq.
+줄딸기
+○
+○
+○
+Ch
+Rubus parvifolius L.
+멍석딸기
+○
+○
+N
+Rubus phoenicolasius Maxim.
+곰딸기
+○
+N
+Sorbus alnifolia (Siebold & Zucc.) K.Koch
+팥배나무
+○
+○
+M
+Spiraea blumei G.Don
+산조팝나무
+○
+N
+Ⅰ
+Spiraea prunifolia f. simpliciflora Nakai
+조팝나무
+○
+○
+○
+○
+N
+Stephanandra incisa (Thunb.) Zabel
+국수나무
+○
+○
+○
+○
+N
+Leguminosae
+콩과
+Aeschynomene indica L.
+자귀풀
+○
+Th
+Albizia julibrissin Durazz.
+자귀나무
+○
+M
+Amorpha fruticosa L.
+족제비싸리
+○
+○
+○
+○
+N
+귀,식
+Amphicarpaea bracteata subsp. edgeworthii (Benth.) H
+새콩
+○
+Th
+Glycine soja Siebold & Zucc.
+돌콩
+○
+○
+Th
+Kummerowia striata (Thunb.) Schindl.
+매듭풀
+○
+○
+Th
+Lespedeza bicolor Turcz.
+싸리
+○
+○
+○
+○
+N
+Lespedeza cuneata G.Don
+비수리
+○
+○
+○
+H
+Lespedeza maximowiczii C.K.Schneid.
+조록싸리
+○
+N
+Pueraria lobata (Willd.) Ohwi
+칡
+○
+○
+○
+○
+G
+Robinia pseudoacacia L.
+아까시나무
+○
+○
+○
+○
+○
+M
+귀,식
+Sophora flavescens Solander ex Aiton
+고삼
+○
+H
+Trifolium repens L.
+토끼풀
+○
+○
+○
+○
+○
+H
+귀
+Vicia amoena Fisch. ex DC.
+갈퀴나물
+○
+○
+H
+Oxalidaceae
+괭이밥과
+Oxalis corniculata L.
+괭이밥
+○
+○
+○
+H
+Geraniaceae
+쥐손이풀과
+Geranium sibiricum L.
+쥐손이풀
+○
+H
+Euphorbiaceae
+대극과
+Securinega suffruticosa (Pall.) Rehder
+광대싸리
+○
+N
+Rutaceae
+운향과
+Zanthoxylum schinifolium Siebold & Zucc.
+산초나무
+○
+○
+○
+○
+○
+N
+Simaroubaceae
+소태나무과
+Ailanthus altissima (Mill.) Swingle
+가죽나무
+○
+○
+○
+○
+M
+귀
+Anacardiaceae
+옻나무과
+Rhus javanica L.
+붉나무
+○
+○
+○
+○
+○
+N
+Rhus tricocarpa Miq.
+개옻나무
+○
+○
+○
+○
+N
+Aceraceae
+단풍나무과
+Acer palmatum Thunb.
+단풍나무
+○
+M
+Ⅲ,식
+Acer pictum subsp. mono (Maxim.) Ohashi
+고로쇠나무
+○
+M
+Acer pseudosieboldianum (Pax) Kom.
+당단풍나무
+○
+○
+○
+○
+M
+Acer tataricum subsp. ginnala (Maxim.) Wesm.
+신나무
+○
+○
+○
+○
+○
+M
+하변
+Celastraceae
+노박덩굴과
+Celastrus orbiculatus Thunb.
+노박덩굴
+○
+○
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Euonymus alatus (Thunb.) Siebold
+화살나무
+○
+N
+Euonymus alatus f. ciliatodentatus (Franch. & Sav.) Hiyama
+회잎나무
+○
+N
+Staphyleaceae
+고추나무과
+Staphylea bumalda DC.
+고추나무
+○
+M
+Buxaceae
+회양목과
+Buxus koreana Nakai ex T.H.Chung & al.
+회양목
+○
+○
+○
+N
+Ⅰ
+Vitaceae
+포도과
+Parthenocissus tricuspidata (Siebold & Zucc.) Planch.
+담쟁이덩굴
+○
+○
+○
+H
+Violaceae
+제비꽃과
+Viola acuminata Ledeb.
+졸방제비꽃
+○
+H
+Viola albida var. chaerophylloides (Regel) F.Maek.
+남산제비꽃
+○
+H
+Viola collina Besser
+둥근털제비꽃
+○
+H
+Viola mandshurica W.Becker
+제비꽃
+○
+○
+○
+○
+H
+Onagraceae
+바늘꽃과
+Oenothera biennis L.
+달맞이꽃
+○
+○
+○
+○
+○
+Th
+귀
+Cornaceae
+층층나무과
+Cornus controversa Hemsl. ex Prain
+층층나무
+○
+○
+○
+○
+M
+Cornus officinalis Siebold & Zucc.
+산수유
+○
+M
+Araliaceae
+두릅나무과
+Aralia elata (Miq.) Seem.
+두릅나무
+○
+○
+○
+○
+○
+N
+Kalopanax septemlobus (Thunb.) Koidz.
+음나무
+○
+○
+○
+○
+○
+M
+Panax ginseng C.A.Mey.
+인삼
+○
+H
+Ⅴ,DD,식
+Umbelliferae
+산형과
+Angelica dahurica (Fisch. ex Hoffm) B & H ex F & S.
+구릿대
+○
+○
+H
+Angelica decursiva (Miq.) Franch. & Sav.
+바디나물
+○
+H
+Heracleum moellendorffii Hance
+어수리
+○
+H
+Ledebouriella seseloides (Hoffm.) H.Wolff
+방풍
+○
+H
+식
+Oenanthe javanica (Blume) DC.
+미나리
+○
+H
+정수
+Ostericum sieboldii (Miq.) Nakai
+묏미나리
+○
+H
+정수
+Torilis scabra (Thunb.) DC.
+개사상자
+○
+H
+Pyrolaceae
+노루발과
+Pyrola japonica Klenze ex Alef.
+노루발
+○
+○
+○
+○
+H
+Ericaceae
+진달래과
+Rhododendron mucronulatum Turcz.
+진달래
+○
+○
+○
+○
+N
+Rhododendron schlippenbachii Maxim.
+철쭉
+○
+○
+○
+N
+Primulaceae
+앵초과
+Lysimachia clethroides Duby
+큰까치수염
+○
+H
+Styracaceae
+때죽나무과
+Styrax japonicus Siebold & Zucc.
+때죽나무
+○
+○
+○
+○
+M
+Styrax obassia Siebold & Zucc.
+쪽동백나무
+○
+M
+Symplocaceae
+노린재나무과
+Symplocos chinensis f. pilosa (Nakai) Ohwi
+노린재나무
+○
+○
+○
+○
+○
+N
+Oleaceae
+물푸레나무과
+Forsythia koreana (Rehder) Nakai
+개나리
+○
+○
+○
+N
+고,식
+Fraxinus rhynchophylla Hance
+물푸레나무
+○
+○
+○
+○
+○
+M
+Ligustrum obtusifolium Siebold & Zucc.
+쥐똥나무
+○
+○
+○
+○
+N
+Asclepiadaceae
+박주가리과
+Metaplexis japonica (Thunb.) Makino
+박주가리
+○
+○
+○
+○
+H
+Rubiaceae
+꼭두서니과
+Galium spurium var. echinospermum (Wallr.) Hayek
+갈퀴덩굴
+○
+○
+Th
+Galium trachyspermum A.Gray
+네잎갈퀴
+○
+○
+H
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Rubia akane Nakai
+꼭두서니
+○
+○
+○
+○
+H
+Rubia cordifolia var. pratensis Maxim.
+갈퀴꼭두서니
+○
+H
+Convolvulaceae
+메꽃과
+Cuscuta pentagona Engelm.
+미국실새삼
+○
+E
+귀
+Pharbitis nil (L.) Choisy
+나팔꽃
+○
+Th
+Boraginaceae
+지치과
+Symphytum officinale L.
+컴프리
+○
+H
+귀,식
+Trigonotis peduncularis (Trevir.) Benth. ex Hemsl.
+꽃마리
+○
+○
+H
+Verbenaceae
+마편초과
+Callicarpa japonica Thunb.
+작살나무
+○
+○
+○
+○
+N
+Clerodendrum trichotomum Thunb.
+누리장나무
+○
+N
+Labiatae
+꿀풀과
+Agastache rugosa (Fisch. & Mey.) Kuntze
+배초향
+○
+H
+Clinopodium chinense var. parviflorum (Kudô) Hara
+층층이꽃
+○
+H
+Isodon inflexus (Thunb.) Kudô
+산박하
+○
+H
+Leonurus japonicus Houtt.
+익모초
+○
+Th
+Salvia plebeia R.Br.
+배암차즈기
+○
+H
+Solanaceae
+가지과
+Lycium chinense Mill.
+구기자나무
+○
+N
+식
+Solanum nigrum L.
+까마중
+○
+○
+○
+Th
+Scrophulariaceae
+현삼과
+Mazus pumilus (Burm.f.) Steenis
+주름잎
+○
+Th
+Paulownia coreana Uyeki
+오동나무
+○
+○
+○
+M
+고,식
+Veronica anagallis-saquatica L.
+큰물칭개나물
+○
+H
+정수
+Acanthaceae
+쥐꼬리망초과
+Justicia procumbens L.
+쥐꼬리망초
+○
+Th
+Phrymaceae
+파리풀과
+Phryma leptostachya var. asiatica H.Hara
+파리풀
+○
+H
+Plantaginaceae
+질경이과
+Plantago asiatica L.
+질경이
+○
+○
+○
+○
+H
+Caprifoliaceae
+인동과
+Lonicera japonica Thunb.
+인동
+○
+○
+○
+N
+Viburnum dilatatum Thunb.
+가막살나무
+○
+N
+Weigela subsessilis (Nakai) L.H.Bailey
+병꽃나무
+○
+○
+○
+N
+고
+Valerianaceae
+마타리과
+Valeriana fauriei Briq.
+쥐오줌풀
+○
+H
+Compositae
+국화과
+Artemisia keiskeana Miq.
+맑은대쑥
+○
+○
+○
+○
+H
+Artemisia princeps Pamp.
+쑥
+○
+○
+○
+○
+○
+H
+Artemisia stolonifera (Maxim.) Kom.
+넓은잎외잎쑥
+○
+H
+Aster koraiensis Nakai
+벌개미취
+○
+H
+고
+Aster pilosus Willd.
+미국쑥부쟁이
+○
+○
+H
+귀,교란
+Aster scaber Thunb.
+참취
+○
+○
+H
+Atractylodes ovata (Thunb.) DC.
+삽주
+○
+H
+Bidens bipinnata L.
+도깨비바늘
+○
+○
+○
+Th
+Bidens frondosa L.
+미국가막사리
+○
+○
+○
+Th
+귀
+Carduus crispus L.
+지느러미엉겅퀴
+○
+○
+○
+Th
+귀
+Cirsium japonicum var. maackii (Maxim.) Matsum.
+엉겅퀴
+○
+○
+○
+○
+H
+Conyza canadensis (L.) Cronquist
+망초
+○
+○
+○
+○
+○
+Th
+귀
+Coreopsis lanceolata L.
+큰금계국
+○
+H
+귀,식
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Crepidiastrum denticulatum (Houtt.) J.H.Pak & Kawano
+이고들빼기
+○
+Th
+Crepidiastrum sonchifolium (Bunge) Pak & Kawano
+고들빼기
+○
+Th
+Dendranthema boreale (Makino) Ling ex Kitam.
+산국
+○
+H
+Dendranthema zawadskii var. latilobum (Maxim.) Kitag.
+구절초
+○
+H
+Erigeron annuus (L.) Pers.
+개망초
+○
+○
+○
+○
+Th
+귀
+Eupatorium makinoi var. oppositifolium (Koidz.) K & Y
+벌등골나물
+○
+H
+Galinsoga ciliata (Raf.) S.F.Blake
+털별꽃아재비
+○
+Th
+귀
+Helianthus tuberosus L.
+뚱딴지
+○
+○
+○
+G
+귀
+Hemistepta lyrata Bunge
+지칭개
+○
+○
+○
+○
+Th
+Inula britannica var. japonica (Thunb.) Franch. & Sav.
+금불초
+○
+H
+Lactuca indica f. indivisa (Makino) Hara
+가는잎왕고들빼기
+○
+Th
+Lactuca indica L.
+왕고들빼기
+○
+○
+Th
+Petasites japonicus (Siebold & Zucc.) Maxim.
+머위
+○
+H
+Sonchus oleraceus L.
+방가지똥
+○
+○
+Th
+귀
+Synurus deltoides (Aiton) Nakai
+수리취
+○
+H
+Taraxacum officinale Weber
+서양민들레
+○
+○
+○
+○
+H
+귀
+Xanthium strumarium L.
+도꼬마리
+○
+Th
+귀
+Youngia japonica (L.) DC.
+뽀리뱅이
+○
+○
+Th
+Monocotyledoneae
+단자엽식물강
+Liliaceae
+백합과
+Hemerocallis fulva (L.) L.
+원추리
+○
+G
+식
+Liriope spicata (Thunb.) Lour.
+개맥문동
+○
+○
+G
+Polygonatum odoratum var. pluriflorum (Miq.) Ohwi
+둥굴레
+○
+G
+Smilax china L.
+청미래덩굴
+○
+○
+○
+○
+N
+Smilax nipponica Miq.
+선밀나물
+○
+H
+Smilax riparia var. ussuriensis (Regel) Hara & T.Koyama
+밀나물
+○
+N
+Smilax sieboldii Miq.
+청가시덩굴
+○
+○
+○
+○
+N
+Dioscoreaceae
+마과
+Dioscorea batatas Decne.
+마
+○
+○
+○
+G
+식
+Dioscorea nipponica Makino
+부채마
+○
+G
+Dioscorea septemloba Thunb.
+국화마
+○
+G
+Dioscorea tokoro Makino
+도꼬로마
+○
+G
+Commelinaceae
+닭의장풀과
+Commelina communis L.
+닭의장풀
+○
+○
+Th
+Streptolirion volubile Edgew.
+덩굴닭의장풀
+○
+Th
+Gramineae
+벼과
+Arundinella hirta (Thunb.) Koidz.
+새
+○
+○
+○
+H
+Calamagrostis arundinacea (L.) Roth
+실새풀
+○
+H
+Cymbopogon tortilis var. goeringii (Steud.) Hand.-Mazz.
+개솔새
+○
+○
+H
+Dactylis glomerata L.
+오리새
+○
+○
+○
+H
+귀
+Digitaria ciliaris (Retz.) Koel.
+바랭이
+○
+○
+○
+○
+Th
+Eleusine indica (L.) Gaertn.
+왕바랭이
+○
+○
+○
+○
+Th
+Festuca arundinacea Schreb.
+큰김의털
+○
+○
+H
+귀
+Festuca ovina L.
+김의털
+○
+H
+Imperata cylindrica var. koenigii (Retz.) Pilg.
+띠
+○
+○
+H
+식
+Miscanthus sacchariflorus (Maxim.) Benth.
+물억새
+○
+○
+○
+HH
+정수
+Miscanthus sinensis var. purpurascens (Andersson) Rendle
+억새
+○
+○
+○
+○
+○
+H
+Oplismenus undulatifolius (Ard.) P.Beauv.
+주름조개풀
+○
+○
+○
+○
+○
+H
+Pennisetum alopecuroides (L.) Spreng.
+수크령
+○
+H
+Phragmites communis Trin.
+갈대
+○
+HH
+정수
+Phragmites japonica Steud.
+달뿌리풀
+○
+○
+○
+HH
+정수
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Poa annua L.
+새포아풀
+○
+○
+○
+○
+Th
+Setaria glauca (L.) P.Beauv.
+금강아지풀
+○
+Th
+Setaria viridis (L.) P.Beauv.
+강아지풀
+○
+○
+○
+○
+Th
+Spodiopogon sibiricus Trin.
+큰기름새
+○
+○
+○
+○
+H
+Themeda triandra var. japonica (Willd.) Makino
+솔새
+○
+○
+H
+Zoysia japonica Steud.
+잔디
+○
+○
+○
+○
+H
+Cyperaceae
+사초과
+Carex forficula Franch. & Sav.
+산뚝사초
+○
+H
+Carex humilis var. nana (H.Lév. & Vaniot) Ohwi
+가는잎그늘사초
+○
+○
+H
+Carex lanceolata Boott
+그늘사초
+○
+○
+○
+○
+H
+Carex siderosticta Hance
+대사초
+○
+○
+H
+Cyperus amuricus Maxim.
+방동사니
+○
+Th
+정수
+Orchidaceae
+난초과
+Spiranthes sinensis (Pers.) Ames
+타래난초
+○
+G
+출현종수 (NO.)
+153
+127
+106
+121
+144
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+주) 1. 생활형(lifeform) : M;대형지상식물(Megaphanerophytes), N;소형지상식물(Nanophanerophytes), E;착생식물(Epiphytes),
+주) 1. Ch;지표식물(Chamaephytes), H;반지중식물(Hemicryptophytes), G;지중식물(Geophytes), HH;근생‧수생식
+주) 1. (Hydrophytes), Th;일년생식물(Therophytes)
+주) 2. 고 : 한반도고유종, 귀 : 귀화식물, 식 : 식재종(재배종,원예종포함), 부엽 : 부엽식물, 하 : 하변식물
+주) 3. 교 : “생물다양성보전‧이용에 관한 법률”제23조(환경부고시 제2023-228호)의 생태계교란생물
+주) 4. 희귀식물(총571분류군)의 구분은 “수목원‧정원의 조성‧진흥에 관한 법률” 시행규칙(농림축산식품부령 제25호, 20
+주) 2.17.04.28,일부개정)에 따라 정리된 “한국희귀식물목록집(산림청,국립수목원,2010)”을 반영하였음. 즉, “야생멸종
+주) 2.(Extinct in the Wild, EW)”은 4종, “멸종위기종(Critically Endangered, CR)”은 144종, “위기종(Endangered
+주) 2.species, EN)”은 122종, “취약종(Vulnerable, VU)”은 119종, “약관심종(Least Voncerned, LC)”은 70종, “자료부
+주) 2.족종(Data Deficient, DD)”은 112종으로 각각 구분, 정리되었음.
+주) 5. 한반도고유종(총328분류군)의 구분은 “한반도특산관속식물(산림청,국립수목원,2005)”을 참조하였음.
+주) 6. 식물구계학적특정식물(Ⅰ,Ⅱ,Ⅲ,Ⅳ,Ⅴ등급)은“제4차전국자연환경조사지침-식물상(환경부,국립환경과학원,2012)”을 반영
+주) 2.하였고, 그 분포지역이 범위에 따라 5등급(Ⅰ∼Ⅴ)으로 구분하여 총 1,258분류군이 구분되어 있음. 즉, “Ⅴ등급”은 국
+주) 2.내에서 고립되어 분포하거나 불연속적으로 분포하는 분류군, “Ⅳ등급”은 북방계 또는 남방계 식물로서 일반적으로 1개
+주) 2.의 아구(亞區)에 분포하는 분류군, “Ⅲ등급”은 북방계 또는 남방계 식물로서 일반적으로 2개의 아구(亞區)에 분포하는
+주) 2.분류군, “Ⅱ등급”은 비교적 전국적으로 분포하나 일반적으로 1,000m 이상 지역에 분포하는 분류군, 그리고 “Ⅰ등급”은
+주) 2.북방계 또는 남방계 식물로서 일반적으로 3개 아구(亞區)에 분포하는 분류군으로 각각 구분되었음.
+주) 7. 귀화식물(총 321분류군)은 2010년까지 새롭게 정리된 “한국내 귀화식물의 현황과 고찰(한국식물분류학회,이
+주) 2.등,2011)”을 반영하였음.
+② 특정 야생식물 분포현황
+보호수 및 노거수, 한반도 고유종, 희귀식물, 식물구계학적 특정식물, 법정보호종 등의 분포 현황을 분석하여 아래와 같이 정리하였다.
+조사지역 특정 야생식물 구분
+구   분
+내     용
+보호수 및 노거수
+- 현지조사 결과, 본 조사지역에는 보호수 및 노거수가 분포하지 않았음.
+한반도고유종
+- 현지조사 결과, 조사지역의 한반도고유종은 아래의 표와 같이 보고되었음.
+분류군
+고광나무, 오동나무, 병꽃나무, 벌개미취
+- 문헌조사 결과, 아래의 표와 같이 보고되었음.
+문헌구분
+분류군
+Ⅱ
+은사시나무, 키버들, 개나리, 병꽃나무
+Ⅲ
+병꽃나무
+Ⅳ
+은사시나무, 개나리, 오동나무
+Ⅴ
+은사시나무, 개나리, 오동나무
+식물구계학적
+특정식물
+- 현지조사 결과, 조사지역의 식물구계학적 특정식물은 잣나무, 물박달나무, 쥐방울덩굴, 단풍나무 4분류군이 분포하였음.
+- 문헌조사 결과, 아래의 표와 같이 보고되었음.
+?? 문헌Ⅱ - “평창군 창리 소규모마을하수도 설치사업”의 자연환경
+등급
+분류군
+Ⅰ
+잣나무, 회양목
+Ⅱ
+돌단풍
+Ⅲ
+주목, 흰진범
+Ⅴ
+목련, 왕벚나무, 인삼
+?? 문헌Ⅲ - “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”의 자연환경
+등급
+분류군
+Ⅰ
+잣나무, 물박달나무
+Ⅱ
+속새
+?? 문헌Ⅳ - “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”의 자연환경
+등급
+분류군
+Ⅰ
+잣나무, 물박달나무, 산조팝나무, 회양목
+Ⅲ
+족제비고사리, 향나무
+?? 문헌Ⅴ - “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”의 자연환경
+등급
+분류군
+Ⅰ
+잣나무, 물박달나무, 회양목
+Ⅲ
+족제비고사리, 향나무
+<표 계속> 조사지역 특정 야생식물 구분
+구   분
+내     용
+희귀식물
+- 현지조사결과, 조사지역에는 취약종(Vulnerable, VU)이 확인되지 않았음.
+- 문헌조사 결과, 취약종(Vulnerable, VU)은 아래 표와 같이 보고되었음.
+문헌구분
+분류군
+Ⅱ
+주목
+법정보호종
+- 현지조사 결과, 조사지역의 법정보호종은 발견되지 않았음.
+- 문헌조사 결과, 조사지역의 법정보호종은 발견되지 않았음.
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+㉰ 귀화식물 및 생태계교란야생생물의 분포 현황
+ⓐ 귀화식물
+현지조사 결과, 사업계획지구 및 주변지역에서 확인된 귀화식물은 총 10과 19분류군으로 조사⸱집계되었다.
+현지조사를 통해 확인된 귀화식물은 사업계획지구 및 주변지역의 도로 및 나지, 경작지, 이차초원 등에서 주로 확인되었으며, 남한 전역에서 조사⸱보고된 총 321분류군(한국식물분류학회지, 2011), 귀화율(PN)은 약 12.42%, 도시화지수(UI)는 약 5.92으로 산정되었다.
+조사지역 귀화식물 목록(현지조사)
+학   명
+(Scientific Name)
+국   명
+(Korean Name)
+현지조사
+생활형
+비고
+Rumex crispus L.
+소리쟁이
+○
+H
+귀
+Phytolacca americana L.
+미국자리공
+○
+H
+귀
+Chenopodium album L.
+흰명아주
+○
+Th
+귀
+Chenopodium ficifolium Smith
+좀명아주
+○
+Th
+귀
+Chenopodium ficifolium Smith
+개소시랑개비
+○
+Th
+귀
+Robinia pseudoacacia L.
+아까시나무
+○
+M
+귀,식
+Trifolium repens L.
+토끼풀
+○
+H
+귀
+Ailanthus altissima (Mill.) Swingle
+가죽나무
+○
+M
+귀
+Oenothera biennis L.
+달맞이꽃
+○
+Th
+귀
+Cuscuta pentagona Engelm.
+미국실새삼
+○
+E
+귀
+Bidens frondosa  L.
+미국가막사리
+○
+Th
+귀
+Conyza canadensis  (L.) Cronquist
+망초
+○
+Th
+귀
+Coreopsis lanceolata L.
+큰금계국
+○
+H
+귀,식
+Erigeron annuus  (L.) Pers.
+개망초
+○
+Th
+귀
+Helianthus tuberosus L.
+뚱딴지
+○
+G
+귀
+Sonchus oleraceus L.
+방가지똥
+○
+Th
+귀
+Taraxacum officinale Weber
+서양민들레
+○
+H
+귀
+Dactylis glomerata L.
+오리새
+○
+H
+귀
+Festuca arundinacea Schreb.
+큰김의털
+○
+H
+귀
+총 분류군(No.)
+19
+-
+-
+주) 1. 교 : “생물다양성보전‧이용에 관한 법률”제23조(환경부고시 제2023-228호)의 생태계교란생물
+주) 2. 귀 : 귀화식물(총 321분류군)은 2010년까지 새롭게 정리된 “한국내 귀화식물의 현황과 고찰(한국식물분류학회,이
+주) 1. 등,2011)”을 반영하였음.
+ⓑ 생태계교란 야생생물
+현지조사 결과, 사업계획지구 및 주변지역에서 확인된 생태계교란 야생생물은 환삼덩굴 1분류군이 분포하는 것으로 확인되었다.
+조사지역 생태계교란 야생생물(식물) 목록(현지조사)
+학   명
+(Scientific Name)
+국   명
+(Korean Name)
+현지조사
+생활형
+비고
+Humulus japonicus Siebold & Zucc.
+환삼덩굴
+○
+Th
+교
+총 분류군(No.)
+1
+-
+-
+주) 1. 교 : “생물다양성보전‧이용에 관한 법률”제23조(환경부고시 제2023-228호)의 생태계교란생물
+③ 주요 식생의 현황
+㉮ 식물군락의 유형
+ⓐ 사업계획지구(중점조사지역)
+주요 식생은 도로 및 나지, 이차초원의 해당 식생형이 구분되었다.
+ⓑ 주변지역(광역조사지역)
+주요 식생은 도로 및 나지, 이차초원, 소나무, 기타활엽수 등의 해당 식생형이 구분되었다.
+조사지역 주요 식생 및 식생보전등급의 면적분포 현황
+식생
+보전등급
+해 당 식 생 형
+광역조사지역
+중점조사지역
+(사업계획지구)
+비 고
+면적(㎡)
+비율(%)
+면적(㎡)
+비율(%)
+Ⅴ(5)
+도로 및 나지
+2,561
+2.29
+467
+2.58
+-
+Ⅴ(2)
+이차초원
+69,732
+62.28
+17,606
+97.42
+-
+Ⅲ
+소나무
+437
+0.39
+-
+-
+-
+기타활엽수
+39,240
+35.05
+-
+-
+-
+합              계
+111,970
+100.0
+18,073浵ࡦ
+100.00
+-
+식생보전Ⅳ등급이상 면적 소계
+39,677
+35.44
+-
+-
+-
+주) 1. 주요 식생의 면적분포는 현존식생도(1/5,000)의 해당식생형 분포역을 구적계로 산출하였음. 따라서 정확한 실측과
+주) 1. 는 다소 상이할 수도 있음을 밝혀둔다.
+㉯ 주요 식생의 면적분포 현황
+ⓐ 사업계획지구(중점조사지역)
+사업계획지구는 도로 및 나지(2.58%), 이차초원(97.42%)이 분포하고 있는 것으로 조사⸱분석되었다.
+ⓑ 주변지역(광역조사지역)
+사업계획지구 및 주변지역은 도로 및 나지(2.29%), 이차초원(62.28%), 소나무(0.39%), 기타활엽수(35.05%)가 분포하고 있는 것으로 조사⸱분석되었다.
+㉰ 식생보전등급별 면적 분포 현황
+ⓐ 사업계획지구(중점조사지역)
+사업계획지구는 식생보전 Ⅴ(5)등급(2.58%), 식생보전 Ⅴ(2)등급(97.42%)이 분포하고 있는 것으로 조사⸱분석되었다.
+ⓑ 주변지역(광역조사지역)
+사업계획지구 및 주변지역은 식생보전 Ⅴ(5)등급(2.29%), 식생보전 Ⅴ(2)등급(62.28%), 식생보전 Ⅲ등급(35.44%)이 분포하고 있는 것으로 조사⸱분석되었다.
+사업계획지구 및 조사지역의 현존식생도
+④ 특정식물군락
+㉮ 식생보전등급의 평가
+ⓐ 식생보전등급 평가의 배경
+식생‧생태자원(植生‧生態資源)의 자연성평가(自然性評價, naturalness)는 1984년 일본(日本)에서 도입된 녹지자연도(綠地自然度) 사정기준(査定基準) 즉, 植生自然度區分槪要および全國集計(日本環境廳, 1976)를 반영한 자료이며, 일본에서의 토지이용은 Ⅰ∼Ⅵ으로 구분되어 있다.
+녹지자연도등급의 사정기준(1980년 최초 시도, 1984년 예시, 1986년 고시) 중 DGN 7,8,9등급은 해당식생의 자연성(自然性)과 종조성(種組成)적 특징(特徵)을 고려하지 않고, 단순히 수령(樹齡)에 의존하였던 바, 현재까지 약 30여년이 경과되었음에도 불구하고 어떤 입지에 대한 녹지의 자연성과 식생평가기준으로써의 가치부여는 의미가 없다고 판단된다.
+1970년대부터 추진해온 치산치수정책(治山治水政策)은 해당입지의 잠재자연식생(潛在自然植生)과 해당입지식생의 동태(動態) 등이 전혀 반영되지 않은 산림녹화계획(山林綠化計劃)이어서 현재에 이르러서야 합성(合成)의 오류(誤謬)였음을 인지하게 되었으며, 1986년 당시 도입된 녹지자연도등급사정기준(환경청, 1986)은 현재까지도 전적으로 이용되고 있으므로 식생과 녹지의 자연성평가를 왜곡(歪曲)하기에 이르렀다.
+따라서 어떤 입지(立地)에 성립하는 현존식생(現存植生)의 식생보전등급(VCC : Vegetation Conservation Classification) 부여는 해당입지식생자원의 자연성평가와 성립식생의 정적(靜的)이고 동적(動的)인 진단(診斷)을 할 수 있는 주요한 척도(尺度)라고 판단되며, 대부분의 식생전문가들은 현행 녹지자연도(綠地自然度)의 등급사정(等級査定)이 현재 우리나라의 식생환경과 그 평가에 절대적으로 부합되지 않음을 인지하고 있을 뿐만 아니라, 특히 현행 녹지자연도(DGN)가 폐기되거나 대폭 수정되는 것이 바람직하다고 여기고 있다.
+ⓑ 식생보전등급 평가결과
+식생보전등급의 평가기준은 “자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호, 2010)”에 따랐다.
+평가결과, 조사지역 주요 식생의 배분현황과 종조성적 특징을 비교, 검토한 바, 전형적인 인위식생(artificial vegetation)이며, 자연식생(natural vegetation)은 성립하지 않았다. 주요 식생은 식생보전등급 Ⅴ등급으로 구분되었다.
+특히, 주요습원의 진단종군(species group of diagnostics)을 이루는 특이식물(eg., 물이끼류, 진퍼리새, 통발류, 끈끈이주걱, 이삭귀개, 땅귀개 등), 그리고 주요습원임을 진단하는데 핵심요소로 널리 알려진 이탄층(泥炭層, peat layer)과 사초기둥(tussock)이 자생하거나 발달하는 특수한 입지는 분포하지 않았다.
+한편, 생태적 최적성의 분포특성을 갖는 특이식생(암벽지식생, 석회암지식생, 전석지식생 등)은 성립하거나 분포하지 않았다.
+따라서 조사지역의 세부적인 식생보전등급 평가내용은 다음과 같이 정리되었다.
+식생보전등급의 평가결과
+등 급
+식생보전등급 기준(2013년)
+조사지역의 적용식생
+Ⅰ등급
+⑴식생천이의 종국적인 단계에 이른 극상림 또는 그와 유사한 자연림
+㈎평균수령이 50년 이상된 삼림식생(난온대상록활엽수림, 낙엽활엽수림)
+㈏아고산대 침엽수림(분비나무군락, 구상나무군락, 주목군락 등)
+㈐산지계곡림(고로쇠나무군락,층층나무군락 등),하반림(오리나무군락,비술나무군락 등), 너도밤나무군락 등의 낙엽활엽수림
+⑵삼림식생 이외의 특수한 입지에 형성된 자연성이 우수한 식생이나 특이식생
+㈎해안사구, 단애지, 자연호소, 하천습지, 습원, 염습지, 고산황원, 석회암지대, 아고산초원, 자연암벽 등에 형성된 식생. 다만, 이와 같은 식생유형은 조사자에 의해 규모가 크고 절대보전가치가 있을 경우에만 지형도에 표시하고, 보고서에 기재사유를 상세히 기술하여야 함
+◦평가결과, 분포하지 않았다.
+◦특히, 생태적 최적성의 분포특성을 갖는 특이식생(암벽지식생, 석회암지식생, 전석지식생 등)과 주요습원은 성립하거나 분포하지 않았다.
+Ⅱ등급
+⑴자연식생이 교란된 후 2차 천이에 의해 다시 자연식생에 가까울 정도로 거의 회복된 상태의 삼림식생
+㈎군락의 계층구조가 안정되어 있고, 종조성의 대부분이 해당지역의 잠재 자연식생을 반영하고 있음
+㈏난‧온대 상록활엽수림(동백나무군락, 구실잣밤나무-당단풍군락, 졸참나무군락, 서어나무군락 등의 낙엽활엽수림)
+◦평가결과, 분포하지 않았다.
+Ⅲ등급
+⑴자연식생이 교란된 후 2차 천이의 진행에 의하여 회복단계에 들어섰거나 인간에 의한 교란이 지속되고 있는 삼림식생
+㈎군락의 계층구조가 불안정하고, 종조성의 대부분이 해당지역의 잠재자연식생을 충분히 반영하지 못함
+㈏조림기원 식생이지만 방치되어 자연림과 구별이 어려울 정도로 회복된 경우
+⑵산지대에 형성된 2차 관목림이나 2차 초원
+◦평가결과, 분포하지 않았다.
+Ⅳ등급
+◦인위적으로 조림된 식재림
+◦평가결과, 분포하지 않았다.
+Ⅴ등급
+⑴2차적으로 형성된 키가 큰 초원식생(묵밭이나 훼손지 등의 억새군락이나 기타 잡초군락 등)
+⑵2차적으로 형성된 키가 낮은 초원식생(골프장, 공원묘지, 목장 등)
+⑶과수원이나 유실수 재배지역 및 묘포장
+⑷논‧밭 등의 경작지
+⑸비교적 녹지가 많은 주택지(녹피율 60%이상)
+◦평가결과, 도로 및 나지, 이차초원이 분포하였다.
+-토지의 이용현황 및 초원형성에 따라 평가하였다.
+사업계획지구 및 조사지역의 식생보전등급도
+2) 육상동물상
+조사지역은 도로 및 나지, 이차초원, 산림 등이 분포하고 있으며, 사업계획지구는 도로 및 나지, 이차초원으로 확인되었다.
+조사결과, 조사지역의 육상동물상은 아래와 같이 정리되었고, 각 분류군별 출현종은 본문과 부록에 반영하였다.
+한편, 문헌조사는 조사지역과 가장 근접하는 지역의「제4차 전국자연환경조사 미탄 2018」, 「평창군 창리 소규모마을하수도 설치사업 2024 평창군」, 「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」, 「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」, 「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」의 문헌자료를 선정, 분석하였다.
+조사지역의 육상동물 목록 집계표
+구   분
+분 류 군
+현지조사
+문  헌  조  사
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+포유류
+6과 6종
+6과 7종
+5과 5종
+8과 10종
+9과 11종
+4과 4종
+양서류
+2과 2종
+3과 5종
+2과 2종
+3과 3종
+-
+2과 2종
+파충류
+2과 3종
+2과 3종
+2과 4종
+2과 2종
+2과 2종
+1과 2종
+조류
+16과 21종
+-
+13과 20종
+16과 27종
+15과 23종
+9과 14종
+육상곤충류
+38과 82종
+-
+6과 8종
+-
+-
+4과 4종
+자) 문헌조사Ⅰ : 환경부. 2018. ‘제4차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+가) 포유류
+① 문헌조사
+문헌조사 결과, 문헌Ⅰ「제4차 전국자연환경조사 미탄 2018」에서 청설모, 다람쥐 등 총 6과 7종이 확인되었으며, 문헌Ⅱ「평창군 창리 소규모마을하수도 설치사업 2024 평창군」에서 수달, 고양이 등 총 5과 5종, 문헌Ⅲ「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」에서 노루, 너구리 등 총 8과 10종, 문헌Ⅳ「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」에서 멧돼지, 족제비 등 총 9과 11종, 문헌Ⅴ「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」에서 멧토끼, 고양이 등 총 4과 4종이 확인되었다.
+문헌조사 시 법정보호종은 문헌Ⅱ에서 수달이 확인되어 총 1종이 서식하는 것으로 집계되었다.
+② 현지조사
+국내 서식하는 포유류의 대부분은 중⸱소형의 분류군이고, 대부분 야행성인 바, 현장 조사기간에 성체를 목측하기는 상당히 어렵기 때문에 족흔, 배설물, 집흔적, 굴흔적 등의 서식흔적(Field sings)과 지역주민에 대한 탐문조사로 서식여부를 확인하였다.
+현지조사 결과, 조사지역에서는 삵, 너구리 등 총 6과 6종이 조사, 탐문‧집계되었으며, 수역, 도로 및 나지, 경작지, 이차초원, 산림 등지에 분포하는 것으로 조사되었다.
+또한, 현지조사에서 법정보호종은 사업계획지구 중간에 위치한 도로에서 삵의 배설물이 확인되었다.
+조사지역의 포유류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Order Artiodactyla
+우제목
+Family Cervidae
+사슴과
+Capeolus pygargus (Pallas)
+노루
+○
+○
+Hydropotes inermis Swinhoe
+고라니
+F
+○
+○
+○
+○
+○
+Family Suidae
+멧돼지과
+Sus scrofa Linnaeus
+멧돼지
+Q
+○
+○
+○
+Order Carnivora
+식육목
+Family Canidae
+개과
+Nyctereutes procyonoides (Gray)
+너구리
+D
+○
+○
+○
+Family Felidae
+고양이과
+Prionailurus bengalensis (Kerr)
+삵
+D
+멸Ⅱ
+Felis catus
+고양이
+○
+○
+○
+○
+○
+야
+Family Mustelidae
+족제비과
+Lutra lutra (Linnaeus)
+수달
+○
+천,멸Ⅰ
+Meles leucurus (Hodgson)
+오소리
+○
+Mustela sibirica Pallas
+족제비
+Q
+○
+Order Lagomorpha
+토끼목
+Family Leporidae
+토끼과
+Lepus coreanus Thomas
+멧토끼
+○
+○
+○
+○
+Order Rodentia
+설치목
+Family Muridae
+쥐과
+Rattus norvegicus (Berkenhout)
+집쥐
+○
+Family Sciuridae
+청설모과
+Sciurus vulgaris Linnaeus
+청설모
+○
+○
+○
+○
+EuTamias sibiricus (Laxmann)
+다람쥐
+○
+○
+○
+Petaurista leucogenys hintoni Mori
+날다람쥐
+○
+Order Soricomorpha
+첨서목
+Family Talpidae
+두더지과
+Mogera robusta Nehring
+두더지
+T
+○
+○
+○
+출현종수 (NO.)
+6
+7
+5
+10
+11
+4
+자) 문헌조사Ⅰ : 환경부. 2018. ‘제4차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+주) 1. F : 발자국, D : 배설물, T : 터널, 기타, Q : 탐문
+2. 천 : 천연기념물, 멸Ⅰ,Ⅱ : 멸종위기 야생생물Ⅰ,Ⅱ급, 야 : 야생화
+나) 양서․파충류
+① 문헌조사
+문헌조사 결과, 문헌Ⅰ「제4차 전국자연환경조사 미탄 2018」에서 도롱뇽, 청개구리 등 양서류 3과 5종, 쇠살모사, 무자치 등 파충류 2과 3종, 문헌Ⅱ「평창군 창리 소규모마을하수도 설치사업 2024 평창군」에서 큰산개구리, 도롱뇽 등 양서류 2과 2종, 구렁이, 누룩뱀 등 파충류 2과 4종, 문헌Ⅲ「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」에서 무당개구리, 청개구리 등 양서류 3과 3종, 유혈목이, 살모사 등 파충류 2과 2종, 문헌Ⅳ「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」에서 유혈목이, 쇠살모사 등 파충류 2과 2종, 문헌Ⅴ「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」에서 청개구리, 참개구리 등 양서류 2과 2종, 누룩뱀, 유혈목이 등 파충류 1과 2종이 확인되었다.
+문헌조사에서 법정보호종은 문헌Ⅱ에서 구렁이가 확인되었으며, 총 1종이 집계되었다.
+② 현지조사
+조사지역은 도로 및 나지, 이차초원, 산림 등이 분포하였다.
+현지조사 결과, 양서류는 참개구리, 청개구리 2과 2종이 조사되었으며, 파충류는 유혈목이, 살모사 등 2과 3종이 조사되었다.
+또한 현지조사에서 법정보호종은 조사되지 않았다.
+조사지역 양서․파충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Class Amphibia
+양서강
+Order Caudata
+도롱뇽목
+Family Hynobiidae Cope
+도롱뇽과
+Hynobius leechii Boulenger
+도롱뇽
+○
+○
+○
+Order Salientia
+개구리목(무미목)
+Family Bombinatoridae Gray
+무당개구리과
+Bombina orientalis (Boulenger)
+무당개구리
+○
+Family Hylidae Rafinesque
+청개구리과
+Hyla japonica Günther
+청개구리
+Q
+○
+○
+○
+Family Ranidae
+개구리과
+Rana coreana (Okada)
+한국산개구리
+○
+Rana dybowskii Günther
+북방산개구리
+○
+Pelophylax nigromaculatus (Hallowell)
+참개구리
+V
+○
+○
+Rana uenoi Matsui
+큰산개구리
+○
+출현종수(No.)
+2
+5
+2
+3
+0
+2
+CLASS Reptilia
+파충강
+Order Sjuamata
+뱀목(유린목)
+Family Colubridae
+뱀과
+Elaphe dione Pallas
+누룩뱀
+Q
+○
+○
+○
+Elaphe schrenckii Strauch
+구렁이
+○
+멸Ⅱ
+<표 계속> 조사지역 양서․파충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Oocatochus rufodorsatus Canter
+무자치
+○
+Rhabdophis tigrinus Boie
+유혈목이
+Q
+○
+○
+○
+○
+Family Viperidae
+살모사과
+Gloydius ussuriensis Emelianov
+쇠살모사
+○
+○
+Gloydius brevicaudus Stejneger
+살모사
+Q
+○
+○
+출현종수(No.)
+3
+3
+4
+2
+2
+2
+자) 문헌조사Ⅰ : 환경부. 2018. ‘제4차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+주) 1. V : 목견, Q : 탐문
+주) 2. 멸Ⅱ : 멸종위기 야생생물Ⅱ급
+다) 조류
+① 문헌조사
+문헌조사 결과, 문헌Ⅱ「평창군 창리 소규모마을하수도 설치사업 2024 평창군」에서는 왜가리, 제비 등 총 13과 20종, 문헌Ⅲ「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」에서는 독수리, 직박구리 등 총 16과 27종, 문헌Ⅳ「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」에서는 까마귀, 까치 등 총 15과 23종, 문헌Ⅴ「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」에서는 박새, 노랑턱멧새 등 총 9과 14종이 서식⸱도래하는 것으로 집계되었다.
+법정보호종은 문헌Ⅲ에서 독수리(천연기념물 제243-1호, 멸종위기야생생물Ⅱ급) 1종으로 총 1종이 조사되었다.
+② 현지조사
+국내에 서식하는 조류는 대부분 경작지와 인접한 지역에서 먹이활동과 번식을 하는 분류군, 산림지대에서 활동하는 분류군, 계절별로 산림과 경작지를 이동하는 분류군, 그리고 여름철새와 겨울철새는 산림성 조류, 하천과 경작지에 도래하는 조류로 구별되고 있다. 또한, 조류는 이동성이 가장 뛰어난 동물로 먹이공급지, 휴식지 및 번식지 등의 다양한 서식환경을 요구하는 분류군이고, 서식처와 도래시기를 근거로 수조류, 산림 의존성 조류, 여름철새, 겨울철새, 텃새, 나그네새 등으로 구분하고 있다.
+현지조사 결과, 도로 및 나지, 이차초원, 산림 등에서 딱새, 칡때까치 등 총 16과 21종의 조류가 서식‧도래하는 것으로 조사되었다.
+또한 현지조사에서 법정보호종은 조사되지 않았다.
+③ 조사지역 종분포 현황
+사업계획지구와 주변지역에서 조사된 17종의 생활형은 텃새(Res) 14종(66.67%), 여름철새(Sv) 6종(28.57%), 나그네새(Pm) 1종(4.76%)으로 텃새의 출현비율이 높게 조사되었다.
+분류군(Order)별 현황을 분석한 결과, 참새목(Passeriformes)이 15종(71.43%)으로 나타났으며, 딱따구리목(Piciformes) 2종(9.52%), 닭목(Galliformes), 비둘기목(Columbiformes), 두견이목(Cuculiformes), 파랑새목(Coraciiformes)이 각각 1종(4.76%)으로 분석되었다.
+조사된 조류상의 군집분석 결과, 총 190개체의 조류가 조사되었으며, 참새(Passermont anus (Linnaeus))가 76개체(40.00%)로 가장 많은 개체수가 발견되어 우점종으로 확인되었다. 아우점종은 붉은머리오목눈이(Paradoxornis webbianus)로 51체(26.84%)로 나타났고, 다양도지수 1.98, 균등도지수 0.65, 풍부도지수 3.81으로 분석되었다.
+이동유형(life form)별 조류의 생활형 현황
+이동유형
+종수
+비율(%)
+텃새
+Res
+14
+66.67
+여름철새
+Sv
+6
+28.57
+나그네새
+Pm
+1
+4.76
+합계
+21
+100.00
+조류의 분류군(Order)별 현황
+분류군(Order)
+종수
+비율(%)
+참새목(Passeriformes)
+15
+71.43
+딱따구리목(Piciformes)
+2
+9.52
+닭목(Galliformes)
+1
+4.76
+비둘기목(Columbiformes)
+1
+4.76
+두견이목(Cuculiformes)
+1
+4.76
+파랑새목(Coraciiformes)
+1
+4.76
+합계
+21
+100.00
+조사지역 조류군집의 우점종 및 군집지수
+순위
+우점종
+우점율
+다양도지수
+균등도지수
+풍부도지수
+1
+참새(Passer montanus (Linnaeus))
+40.00
+1.98
+0.65
+3.81
+2
+붉은머리오목눈이(Paradoxornis webbianus)
+26.84
+각 분류군의 우점종군 순위도
+조사지역의 조류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+보호종
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Order Galliformes
+닭목
+Family Phasianidae
+꿩과
+Tetrastes bonasia (Linnaeus)
+들꿩
+○
+Res
+Phasianus colchicus Linnaeus
+꿩
+1
+○
+Res
+Order Ciconiformes
+황새목
+Family Ardeidae
+백로과
+Ardea cinerea Linnaeus
+왜가리
+○
+Sv
+Order Falconiformes
+매목
+Family Accipitridae
+수리과
+Aegypius monachus (Linnaeus)
+독수리
+○
+천,Ⅱ
+Wv
+Buteo buteo (Linnaeus)
+말똥가리
+○
+○
+Wv
+Order Columbiformes
+비둘기목
+Family Columbidae
+비둘기과
+Streptopelia orietalis (Latham)
+멧비둘기
+8
+○
+○
+○
+Res
+Order Cuculiformes
+두견이목
+Family Cuculidae
+두견이과
+Cuculus canorus Linnaeus
+뻐꾸기
+2
+Sv
+Order Coraciiformes
+파랑새목
+Family coraciidae
+파랑새과
+Eurystomus orientalis (Linnaeus)
+파랑새
+2
+Sv
+Order Piciformes
+딱다구리목
+Family Picidae
+딱다구리과
+Dendrocopos kizuki (Temminck)
+쇠딱다구리
+3
+○
+○
+Res
+<표 계속> 조사지역의 조류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+보호종
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Dendrocopos major (Linnaeus)
+오색딱다구리
+1
+○
+○
+Res
+Picus canus Gmelin
+청딱다구리
+○
+Res
+Order Passeriformes
+참새목
+Family Laniidae
+때까치과
+Lanius tigrinus Drapiez
+칡때까치
+2
+Pm
+Lanius bucephalus Temminck & Schlegel
+때까치
+2
+○
+Res
+Family Oriolidae
+꾀꼬리과
+Oriolus chinensis Linnaeus
+꾀꼬리
+2
+Sv
+Family corvidae
+까마귀과
+Garrulus glandarius (Linnaeus)
+어치
+○
+○
+○
+○
+Res
+Cyanopica cyanus (Pallas)
+물까치
+6
+○
+○
+Res
+Pica pica (Linnaeus)
+까치
+5
+○
+○
+○
+Res
+Corvus corone Linnaeus
+까마귀
+○
+Res
+Corvus macrorhynchos Wagler
+큰부리까마귀
+9
+○
+○
+○
+Res
+Family Paridae
+박새과
+Parus major Linnaeus
+박새
+3
+○
+○
+○
+○
+Res
+Parus ater Linnaeus
+진박새
+○
+○
+Res
+Parus varius Temminck & Schlegel
+곤줄박이
+○
+○
+○
+Res
+Parus palustris Linnaeus
+쇠박새
+1
+○
+○
+○
+○
+Res
+Family Hirundinidae
+제비과
+Hirundo rustica Linnaeus
+제비
+○
+Sv
+Family Aegithalidae
+오목눈이과
+Aegithalos caudatus (Linnaeus)
+오목눈이
+○
+○
+○
+Res
+Family Pycnonotidae
+직박구리과
+Microscelis amaurotis (Temminck)
+직박구리
+7
+○
+○
+○
+○
+Res
+Family Sylviidae
+휘파람새과
+Urosphena squameiceps (Swinhoe)
+숲새
+1
+Sv
+Family Timaliidae
+붉은머리오목눈이과
+Paradoxornis webbianus (Gould)
+붉은머리오목눈이
+51
+○
+○
+○
+○
+Res
+Family Reguliidae
+상모솔새과
+Regulus regulus (Linnaeus)
+상모솔새
+○
+○
+Wv
+Family Troglodytidae
+굴뚝새과
+Troglodytes troglodytes (Linnaeus)
+굴뚝새
+○
+Res
+Family Sittidae
+동고비과
+Sitta europaea (Linnaeus)
+동고비
+○
+○
+Res
+Family Sturnidae
+찌르레기과
+Sturnus cineraceus Temminck
+찌르레기
+2
+Sv
+Family Muscicapidae
+솔딱새과
+Phoenicurus auroreus (Pallas)
+딱새
+4
+○
+○
+○
+○
+Res
+Saxicola torquatus (Linnaeus)
+검은딱새
+○
+Pm
+Family Passeridae
+참새과
+Passer montanus (Linnaeus)
+참새
+76
+○
+○
+○
+○
+Res
+Family Prunellidae
+바위종다리과
+Prunella montanella (pallas)
+멧종다리
+○
+Pm
+Family Motacllidae
+할미새과
+Motacilla cinerea Tunstall
+노랑할미새
+○
+Sv
+Motacilla alba Linnaeus
+알락할미새
+2
+○
+Sv
+Motacilla lugens Gloger
+백할미새
+○
+Wv
+Family Fringillidae
+되새과
+Carduelis sinica (Linnaeus)
+방울새
+○
+Res
+Carduelis spinus (Linnaeus)
+검은머리방울새
+○
+Wv
+<표 계속> 조사지역의 조류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+보호종
+비고
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Uragus sibiricus (Pallas)
+긴꼬리홍양진이
+○
+Wv
+Pyrrhula pyrrhula (Linnaeus)
+멋쟁이새
+○
+○
+Wv
+Family Emberizidae
+멧새과
+Emberiza cioides Brandt
+멧새
+○
+Res
+Emberiza rustica Pallas
+쑥새
+○
+○
+○
+Wv
+Emberiza elegans Temminck
+노랑턱멧새
+○
+○
+○
+○
+Res
+출현종수 (NO.)
+21
+20
+27
+23
+14
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+주) Res : 텃새, SV : 여름철새, WV : 겨울철새, Pm : 나그네새, 천 : 천연기념물, 멸 Ⅰ,Ⅱ멸종위기 야생생물 Ⅰ,Ⅱ급
+라) 육상곤충류
+① 문헌조사
+문헌조사 결과, 문헌Ⅱ「평창군 창리 소규모마을하수도 설치사업 2024 평창군」에서 산호랑나비, 양봉꿀벌 등 총 6과 8종, 문헌Ⅴ「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」에서 산바퀴, 큰검정파리 등 총 4과 4종이 조사되었다.
+법정보호종은 문헌조사에서 확인되지 않았다.
+② 현지조사
+사업계획지구 주변에 위치한 산림은 인위적으로 형성된 산림으로 단순한 식생을 형성함에 따라 일반적으로 저지대의 도로 및 나지, 이차초원, 산림 등에서 흔히 관찰되는 종이 주로 서식, 분포할 것으로 예상된다.
+현지조사 결과, 여치, 팥중이 등 총 38과 82종이 조사되었다.
+조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅱ
+Ⅴ
+Order Odonata
+잠자리목
+Family Calopterygidae
+물잠자리과
+Calopteryx atrata
+검은물잠자리
+○
+Calopteryx japonica
+물잠자리
+○
+Family Coenagrionidae
+실잠자리과
+Paracercion calamorum
+등검은실잠자리
+○
+Ischnura asiatica
+아시아실잠자리
+○
+Family Libellulidae
+잠자리과
+Orthetrum albistylum
+밀잠자리
+○
+Crocothemis servilia
+고추잠자리
+○
+Pantala flavescens
+된장잠자리
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅱ
+Ⅴ
+Order Dictyoptera
+바퀴목
+Family Ectobiidae
+Ectobiidae과
+Blattella nipponica
+산바퀴
+○
+○
+Order Mantodea
+사마귀목
+Family Mantidae
+사마귀과
+Tenodera angustipennis
+사마귀
+○
+Tenodera sinensis
+왕사마귀
+○
+Order Dermaptera
+집게벌레목
+Family Labiduridae
+집게벌레과
+Anechura japonica
+좀집게벌레
+○
+Timomenus komarowi
+고마로브집게벌레
+○
+Order Orthoptera
+메뚜기목
+Family Tettigoniidae
+여치과
+Conocephalus (Amurocephalus) chinensis
+쌕쌔기
+○
+Hexacentrus japonicus japonicus
+베짱이
+○
+Gampsocleis sedakovii obscura
+여치
+○
+Paratlanticus ussuriensis
+갈색여치
+○
+Family Gryllidae
+귀뚜라미과
+Turanogryllus eous
+각시귀뚜라미
+○
+Family Tetrigidae
+모메뚜기과
+Tetrix japonica
+모메뚜기
+○
+Family Pyrgomorphidae
+섬서구메뚜기과
+Atractomorpha lata
+섬서구메뚜기
+○
+Family Acrididae
+메뚜기과
+Shirakiacris shirakii
+등검은메뚜기
+○
+Chorthippus brunneus
+애메뚜기
+Oedaleus infernalis
+팥중이
+○
+Oxya chinensis sinuosa
+우리벼메뚜기
+○
+Order Coleoptera
+딱정벌레목
+Bembidion semilunium muchei
+미륵강변먼지벌레
+Family Geotrupidae
+금풍뎅이과
+Phelotrupes (Chromogeotrupes) auratus auratus
+보라금풍뎅이
+○
+Family Scarabaeidae
+소똥구리과
+Popillia flavosellata
+참콩풍뎅이
+○
+Popillia mutans
+콩풍뎅이
+○
+Family Melolonthidae
+검정풍뎅이과
+Maladera verticalis
+빨간색우단풍뎅이
+○
+Family Cetoniidae
+꽃무지과
+Cetonia pilifera
+꽃무지
+○
+Gametis jucunda
+풀색꽃무지
+○
+Nipponovalgus angusticollis
+넓적꽃무지
+○
+Family Coccinellidae
+무당벌레과
+Aiolocaria hexaspilota
+남생이무당벌레
+○
+Coccinella (Coccinella) septempunctata
+칠성무당벌레
+○
+Harmonia axyridis
+무당벌레
+○
+Propylea japonica
+꼬마남생이무당벌레
+○
+Illeis (Illeis) koebelei koebelei
+노랑무당벌레
+○
+Chilocorus kuwanae
+애홍점박이무당벌레
+○
+Family Chrysomelidae
+잎벌레과
+Nonarthra cyanea
+점날개잎벌레
+○
+Chrysolina (Anopachys) aurichalcea
+쑥잎벌레
+○
+Chrysochus chinensis
+중국청람색잎벌레
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅱ
+Ⅴ
+Order Hymenoptera
+벌목
+Family Vespidae
+말벌과
+Vespa crabro flabofasciata
+말벌
+○
+Family Apidae
+꿀벌과
+Bombus (Bombus) ignitus
+호박벌
+○
+Apis cerana
+재래꿀벌
+○
+Apis mellifera
+양봉꿀벌
+○
+○
+Order Hemiptera
+노린재목
+Family Gerridae
+소금쟁이과
+Aquarius paludum paludum
+소금쟁이
+○
+Family Miridae
+장님노린재과
+Adelphocoris triannulatus
+설상무늬장님노린재
+○
+Family Reduviidae
+침노린재과
+Ectrychotes andreae
+우단침노린재
+○
+Sphedanolestes (Sphedanolestes) impressicollis
+다리무늬침노린재
+○
+Family Lygaeidae
+긴노린재과
+Lygaeus hanseni
+애십자무늬긴노린재
+○
+Nysius plebejus
+애긴노린재
+○
+Family Coreidae
+허리노린재과
+Acanthocoris sordidus
+꽈리허리노린재
+○
+Cletus punctiger
+시골가시허리노린재
+○
+Cletus schmidti
+우리가시허리노린재
+○
+Plinachtus bicoloripes
+노랑배허리노린재
+○
+Homoeocerus (Tliponius) dilatatus
+넓적배허리노린재
+○
+Homoeocerus (Tliponius) unipunctatus
+두점배허리노린재
+○
+Molipteryx fuliginosa
+큰허리노린재
+○
+Family Alydidae
+호리허리노린재과
+Riptortus clavatus
+톱다리개미허리노린재
+○
+Family Rhopalidae
+잡초노린재과
+Rhopalus (Aeschyntelus) maculatus
+붉은잡초노린재
+○
+Rhopalus (Aeschyntelus) sapporensis
+삿포로잡초노린재
+○
+Family Urostylididae
+참나무노린재과
+Urochela (Urochela) quadrinotata
+두쌍무늬노린재
+○
+Family Plataspididae
+알노린재과
+Coptosoma semiflavum
+동쪽알노린재
+○
+Family Scutelleridae
+광대노린재과
+Poecilocoris lewisi
+광대노린재
+○
+Family Pentatomidae
+노린재과
+Homalogonia obtusa obtusa
+네점박이노린재
+○
+Carbula putoni
+가시노린재
+○
+Nezara antennata
+풀색노린재
+○
+Family Cicadellidae
+매미충과
+Bothrogonia ferruginea
+끝검은말매미충
+○
+Family Cicadidae
+매미과
+Cryptotympana atrata
+말매미
+○
+Meimuna opalifera
+애매미
+○
+Oncotympana fuscata
+참매미
+○
+Order Diptera
+파리목
+Family Culicidae
+모기과
+Stegomyia albopicta
+흰줄숲모기
+○
+Family Stratiomyidae
+동애등에과
+Ptecticus tenebrifer
+동애등에
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅱ
+Ⅴ
+Family Asilidae
+파리매과
+Promachus yesonicus
+파리매
+○
+Family Syrphidae
+꽃등에과
+Eristalis tenax
+꽃등에
+○
+Allograpta javana
+쟈바꽃등에
+○
+Asarkina porcina
+넓적꽃등에
+○
+Sphaerophoria menthastri
+꼬마꽃등에
+○
+Family Calliphoridae
+검정파리과
+Calliphora lata
+큰검정파리
+○
+Order Lepidoptera
+나비목
+Heterothera postalbida (Wileman)
+밑무늬물결자나방
+Problepsis diazoma
+네눈은빛애기자나방
+Sphinx morio arestus
+솔박각시
+Family Papilionidae
+호랑나비과
+Papilio machaon
+산호랑나비
+○
+Papilio xuthus
+호랑나비
+○
+Family Pieridae
+흰나비과
+Colias erate
+노랑나비
+○
+Pieris canidia
+대만흰나비
+○
+Pieris melete
+큰줄흰나비
+○
+○
+Family Lycaenidae
+부전나비과
+Tongeia fischeri
+먹부전나비
+○
+Family Nymphalidae
+네발나비과
+Libythea lepita
+뿔나비
+○
+Nymphalis canace
+청띠신선나비
+○
+Mycalesis gotama
+부처나비
+○
+Neptis pryeri
+별박이세줄나비
+○
+Neptis sappho
+애기세줄나비
+○
+Polygonia c-aureum
+네발나비
+○
+○
+Vanessa cardui
+작은멋쟁이나비
+○
+Vanessa indica
+큰멋쟁이나비
+○
+출현종수 (NO.)
+82
+8
+4
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+3) 육수동물상
+가) 분류군별 현황
+육수동물상의 경우, 조사지역 내 하도환경이 양호한 수계가 분포하지 않아 조사항목에서 제외하였으며, 문헌조사로 대체하였다.
+문헌조사는 「제3차 전국자연환경조사 미탄 2011」, 「지방하천(지장천) 재해예방사업(가수지구) 정선군 2020」을 선정하여 분석하였다.
+육수동물상 목록 집계표
+구  분
+분류군
+문헌조사
+Ⅵ
+Ⅶ
+담수어류
+8과 27종
+3과 16종
+저 서 성대 형
+무 척 추 동 물
+23과 46종
+24과 38종
+자) 문헌조사Ⅵ : 환경부. 2011. ‘제3차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅶ : 정선군. 2020. “지방하천(지장천) 재해예방사업(가수지구)”
+나) 담수어류
+① 문헌조사
+문헌조사 결과, 문헌Ⅵ 「제3차 전국자연환경조사 미탄 2011」에서 묵납자루, 어름치 등 8과 27종, 문헌Ⅶ「지방하천(지장천) 재해예방사업(가수지구) 정선군 2020」에서 가는돌고기, 쉬리 등 3과 16종이 조사⸱집계되었다.
+또한, 문헌조사 시 법정보호종은 문헌Ⅵ에서 묵납자루, 어름치, 연준모치, 가는돌고기, 돌상어, 둑중개 등 6종, 문헌Ⅶ에서 묵납자루, 어름치, 연준모치 등 3종이 조사되어 총 6종이 조사되었다.
+담수어류 조사목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+문헌조사
+비고
+Ⅵ
+Ⅶ
+Order Cypriniformes
+잉어목
+Family Cyprinidae
+잉어과
+Acheilognathus signifer (Berg)
+묵납자루
+○
+○
+고,멸II
+Acheilognathus yamatsutae Mori
+줄납자루
+○
+고
+Coreoleuciscus splendidus Mori
+쉬리
+○
+○
+고
+Hemibarbus longirostris (Regan)
+참마자
+○
+○
+Hemibarbus mylodon (Berg)
+어름치
+○
+○
+천,멸II
+Microphysogobio longidorsalis Mori
+배가사리
+○
+○
+고
+Phoxinus phoxinus Linnaeus
+연준모치
+○
+○
+멸II
+Pseudogobio esocinus (Temminck et Schlegel)
+모래무지
+○
+○
+Pseudopungtungia tenuicorpa (Jeon and Choi)
+가는돌고기
+○
+고,멸II
+<표 계속> 담수어류 조사목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+문헌조사
+비고
+Ⅵ
+Ⅶ
+Pungtungia herzi Herzenstein
+돌고기
+○
+○
+Rhynchocypris kumgangensis Uchida
+금강모치
+○
+○
+고
+Rhynchocypris oxycephalus (Bleeker)
+버들치
+○
+○
+Squalidus gracilis majimae (Jordan et Hubbs)
+긴몰개
+○
+○
+고
+Zacco koreanus Kim, Oh et Hosoya
+참갈겨니
+○
+○
+고
+Zacco platypus (Temminck et Schlegel)
+피라미
+○
+○
+Gobiobotia brevibarba Mori
+돌상어
+○
+고,멸II
+Microphusogobio yaluensis (Mori)
+돌마자
+○
+고
+Family Cobitidae
+미꾸리과
+Iksookimia koreensis (Kim)
+참종개
+○
+○
+고
+Koreocobitis rotundicaudata Wakiya et Mori
+새코미꾸리
+○
+○
+고
+Family Balitoridae
+종개과
+orthrias mudus(Bleeker)
+대륙종개
+○
+○
+고
+Order Siluriformes
+메기목
+Family Amblycipitidae
+퉁가리과
+Liobagrus andersoni Regan
+퉁가리
+○
+고
+Family Siluridae
+메기과
+Silurus microdorsalis (Mori)
+미유기
+○
+고
+Silurus asotus (Linnaeus)
+메기
+○
+Family Bagridae
+동자개과
+Pseudobagrus koreanus Uchida
+눈동자개
+○
+고
+Order Perciformes
+농어목
+Family Centropomidae
+꺽지과
+Coreoperca herzi (Herzenstein)
+꺽지
+○
+고
+Siniperca scherzeri Steindachner
+쏘가리
+○
+Family Cottidae
+둑중개과
+Cottus koreanus Heckel
+둑중개
+○
+멸II
+출현종수 (NO.)
+27
+16
+자) 문헌조사Ⅵ : 환경부. 2011. ‘제3차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅶ : 정선군. 2020. “지방하천(지장천) 재해예방사업(가수지구)”
+주) 천 : 천연기념물, 멸Ⅱ : 멸종위기 야생생물Ⅱ급, 고 : 한반도고유종
+다) 저서성 대형무척추동물
+① 문헌조사
+문헌조사 결과, 문헌Ⅵ 「제3차 전국자연환경조사 미탄 2011」에서 염주알다슬기, 토우민강도래 등 23과 46종, 문헌Ⅶ「지방하천(지장천) 재해예방사업(가수지구) 정선군 2020」에서 곳체다슬기, 물달팽이 등 24과 38종이 조사⸱집계되었다.
+또한, 문헌조사 시 법정보호종은 문헌Ⅵ에서 염주알다슬기 1종이 조사되어 총 1종이 조사되었다.
+저서성 대형무척추동물 조사목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+문헌조사
+비고
+Ⅵ
+Ⅶ
+Phylum Nematomorpha
+유선형동물문
+Class Gordioida
+연가시강
+Order Gordea
+연가시목
+Family Gordiidae
+연가시과
+Gordius aquaticus Linnaeus
+연가시
+○
+Phylum Mollusca
+연체동물문
+Class Gastropoda
+복족강
+Order Sorbeoconcha
+흡강목
+Family Pleuroceridae
+다슬기과
+Koreanomelania nodifila (v. Martens)
+염주알다슬기
+○
+고,멸II
+Semisulcospira gottschei (v. Martens)
+곳체다슬기
+○
+○
+Order Pulmonata
+유폐목
+Order Stylommatophora
+병안목
+Order Hygrophila
+물달팽이목
+Family Lymnaeidae
+물달팽이과
+Radix auricularia (Linnaeus)
+물달팽이
+○
+Class Bivalvia
+이매패강
+Order Unionoida
+석패목
+Family Unionidae
+석패과
+Unio (Nodularia ) douglasiae Griffith & Pidgeon
+말조개
+○
+Phylum Annelida
+환형동물문
+Class Insecta
+곤충강
+Order Ephemeroptera
+하루살이목
+Family Leptophlebiidae
+갈래하루살이과
+Choroterpes (Euthraulus ) altioculus Kluge
+세갈래하루살이
+○
+Paraleptophlebia japonica (Matsumura)
+두갈래하루살이
+○
+Family Potamanthidae
+강하루살이과
+Potamanthus formosus Eaton
+작은강하루살이
+○
+Family Ephemeridae
+하루살이과
+Ephemera orientalis McLachlan
+동양하루살이
+○
+Ephemera strigata Eaton
+무늬하루살이
+○
+Family Ephemerellidae
+알락하루살이과
+Cincticostella levanidovae (Tshernova)
+민하루살이
+○
+Cincticostella tshernovae (Bajkova)
+먹하루살이
+○
+Drunella aculea (Allen)
+뿔하루살이
+○
+고
+Drunella latipes (Tshernova)
+알통하루살이
+○
+Drunella triacantha (Tshernova)
+삼지창하루살이
+○
+Ephemerella dentata Bajkova
+알락하루살이
+○
+Serratella setigera Bajkova
+범꼬리하루살이
+○
+○
+Ephemerellakozhovi
+흰등하루살이
+○
+Teloganopsis punctisetae (Matsumura)
+등줄하루살이
+○
+○
+Family Heptageniidae
+납작하루살이과
+Cinygmula grandifolia Tshernova
+봄처녀하루살이
+○
+Ecdyonurus bajkovae Kluge
+몽땅하루살이
+○
+Ecdyonurus levis (Navás)
+네점하루살이
+○
+○
+Epeorus nipponicus (Uéno)
+흰부채하루살이
+○
+Epeorus pellucidus (Brodsky)
+부채하루살이
+○
+○
+Family Baetidae
+꼬마하루살이과
+Acentrella sibirica (Kazlauskas)
+콩알하루살이
+○
+Baetiella tuberculata (Kazlauskas)
+애호랑하루살이
+○
+○
+Baetis fuscatus Linnaeus
+개똥하루살이
+○
+Baetis ursinus Kazlauskas
+방울하루살이
+○
+○
+<표 계속> 저서성 대형무척추동물 조사목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+문헌조사
+비고
+Ⅵ
+Ⅶ
+Nigrobaetis bacillus (Kluge)
+깜장하루살이
+○
+○
+Procloeon pennulatum (Eaton)
+갈고리하루살이
+○
+Order Odonata
+잠자리목
+Family Calopterygidae
+물잠자리과
+Calopteryx japonica Selys
+물잠자리
+○
+Family Gomphidae
+측범잠자리과
+Sieboldius albardae Selys
+어리장수잠자리
+○
+Order Plecoptera
+강도래목
+Family Nemouridae
+민강도래과
+Nemoura tau Zwick
+토우민강도래
+○
+Family Perlodidae
+그물강도래과
+Stavsolus japonicus (Okamoto)
+그물강도래붙이
+○
+Family Perlidae
+강도래과
+Kiotina decorata (Zwick)
+무늬강도래
+○
+Paragnetina flavotincta (McLachlan)
+강도래붙이
+○
+Family Chloroperlidae
+녹색강도래과
+Sweltsa nikkoensis (Okamoto)
+녹색강도래
+○
+Order Hemiptera
+노린재목
+Family Belostomatidae
+물장군과
+Muljarus japonicus Vullefroy
+물자라
+○
+Order Coleoptera
+딱정벌레목
+Family Dytiscidae
+물방개과
+Potamonectes hostilis (Sharp)
+혹외줄물방개
+○
+Family Elmidae
+여울벌레과
+Elmidae sp.
+여울벌레과 sp.
+○
+○
+Family Psephenidae
+물삿갓벌레과
+Eubrianax KUa
+둥근물삿갓벌레 KUa
+○
+○
+Psephenoides KUa
+물삿갓벌레 KUa
+○
+Order Diptera
+파리목
+Family Tipulidae
+각다귀과
+Antocha KUa
+명주각다귀 KUa
+○
+○
+Hexatoma KUa
+검정날개각다귀 KUa
+○
+Family Simuliidae
+먹파리과
+Simulium sp.
+먹파리속 sp.
+○
+Simulidae sp.
+먹파리과 sp.
+○
+Family Chironomidae
+깔따구과
+Chironomidae sp.
+깔따구과 sp.
+○
+Chironomidae sp.(Non-red type)
+깔따구과 sp.(비적색형)
+○
+Chironomidae sp.(Red type)
+깔따구과 sp.(적색)
+○
+Family Dolichopodidae
+장다리파리과
+Rhaphium sp.
+장다리파리류
+○
+Order Trichoptera
+날도래목
+Family Stenopsychidae
+각날도래과
+Stenopsyche bergeri Martynov
+연날개수염치레각날도래
+○
+Stenopsyche griseipennis McLachlan
+수염치레각날도래
+○
+Family Arctopsychidae
+곰줄날도래과
+Arctopsyche ladogensis Martynov
+곰줄날도래
+○
+Family Hydropsychidae
+줄날도래과
+Cheumatopsyche brevilineata Iwata
+꼬마줄날도래
+○
+○
+Hydropsyche kozhantschikovi Martynov
+줄날도래
+○
+○
+Hydropsyche orientalis Martynov
+동양줄날도래
+○
+<표 계속> 저서성 대형무척추동물 조사목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+문헌조사
+비고
+Ⅵ
+Ⅶ
+Family Rhyacophilidae
+물날도래과
+Rhyacophila articulata Morton
+주름물날도래
+○
+Rhyacophila bilobata Ulmer
+두잎물날도래
+○
+Rhyacophila narvae Navas
+무늬물날도래
+○
+Rhyacophila nigrocephala Iwata
+검은머리물날도래
+○
+○
+Rhyacophila KUa
+물날도래 KUa
+○
+Family Hydroptilidae
+애날도래과
+Hydroptila KUa
+애날도래 KUa
+○
+Family Uenoidae
+가시우묵날도래과
+Neophylax ussuriensis Martynov
+가시우묵날도래
+○
+Family Apataniidae
+애우묵날도개과
+Apatania Kua
+애우묵날도래 KUa
+○
+Apatania sinensis Martynov
+애우묵날도래
+○
+Family Leptoceridae
+나비날도래과
+Ceraclea KUa
+나비날도래 KUa
+○
+Mystacides KUa
+청나비날도래 KUa
+○
+Oecetis notata (Rambur)
+무늬나비날도래
+○
+출현종수 (NO.)
+46
+38
+자) 문헌조사Ⅵ : 환경부. 2011. ‘제3차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅶ : 정선군. 2020. “지방하천(지장천) 재해예방사업(가수지구)”
+주) 천 : 천연기념물, 멸Ⅱ : 멸종위기 야생생물Ⅱ급, 고 : 한반도고유종
+삵(배설물)
+고라니(발자국)
+딱새
+칡때까치
+애기세줄나비
+팥중이
+사업계획지구의 주요 동물상 현황(현지조사)
+라) 특정육상동물(천연기념물, 멸종위기야생생물)
+① 문헌조사
+문헌Ⅰ「제4차 전국자연환경조사 미탄 2018」, 문헌Ⅱ「평창군 창리 소규모마을하수도 설치사업 2024 평창군」, 문헌Ⅲ「평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업 2024 (주)디에이치쏠라 외2개사」, 문헌Ⅳ「평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업 2023 주식회사 미라클쏠라 외 2개사」, 문헌Ⅴ「평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업 2023 주식회사 그린에너지」 육상동물상을 검토한 바, 주요 종은 수달, 독수리, 구렁이 등으로 총 3종이 조사⸱집계되었다.
+조사지역의 특정동물 현황
+구 분
+분류군
+대상종
+천연
+기념물
+멸종위기종
+현지
+조사
+문헌조사
+비고
+Ⅰ급
+Ⅱ급
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Ⅵ
+포유류
+▷삵
+-
+-
+✔
+○
+-
+-
+-
+-
+-
+-
+-
+▷수달
+✔
+✔
+-
+-
+-
+○
+-
+-
+-
+-
+-
+조류
+▷독수리
+✔
+-
+✔
+-
+-
+-
+○
+-
+-
+-
+-
+양서파충류
+▷구렁이
+-
+-
+✔
+-
+-
+○
+-
+-
+-
+-
+-
+자) 문헌조사Ⅰ : 환경부. 2018. ‘제4차 전국자연환경조사 - “미탄의 자연환경”
+자) 문헌조사Ⅱ : 평창군. 2024 “평창군 창리 소규모마을하수도 설치사업”
+자) 문헌조사Ⅲ : (주)디에이치쏠라 외2개사. 2024 “평창군 미탄면 백운리 168-2번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅳ : 미라클쏠라 외 2개사. 2023 “평창군 미탄면 한탄리 417번지 일원 태양광발전소 조성사업”
+자) 문헌조사Ⅴ : 주식회사 그린에너지. 2023 “평창군 미탄면 한탄리 432번지 일원 태양광발전소 조성사업”
+주) 천연기념물 : “문화재보호법” 제25조“의 문화재청지정 천연기념물, 멸종위기야생생물 : “야생생물보호‧관리에 관한
+주) 법률 시행규칙” 제2조의 환경부지정 멸종위기야생생물
+② 현지조사
+현지조사 결과, 사업계획지구 및 주변지역에서 법정보호종은 삵(배설물) 1종이 확인되었다.
+사업계획지구의 법정보호종 현황(문헌조사)
+(나) 생태자연도
+1) 자료조사
+환경부 환경지리정보(http://egis.me.go.kr/egis)의 자연환경현황도(생태자연도 도엽명‧번호 :미탄·378113 1/25,000 지형도)를 검색하였다.
+2) 생태자연지도 작성
+환경부(1/25,000) 생태자연지도에 사업계획지구를 overlapping하였다.
+3) 조사결과
+본 사업계획지구는 대부분 생태자연도 2, 3등급으로 이루어져 있는 것으로 나타났으며, 보전 가치가 높은 생태자연도 1등급은 확인되지 않았다.
+사업계획지구의 생태자연도
+나. 사업변경으로 인한 영향예측
+(1) 예측항목 및 방법
+현황자료를 근거하여 사업시행 시 직․간접적인 영향이 예측될 것으로 판단되는 항목을 중점적으로 예측하였고, 공간적인 범위는 현황조사와 동일하게 설정하였으며, 시간적 범위는 공사시와 운영시로 구분하였다.
+(2) 예측결과
+(가) 공사시
+1) 육상 동․식물상
+가) 육상식물
+① 직접변화지역(1차 영향지역)
+㉮ 식물상 및 식생의 변화
+본 사업계획지구는 식생보전 Ⅴ(5)등급인 도로 및 나지, 식생보전 Ⅴ(2)등급인 이차초원으로 식생이 구성되어 있으며, 공사가 진행됨에 따라 식생보전등급 V(5)등급 도로 및 나지로 변화할 것으로 예측되었다.
+사업계획지구의 사업 전·후 식생보전등급 변화
+식생
+보전등급
+해 당 식 생 형
+사 업 시 행 전
+사 업 시 행 후
+비 고
+면적(㎡)
+비율(%)
+면적(㎡)
+비율(%)
+Ⅴ(5)
+도로 및 나지
+467
+2.58
+18,073
+100.00
+-
+Ⅴ(2)
+이차초원
+17,606
+97.42
+-
+-
+-
+합              계
+18,073
+100.00
+18,073
+100.00
+-
+사업시행 전․후 식생보전등급 변화
+㉯ 훼손수목 현황
+본 사업이 시행되면 훼손수목산정은 사업계획지구 내에 교목을 대상으로 산정되며, 보전가치가 낮은 식재수종, 관목 등은 제외하여 훼손수목을 산정하였다.
+조사결과, 사업계획지구 내부에 위치한 도로 및 나지, 이차초원은 보전가치가 높은 수목이 존재하지 않아 훼손되는 수목은 없을 것으로 예측된다. 따라서 훼손수목을 산정하지 않았다.
+② 간접영향지역
+㉮ 식물상 및 식생
+사업시행 시 공사차량운행 등에 따른 인위적 교란이 발생할 수 있으므로 주변 식생과 식물상이 일시적이나마 영향을 미칠 것으로 예측되지만 사업계획지구는 도로 및 나지, 이차초원으로 주변 지역에 흔하게 자생하는 종들이 분포할 것으로 보이며, 그 영향은 크지 않을 것으로 예측된다.
+㉯ 특정식물
+ⓐ 보호수와 노거수
+조사지역에는 보호를 요하는 보호수 및 노거수가 분포하지 않아 사업시행으로 인해 미치는 영향은 없을 것으로 예측된다.
+ⓑ 환경부지정 멸종위기등급종
+식물상 조사결과, 본 조사지역에는 멸종위기등급의 보호야생식물이 자생하지 않았다.
+나) 육상동물상
+① 일반적인 분류군
+㉮ 직접적인 영향
+일반적으로 육상동물은 입지의 식생유형에 따라 그 분포역과 서식지를 달리하며, 생물서식공간(biotope)을 이루는 식생의 자연성, 종조성적 특징, 생물량 등에 따라 복잡한 영양단계의 먹이사슬을 형성한다. 따라서 해당입지의 물리적 환경은 특정 분류군의 서식여부와 매우 밀접한 관계가 있다.
+본 사업이 시행되면 공사 차량의 출입 등 교란이 발생함에 따라 사업계획지구에 서식, 이동하는 분류군은 불가피하게 활동영역이 감소되거나 주변의 안정된 생태환경으로 회피할 것으로 예측된다.
+양서⸱파충류는 봄철과 가을철에 산란지와 동면지가 상이하여 산림과 습한 입지(폐경작지, 경작지, 물웅덩이, 하천, 산간계곡 등)에 생태축(eco-apices)을 형성, 이용하는 생태특성이 있다. 따라서 본 사업계획지구는 도로 및 나지, 이차초원에 위치하고 있어 양서‧파충류가 사업지 주변으로 회피할 것으로 사료되며, 주변 산림, 수역 등 양호한 환경에서 자생할 것으로 예측된다.
+조류의 경우, 본 사업계획지구 및 주변에 도로 및 나지, 경작지, 이차초원, 산림 등이 분포해있어 서식환경에 대한 적응도가 높은 텃새류가 우점하여 서식⸱도래하였다. 따라서 사업이 시행되면, 사업계획지구 내⸱외부의 인위적 교란이 수반되기 때문에 텃새 등의 서식지가 교란될 것으로 예측된다. 그러나 자연생태계에서 고차소비자의 영양단계에 위치하는 조류는 주변의 유사입지로 이동, 분산, 서식할 것으로 예측되며, 사업시행 후 사업계획지구의 생태환경이 안정화됨에 따라 멧비둘기, 까치, 참새 등의 텃새류는 다시 회귀하여 서식할 것으로 예상된다.
+㉯ 간접적인 영향
+사업계획지구를 이동하면서 먹이활동이나 생리대사의 활동을 하였던 일부 동적 분류군은 불가피하게 이동로의 단절이 수반되어 교란의 영향이 적은 사업계획지구의 외곽지역을 우회하여 이동할 것으로 예측되며, 활동영역은 사업계획지구를 회피할 것으로 예상된다.
+다) 법정보호종
+① 문헌조사
+㉮ 수달
+광역조사에서 보고된 수달의 경우 산림과 인접한 수계에서 서식하는 종으로 주로 야행성이고 낮에는 보금자리에 쉬며 갑자기 위험 상태에 놓이면 물속으로 잠복하는 생태적 특성이 있다. 주 먹이원은 어류이고 양서류도 잘 먹는 것으로 알려져 있다.
+현재 사업계획지구는 대부분 도로 및 나지, 이차초원으로 이루어져 있으며, 본 종들의 생태적 특성상 사업계획지구보다는 하천을 이용할 것으로 판단되는 바, 사업시행에 따른 직‧간접 영향은 없을 것으로 예측된다.
+㉯ 독수리
+국내에서는 흔한 겨울 철새이자 맹금류로, 11월 중순에 도래해 3월 중순까지 확인되며, 국내에 도래하는 수리 중 가장 크고 전체적으로 어두운 갈색이다. 날갯짓을 하지 않고 상승기류를 타고 비행하며 먹이를 찾으며, 주로 양계장 등 축산농가 인근에서 서식하고 무리를 이루며 버려진 동물의 사체를 먹는 생태특성이 있다.
+또한, 이동성이 높고 행동반경이 넓은 맹금류의 생태특성을 고려해 보았을 때, 본 사업시행으로 인해 독수리에 미치는 추가적인 직‧간접 영향은 없을 것으로 예측된다.
+㉰ 구렁이
+구렁이는 우리나라에서 가장 큰 뱀으로 행동반경이 넓고 인가의 돌담·방죽·밭둑의 돌 틈 등에 서식하며 7~8월에 산란한다. 주 먹이원은 소형 설치류, 조류, 새알 등으로 알려져 있으며, 4월 하순이면 나타나기 시작하여 6월에 활발하게 활동하고 11월 하순에 동면(집쥐의 굴, 돌담 틈, 산 속의 숯가마터 등)에 들어간다.
+구렁이의 행동권(최소 4.5ha∼최대 84.5ha) 및 인가의 돌담·방죽·밭둑의 돌 틈 등에 서식하는 생태특성을 고려하였을 때[한국의 양서파충류, 월드사이언스, 112∼113쪽], [한국산 구렁이의 분류학적 위치, 서식지 이용 및 적합성 모형 개발, 강원대학교 대학원 생물학과, 이정현] 구렁이의 활동에 미치는 직‧간접 영향은 없을 것으로 예측된다.
+② 현지조사
+㉮ 삵
+삵은 야행성이고 설치류나 조류 등을 주로 섭식하는 육식동물이며 행동권은 평균 3.69 ± 1.34㎢를 나태내고 높은 이동성을 갖고 있다.
+현지조사 결과, 사업계획지구 중간에 위치한 도로에서 삵의 배설물이 확인되었으나 서식처, 은신처 등은 확인되지 않았다.
+따라서 주로 야간에 활동하는 분류군 특성을 고려할 시 직접적인 영향은 미미할 것으로 사료되며, 공사 시 영향이 적은 지역을 선택적으로 이용할 것으로 예측된다. 해당 지역은 먹이활동을 위한 넓은 활동권으로 판단되며, 사업시행으로 주요 생활권에 미치는 영향은 없을 것으로 예측된다.
+(나) 운영시
+1) 육상동 ․ 식물상
+가) 육상식물
+① 식물상(flora) 및 식생(vegetation)
+본 사업시행 후 공사차량의 출입 등으로 인해 봄맞이꽃, 쑥류, 냉이류, 달맞이꽃, 싸리류, 박주가리, 씀바귀, 망초, 댕댕이덩굴, 개솔새 및 지칭개 등 양지성 초본식물류와 관목류의 유입증가가 예상된다.
+나) 육상동물
+본 공사기간동안 육상동물상에 미치는 영향은 서식처와 먹이를 찾기 위한 이동로 회피현상이 발생하며, 사업시행 후 주변지역이 안정화가 진행될 때까지 야생동물의 생태환경은 완전히 회복되지 않겠지만, 육상동물상에 미치는 영향은 시간에 따라 서서히 감소할 것으로 예측되었다.
+또한, 회피 작용과 주변 유사입지로 서식지를 선택하였던 육상동물은 사업계획지구 주변의 생태환경이 서서히 안정화됨에 따라 초기단계에는 소형 조류와 설치류 등 시간이 흐름에 따라 먹이공급원을 식초로 이용하는 육상곤충의 종 다양성이 증가하거나 회귀할 것으로 예측되었다.
+다. 저감방안
+(1) 일반적인 저감방안 수립
+사업시행 시 사업계획지구 이외의 주변식생과 생물상에 미치는 영향을 최소화하도록 공사의 관리‧감독을 철저히 실시할 계획이다.
+특히, 자연자원을 갖는 양면성의 특징을 살릴 수 있는 보전전략을 세우기 위해서는 무조건적인 생태보전만을 목적으로 하거나 이용측면만을 강조하는 계획이 아니라 자연자원의 다목적 이용체계를 수립하는 현실적이고 합리적인 접근이 필요할 것으로 사료된다. 그러므로 사업시행 시 발생하는 교란, 주변생태계에 미치는 영향을 최소화할 수 있는 현실적인 세부저감 방안을 수립‧시행할 계획이다.
+(2) 세부적인 저감방안 수립
+(가) 육상동·식물상
+1) 육상식물
+가) 식물상(flora)
+① 주변식물상의 훼손 방지
+본 사업의 특성상 편입식생은 불가피하게 인위적 교란을 받는 것은 자명한 사실이므로 사업시행기간에 관계자, 현장근로자 등에 대한 자연환경보전 교육을 실시하여 야생식물의 무분별한 훼손을 방지할 계획이며, 현실적인 저감대안을 수립하였다.
+② 귀화식물에 대한 대책
+귀화식물은 한일합방 전후에 외국으로부터 유입된 식물이며, 일부 수종은 1960년대부터 시작된 치산치수정책의 산림녹화사업과 사방공사의 주요 식수종으로 이용되어 왔다. 우리나라에 유입‧정착한 귀화식물은 약 300종을 상회하며(국립환경연구원 1997, 박 2002), 지금도 계속 유입되고 있는 것이 오늘의 현실이다.
+대부분 귀화식물은 종생태학(species ecology)적 측면에서 나름대로의 재생 전략과 생존전략에 따라 그 분포역을 확대하고 있으며, 대부분 영양번식보다는 종자번식의 재생전략을 구사하고 있다.
+실례를 들면, 과거 주요 사방 식수종이고 천근성의 아까시나무는 제1세대가 약 50여년으로 추정되며, 재생전략의 특성상 인위적인 벌근⸱벌목에 따른 2차 교란이 수반되지 않도록 현존식생의 구성종으로 존치하는 것이 현실적인 대안이라고 사료된다. 특히, 물리적 교란지역에서의 식생조사경험을 고려하면, 아까시나무는 수세가 강력하여 제거하려고 하면할수록 그 분포역이 확장되거나 군생하는 경향이 높았다. 또한, 귀화식물류는 타 식물이 정착‧성장하기 어려운 나대지, 노변 등의 입지, 그리고 수위변화가 심한 기수역 호안에 주로 정착하고 있다.
+그러나 귀화식물은 양호한 산림식생지역에 침입‧정착하는 경우는 거의 없는 바, 대부분 식생의 발달이 불량하거나 천이초기단계의 입지에 유입하는 경향을 보이고 있다.
+귀화식물 관리방안
+구분
+관리방안
+비고
+생물학적 방법
+○ 생육을 억제하는 환경조성(경쟁종이나 천적 이용)
+○ 건전한 천이가 일어날 수 있는 환경의 조성에는 많은 시간이 소요
+화학적 방법
+○ 약품을 이용하여 특정 종을 제거
+○ 약제사용으로 제거목적 이외의 종의 피해, 토양오염 등 2차 오염 예상
+물리적 방법
+○ 특정 종을 손이나 기계를 이용하여 직접 제거하는 방법
+○ 돼지풀 등 결실기 이전에 절단 제거: 유해성 홍보로 주민들의 참여유도
+제도적 방안
+○ 철저한 검역제도를 통하여 도입 단계에서 차단
+○ 침입전 관리
+기타
+○ 도입 전 국내 생태계에 대한 영향 연구 실시
+자) 귀화생물에 의한 생태계 영향조사(1), 1995, 국립환경연구원
+③ 생태계교란 야생생물(식물) 관리방안
+사업계획지구 및 주변지역에서 조사된 귀화식물 중 “생물다양성 보전 및 이용에 관한 법률” 제23조의 환경부지정 생태계교란생물인 환삼덩굴 1분류군이 사업계획지구 및 주변지역에서 발견되었으며, 사업시행 시 생태계교란식물의 확산을 배제할 수 없을 것으로 예상된다. 따라서 아래와 같이 관리방안을 제시하였다.
+환삼덩굴의 발달단계와 관리방안
+발달단계
+관리
+1월
+2월
+3월
+4월
+5월
+6월
+7월
+8월
+9월
+10월
+11월
+12월
+싹(유묘)
+뿌리째 뽑기, 줄기자르기, 제초제사용
+영양생장
+뿌리째 뽑기, 줄기자르기
+집중적인 제거
+꽃
+뿌리째 뽑기, 줄기자르기
+추가 제거
+열매
+뿌리째 뽑기, 줄기자르기
+추가 제거
+자) 생태계교란생물 현장관리 가이드, 2021, 환경부, 국립생태원
+나) 식생(vegetation)
+① 식생자원의 활용방안 수립
+㉮ 훼손예상산림식생 현황
+훼손수목산정은 사업계획지구 내에 교목을 대상으로 산정되며, 보전가치가 낮은 식재수종, 관목 등은 제외하여 훼손수목을 산정하였다.
+조사결과, 사업계획지구 내부에 위치한 도로 및 나지, 경작지는 보전가치가 높은 수목이 존재하지 않아 훼손되는 수목은 없을 것으로 예측된다. 따라서 훼손수목을 산정하지 않았다.
+2) 육상동물상
+가) 일반적인 분류군
+식생과 동⸱식물상 조사자료, 그리고 조사지역 토지의 다양한 물리적 환경과 서식지 미소환경을 고려한 결과, 본 사업시행 시 육상동물상에 미치는 영향은 크지 않을 것으로 예측되었으나, 서식하거나 서식 가능성을 배제할 수 없는 육상동물의 출현 가능성을 고려하여 미치는 영향에 대한 현실적인 저감 대책을 다음과 같이 기술하였다.
+야생동물의 주요 서식지가 발견될 경우는 주요 번식기(03~06월)를 가급적 피하여 공사를 실시하며, 현장근로자들의 야생동물 포획을 방지하기 위한 야생동물보호교육 등을 실시하여 미치는 영향을 최대한 저감할 계획이다.
+한편, 조사지역의 육상곤충류의 현실적인 저감 대책은 사업시행 시 주요 식초가 되는 식생자원의 훼손을 최대한 줄이고 사업시행 시 부지경계지역의 식생자원을 최대한 보존할 계획이다.
+3) 법정보호종(천연기념물, 멸종위기등급종)
+가) 문헌조사
+① 수달
+광역조사에서 보고된 수달의 경우 주로 수계에서 활동하는 종으로 알려져 있는 바, 사업시행 시 사업계획지구 외부에 존재하는 하천으로 토사 유입을 방지하여 주 먹이원과 서식지를 보호함으로써 공사에 따른 영향을 최소화할 계획이다.
+② 독수리
+국내에서는 흔한 겨울 철새이자 맹금류로, 11월 중순에 도래해 3월 중순까지 확인되며, 국내에 도래하는 수리 중 가장 크고 전체적으로 어두운 갈색이다. 날갯짓을 하지 않고 상승기류를 타고 비행하며 먹이를 찾으며, 주로 양계장 등 축산농가 인근에서 서식하고 무리를 이루며 버려진 동물의 사체를 먹는 생태특성이 있다.
+이동성이 높고 행동반경이 넓은 맹금류의 생태특성을 고려해 보았을 때, 본 사업시행으로 인해 독수리에 미치는 추가적인 직‧간접 영향은 없을 것으로 예측된다.
+③ 구렁이
+구렁이는 4월 하순 나타나기 시작하여 6월에 활발하게 활동하고 11월 하순에 동면에 들어가는 파충류로 행동권(최소 4.5ha~최대 84.5ha) 및 인가의 돌담·방죽·밭둑의 돌 틈 등에 서식하는 생태특성을 고려하였을 때 공사로 인한 영향은 없을 것으로 파악된다.
+나) 현지조사
+① 삵
+현지조사 결과, 사업계획지구 및 주변지역에서 확인된 법정보호종은 삵 1종으로 조사되었다.
+삵은 직접적인 개체수 감소 가능성은 낮을 것으로 예측되지만, 삵의 주요먹이원이 되는 생태적지위(niche)가 낮은 소형동물들에 대한 포획, 남획을 방지하기 위한 관리‧감독을 할 계획이다.
+특히, 삵은 낮보다는 주로 밤에 활동을 많이 하므로 야간에 활동하는 생태특성을 고려하여 무리한 야간공정은 지양할 계획이다.
+나) 법정보호종 보호대책
+현지조사 시 법정보호종은 삵 1종이 확인되었으며, 문헌조사 결과에 의하면 사업계획지구 일원에서의 법정보호종 서식을 완전히 배제할 수는 없으므로 법정보호종의 중요성을 현장인부들에게 교육하여 공사 시 법정보호종의 서식지가 계획지구 인접지역에서 발견될 경우 공사를 즉시 중단하고 관련법에 따라 적절한 조치를 취한 후 현장여건에 맞는 적절한 보호방안을 강구할 계획이다.
+법정보호종 관찰시 조치계획 및 절차
+ྠĀ
+법정보호종 발견(시공관계자, 작업인부)
+선조치 후 보고
+⇩ ⇧
+임시 보호대책 강구
+사업자
+보고
+⇩ ⇧
+보호대책 강구
+승인기관 및 협의기관
+← 발견 즉시 조치
+← 24시간 ~ 3일이내 보호대책 강구

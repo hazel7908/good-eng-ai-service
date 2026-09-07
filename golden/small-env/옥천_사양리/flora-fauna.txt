@@ -1,0 +1,11112 @@
+제7장 환경현황, 환경에 미치는 영향의 조사⸱예측․평가 및 환경보전방안
+7.1 자연생태환경
+7.1.1 동⸱식물상
+가. 현 황
+제7장 환경 현황, 환경에 미치는 영향의 조사․예측․평가 및 환경보전방안
+옥천군 군서면 사양리 산 39-1번지 일원 야영장시설 부지조성사업
+7.1.1 동·식물상
+① 식생보전
+① 등급
+구 분
+식생보전
+Ⅴ(5)등급
+식생보전
+Ⅴ(3)등급
+합계
+식생
+유형
+도로
+및 나지
+묘목장
+면적(㎡)
+1,018
+8,858
+9,876
+비율(%)
+10.31
+89.69
+100.00
+② 동ㆍ식물상
+구 분
+식 물
+포유류
+양서⸱
+파충류
+조 류
+육상곤충류
+분류군
+종수
+64과
+164분류군
+5과 5종
+3과 4종
+12과 16종
+25과 51종
+법정
+보호종
+✖
+✖
+✖
+✖
+✖
+③ 생태･자연도
+○ 본 사업계획지구의 생태·자연도는 3등급지역으로 고시되었음.
+④ 별도 첨부자료
+○ 현지조사표
+○ 참고문헌
+(1) 조사항목
+(가) 육상동·식물상
+1) 육상식물
+가) 식물상
+① 관속식물 분포
+- 관속식물목록 작성, 생활형(life form) 분석 등
+② 특정식물 분포
+- 보호수ㆍ노거수, 한반도고유종, 희귀식물, 식물구계학적특정식물,
+법정보호종(멸종위기 야생생물ⅠㆍⅡ급, 천연기념물) 등
+③ 귀화식물 현황
+- 귀화식물목록 작성, 도시화지수(UI)ㆍ귀화율(PN) 분석 등
+나) 현존식생
+① 주요 식생의 분석
+- 주요 식생의 종조성적 특징(진단종군 추출)
+- 현존식생도 작성, 주요 식생의 면적분포 등
+- 식생보전등급 작성
+- 식생보전등급별 면적 분석, 식물현존량과 순생산량의 산정
+② 특정식물군락
+- 식생‧생태자원 자연성평가(naturalness), 식생보전등급도 작성
+- 주요 습지, 자연식생 등
+2) 육상동물
+가) 포유류
+- 각 분류군별 분포상황 등
+나) 양서·파충류
+- 각 분류군별 분포상황 등
+다) 조류
+- 각 분류군별 분포상황, 겨울철새 조사 등
+라) 육상곤충류
+- 각 분류군별 분포상황 등
+마) 특정육상동물
+- 문화재청지정 천연기념물, 환경부지정 멸종위기 등급종, 특정개체군,
+한국특산종, 희귀종, 희소종 등
+(나) 생태·자연도
+- 환경부 환경지리정보의 해당입지 생태·자연도 검색
+- 식생보전등급, 동·식물의 분포 등 생태·자연도의 세부현황
+(2) 조사범위 및 조사시기
+중점조사지역 : 사업계획지구 9,876㎡
+광역조사지역 : 사업계획지구의 주변지역
+조사기간 : 2024년 10월 23일
+문헌조사 조사현황
+조사항목
+문헌자료
+육상식물상
+육상동물상
+포유류
+조류
+양서·파충류
+육상곤충
+Ⅰ
+○
+○
+○
+○
+○
+Ⅱ
+○
+○
+○
+○
+○
+Ⅲ
+○
+○
+-
+○
+○
+Ⅳ
+○
+-
+-
+○
+○
+Ⅴ
+○
+○
+○
+○
+○
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+(3) 조사방법
+(가) 육상동·식물상
+1) 육상식물
+가) 식물상(flora) 및 현존식생 (actual vegetation)
+식생조사지점의 선정에 앞서 사업계획지구 및 사업시행으로 영향이 예상되는 지역의 산림을 상관(physiognomy)적으로 주요 식생의 배분현황을 파악하였다.
+조사지역에 분포하는 식물군락은 유형별로 특징 있는 식물군락을 조사하고, 각 식분에 대하여 Braun-Blanquet(1964)의 식물사회학적 조사방법을 실시하여 정성적으로 추정하였으며, 매목조사를 실시하여 정량적으로 추정하였다.
+조사지 선정은 사업시행으로 직접적으로 훼손되는 지역 중 균질한 곳을 대상으로 최소 면적 이상의 방형구를 설치한 후, 그 내용을 식생조사표에 기재하였다. 또한, 매목조사를 실시하여 교목층과 아교목층의 수고 및 흉고직경을 측정하였다.
+현존식생도는 본 사업계획지구 및 본 사업시행으로 영향이 예상되는 지역의 산림을 상관(相觀)에 의하여 구분한 후 1:5,000의 지형도에 작성하였다.
+조사된 식물상을 라운키에르 생활형(Raunkiaerian life form)에 의해 구분하였다.
+기타 환경부 지정 멸종위기 식물종, 한국특산종 및 학술적 특이군락, 구계학적 특정식물종을 검토하였다.
+사업계획지구와 주변지역에서 발견된 귀화식물을 분석ㆍ분류하여 도시화지수(UI), 귀화율(PN, %)을 산정하여 분포하는 현황을 파악하였다.
+우점도 및 군도의 사정기준(Braun-Blanquet, 1964)
+우점도(Dominance)
+군도(Sociability)
+r
+고립하여 출현하고, 피도는 극히 낮음
+1
+단독으로 생육하는 상태
++
+피도는 낮고, 산재성으로 출현함.
+(5% 미만)
+2
+군 또는 총상으로 생육하는 상태(소군상)
+1
+개체수는 많으나 피도는 낮음. 또는 산재하나 피도는 약간 높음. (5% 미만, 1/10)
+3
+군집, 소반, 방석모양으로 생육하는 상태
+2
+표본구 면적의 1/10~1/4을 덮거나, 혹은 개체수가 많음. (5% 이상 25% 미만)
+4
+소군락, 광반, 카페트모양을 이루는 상태
+(카페트에 구멍이 있는 상태)
+3
+표본구 면적의 1/4~1/2을 덮고, 개체수는 임의(25% 이상 50% 미만)
+5
+대집합, 순개체군을 이루는 상태(카페트상)
+4
+표본구 면적의 1/2~3/4을 덮고, 개체수는 임의(50% 이상 75% 미만)
+-
+-
+5
+표본구 면적의 3/4이상으로 개체수는 임의
+(75% 이상)
+-
+-
+우점도, 군도의 배분 모식도
+Raunkiaer(1934)의 생활형 구분
+구       분
+구   분   개   요
+G
+Geophyte
+(지중식물)
+휴면아가 땅속에 있는 다년초로 지상부는 마른다.
+H
+Hemicryptophytes
+(반지중식물)
+휴면아가 지표 바로 밑에 있는 다년초
+Ch
+Chamephytes
+(지표식물)
+휴면아가 지표면에서 0~0.3m이내에 있는 다년초
+N
+Phanerophytes
+(지상식물-소형)
+저목, 미소지상식물로 휴면아가 지표면에서 0.3~2m사이에 있는 것
+M
+Phanerophytes
+(지상식물-대형)
+대고목, 대형지상식물로 휴면아가 지표면에서 8~30m사이에 있는 것
+HH
+Hydatophytes
+(근수생식물)
+1년생 수생식물, 뿌리가 질흙 속에 있거나 수면에 뜨는 부엽식물
+E
+Epiphytes
+(착생식물)
+바위나 다른 식물체에 붙어서 서식하는 종
+Th
+Therophytes
+(일년생식물)
+월동하지 않는 1년초이거나 월동하는 월년초. 지하에 있는 휴면아가 모체에서 분리 월동하고 모체는 그해에 죽는 영양번식형 1년초와 다년초의 중간형태.
+M: 대형지상식물(교목), N: 소형지상식물(관목), E: 착생식물, Ch: 지표식물
+H: 반지중식물, G: 지중식물, HH: 근생수생식물, Th: 일년생식물
+Raunkiaer의 생활형 분포 모식도
+식물구계학적 특정식물종의 등급 및 평가체계
+등급
+내용
+등급평가점수
+Ⅰ등급
+북방계 및 남방계 식물로써 3개 아구에 분포하는 분류군
+2점
+Ⅱ등급
+비교적 전국적으로 분포하지만 일반적으로 1,000m 이상 되는 지역에 분포하는 분류군
+4점
+Ⅲ등급
+북방계 및 남방계 식물로써 2개 아구에 분포하는 분류군
+6점
+Ⅳ등급
+북방계 및 남방계 식물로써 1개 아구에만 분포하는 분류군
+8점
+Ⅴ등급
+고립하거나 불연속적으로 분포하는 분류군
+10점
+자) 제2차 전국자연환경조사지침 중 일반식물상 조사지침. 2001. 환경부
+희귀식물 및 적색자료 분류기준
+자) 국제자연보존연맹(IUCN) 적색자료 목록 분류기준. 2013
+약칭
+분류기준
+비고
+EX
+최후의 개체가 죽었다는 것에 대한 의심의 여지가 없는 경우
+절멸종
+EW
+한 분류군이 단지 배양상태나 사육상태에서만 생존해 있는 것으로 알려져  있거나, 과거의 서식지가 아닌 외부에 귀화하여 군집을 이루고 있는 경우는 야생에서는 멸종한 것임. 분류군의 과거 활동지역을 기초로 적절한 시기(매일, 계절별, 년간)에 이들이 서식하였거나 가능성이 있는 서식지를 전체에 걸쳐 상세히 조사했을 때, 단 한 개체도 발견되지 않은 경우
+야생멸종
+휘귀식물
+CR
+곧 야생에서 멸종될 수 있는 극심한 위험에 직면한 경우
+멸종위기종
+위기종
+EN
+한 분류군이 멸종임계의 상태는 아니지만 가까운 미래에 멸종될 수 있는 매우 높은 위험에 직면한 경우
+VU
+비록 멸종임계의 상황도 아니고 위기상황도 아니지만 근래에 야생에서 멸종할 높은 위험에 직면한 경우
+취약종
+LR
+한 분류군을 평가할 때 ‘멸종임계’, ‘위기’나 ‘취약’의 분류를 가르는 기준에 부적합할 경우 ‘낮은 위험’이라고 함. 아래와 같이 3개의 하위범주로 구분함
+낮은위험종
+CD
+보호프로그램에서 초점이 되는 분류군으로 적절한 보전조치가 요구되는 경우
+보전조치
+필요종
+NT
+근래는 아니지만 향후 야생에서 멸종할 위기에 근접한 경우
+위기근접종
+LC
+멸종의 위기는 아니지만 약간의 관심이 필요한 경우
+관심필요종
+DD
+자료부족종
+한 분류군의 분포나 군집 현황을 바탕으로 하여 이들의 멸종위험 여부를 직간접적으로 평가하기 위한 충분한 정보가 결여되어 있을 때 ‘자료부족’이라고 함
+NE
+평가불가종
+(일반종)
+한 분류군이 평가기준에 대해 아직 평가되지 않았을 때는 ‘평가불가’라고 함
+나) 식생보전등급
+식생보전등급의 등급분류기준과 해당식생‧생태자원의 자연성평가(自然性評價, naturalness)를 반영하여 조사지역에 분포하는 식생에 대하여 식생보전등급(植生保全等級, Vegetation Conservation Classification)을 평가하였다.
+특히, 식생보전등급의 평가는 천이(遷移)가 거의 극상단계(極上段階)에 있는 자연식생(自然植生, natural vegetation)이나 특수한 입지(立地)에서 유지되고 있는 특이식생(주요습원 등), 그리고 보전의 개연성을 갖는 이차장령림(Ⅱ) 등은 보전 가치의 여부를 평가(評價), 진단(診斷)할 수 있도록 식생유형(植生類型)을 구분(區分)하였다.
+식생보전등급의 평가항목 및 평가요령
+평 가 항 목
+평     가     요     령
+가. 분포 희귀성
+(rarity)
+1) 평가 대상이 되는 식물군락이 한반도 내에서 분포하는 패턴을 의미
+2) 분포면적이 국지적으로 좁으면 높게, 전국적으로 분포하면 낮게 평가
+나. 식생복원 잠재성
+(potentiality)
+1) 평가 대상이 되는 식물군락(식분)이 형성되는데 소요되는 기간(잠재 자연식생의 형성기간)을 의미
+2) 오랜 시간이 요구되면 높게, 짧은 시간에 형성되는 식물군락은 낮게 평가. 다만, 식생 발달기원이 부영화, 식재 등에 의한 것이면 상대적으로 낮은 것으로 평가
+다. 구성식물종 온전성
+(integrity)
+1) 평가 대상이 되는 식물군락의 구성식물종(진단종군)이 해당 입지에 잠재적으로 형성되는 식물사회의 구성식물종인가에 대한 평가를 의미
+2) 이는 입지의 자연식생의 구성종을 엄밀히 파악하는 것으로 삼림의 경우, 흔히 천이 후기종(극상종)으로 구성되면 높게, 초기종의 구성비가 높으면 낮게 평가
+라. 식생구조 온전성
+1) 평가 대상이 되는 식물군락이 해당입지에 전형적으로 발달하는 식생구조(층위구조)가 얼마나 원형에 가까운가를 가지고 판정
+2) 삼림식생은 4층의 식생구조를 가지며, 각 층위는 고유의 식생고(height)와 식피율(coverage)을 가지고 있으므로 층위구조가 온전하면 조전생태학적으로 높게 평가
+마. 중요종 서식
+1) 식물군락은 식물종의 구성으로 이루어지므로 식물종 자체에 대한 보전 생태학적 가치를 평가
+2) 그 분포면적이 좁거나, 중요한 식물종(멸종위기야생생물 Ⅰ‧Ⅱ급 또는 식물구계학적 중요종)이 포함되면 더욱 높게 평가
+바. 식재림 흉고직경
+- 식재림의 경우 가장 큰 개체, 보통 대체의 흉고직경(DBH)을 기록
+자) 환경부. 2012. "자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호)".
+식생보전등급의 등급분류기준
+등 급
+식 생 보 전 등 급 기 준
+Ⅰ등급
+(1) 식생천이의 종국적인 단계에 이른 극상림 또는 그와 유사한 자연림
+㈎ 아고산대 침엽수림(분비나무군락, 구상나무군락, 주목군락 등)
+㈏ 산지 계곡림(고로쇠나무군락, 층층나무군락 등), 하반림(오리나무군락, 비술나무군락 등), 너도밤나무군락 등의 낙엽활엽수림
+(2) 삼림식생 이외의 특수한 입지에 형성된 자연성이 우수한 식생이나 특이식생 중 인위적 간섭의 영향을 거의 받지 않아 자연성이 우수한 식생
+㈎ 해안사구, 단애지, 자연호소, 하천습지, 습원, 염습지, 고산황원, 석회암지대, 아고산초원, 자연암벽 등에 형성된 식생. 다만, 이와 같은 식생유형은 조사자에 의해 규모가 크고 절대보전가치가 있을 경우에만 지형도에 표시하고, 보고서에 기재 사유를 상세히 기술하여야 함
+Ⅱ등급
+(1) 자연식생이 교란된 후 2차 천이에 의해 다시 자연식생에 가까울 정도로 거의 회복된 상태의 삼림식생
+㈎ 군락의 계층구조가 안정되어 있고, 종조성의 대부분이 해당지역의 잠재 자연식생을 반영하고 있음
+㈏ 난․온대 상록활엽수림(동백나무군락, 신갈나무-당단풍군락, 졸참나무군락, 서어나무군락 등의 낙엽활엽수림)
+(2) 특이식생 중 인위적 간섭의 영향을 약하게 받고 있는 식생
+Ⅲ등급
+(1) 자연식생이 교란된 후 2차 천이의 진행에 의하여 회복단계에 들어섰거나 인간에 의한 교란이 지속되고 있는 삼림식생
+㈎ 군락의 계층구조가 불안정하고, 종조성의 대부분이 해당지역의 잠재자연식생을 충분히 반영하지 못함
+㈏ 조림기원 식생이지만 방치되어 자연림과 구별이 어려울 정도로 회복된 경우
+(2) 산지대에 형성된 2차 관목림이나 2차 초원
+(3) 특이식생 중 인위적 간섭의 영향을 심하게 받고 있는 식생
+Ⅳ등급
+(1) 인위적으로 조림된 식재림
+Ⅴ등급
+(1) 2차적으로 형성된 키가 큰 초원식생(묵밭이나 훼손지 등의 억새군락이나 기타 잡초군락 등)
+(2) 2차적으로 형성된 키가 낮은 초원식생(골프장, 공원묘지, 목장 등)
+(3) 과수원이나 유실수 재배지역 및 묘포장
+(4) 논․밭 등의 경작지
+(5) 주거지 또는 시가지
+(6) 강, 호수, 저수지 등에 식생이 없는 수면과 그 하안 및 호안
+자) 환경부. 2012. "자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호)".
+주) 식재림은 인위적으로 조림된 수종 또는 자연적(2차림)으로 형성되었다 하더라도 아까시나무 등의 조림기원 도입종이나 개량종에 의해 식피율이 70%이상인 식물군락으로 한다. 다만, 녹화목적으로 적지적수(適地適樹)가 식재된 경우에는 식재림으로 보지 않는다.
+식생보전등급 평가를 위한 이차림의 식생기원 판정
+층구조
+우점양상 Dominance
+숲지붕층
+비고유(non-native)
+고유(native)
+아교목층,
+관목층
+비고유
+고유
+비고유
+고유
+숲바닥층
+비고유
+고유
+비고유
+고유
+비고유
+고유
+비고유
+고유
+판정
+인공
+인공
+인공
+자연
+인공
+자연
+자연
+자연
+주) 층별 고유종(선구종, 귀화종, 일이년생종, 육림기원종 등을 제외한 종)의 식피율 총합 75%를 기준으로 고유와 비고유로 구분함.
+식생보전등급 평가를 위한 식생지리분포에 대한 세 가지 유형의 판정 매트릭스
+수평적 horizonatal
+수직적 vertical
+전국형
+(national type) H1
+지방형
+(provincial type) H2
+지소형
+(local type) H3
+일반형(multi-zonal type) V1
+H1+V1
+H2+V1
+H3+V1
+편향형(biased type) V2
+H1+V2
+H2+V2
+H3+V2
+집중형(centralized type) V3
+H1+V3
+H2+V3
+H3+V3
+평
+가
+광역분포형(nation-wide distribution)
+H1+V1, H1+V2, H2+V1 분포형
+지역분포형(regional distribution)
+H1+V3, H2+V2, H3+V1 분포형
+국지분포형(local distribuiton)
+H2+V3, H3+V2, H3+V3 분포형
+주) 1. 수평분포형 : 전국형 – 3가지 이상 생물기후형, 지방형 – 2가지 이하 생물기후형, 지소형 – 특정 생물기후형(내륙
+주) 1.생물기후구-중부대륙, 중남부내륙, 남부내륙 생물기후형, 해안 생물기후구 – 동해안중부, 동해안남부, 남해안, 서해
+주) 1.안남부, 서해안중부 생물기후형, 지역생물기후구 – 대구, 대관령, 서울, 제주도, 울릉도 생물기후형)
+주) 2. 수직분포형 : 일반형 – 3개 이상의 수직 분포형, 평향형 – 특정 수직분포 중심지와 복수, 집중형 – 특정 수직 분포
+주) 1.형(고산․아고산 분포형, 냉온대 – 고산지, 산지, 저산지 분포형, 난온대- 난온대 분포형)
+식생보전등급 평가를 위한 상관식생형별 생육형에 대응하는 복원성 평가
+상관식형
+장기(長期)
+중기(中期)
+단기(短期)
+해안식생(C)
+교목성 및 관목성 식생형
+다년생 초본식생형
+일이년생 초본식생형
+해안염습지식생(M)
+관목 식생형
+다년생 초본식생형
+일이년생 초본식생형
+습지식생(담수)(W)
+교목성 관목성 식생형
+다년생 초본군락형
+일이년생 초본군락형
+하천식생(W)
+교목성 연목림형
+(버드나무,왕버들 우점형)
+관목식생형
+초본식생형
+산지 및 저지대초원식생(H)
+-
+다년생 초본군락형
+일이년생 초본군락형
+아고산대식생(S)
+교목성 삼림식생형
+관목식생형,선구식생형
+초본식생형
+고산대식생(S)
+관목식생형
+다년생 초본식생형
+일이년생 초본군락형
+냉온대 산림식생
+(계곡계반림 포함)(B)
+교목성 삼림식생형
+-
+-
+산지대 및 저산지대 암각지 식생(L)
+교목성 소림식생형, 관목식생형
+다년생 초본식생형
+일이년생 초본군락형
+임연식생 및 관목식생(P)
+-
+관목식생형
+초본식생형
+난온대 상록수림(T)
+교목성 삼림식생형
+관목성 삼림식생형(동백나무)
+-
+난온대 하록수림(T)
+교목성 삼림식생형
+-
+-
+경작지 잡초식생(A)
+-
+관목성식생형(버드나무류)
+초본식생형
+노변, 노상식생(R)
+-
+-
+초본식생형
+인공조림식생(F)
+-
+교목성 삼림식생형
+대나무류 식재림
+기타식생(O)
+-
+-
+관목형식생형
+초본식생형
+주) 식물종의 서식처 특이성(habitat specidicity)은 특정 식물종이 요구하는 생태적 최적의 환경입지를 의미하며, 생태적
+주) 입지환경의 생태적 범위(ecological amplitude)가 좁은 식물종일수록 서식처의 특이성이 높은 것으로 고려된다. 식물
+주) 군락은 특정 서식처에 대응하여 그 공간을 점유하기 때문에 수반종의 복원은 식물군락의 복원시간 길이와 밀접한 상
+주) 관관계를 가지므로 식물종의 서식처 특이성 판정을 위한 상대적 개념으로 서식처 복원성을 장기 26년 이상, 중기 25
+주) 년 이하, 단기 5년 이하로 판정함.
+다) 귀화식물의 도시화지수(UI)ㆍ귀화율(PN) 산정
+귀화식물이란 외국에서 들어와 토착화된 식물을 일컫는다. 생명력과 번식력이 강해 토종식물과의 경쟁에서 우세하며, 급격히 증가하는 추세로 현재 대략 321종이 분류되었으며, 일부 귀화식물은 생태계를 교란하는 해로운 식물로 분류되고 있다.
+귀화식물에 대한 분류는 사업계획지구 및 주변지역의 현지조사시 출현한 식물상을 대상으로 참고문헌 「국가생물종지식정보시스템(http://www.nature.go.kr), 김준민(2000)」 등을 참고하여 동정하였다.
+귀화식물 분석 방법
+구 분
+비 고
+도시화지수
+(Urbanization index)
+UI 〓 S/N × 100
+(S : 조사지역의 귀화식물 종수, N : 남한의  관속식물 종수)
+귀화율
+(The Percentage of Naturalized plant species)
+PN(%) 〓 S/N·V × 100
+(S : 조사지역의 귀화식물 종수, N·V : 조사지역의 관속식물 종수)
+라) 생태･자연도
+생태･자연도는 자연환경현황도와 기존의 식생도, 임상도 및 식생보전등급을 활용하여 자연  환경을 생태적 가치, 자연성, 경관적 가치 등에 따라 3등급화하여 작성한 것으로 멸종위기 야생동･식물의 서식지･도래지로서 중요하거나 생물다양성이 풍부한 지역을 보전하고, 다양한 생태계를 대표할 수 있는 지역, 생태계의 표본 지역, 지형 또는 학술적 가치연구 및 자연적 경관보전을 위해 보전이 필요한 지역 등을 파악하기 위하여 작성한 것임. 따라서 이를 참조하여 본 사업계획지구 입지를 선정하는데 위의 사항에 대한 해당 여부 및 기준 등을 파악 하는데 활용하였다.
+생태자연도 등급별 구분기준
+생태자연도
+등      급
+등급별 구분기준
+고려기준
+1등급
+• 야생동․식물보호법 제2조의 규정에 의한 멸종위기야생동․식물의 주된  서식지․도래지 및 주요 생태축 또는 주요 생태통로가 되는 지역
+• 생태계가 특히 우수하거나 경관이 특히 수려한 지역
+• 생물의 지리적 분포한계에 위치하는 생태계 지역 또는 주요 식생의  유형을 대표하는 지역
+• 생물다양성이 특히 풍부하고 보전가치가 큰 생물자원이 존재․분포하고 있는 지역
+• 자연원시림 또는 이에 가까운 산림 및 고산초원
+• 자연상태 또는 이에 가까운 하천․호소․강하구
+- 자연환경의 보전 및 복원
+2등급
+• 1등급 기준에 준하는 지역으로서 장차 보전의 가치가 있는 지역
+• 1등급 권역의 외부지역
+- 자연환경의 보전 및 복원
+- 개발이용시 훼손 최소화
+3등급
+• 1등급 권역, 2등급 권역 및 별도관리지역으로 분류된 지역외의   지역
+- 체계적인 개발 및 이용
+별도관리
+지    역
+• 「산림법」제67조제1항의 규정에 따른 산림유전자원보호림
+• 「자연공원법」제2조제1호의 규정에 따른 자연공원
+• 「문화재보호법」제6조의 규정에 따라 천연기념물로 지정된 구역(동법  제8조의 규정에 따른 보호구역을 포함한다)
+• 「야생동․식물보호법」제27조의 규정에 따른 야생동․식물특별보호구역과  동법 제33조의 규정에 따른 야생동․식물보호구역
+• 「국토의 계획 및 이용에 관한 법률」제40조의 규정에 따른 수산자원  보호구역
+• 「습지보전법」제8조의 규정에 따른 습지보호지역
+• 「백두대간보호에 관한 법률」제6조의 규정에 따른 백두대간보호지역
+• 「자연환경보전법」제12조의 규정에 따른 생태․경관보전지역 및 동법  제24조의 규정에 따른 시․도 생태․경관보전지역 수산자원보전지구
+자) 생태․자연도 작성지침, 2006, 환경부.
+2) 육상동물
+가) 포유류
+본 사업계획지구와 주변지역(이하 “조사지역”)에서 서식이 가능한 지역을 예측하여 이동하면서 배설물, 굴흔적, 족적 등 흔적을 조사하는 간접조사방법(Field-sign method)을 통해 서식종을 확인하였고, 현지 주민들을 대상으로 탐문조사를 실시하였다.
+현지조사의 미흡한 점을 보완하기 위하여 문헌조사「제5차 전국자연환경조사 대전 2021」, 「제5차 전국자연환경조사 옥천 2021」, 「제5차 전국자연환경조사 마전 2022」, 「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」를 병행 실시하였다.
+나) 조류
+조류의 서식반경과 생태특성을 고려하여 새들의 활동성이 높은 조석(朝夕)에 시야가 넓고 조류가 밀집하는 장소에서는 정점조사법(spot census), 그리고 시야가 제한되는 장소에서는 선상조사법(line census)으로 조사하였다.
+한편, 관찰‧청음으로 조류를 동정‧기록하였고, 조류관찰과 조사에는 조류관찰 망원경(Nikon field scope, 20×60)과 쌍안경(Nikon, 8×12)을 이용하였다.
+① 선조사법 (Line Transect Method)
+이 방법은 Line Transect Method, Belt Transect Method, Rode-side Census 등으로 불리는 조사법으로 대상지역 조류가 상대적으로 많고 적음을 구하는 방법이다. 조사지역 및 인근지역의 언덕 등에 적절한 조사로를 설정하여 시속 1.5∼2㎞ 정도로 걸어가면서 그 양쪽의 일정폭 내에서 눈으로 직접 확인하였다.
+인근지역 언덕의 경우에는 위의 조사 방법에 추가하여 일반 참새목에 속한 조류의 울음소리(call & note) 등에 의해 확인된 조류의 종 및 개체수를 기록하였다.
+② 정점 조사법(Point Census Method)
+매 30분씩 종과 개체수를 기록하는 방법으로, 비교적 넓은 행동권을 가지는 수금류(Waterfowl)의 개체수를 파악하는데 적합한 방법임. 넓은 조사구역 내에서 관찰이 용이한 복수의 정점 및 같은 간격으로 배치한 정점을 설치하여 관찰한 조류의 모습을 지도상에 시간과 함께 기록하였다.
+다) 양서·파충류
+직접확인방법(Direct survey)과 간접확인방법(Indirect survey)으로 조사하였다. 성체목측과 포충망을 이용하여 채집하였으며, 양서류 울음소리(Call), 파충류 흔적(Slough, 허물), 그리고 청문조사(Questionnaire method)를 실시하여 서식여부를 확인하였다. 현지조사의 미흡한 점을 보완하기 위하여 문헌조사「제5차 전국자연환경조사 대전 2021」, 「제5차 전국자연환경조사 옥천 2021」, 「제5차 전국자연환경조사 마전 2022」, 「제5차 전국자연환경조사 이원 2022」,  「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」를 참고하였다.
+라) 육상곤충류
+조사지역을 이동하면서 포충망(폭 35㎝, 깊이 85㎝)을 이용한 방법(채어잡기, 쓸어잡기, 털어잡기 등)을 실시하였으며, 나비류는 도보로 이동하면서 육안관찰을 실시하였다. 현지조사의 미흡한 점을 보안하기 위하여 문헌조사「제5차 전국자연환경조사 대전 2021」, 「제5차 전국자연환경조사 옥천 2021」, 「제5차 전국자연환경조사 마전 2022」, 「제5차 전국자연환경조사 이원 2022」,  「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」를 참고하였다.
+3) 법정보호종
+현장조사는 각 분류군별 생활특성(生活特性, life traits)과 생활사(生活史, life cycle), 그리고 조사지역 토지의 다양한 물리적 환경 등을 고려하여 실시하였다.
+특히, 현지조사에서 확인된 법정보호종(“문화재보호법” 제25조의 문화재청지정 천연기념물, “야생 생물 보호‧관리에 관한 법률” 시행규칙 제2조의 환경부지정 멸종위기야생생물)은 관찰지소와 현장사진을 제시하였다.
+(나) 생태자연도
+생태자연도는 전국자연환경조사 결과(지형경관, 식생, 야생동식물 등)를 종합하여 생태적 가치(생태자연도 작성 지침)를 1ㆍ2ㆍ3등급 및 별도관리권역으로 구분하여 지도(1/25,000)에 표시한 것이다.
+환경지리정보의 자연환경현황도(도엽명·번호 : 대전 367104 1/25,000 지도)를 이용하여 생태자연지도 위에 사업계획지구를 overlapping하여 작성하였다.
+사업계획지구의 조사현황도
+조사경로의 사진촬영 현황
+(4) 조사결과
+(가) 육상동·식물상
+1) 육상식물
+가) 조사지역의 구계 현황
+본 사업계획지구는 온대 중부 지역의 낙엽활엽수림대에 위치하며, 식물구계지리학상으로 중부아구(Lee & Yim, 1978)에 속한다.
+한반도의 구계도( : 사업계획지구 위치)
+나) 식물상(flora) 및 식생
+① 관속식물 분포현황
+㉮ 문헌조사
+본 사업계획지구는 대전(367104) 도엽의 E9격자에 위치하였으며, 「제5차 전국자연환경조사 대전 2021」, 「제5차 전국자연환경조사 옥천 2021」, 「제5차 전국자연환경조사 마전 2022」, 「제5차 전국자연환경조사 이원 2022」,  「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」의 문헌을 참고하여 조사되었다.
+문헌조사 결과, 문헌Ⅰ「제5차 전국자연환경조사 대전 2021」에서 101과 411종 4아종 44변종 4품종 463분류군, 문헌Ⅱ「제5차 전국자연환경조사 옥천 2021」에서 95과 368종 5아종 35변종 5품종 413분류군, 문헌Ⅲ「제5차 전국자연환경조사 마전 2022」에서 99과 375종 2아종 41변종 5품종 423분류군, 문헌Ⅳ「제5차 전국자연환경조사 이원 2022」에서 91과 251종 4아종 27변종 4품종 286분류군, 문헌Ⅴ「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」에서 68과 166종 2아종 14변종 1품종 183분류군이 확인되었다.
+또한 법정보호종은 문헌Ⅰ에서 삼백초, 문헌Ⅳ에서 가시오갈피가 확인되어 총 2종이 보고되었다.
+㉯ 현지조사
+조사는 본 사업계획지구와 주변지역(이하“조사지역”) 토지의 물리적 타입 즉, 도로 및 나지, 경작지, 이차초원, 산림 등을 고려하여 실시하였다.
+조사지역은 충북 옥천군 군서면 사양리로 생태자연도는 3등급지역이며, 사업계획지구 내외에 도로 및 나지, 경작지, 묘목장, 이차초원, 산림 등이 분포해 있는 것으로 조사되었다.
+현지조사 결과, 64과 148종 1아종 14변종 1품종 164분류군이 조사⸱집계되었으며, 법정보호종은 확인되지 않았다.
+조사된 관속식물은 국화과(Compositae) 18분류군, 벼과(Gramineae) 16분류군, 콩과(Leguminosae) 12분류군, 장미과(Rosaceae), 석죽과(Caryophyllaceae)가 각각 7분류군 등의 순으로 나타났다.
+조사지역의 관속식물 집계표(현지조사)
+체	௴Ā	계
+과
+종
+아종
+변종
+품종
+합 계
+양 치 식 물
+3
+3
+-
+1
+-
+4
+나 자 식 물
+4
+7
+-
+-
+-
+7
+피 자 식 물
+57
+138
+1
+13
+1
+153
+쌍자엽식물
+52
+116
+1
+11
+1
+129
+단자엽식물
+5
+22
+-
+2
+-
+24
+합	௴Ā	계
+64
+148
+1
+14
+1
+164
+관속식물의 분류군별 현황(현지조사)
+㉰ 관속식물의 생활형(life form) 분석
+식물의 생활형은 서식환경의 상호작용, 또는 공존식물의 직접적인 종·개체 간 경쟁 등에 좌우되며, 특히 식물군집의 종조성(floristic composition) 뿐만 아니라, 다양한 환경요소에 대한 군집반응 정보를 제공한다.
+현지조사에서 확인된 식물상에 대한 Raunkiaer의 생활형(휴면형)에 따른 생활형을 각 구분별로 살펴보면 일년생식물(Th)이 63종(38.41%)으로 가장 높게 나타났으며, 그 다음으로 반지중식물(H) 41종(25%), 대형지상식물(M) 31종(18.91%), 소형식물(N) 23분류군(14.02%), 지중식물(G) 4분류군(2.44%), 근생수생식물(HH), 지표식물(Ch)이 각각 1분류군(0.61%)이 조사지역에서 자생하는 것으로 조사되었다.
+조사지역 관속식물의 생활형 비교 및 분석(현지조사)
+생활형(life form)
+출현종수
+구성비(%)
+한반도(%)
+남한(%)
+RNS(%)
+M
+대형지상식물
+31
+18.91
+16.00
+20.10
+26.00
+N
+소형지상식물
+23
+14.02
+16.20
+14.80
+15.00
+E
+착생식물
+-
+-
+1.20
+7.40
+3.00
+Ch
+지표식물
+1
+0.61
+1.50
+1.90
+9.00
+H
+반지중식물
+41
+25.00
+35.10
+23.00
+28.00
+G
+지중식물
+4
+2.44
+15.00
+12.40
+4.00
+HH
+근생수생식물
+1
+0.61
+2.30
+1.40
+2.00
+Th
+일년생식물
+63
+38.41
+12.70
+19.00
+13.00
+합        계
+164
+100.00
+100.00
+100.00
+100.00
+자) Raunkaier, C. 1934. The Life Form of Plants and Statistical Plant Geography. Clarendon Press, Oxford.
+주) RNS : Raunkiaer's Normal Spectrum
+관속식물의 생활형 비교, 분석(현지조사)
+큰금계국
+칡
+방동사니
+도깨비바늘
+돌나물
+박주가리
+사업계획지구 및 주변지역 관속식물 현황
+조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Pteridophyta
+양치식물문
+Lycopsida
+석송강
+Selaginellaceae
+부처손과
+Selaginella tamariscina (P.Beauv.) Spring
+부처손
+○
+○
+E
+Equisetineae
+속새강
+Equisetaceae
+속새과
+Equisetum arvense L.
+쇠뜨기
+○
+○
+○
+○
+○
+○
+G
+Filicineae
+고사리강
+Ophioglossaceae
+고사리삼과
+Sceptridium ternatum (Thunb.) Lyon
+고사리삼
+○
+○
+H
+Osmundaceae
+고비과
+Osmunda cinnamomea var. fokiensis Copel.
+꿩고비
+○
+H
+Osmunda japonica Thunb.
+고비
+○
+○
+○
+○
+○
+H
+Dennstaedtiaceae
+잔고사리과
+Dennstaedtia hirsuta (Sw.) Mett. ex Miq.
+잔고사리
+○
+○
+H
+Dennstaedtia wilfordii (Moore) Christ
+황고사리
+○
+○
+H
+Pteridium aquilinum var. latiusculum (Desv.) Und. ex Heller.
+고사리
+○
+○
+○
+○
+○
+○
+H
+Davalliaceae
+넉줄고사리과
+Davallia mariesii Moore ex Bak.
+넉줄고사리
+○
+○
+○
+E
+Aspleniaceae
+꼬리고사리과
+Asplenium incisum Thunb.
+꼬리고사리
+○
+○
+○
+○
+H
+Asplenium ruprechtii Kurata
+거미고사리
+○
+E
+Dryopteridaceae
+면마과
+Cyrtomium fortunei J.Sm.
+쇠고비
+○
+○
+H
+Ⅰ
+Dryopteris bissetiana (Bak.) C.Chr.
+산족제비고사리
+○
+○
+○
+H
+Dryopteris chinensis (Bak.) Koidz.
+가는잎족제비고사리
+○
+○
+○
+○
+H
+Dryopteris crassirhizoma Nakai
+관중
+○
+○
+H
+Ⅰ
+Dryopteris erythrosora (D.C.Eaton) Kuntze
+홍지네고사리
+○
+H
+Ⅰ
+Dryopteris lacera (Thunb.) Kuntze
+비늘고사리
+○
+○
+○
+○
+H
+Dryopteris sacrosancta Koidz.
+애기족제비고사리
+○
+○
+H
+Dryopteris saxifraga H.Itô
+바위족제비고사리
+○
+○
+H
+Dryopteris uniformis (Makino) Makino
+곰비늘고사리
+○
+H
+Ⅰ
+Polystichum tripteron (Kunze) C.Presl
+십자고사리
+○
+○
+○
+H
+Thelypteridaceae
+처녀고사리과
+Thelypteris japonica (Bak.) Ching
+지네고사리
+○
+○
+H
+Thelypteris palustris (Salisb.) Schott
+처녀고사리
+○
+○
+H
+Thelypteris torresiana var. calvata (Bak.) K.Iwats
+각시고사리
+○
+H
+Ⅱ
+Woodsiaceae
+우드풀과
+Athyrium niponicum (Mett.) Hance
+개고사리
+○
+○
+○
+○
+○
+H
+Athyrium yokoscense (Franch. & Sav.) Christ
+뱀고사리
+○
+○
+○
+○
+○
+○
+H
+Deparia conilii (Franch. & Sav.) M.Kato
+좀진고사리
+○
+H
+Deparia japonica (Thunb.) M.Kato
+진고사리
+○
+○
+H
+Deparia orientalis (Z.R.Wang & J.J.Chien) Nakaike
+흰털고사리
+○
+H
+Deparia pycnosora (Christ) M.Kato
+털고사리
+○
+○
+○
+H
+Gymnospermae
+나자식물문
+Ginkgoopsida
+은행나무강
+Ginkgoaceae
+은행나무과
+Ginkgo biloba L.
+은행나무
+○
+○
+○
+○
+M
+식
+Pinopsida
+소나무강
+Pinaceae
+소나무과
+Abies holophylla Maxim.
+전나무
+○
+M
+Ⅰ
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Larix kaempferi (Lamb.) Carriére
+일본잎갈나무
+○
+○
+○
+○
+○
+M
+식
+Pinus densiflora Siebold & Zucc.
+소나무
+○
+○
+○
+○
+○
+○
+M
+Pinus koraiensis Siebold & Zucc.
+잣나무
+○
+○
+○
+○
+M
+Ⅰ,식
+Pinus rigida Mill.
+리기다소나무
+○
+○
+○
+○
+○
+○
+M
+식
+Pinus strobus L.
+스트로브잣나무
+○
+M
+식
+Coniferopsida
+구과식물강
+Taxodiaceae
+낙우송과
+Metasequoia glyptostroboides Hu & Cheng
+메타세콰이아
+○
+○
+○
+M
+식
+Cupressaceae
+측백나무과
+Juniperus rigida Siebold & Zucc.
+노간주나무
+○
+○
+○
+○
+○
+N
+Cephalotaxaceae
+개비자나무과
+Cephalotaxus koreana Nakai
+개비자나무
+○
+N
+Ⅰ
+Angiospermae
+피자식물문
+Dicotyledoneae
+쌍자엽식물강
+Juglandaceae
+가래나무과
+Platycarya strobilacea Siebold & Zucc.
+굴피나무
+○
+○
+○
+○
+M
+Salicaceae
+버드나무과
+Populus tomentiglandulosa T.B.Lee
+은사시나무
+○
+○
+○
+○
+M
+고
+Salix chaenomeloides Kimura
+왕버들
+○
+○
+○
+M
+Ⅰ,하변
+Salix gracilistyla Miq.
+갯버들
+○
+○
+N
+하변
+Salix koreensis Andersson
+버드나무
+○
+○
+○
+○
+○
+○
+M
+하변
+Salix koriyanagi Kimura
+키버들
+○
+N
+고,하변
+Salix pseudolasiogyne H.Lév.
+능수버들
+○
+M
+고,하변
+Salix subfragilis Andersson
+선버들
+○
+○
+M
+하변
+Betulaceae
+자작나무과
+Alnus sibirica Fisch. ex Turcz.
+물오리나무
+○
+○
+○
+○
+○
+M
+Betula davurica Pall.
+물박달나무
+○
+○
+○
+M
+Ⅰ
+Betula schmidtii Regel
+박달나무
+○
+M
+Ⅰ
+Carpinus cordata Blume
+까치박달
+○
+○
+M
+Carpinus laxiflora (Siebold & Zucc.) Blume
+서어나무
+○
+○
+M
+Carpinus tshonoskii Maxim.
+개서어나무
+○
+M
+Corylus heterophylla Fisch. ex Trautv.
+개암나무
+○
+○
+○
+○
+○
+○
+N
+Corylus sieboldiana Blume
+참개암나무
+○
+○
+N
+Corylus sieboldiana var. mandshurica C.K.Schneid.
+물개암나무
+○
+N
+Fagaceae
+참나무과
+Castanea crenata Siebold & Zucc.
+밤나무
+○
+○
+○
+○
+○
+○
+M
+식
+Quercus acutissima Carruth.
+상수리나무
+○
+○
+○
+○
+○
+M
+Quercus aliena Blume
+갈참나무
+○
+○
+○
+○
+○
+M
+Quercus dentata Thunb.
+떡갈나무
+○
+○
+○
+○
+M
+Quercus mongolica Fisch. ex Ledeb.
+신갈나무
+○
+○
+○
+○
+○
+○
+M
+Quercus serrata Thunb.
+졸참나무
+○
+○
+○
+○
+○
+○
+M
+Quercus variabilis Blume
+굴참나무
+○
+○
+○
+○
+○
+○
+M
+Ulmaceae
+느릅나무과
+Celtis jessoensis Koidz.
+풍게나무
+○
+M
+Celtis sinensis Pers.
+팽나무
+○
+○
+○
+○
+○
+M
+Ulmus davidiana var. japonica (Rehder) Nakai
+느릅나무
+○
+○
+○
+○
+M
+Ulmus parvifolia Jacq.
+참느릅나무
+○
+○
+○
+M
+Ⅰ
+Zelkova serrata (Thunb.) Makino
+느티나무
+○
+○
+○
+○
+○
+○
+M
+Eucommiaceae
+두충과
+Eucommia ulmoides Oliv.
+두충
+○
+M
+식
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Moraceae
+뽕나무과
+Broussonetia kazinoki Siebold
+닥나무
+○
+N
+Cudrania tricuspidata (Carr.) Bureau ex Lavallée
+꾸지뽕나무
+○
+○
+M
+Fatoua villosa (Thunb.) Nakai
+뽕모시풀
+○
+Th
+Morus alba L.
+뽕나무
+○
+○
+○
+○
+○
+M
+식
+Morus bombycis Koidz.
+산뽕나무
+○
+○
+○
+○
+○
+M
+Cannabaceae
+삼과
+Humulus japonicus Siebold & Zucc.
+환삼덩굴
+○
+○
+○
+○
+○
+○
+Th
+교
+Urticaceae
+쐐기풀과
+Boehmeria longispica Steud.
+왜모시풀
+○
+H
+Boehmeria platanifolia Franch. & Sav.
+개모시풀
+○
+○
+○
+○
+○
+H
+Boehmeria spicata (Thunb.) Thunb.
+좀깨잎나무
+○
+○
+○
+○
+○
+H
+Boehmeria tricuspis (Hance) Makino
+거북꼬리
+○
+H
+Boehmeria tricuspis var. unicuspis Makino
+풀거북꼬리
+○
+○
+H
+Pilea mongolica Wedd.
+모시물통이
+○
+○
+○
+Th
+정수
+Polygonaceae
+마디풀과
+Aconogonon alpinum (All.) Schur
+싱아
+○
+H
+Fallopia dumetorum (L.) Holub
+닭의덩굴
+○
+○
+○
+Th
+귀
+Fallopia forbesii (Hance) K.Yonekura & Ohashi
+감절대
+○
+○
+○
+H
+Fallopia japonica (Houtt.) Ronse Decr.
+호장근
+○
+H
+Persicaria dissitiflora (Hemsl.) H.Gross ex Mori
+가시여뀌
+○
+Th
+Persicaria filiformis (Thunb.) Nakai ex Mori
+이삭여뀌
+○
+○
+○
+○
+○
+○
+H
+Persicaria hydropiper (L.) Spach
+여뀌
+○
+○
+○
+○
+○
+Th
+정수
+Persicaria japonica (Meisn.) H.Gross ex Nakai
+흰꽃여뀌
+○
+○
+H
+Persicaria lapathifolia (L.) Gray
+흰여뀌
+○
+○
+○
+○
+○
+Th
+정수
+Persicaria longiseta (Bruijn) Kitag.
+개여뀌
+○
+○
+○
+○
+○
+Th
+Persicaria nepalensis (Meisn.) H.Gross
+산여뀌
+○
+○
+Th
+Persicaria perfoliata (L.) H.Gross
+며느리배꼽
+○
+○
+○
+○
+○
+Th
+Persicaria posumbu var. laxiflora (Meisn.) H.Hara
+장대여뀌
+○
+○
+○
+Th
+Persicaria sagittata (L.) H.Gross ex Nakai
+미꾸리낚시
+○
+○
+○
+Th
+정수
+Persicaria senticosa (Meisn.) H.Gross ex Nakai
+며느리밑씻개
+○
+○
+○
+○
+○
+○
+Th
+Persicaria thunbergii (Siebold & Zucc.) H.Gross ex Nakai
+고마리
+○
+○
+○
+○
+○
+○
+Th
+정수
+Persicaria vulgaris Webb & Moq.
+봄여뀌
+○
+○
+Th
+Polygonum aviculare L.
+마디풀
+○
+○
+○
+○
+Th
+Rumex acetosa L.
+수영
+○
+H
+Rumex acetosella L.
+애기수영
+○
+H
+귀,교란
+Rumex crispus L.
+소리쟁이
+○
+○
+○
+○
+○
+H
+귀
+Rumex japonicus Houtt.
+참소리쟁이
+○
+H
+Rumex longifolius DC.
+개대황
+○
+H
+Ⅳ,DD,정수
+Rumex maritimus L.
+금소리쟁이
+○
+H
+Rumex nipponicus Franch. & Sav.
+좀소리쟁이
+○
+H
+귀
+Rumex obtusifolius L.
+돌소리쟁이
+○
+○
+H
+귀
+Rumex stenophyllus Ledeb.
+가는잎소리쟁이
+○
+○
+H
+Phytolaccaceae
+자리공과
+Phytolacca americana L.
+미국자리공
+○
+○
+○
+○
+○
+○
+H
+귀
+Molluginaceae
+석류풀과
+Mollugo pentaphylla L.
+석류풀
+○
+Th
+Portulacaceae
+쇠비름과
+Portulaca oleracea L.
+쇠비름
+○
+○
+○
+○
+○
+Th
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Caryophyllaceae
+석죽과
+Arenaria serpyllifolia L.
+벼룩이자리
+○
+○
+○
+○
+Th
+Cerastium glomeratum Thuill.
+유럽점나도나물
+○
+○
+○
+Th
+귀
+Cerastium holosteoides var. hallaisanense (Nakai) Mizush.
+점나도나물
+○
+○
+○
+○
+○
+Th
+Dianthus chinensis L.
+패랭이꽃
+○
+H
+Pseudostellaria heterophylla (Miq.) Pax ex Pax & Hoffm.
+개별꽃
+○
+○
+○
+H
+Pseudostellaria palibiniana (Takeda) Ohwi
+큰개별꽃
+○
+○
+H
+Silene armeria L.
+끈끈이대나물
+○
+○
+Th
+귀,식
+Silene firma Siebold & Zucc.
+장구채
+○
+Th
+Silene seoulensis Nakai
+가는장구채
+○
+○
+Th
+Stellaria alsine var. undulata (Thunb.) Ohwi
+벼룩나물
+○
+○
+○
+Th
+Stellaria aquatica (L.) Scop.
+쇠별꽃
+○
+○
+○
+○
+○
+H
+Stellaria media (L.) Vill.
+별꽃
+○
+○
+○
+○
+Th
+Chenopodiaceae
+명아주과
+Chenopodium album L.
+흰명아주
+○
+○
+Th
+귀
+Chenopodium album var. centrorubrum Makino
+명아주
+○
+○
+○
+○
+○
+Th
+Chenopodium ficifolium Smith
+좀명아주
+○
+○
+○
+○
+Th
+귀
+Chenopodium glaucum L.
+취명아주
+○
+Th
+귀
+Amaranthaceae
+비름과
+Achyranthes japonica (Miq.) Nakai
+쇠무릎
+○
+○
+○
+○
+○
+H
+Amaranthus blitum L.
+개비름
+○
+○
+Th
+귀
+Amaranthus mangostanus L.
+비름
+○
+Th
+Amaranthus retroflexus L.
+털비름
+○
+Th
+귀
+Magnoliaceae
+목련과
+Liriodendron tulipifera L.
+튜울립나무
+○
+M
+식
+Magnolia kobus DC.
+목련
+○
+M
+Ⅴ,CR,식
+Magnolia obovata Thunb.
+일본목련
+○
+M
+식
+Schisandraceae
+오미자과
+Schisandra chinensis (Turcz.) Baill.
+오미자
+○
+N
+Lauraceae
+녹나무과
+Lindera erythrocarpa Makino
+비목나무
+○
+○
+○
+○
+○
+M
+Lindera glauca (Siebold & Zucc.) Blume
+감태나무
+○
+○
+○
+○
+N
+Lindera obtusiloba Blume
+생강나무
+○
+○
+○
+○
+○
+○
+N
+Cercidiphyllaceae
+계수나무과
+Cercidiphyllum japonicum Siebold & Zucc.
+계수나무
+○
+M
+식
+Ranunculaceae
+미나리아재비과
+Aconitum jaluense Kom.
+투구꽃
+○
+○
+○
+H
+Ⅰ
+Aconitum longecassidatum Nakai
+흰진범
+○
+H
+Ⅲ
+Cimicifuga dahurica (Turcz. ex Fisch. & C.A.Mey.) Maxim.
+눈빛승마
+○
+○
+H
+Clematis apiifolia DC.
+사위질빵
+○
+○
+○
+○
+○
+○
+H
+Clematis fusca var. violacea Maxim.
+종덩굴
+○
+H
+Clematis terniflora var. mandshurica (Rupr.) Ohwi
+으아리
+○
+○
+○
+○
+H
+Hepatica asiatica Nakai
+노루귀
+○
+H
+Ranunculus cantoniensis DC.
+털개구리미나리
+○
+○
+H
+Ranunculus sceleratus L.
+개구리자리
+○
+○
+Th
+정수
+Thalictrum actaefolium var. brevistylum Nakai
+은꿩의다리
+○
+○
+○
+H
+고
+Thalictrum aquilegifolium var. sibiricum Regel & Tiling
+꿩의다리
+○
+○
+○
+H
+Thalictrum kemense Fr.
+큰꿩의다리
+○
+H
+Lardizabalaceae
+으름덩굴과
+Akebia quinata (Thunb.) Decne.
+으름덩굴
+○
+○
+○
+○
+○
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Menispermaceae
+새모래덩굴과
+Cocculus trilobus (Thunb.) DC.
+댕댕이덩굴
+○
+○
+○
+○
+○
+○
+N
+Menispermum dauricum DC.
+새모래덩굴
+○
+○
+N
+Saururaceae
+삼백초과
+Saururus chinensis (Lour.) Baill.
+삼백초
+○
+H
+Ⅴ,멸Ⅱ,EN,정수
+Chloranthaceae
+홀아비꽃대과
+Chloranthus japonicus Siebold
+홀아비꽃대
+○
+H
+Ⅰ
+Aristolochiaceae
+쥐방울덩굴과
+Asarum sieboldii Miq.
+족도리풀
+○
+○
+○
+H
+Asarum mandshuricum (Maxim.) M. Kim & S. So
+털족도리풀
+○
+○
+H
+Actinidiaceae
+다래나무과
+Actinidia arguta (Siebold & Zucc.) Planch. ex Miq.
+다래
+○
+○
+○
+○
+N
+Guttiferae
+물레나물과
+Hypericum ascyron L.
+물레나물
+○
+H
+Hypericum erectum Thunb.
+고추나물
+○
+○
+H
+Papaveraceae
+양귀비과
+Chelidonium majus var. asiaticum (Hara) Ohwi
+애기똥풀
+○
+○
+○
+○
+○
+○
+Th
+Hylomecon vernalis Maxim.
+피나물
+○
+○
+H
+Ⅰ
+Papaver rhoeas L.
+개양귀비
+○
+○
+Th
+귀
+Fumariaceae
+현호색과
+Corydalis pauciovulata Ohwi
+선괴불주머니
+○
+○
+○
+Th
+Corydalis remota Fisch. ex Maxim.
+현호색
+○
+○
+○
+○
+G
+Corydalis speciosa Maxim.
+산괴불주머니
+○
+○
+○
+○
+Th
+Corydalis ternata Nakai
+들현호색
+○
+G
+Dicentra spectabilis (L.) Lem.
+금낭화
+○
+○
+G
+Cruciferae
+십자화과
+Berteroella maximowiczii (Palib.) O.E.Schulz
+장대냉이
+○
+Th
+Brassica juncea (L.) Czern.
+갓
+○
+○
+Th
+귀,식
+Capsella bursa-pastoris (L.) L.W.Medicus
+냉이
+○
+○
+○
+○
+○
+Th
+Cardamine fallax L.
+좁쌀냉이
+○
+○
+○
+Th
+Cardamine flexuosa With.
+황새냉이
+○
+○
+○
+○
+Th
+정수
+Cardamine impatiens L.
+싸리냉이
+○
+○
+Th
+Cardamine leucantha (Tausch) O.E.Schulz
+미나리냉이
+○
+○
+○
+Th
+정수
+Cardamine lyrata Bunge
+논냉이
+○
+Th
+정수
+Descurainia sophia (L.) Webb ex Prantl
+재쑥
+○
+Th
+Draba nemorosa L.
+꽃다지
+○
+○
+○
+○
+○
+Th
+Lepidium apetalum Willd.
+다닥냉이
+○
+○
+Th
+귀
+Lepidium virginicum L.
+콩다닥냉이
+○
+○
+○
+○
+Th
+귀
+Nasturtium officinale R.Br.
+물냉이
+○
+H
+귀,정수
+Rorippa cantoniensis (Lour.) Ohwi
+좀개갓냉이
+○
+Th
+Rorippa indica (L.) Hiern
+개갓냉이
+○
+○
+○
+○
+H
+Rorippa palustris (Leyss.) Besser
+속속이풀
+○
+○
+H
+T hlaspi arvense L.
+말냉이
+○
+Th
+귀
+Platanaceae
+버즘나무과
+Platanus occidentalis L.
+양버즘나무
+○
+○
+○
+M
+식
+Crassulaceae
+돌나물과
+Orostachys japonicus (Maxim.) A.Berger
+바위솔
+○
+E
+Sedum bulbiferum Makino
+말똥비름
+○
+○
+Th
+Sedum kamtschaticum Fisch. & Mey.
+기린초
+○
+○
+○
+○
+H
+Sedum polytrichoides Hemsl.
+바위채송화
+○
+E
+Sedum sarmentosum Bunge
+돌나물
+○
+○
+○
+○
+○
+H
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Saxifragaceae
+범의귀과
+Astilbe koreana (Kom.) Nakai
+숙은노루오줌
+○
+H
+Astilbe rubra Hook.f. & Thomas ex Hook.f.
+노루오줌
+○
+○
+○
+○
+H
+Chrysosplenium flagelliferum F.Schmidt
+애기괭이눈
+○
+H
+Chrysosplenium barbatum
+흰털괭이눈
+○
+H
+Chrysosplenium pilosum var. sphaerospermum H.Hara
+금괭이눈
+○
+○
+H
+Deutzia glabrata Kom.
+물참대
+○
+N
+Deutzia uniflora Shirai
+매화말발도리
+○
+○
+○
+N
+Hydrangea serrata f. acuminata (Siebold & Zucc.) Wilson
+산수국
+○
+○
+○
+○
+N
+Mukdenia rossii (Oliv.) Koidz.
+돌단풍
+○
+E
+Ⅱ
+Philadelphus schrenkii Rupr.
+고광나무
+○
+○
+N
+고
+Philadelphus tenuifolius Rupr. & Maxim.
+엷은잎고광나무
+○
+○
+N
+Ribes fasciculatum var. chinense Maxim.
+까마귀밥나무
+○
+○
+○
+○
+N
+Saxifraga stolonifera Meerb.
+바위취
+○
+E
+Rosaceae
+장미과
+Agrimonia pilosa Ledeb.
+짚신나물
+○
+○
+○
+○
+○
+H
+Chaenomeles sinensis (Thouin) Koehne
+모과나무
+○
+M
+식
+Crataegus pinnatifida Bunge
+산사나무
+○
+M
+Duchesnea indica (Andr.) Focke
+뱀딸기
+○
+○
+○
+○
+○
+○
+H
+Filipendula glaberrima (Nakai) Nakai
+터리풀
+○
+H
+Geum aleppicum Jacq.
+큰뱀무
+○
+H
+Kerria japonica (L.) DC.
+황매화
+○
+N
+식
+Potentilla amurensis Maxim.
+좀개소시랑개비
+○
+○
+Th
+귀
+Potentilla anemonefolia Lehm.
+가락지나물
+○
+○
+H
+Potentilla fragarioides var. major Maxim.
+양지꽃
+○
+○
+○
+○
+○
+H
+Potentilla freyniana Bornm.
+세잎양지꽃
+○
+○
+○
+○
+H
+Potentilla supina L.
+개소시랑개비
+○
+○
+Th
+귀
+Prunus japonica var. nakaii (H.Lév.) Rehder
+이스라지
+○
+M
+Prunus padus L.
+귀룽나무
+○
+M
+Prunus persica (L.) Batsch
+복사나무
+○
+○
+○
+M
+Prunus sargentii Rehder
+산벚나무
+○
+M
+Prunus serrulata var. pubescens (Makino) Nakai
+잔털벚나무
+○
+○
+○
+○
+M
+Prunus serrulata var. spontanea (Maxim.) E.H.Wilson
+벚나무
+○
+○
+○
+M
+식
+Prunus tomentosa Thunb.
+앵도나무
+○
+○
+N
+식
+Prunus yedoensis Matsum.
+왕벚나무
+○
+○
+○
+M
+Ⅴ,CR,식
+Pyrus calleryana var. fauriei (C.K.Schneid.) Rehder
+콩배나무
+○
+○
+N
+Pyrus pyrifolia (Burm.f.) Nakai
+돌배나무
+○
+○
+○
+M
+Pyrus ussuriensis Maxim.
+산돌배
+○
+M
+Ⅰ
+Rosa multiflora Thunb.
+찔레나무
+○
+○
+○
+○
+○
+○
+N
+Rubus coreanus Miq.
+복분자딸기
+○
+○
+○
+○
+○
+N
+Rubus crataegifolius Bunge
+산딸기
+○
+○
+○
+○
+○
+○
+N
+Rubus ikenoensis H.Lév. & Vaniot
+오엽딸기
+○
+N
+Rubus oldhamii Miq.
+줄딸기
+○
+○
+Ch
+Rubus parvifolius L.
+멍석딸기
+○
+○
+○
+○
+○
+N
+Rubus phoenicolasius Maxim.
+곰딸기
+○
+○
+N
+Sanguisorba officinalis L.
+오이풀
+○
+○
+○
+○
+H
+Sorbus alnifolia (Siebold & Zucc.) K.Koch
+팥배나무
+○
+○
+○
+○
+M
+Spiraea blumei G.Don
+산조팝나무
+○
+N
+Ⅰ
+Spiraea prunifolia f. simpliciflora Nakai
+조팝나무
+○
+○
+○
+○
+○
+N
+Spiraea salicifolia L.
+꼬리조팝나무
+○
+N
+Ⅲ
+Stephanandra incisa (Thunb.) Zabel
+국수나무
+○
+○
+○
+○
+○
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Leguminosae
+콩과
+Aeschynomene indica L.
+자귀풀
+○
+○
+Th
+Albizia julibrissin Durazz.
+자귀나무
+○
+○
+○
+○
+○
+○
+M
+Amorpha fruticosa L.
+족제비싸리
+○
+○
+○
+○
+N
+귀,식
+Amphicarpaea bracteata subsp. edgeworthii  H.Ohashi
+새콩
+○
+○
+○
+Th
+Cercis chinensis Bunge
+박태기나무
+○
+N
+식
+Chamaecrista nomame (Siebold) H.Ohashi
+차풀
+○
+○
+○
+○
+Th
+Desmodium podocarpum var. oxyphyllum (DC.) H.Ohashi
+도둑놈의갈고리
+○
+○
+○
+H
+Dunbaria villosa (Thunb.) Makino
+여우팥
+○
+H
+Glycine soja Siebold & Zucc.
+돌콩
+○
+○
+○
+○
+○
+○
+Th
+Indigofera kirilowii Maxim. ex Palib.
+땅비싸리
+○
+○
+N
+Indigofera koreana Ohwi
+민땅비싸리
+○
+○
+N
+고
+Kummerowia striata (Thunb.) Schindl.
+매듭풀
+○
+○
+○
+○
+Th
+Lathyrus davidii Hance
+활량나물
+○
+H
+Lespedeza bicolor Turcz.
+싸리
+○
+○
+○
+○
+○
+N
+Lespedeza cuneata G.Don
+비수리
+○
+○
+○
+○
+H
+Lespedeza cyrtobotrya Miq.
+참싸리
+○
+○
+○
+N
+Lespedeza maximowiczii C.K.Schneid.
+조록싸리
+○
+○
+○
+○
+○
+N
+Lespedeza maximowiczii var. tomentella Nakai
+털조록싸리
+○
+○
+N
+Lespedeza thunbergii subsp. formosa (Vogel) H.Ohashi
+풀싸리
+○
+H
+Maackia amurensis Rupr. & Maxim.
+다릅나무
+○
+○
+M
+Pueraria lobata (Willd.) Ohwi
+칡
+○
+○
+○
+○
+○
+○
+G
+Rhynchosia acuminatifolia Makino
+큰여우콩
+○
+H
+Ⅲ
+Robinia pseudoacacia L.
+아까시나무
+○
+○
+○
+○
+○
+○
+M
+귀,식
+Sophora flavescens Solander ex Aiton
+고삼
+○
+○
+H
+Sophora japonica L.
+회화나무
+○
+M
+식
+Trifolium pratense L.
+붉은토끼풀
+○
+○
+Ch
+귀
+Trifolium repens L.
+토끼풀
+○
+○
+○
+○
+○
+○
+H
+귀
+Vicia amoena Fisch. ex DC.
+갈퀴나물
+○
+○
+H
+Vicia amurensis Oett.
+벌완두
+○
+H
+Vicia angustifolia L. ex Reichard
+가는살갈퀴
+○
+○
+H
+Vicia angustifolia var. segetills (Thuill) K.Koch.
+살갈퀴
+○
+H
+Vicia cracca L.
+등갈퀴나물
+○
+H
+Vicia hirsuta (L.) Gray
+새완두
+○
+○
+H
+Vicia tetrasperma (L.) Schreb.
+얼치기완두
+○
+○
+○
+H
+Vicia unijuga A.Braun
+나비나물
+○
+H
+Vicia venosa var. cuspidata Maxim.
+광릉갈퀴
+○
+○
+○
+H
+Vicia villosa Roth
+벳지
+○
+Th
+귀
+Vigna angularis var. nipponensis (Ohwi) Ohwi & H.Ohashi
+새팥
+○
+○
+○
+Th
+Vigna nakashimae (Ohwi) Ohwi & H.Ohashi
+좀돌팥
+○
+Th
+Wisteria floribunda (Willd.) DC.
+등
+○
+○
+N
+Ⅳ,식
+Oxalidaceae
+괭이밥과
+Oxalis corniculata L.
+괭이밥
+○
+○
+○
+○
+○
+H
+Oxalis obtriangulata Maxim.
+큰괭이밥
+○
+○
+H
+Ⅰ
+Oxalis stricta L.
+선괭이밥
+○
+H
+Geraniaceae
+쥐손이풀과
+Geranium sibiricum L.
+쥐손이풀
+○
+○
+H
+Geranium thunbergii Siebold & Zucc.
+이질풀
+○
+○
+H
+Euphorbiaceae
+대극과
+Acalypha australis L.
+깨풀
+○
+○
+○
+○
+Th
+Euphorbia humifusa Willd. ex Schltdl.
+땅빈대
+○
+Th
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Euphorbia maculata L.
+큰땅빈대
+○
+Th
+귀
+Euphorbia sieboldiana Morren & Decne.
+개감수
+○
+G
+Euphorbia supina Raf.
+애기땅빈대
+○
+○
+Th
+귀
+Phyllanthus ussuriensis Rupr. & Maxim.
+여우주머니
+○
+Th
+Sapium japonicum (Siebold & Zucc.) Pax & Hoffm.
+사람주나무
+○
+M
+Securinega suffruticosa (Pall.) Rehder
+광대싸리
+○
+○
+○
+○
+○
+N
+Rutaceae
+운향과
+Dictamnus dasycarpus Turcz.
+백선
+○
+○
+H
+Ⅰ
+Zanthoxylum piperitum (L.) DC.
+초피나무
+○
+N
+Zanthoxylum schinifolium Siebold & Zucc.
+산초나무
+○
+○
+○
+○
+○
+○
+N
+Simaroubaceae
+소태나무과
+Ailanthus altissima (Mill.) Swingle
+가죽나무
+○
+○
+○
+○
+○
+M
+귀
+Picrasma quassioides (D.Don) Bennett
+소태나무
+○
+○
+○
+M
+Meliaceae
+멀구슬나무과
+Cedrela sinensis Juss.
+참죽나무
+○
+M
+Polygalaceae
+원지과
+Polygala japonica Houtt.
+애기풀
+○
+Ch
+Anacardiaceae
+옻나무과
+Rhus javanica L.
+붉나무
+○
+○
+○
+○
+○
+○
+N
+Rhus tricocarpa Miq.
+개옻나무
+○
+○
+○
+○
+○
+○
+N
+Rhus verniciflua Stokes
+옻나무
+○
+N
+식
+Aceraceae
+단풍나무과
+Acer buergerianum Miq.
+중국단풍
+○
+○
+M
+식
+Acer palmatum Thunb.
+단풍나무
+○
+○
+○
+○
+M
+Ⅲ,식
+Acer pictum subsp. mono (Maxim.) Ohashi
+고로쇠나무
+○
+○
+○
+○
+○
+M
+Acer pseudosieboldianum (Pax) Kom.
+당단풍나무
+○
+○
+○
+○
+M
+Acer tataricum subsp. ginnala (Maxim.) Wesm.
+신나무
+○
+○
+○
+○
+○
+○
+M
+하변
+Acer triflorum Kom.
+복자기
+○
+○
+M
+Ⅱ
+Balsaminaceae
+봉선화과
+Impatiens textori Miq.
+물봉선
+○
+○
+○
+○
+Th
+정수
+Aquifoliaceae
+감탕나무과
+Ilex macropoda Miq.
+대팻집나무
+○
+○
+M
+Ⅰ
+Ilex serrata Thunb.
+낙상홍
+○
+M
+Celastraceae
+노박덩굴과
+Celastrus flagellaris Rupr.
+푼지나무
+○
+N
+Celastrus orbiculatus Thunb.
+노박덩굴
+○
+○
+○
+○
+○
+N
+Euonymus alatus (Thunb.) Siebold
+화살나무
+○
+○
+○
+○
+○
+N
+Euonymus alatus f. ciliatodentatus (Franch. & Sav.) Hiyama
+회잎나무
+○
+○
+N
+Euonymus hamiltonianus Wall.
+참빗살나무
+○
+M
+Euonymus oxyphyllus Miq.
+참회나무
+○
+M
+Staphyleaceae
+고추나무과
+Staphylea bumalda DC.
+고추나무
+○
+○
+○
+○
+○
+M
+Buxaceae
+회양목과
+Buxus koreana Nakai ex T.H.Chung & al.
+회양목
+○
+○
+N
+Ⅰ
+Rhamnaceae
+갈매나무과
+Rhamnus yoshinoi Makino
+짝자래나무
+○
+○
+M
+Zizyphus jujuba var. inermis (Bunge) Rehder
+대추나무
+○
+M
+식
+Vitaceae
+포도과
+Ampelopsis brevipedunculata (Maxim.) Trautv.
+개머루
+○
+○
+○
+○
+○
+H
+Parthenocissus tricuspidata (Siebold & Zucc.) Planch.
+담쟁이덩굴
+○
+○
+○
+○
+○
+○
+H
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Vitis amurensis Rupr.
+왕머루
+○
+○
+H
+Vitis flexuosa Thunb.
+새머루
+○
+○
+H
+Tiliaceae
+피나무과
+Corchoropsis tomentosa (Thunb.) Makino
+수까치깨
+○
+○
+○
+○
+Th
+Malvaceae
+아욱과
+Hibiscus syriacus L.
+무궁화
+○
+○
+N
+식
+Elaeagnaceae
+보리수나무과
+Elaeagnus multiflora Thunb.
+뜰보리수
+○
+○
+N
+식
+Elaeagnus umbellata Thunb.
+보리수나무
+○
+○
+○
+N
+Violaceae
+제비꽃과
+Viola acuminata Ledeb.
+졸방제비꽃
+○
+○
+○
+○
+○
+H
+Viola albida Palib.
+태백제비꽃
+○
+○
+○
+H
+LC
+Viola albida f. takahashii (Makino) W.T.Lee
+단풍제비꽃
+○
+H
+Viola albida var. chaerophylloides (Regel) F.Maek.
+남산제비꽃
+○
+○
+○
+H
+Viola collina Besser
+둥근털제비꽃
+○
+○
+H
+Viola hirtipes S.Moore
+흰털제비꽃
+○
+○
+H
+Viola japonica Langsdorf ex Ging.
+왜제비꽃
+○
+H
+Viola keiskei Miq.
+잔털제비꽃
+○
+H
+Viola lactiflora Nakai
+흰젖제비꽃
+○
+H
+Viola mandshurica W.Becker
+제비꽃
+○
+○
+○
+○
+○
+○
+H
+Viola orientalis (Maxim.) W.Becker
+노랑제비꽃
+○
+H
+Ⅱ
+Viola papilionacea Pursh
+종지나물
+○
+○
+H
+귀
+Viola phalacrocarpa Maxim.
+털제비꽃
+○
+H
+Viola rossii Hemsl.
+고깔제비꽃
+○
+○
+○
+○
+H
+Viola seoulensis Nakai
+서울제비꽃
+○
+H
+고
+Viola variegata Fisch. ex Link
+알록제비꽃
+○
+○
+○
+○
+H
+Viola verecunda A.Gray
+콩제비꽃
+○
+○
+○
+H
+Cucurbitaceae
+박과
+Gynostemma pentaphyllum (Thunb.) Makino
+돌외
+○
+Th
+Ⅰ
+Melothria japonica Maxim.
+새박
+○
+Th
+Ⅱ,LC
+Sicyos angulatus L.
+가시박
+○
+○
+○
+Th
+귀,교란
+Trichosanthes kirilowii Maxim.
+하늘타리
+○
+G
+Lythraceae
+부처꽃과
+Lagerstroemia indica L.
+배롱나무
+○
+○
+N
+식
+Lythrum salicaria L.
+털부처꽃
+○
+H
+정수
+Trapaceae
+마름과
+Trapa japonica Flerow
+마름
+○
+HH
+부엽
+Onagraceae
+바늘꽃과
+Circaea cordata Royle
+쇠털이슬
+○
+H
+Ⅰ
+Ludwigia prostrata Roxb.
+여뀌바늘
+○
+H
+정수
+Oenothera biennis L.
+달맞이꽃
+○
+○
+○
+○
+○
+○
+Th
+귀
+Halorragaceae
+개미탑과
+Halorragis micrantha (Thunb.) R.Br. ex Siebold & Zucc.
+개미탑
+○
+H
+Alangiaceae
+박쥐나무과
+Alangium platanifolium var. trilobum (Miq.) Ohwi
+박쥐나무
+○
+○
+○
+○
+N
+Cornaceae
+층층나무과
+Cornus controversa Hemsl. ex Prain
+층층나무
+○
+○
+○
+○
+M
+Cornus kousa F.Buerger ex Miq.
+산딸나무
+○
+M
+Cornus macrophylla Wall.
+곰의말채나무
+○
+M
+Cornus officinalis Siebold & Zucc.
+산수유
+○
+○
+○
+M
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Araliaceae
+두릅나무과
+Aralia cordata var. continentalis (Kitag.) Y.C.Chu
+독활
+○
+H
+Aralia elata (Miq.) Seem.
+두릅나무
+○
+○
+○
+○
+○
+N
+Eleutherococcus senticosus (Rupr. & Maxim.) Maxim.
+가시오갈피
+○
+N
+Ⅴ,멸Ⅱ,VU
+Eleutherococcus sessiliflorus (Rupr. & Maxim.) S.Y.Hu
+오갈피나무
+○
+○
+○
+N
+Ⅰ
+Kalopanax septemlobus (Thunb.) Koidz.
+음나무
+○
+○
+○
+○
+M
+Umbelliferae
+산형과
+Angelica dahurica Benth. & Hook.f. ex Franch. & Sav.
+구릿대
+○
+H
+Angelica decursiva (Miq.) Franch. & Sav.
+바디나물
+○
+○
+○
+○
+H
+Anthriscus sylvestris (L.) Hoffm.
+전호
+○
+H
+Cryptotaenia japonica Hassk.
+파드득나물
+○
+H
+Heracleum moellendorffii Hance
+어수리
+○
+H
+Hydrocotyle sibthorpioides Lam.
+큰피막이
+○
+H
+Hydrocotyle sibthorpioides Lam.
+피막이
+○
+H
+Oenanthe javanica (Blume) DC.
+미나리
+○
+○
+○
+○
+H
+정수
+Osmorhiza aristata (Thunb.) Makino & Yabe
+긴사상자
+○
+○
+H
+Ostericum grosseserratum (Maxim.) Kitag.
+신감채
+○
+H
+Peucedanum terebinthaceum (Fisch.) Fisch. ex DC.
+기름나물
+○
+○
+H
+Pimpinella brachycarpa (Kom.) Nakai
+참나물
+○
+○
+○
+H
+Sanicula chinensis Bunge
+참반디
+○
+H
+Sium suave Walter
+개발나물
+○
+H
+정수
+Torilis japonica (Houtt.) DC.
+사상자
+○
+○
+○
+○
+H
+Pyrolaceae
+노루발과
+Chimaphila japonica Miq.
+매화노루발
+○
+H
+Pyrola japonica Klenze ex Alef.
+노루발
+○
+○
+○
+○
+H
+Ericaceae
+진달래과
+Rhododendron mucronulatum Turcz.
+진달래
+○
+○
+○
+○
+○
+○
+N
+Rhododendron schlippenbachii Maxim.
+철쭉
+○
+○
+○
+○
+○
+N
+Rhododendron yedoense f. poukhanense (H.Lév.) Sugim.
+산철쭉
+○
+○
+○
+N
+Primulaceae
+앵초과
+Androsace filiformis Retz.
+애기봄맞이
+○
+○
+H
+Androsace umbellata (Lour.) Merr.
+봄맞이
+○
+H
+Lysimachia clethroides Duby
+큰까치수염
+○
+○
+○
+○
+H
+Lysimachia japonica Thunb.
+좀가지풀
+○
+H
+Primula sieboldii E.Morren
+앵초
+○
+H
+Ⅱ,정수
+Ebenaceae
+감나무과
+Diospyros kaki Thunb.
+감나무
+○
+○
+○
+M
+식
+Diospyros lotus L.
+고욤나무
+○
+○
+○
+○
+○
+M
+Styracaceae
+때죽나무과
+Styrax japonicus Siebold & Zucc.
+때죽나무
+○
+○
+○
+○
+M
+Styrax obassia Siebold & Zucc.
+쪽동백나무
+○
+○
+○
+M
+Symplocaceae
+노린재나무과
+Symplocos chinensis f. pilosa (Nakai) Ohwi
+노린재나무
+○
+○
+○
+○
+○
+N
+Oleaceae
+물푸레나무과
+Chionanthus retusus Lindl. & Paxton
+이팝나무
+○
+○
+M
+Ⅱ,LC,식
+Forsythia koreana (Rehder) Nakai
+개나리
+○
+○
+○
+○
+N
+고,식
+Fraxinus rhynchophylla Hance
+물푸레나무
+○
+○
+○
+○
+○
+○
+M
+Fraxinus sieboldiana Blume
+쇠물푸레나무
+○
+○
+○
+○
+M
+Ligustrum obtusifolium Siebold & Zucc.
+쥐똥나무
+○
+○
+○
+○
+○
+○
+N
+Syringa oblata var. dilatata (Nakai) Rehder
+수수꽃다리
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Loganiaceae
+마전과
+Mitrasacme alsinoides var. indica (Wight) Hara
+벼룩아재비
+○
+Th
+DD
+Gentianaceae
+용담과
+Gentiana zollingeri Faw.
+큰구슬붕이
+○
+○
+Th
+Swertia pseudochinensis H.Hara
+자주쓴풀
+○
+Th
+Asclepiadaceae
+박주가리과
+Metaplexis japonica (Thunb.) Makino
+박주가리
+○
+○
+○
+○
+○
+○
+H
+Rubiaceae
+꼭두서니과
+Asperula maximowiczii Kom.
+개갈퀴
+○
+H
+Galium dahuricum Turcz.
+큰잎갈퀴
+○
+H
+Galium pogonanthum Franch. & Sav.
+산갈퀴
+○
+○
+○
+H
+Galium spurium var. echinospermum (Wallr.) Hayek
+갈퀴덩굴
+○
+○
+○
+○
+○
+Th
+Galium trachyspermum A.Gray
+네잎갈퀴
+○
+○
+H
+Galium verum var. asiaticum Nakai
+솔나물
+○
+○
+H
+Hedyotis corymbosa (L.) Lam.
+산방백운풀
+○
+Th
+귀
+Paederia scandens (Lour.) Merr.
+계요등
+○
+○
+○
+H
+Rubia akane Nakai
+꼭두서니
+○
+○
+○
+○
+○
+H
+Rubia cordifolia var. pratensis Maxim.
+갈퀴꼭두서니
+○
+○
+H
+Rubia pubescens Nakai
+우단꼭두서니
+○
+H
+Convolvulaceae
+메꽃과
+Calystegia hederacea Wall.
+애기메꽃
+○
+H
+Calystegia sepium var. japonicum (Choisy) Makino
+메꽃
+○
+○
+○
+○
+H
+Cuscuta australis R.Br.
+실새삼
+○
+E
+Cuscuta japonica Choisy
+새삼
+○
+○
+○
+E
+Cuscuta pentagona Engelm.
+미국실새삼
+○
+○
+E
+귀
+Ipomoea hederacea Jacq.
+미국나팔꽃
+○
+○
+Th
+귀
+Ipomoea lacunosa L.
+애기나팔꽃
+○
+Th
+귀
+Ipomoea purpurea Roth
+둥근잎나팔꽃
+○
+○
+Th
+귀
+Pharbitis nil (L.) Choisy
+나팔꽃
+○
+Th
+Quamoclit coccinea Moench
+둥근잎유홍초
+○
+○
+○
+○
+○
+Th
+귀
+Boraginaceae
+지치과
+Bothriospermum tenellum (Hornem.) Fisch. & C.A.Mey.
+꽃받이
+○
+Th
+Symphytum officinale L.
+컴프리
+○
+H
+귀,식
+Trigonotis peduncularis (Trevir.) Benth. ex Hemsl.
+꽃마리
+○
+○
+○
+○
+○
+○
+H
+Trigonotis radicans var. sericea (Maxim.) H.Hara
+참꽃마리
+○
+○
+H
+Verbenaceae
+마편초과
+Callicarpa japonica Thunb.
+작살나무
+○
+○
+○
+○
+○
+○
+N
+Clerodendrum trichotomum Thunb.
+누리장나무
+○
+○
+○
+○
+N
+Callitrichaceae
+별이끼과
+Callitriche palustris L.
+물별이끼
+○
+○
+Th
+정수
+Labiatae
+꿀풀과
+Agastache rugosa (Fisch. & Mey.) Kuntze
+배초향
+○
+○
+○
+H
+Lycopus charkeviczii
+산쉽싸리
+○
+H
+Clinopodium chinense var. parviflorum (Kudô) Hara
+층층이꽃
+○
+○
+○
+H
+Elsholtzia ciliata (Thunb.) Hyl.
+향유
+○
+Th
+Elsholtzia splendens Nakai
+꽃향유
+○
+○
+○
+○
+○
+Th
+Glechoma grandis (A.Gray) Kuprian.
+긴병꽃풀
+○
+H
+Ⅲ
+Isodon inflexus (Thunb.) Kudô
+산박하
+○
+○
+○
+○
+H
+Isodon japonicus (Burm.) Hara
+방아풀
+○
+○
+○
+H
+Lamium amplexicaule L.
+광대나물
+○
+○
+○
+○
+○
+Th
+Lamium purpureum L.
+자주광대나물
+○
+Th
+귀
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Leonurus japonicus Houtt.
+익모초
+○
+○
+○
+○
+○
+Th
+Lycopus lucidus Turcz.
+쉽싸리
+○
+G
+Meehania urticifolia (Miq.) Makino
+벌깨덩굴
+○
+○
+○
+H
+Mosla dianthera (Buch.-Ham. ex Roxb.) Maxim.
+쥐깨풀
+○
+Th
+Mosla punctulata (J.F.Gmel.) Nakai
+들깨풀
+○
+○
+○
+Th
+Perilla frutescens var. japonica (Hassk.) Hara
+들깨
+○
+Th
+식
+Phlomis umbrosa Turcz.
+속단
+○
+○
+H
+Prunella vulgaris var. lilacina Nakai
+꿀풀
+○
+○
+H
+Salvia plebeia R.Br.
+배암차즈기
+○
+○
+○
+○
+H
+Scutellaria indica L.
+골무꽃
+○
+H
+Scutellaria insignis Nakai
+광릉골무꽃
+○
+H
+Ⅲ,LC,고
+Scutellaria pekinensis var. transitra (Makino) Hara
+산골무꽃
+○
+H
+Scutellaria strigillosa Hemsl.
+참골무꽃
+○
+H
+Ⅰ
+Stachys japonica Miq.
+석잠풀
+○
+H
+정수
+Solanaceae
+가지과
+Lycium chinense Mill.
+구기자나무
+○
+○
+N
+식
+Physalis angulata L.
+땅꽈리
+○
+Th
+귀
+Solanum americanum Mill.
+미국까마중
+○
+Th
+귀
+Solanum lyratum Thunb.
+배풍등
+○
+○
+○
+Ch
+Solanum nigrum L.
+까마중
+○
+○
+○
+○
+○
+Th
+Scrophulariaceae
+현삼과
+Lindernia procumbens
+밭둑외풀
+○
+H
+식
+Lindernia dubia (L.) Pennell
+미국외풀
+○
+Th
+귀,정수
+Mazus pumilus (Burm.f.) Steenis
+주름잎
+○
+○
+○
+○
+○
+Th
+Melampyrum roseum Maxim.
+꽃며느리밥풀
+○
+Th
+Melampyrum roseum var. japonicum Franch. & Sav.
+수염며느리밥풀
+○
+Th
+Paulownia coreana Uyeki
+오동나무
+○
+○
+○
+○
+○
+M
+고,식
+Paulownia tomentosa (Thunb.) Steud.
+참오동나무
+○
+M
+식
+Phtheirospermum japonicum (Thunb.) Kanitz
+나도송이풀
+○
+○
+Th
+Veronica anagallis-saquatica L.
+큰물칭개나물
+○
+○
+H
+정수
+Veronica arvensis L.
+선개불알풀
+○
+○
+○
+Th
+귀
+Veronica peregrina L.
+문모초
+○
+○
+Th
+정수
+Veronica persica Poir.
+큰개불알풀
+○
+○
+○
+○
+○
+Th
+귀
+Veronica undulata Wall.
+물칭개나물
+○
+○
+H
+정수
+Bignoniaceae
+능소화과
+Campsis grandiflora (Thunb.) K.Schum.
+능소화
+○
+N
+식
+Catalpa ovata G.Don
+개오동
+○
+M
+식
+Acanthaceae
+쥐꼬리망초과
+Justicia procumbens L.
+쥐꼬리망초
+○
+○
+○
+○
+○
+Th
+Pedaliaceae
+참깨과
+○
+Sesamum indicum L.
+참깨
+○
+Th
+식
+Phrymaceae
+파리풀과
+Phryma leptostachya var. asiatica H.Hara
+파리풀
+○
+○
+○
+○
+H
+Plantaginaceae
+질경이과
+Plantago asiatica L.
+질경이
+○
+○
+○
+○
+○
+○
+H
+Caprifoliaceae
+인동과
+Lonicera harai Makino
+길마가지나무
+○
+○
+○
+N
+Lonicera japonica Thunb.
+인동
+○
+○
+○
+○
+○
+○
+N
+Lonicera praeflorens Batalin
+올괴불나무
+○
+○
+○
+N
+Ⅰ
+Sambucus williamsii var. coreana (Nakai) Nakai
+딱총나무
+○
+○
+○
+M
+Viburnum carlesii Hemsl.
+분꽃나무
+○
+N
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Viburnum dilatatum Thunb.
+가막살나무
+○
+N
+Viburnum erosum Thunb.
+덜꿩나무
+○
+○
+○
+N
+Viburnum opulus var. calvescens (Rehder) Hara
+백당나무
+○
+N
+Weigela subsessilis (Nakai) L.H.Bailey
+병꽃나무
+○
+○
+○
+○
+N
+고
+Adoxaceae
+연복초과
+Adoxa moschatellina L.
+연복초
+○
+H
+Ⅱ
+Valerianaceae
+마타리과
+Patrinia scabiosaefolia Fisch. ex Trevir.
+마타리
+○
+H
+Patrinia villosa (Thunb.) Juss.
+뚝갈
+○
+○
+○
+H
+Campanulaceae
+초롱꽃과
+Adenophora stricta Miq.
+당잔대
+○
+G
+Adenophora triphylla var. japonica (Regel) H.Hara
+잔대
+○
+G
+Asyneuma japonicum (Miq.) Briq.
+영아자
+○
+G
+Campanula punctata Lam.
+초롱꽃
+○
+H
+Compositae
+국화과
+Ainsliaea acerifolia Sch.Bip.
+단풍취
+○
+○
+○
+○
+H
+Ambrosia artemisiifolia L.
+돼지풀
+○
+○
+○
+○
+Th
+귀,교란
+Ambrosia trifida L.
+단풍잎돼지풀
+○
+○
+○
+Th
+귀,교란
+Artemisia capillaris Thunb.
+사철쑥
+○
+H
+Artemisia feddei H.Lév. & Vaniot
+뺑쑥
+○
+H
+Artemisia gmelini Weber ex Stechm.
+더위지기
+○
+H
+Artemisia keiskeana Miq.
+맑은대쑥
+○
+○
+○
+○
+○
+H
+Artemisia princeps Pamp.
+쑥
+○
+○
+○
+○
+○
+○
+H
+Artemisia rubripes Nakai
+덤불쑥
+○
+H
+Ⅰ
+Artemisia selengensis Turcz. ex Besser
+물쑥
+○
+H
+Ⅰ
+Artemisia stolonifera (Maxim.) Kom.
+넓은잎외잎쑥
+○
+○
+○
+H
+Aster ageratoides Turcz.
+까실쑥부쟁이
+○
+○
+○
+○
+H
+Aster incisus Fisch.
+가새쑥부쟁이
+○
+○
+H
+Aster meyendorfii (Regel & Maack) Voss
+개쑥부쟁이
+○
+H
+Aster pilosus Willd.
+미국쑥부쟁이
+○
+○
+○
+○
+○
+H
+귀,교란
+Aster scaber Thunb.
+참취
+○
+○
+○
+○
+H
+Aster yomena (Kitam.) Honda
+쑥부쟁이
+○
+○
+○
+G
+Atractylodes ovata (Thunb.) DC.
+삽주
+○
+○
+H
+Bidens bipinnata L.
+도깨비바늘
+○
+○
+○
+○
+Th
+Bidens frondosa L.
+미국가막사리
+○
+○
+○
+○
+○
+○
+Th
+귀
+Bidens pilosa L.
+울산도깨비바늘
+○
+Th
+귀
+Bidens radiata var. pinnatifida (Turcz ex DC.) Kitam.
+구와가막사리
+○
+Th
+Bidens tripartita L.
+가막사리
+○
+Th
+Breea segeta (Willd.) Kitam.
+조뱅이
+○
+H
+Carduus crispus L.
+지느러미엉겅퀴
+○
+Th
+귀
+Carpesium abrotanoides L.
+담배풀
+○
+Th
+Carpesium cernuum L.
+좀담배풀
+○
+Th
+Carpesium divaricatum Siebold & Zucc.
+긴담배풀
+○
+H
+Centipeda minima (L.) A.Br. & Asch.
+중대가리풀
+○
+Th
+식
+Cirsium japonicum var. maackii (Maxim.) Matsum.
+엉겅퀴
+○
+○
+○
+○
+○
+H
+Conyza canadensis (L.) Cronquist
+망초
+○
+○
+○
+○
+○
+○
+Th
+귀
+Coreopsis drummondii Torr. & Gray
+금계국
+○
+H
+식
+Coreopsis lanceolata L.
+큰금계국
+○
+○
+○
+○
+○
+○
+H
+귀,식
+Cosmos bipinnatus Cav.
+코스모스
+○
+○
+○
+Th
+귀,식
+Crassocephalum crepidioides (Benth.) S.Moore
+주홍서나물
+○
+Th
+귀
+Crepidiastrum denticulatum (Houtt.) J.H.Pak & Kawano
+이고들빼기
+○
+○
+○
+○
+○
+Th
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Crepidiastrum sonchifolium (Bunge) Pak & Kawano
+고들빼기
+○
+○
+Th
+Dendranthema boreale (Makino) Ling ex Kitam.
+산국
+○
+○
+○
+○
+○
+H
+Dendranthema indicum (L.) Des Moul.
+감국
+○
+H
+Dendranthema zawadskii var. latilobum (Maxim.) Kitag.
+구절초
+○
+○
+H
+Dendranthema zawadskii (Herb.) Tzvelev
+산구절초
+○
+○
+H
+Eclipta prostrata (L.) L.
+한련초
+○
+○
+○
+Th
+Erechtites hieracifolia Raf.
+붉은서나물
+○
+○
+○
+Th
+귀
+Erigeron annuus (L.) Pers.
+개망초
+○
+○
+○
+○
+○
+○
+Th
+귀
+Erigeron strigosus Muhl.
+주걱개망초
+○
+Th
+귀
+Eupatorium japonicum Thunb.
+등골나물
+○
+○
+○
+○
+H
+Eupatorium lindleyanum DC.
+골등골나물
+○
+○
+H
+Farfugium japonicum (L.) Kitam.
+털머위
+○
+H
+Ⅲ
+Galinsoga ciliata (Raf.) S.F.Blake
+털별꽃아재비
+○
+○
+○
+Th
+귀
+Gnaphalium affine D.Don
+떡쑥
+○
+Th
+Helianthus tuberosus L.
+뚱딴지
+○
+○
+○
+○
+G
+귀
+Hemistepta lyrata Bunge
+지칭개
+○
+○
+○
+○
+Th
+Ixeridium dentatum (Thunb. ex Mori) Tzvelev
+씀바귀
+○
+○
+○
+Th
+Ixeris chinensis (Thunb.) Nakai
+노랑선씀바귀
+○
+○
+Th
+Ixeris polycephala Cass.
+벌씀바귀
+○
+○
+Th
+Lactuca indica L.
+왕고들빼기
+○
+○
+○
+○
+○
+○
+Th
+Lactuca scariola L.
+가시상추
+○
+Th
+귀,교란
+Leibnitzia anandria (L.) Turcz.
+솜나물
+○
+○
+H
+Matricaria matricariodes Porter
+족제비쑥
+○
+Th
+귀
+Petasites japonicus (Siebold & Zucc.) Maxim.
+머위
+○
+○
+○
+○
+H
+Rudbeckia bicolor Nutt.
+원추천인국
+○
+H
+귀
+Rudbeckia laciniata L.
+삼잎국화
+○
+H
+Saussurea eriophylla Nakai
+솜분취
+○
+H
+Ⅲ,고
+Sigesbeckia glabrescens Makino
+진득찰
+○
+○
+Th
+Sigesbeckia pubescens Makino
+털진득찰
+○
+○
+Th
+Solidago virgaurea subsp. asiatica Kitam. ex Hara
+미역취
+○
+○
+○
+H
+Sonchus asper (L.) Hill
+큰방가지똥
+○
+○
+Th
+귀
+Syneilesis palmata (Thunb.) Maxim.
+우산나물
+○
+H
+Tagetes minuta L.
+만수국아재비
+○
+○
+Th
+귀
+Taraxacum coreanum Nakai
+흰민들레
+○
+H
+Taraxacum officinale Weber
+서양민들레
+○
+○
+○
+○
+○
+○
+H
+귀
+Taraxacum platycarpum Dahlst.
+민들레
+○
+H
+Tragopogon dubius Scop.
+쇠채아재비
+○
+Th
+귀
+Xanthium canadense Mill.
+큰도꼬마리
+○
+○
+Th
+귀
+Youngia japonica (L.) DC.
+뽀리뱅이
+○
+○
+○
+○
+○
+Th
+Monocotyledoneae
+단자엽식물강
+Potamogetonaceae
+가래과
+Potamogeton crispus L.
+말즘
+○
+HH
+침수
+Liliaceae
+백합과
+Allium macrostemon Bunge
+산달래
+○
+G
+Allium thunbergii G.Don
+산부추
+○
+○
+○
+G
+Asparagus schoberioides Kunth
+비짜루
+○
+○
+○
+G
+Convallaria keiskei Miq.
+은방울꽃
+○
+○
+○
+G
+Disporum smilacinum A.Gray
+애기나리
+○
+○
+○
+○
+○
+G
+Disporum uniflorum Baker
+윤판나물
+○
+○
+○
+G
+Hosta capitata (Koidz.) Nakai
+일월비비추
+○
+○
+○
+○
+H
+Ⅰ
+Hosta longipes (Franch. & Sav.) Matsum.
+비비추
+○
+H
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Lilium amabile Palib.
+털중나리
+○
+○
+G
+Lilium distichum Nakai ex Kamibay
+말나리
+○
+G
+Ⅱ,LC
+Lilium lancifolium Thunb.
+참나리
+○
+○
+○
+G
+Lilium longiflorum Thunb.
+백합
+○
+G
+식
+Lilium tsingtauense Gilg
+하늘말나리
+○
+○
+○
+○
+G
+Liriope platyphylla F.T.Wang & T.Tang
+맥문동
+○
+○
+G
+식
+Liriope spicata (Thunb.) Lour.
+개맥문동
+○
+○
+G
+Paris verticillata M.Bieb.
+삿갓나물
+○
+○
+G
+Polygonatum involucratum (Franch. & Sav.) Maxim.
+용둥굴레
+○
+G
+Polygonatum odoratum var. pluriflorum (Miq.) Ohwi
+둥굴레
+○
+○
+○
+○
+G
+Scilla scilloides (Lindl.) Druce
+무릇
+○
+○
+G
+Smilacina japonica A.Gray
+풀솜대
+○
+○
+○
+G
+Smilax china L.
+청미래덩굴
+○
+○
+○
+○
+○
+○
+N
+Smilax nipponica Miq.
+선밀나물
+○
+○
+○
+○
+○
+H
+Smilax riparia var. ussuriensis (Regel) Hara & T.Koyama
+밀나물
+○
+N
+Smilax sieboldii Miq.
+청가시덩굴
+○
+○
+○
+○
+○
+○
+N
+Tricyrtis macropoda Miq.
+뻐꾹나리
+○
+○
+○
+G
+LC
+Tulipa edulis (Miq.) Baker
+산자고
+○
+○
+G
+Veratrum versicolor Nakai
+흰여로
+○
+○
+○
+G
+Ⅰ
+Hemerocallis hakuunensis Nakai
+백운산원추리
+○
+○
+○
+○
+H
+Ⅳ,CR
+Amaryllidaceae
+수선화과
+Narcissus tazetta var. chinensis Roem.
+수선화
+○
+G
+식
+Dioscoreaceae
+마과
+Dioscorea batatas Decne.
+마
+○
+○
+○
+G
+식
+Dioscorea japonica Thunb.
+참마
+○
+○
+○
+G
+Dioscorea nipponica Makino
+부채마
+○
+○
+G
+Dioscorea coreana
+푸른마
+○
+○
+G
+Dioscorea quinqueloba Thunb.
+단풍마
+○
+G
+Iridaceae
+붓꽃과
+Iris pseudoacorus L.
+노랑꽃창포
+○
+○
+○
+G
+식,정수
+Iris rossii Baker
+각시붓꽃
+○
+○
+○
+G
+Iris sanguinea Donn ex Horn
+붓꽃
+○
+G
+Juncaceae
+골풀과
+Juncus effusus var. decipiens Buchenau
+골풀
+○
+○
+○
+H
+정수
+Juncus setchuensis var. effusoides Buchenau
+푸른갯골풀
+○
+H
+정수
+Juncus tenuis Willd.
+길골풀
+○
+○
+○
+H
+정수
+Luzula capitata (Miq.) Miq.
+꿩의밥
+○
+○
+○
+○
+H
+Commelinaceae
+닭의장풀과
+Commelina communis L.
+닭의장풀
+○
+○
+○
+○
+○
+○
+Th
+Tradescantia reflexa Raf.
+자주달개비
+○
+H
+귀,식
+Gramineae
+벼과
+Agropyron ciliare (Trin.) Franch.
+속털개밀
+○
+○
+○
+○
+Th
+Agropyron repens (L.) P.Beauv.
+구주개밀
+○
+H
+귀
+Agropyron tsukushiense var. transiens (Hack.) Ohwi
+개밀
+○
+○
+○
+○
+Th
+Agrostis clavata Trin.
+산겨이삭
+○
+H
+Agrostis clavata var. nukabo Ohwi
+겨이삭
+○
+H
+Alopecurus aequalis var. amurensis (Kom.) Ohwi
+뚝새풀
+○
+○
+Th
+Arundinella hirta (Thunb.) Koidz.
+새
+○
+○
+○
+○
+○
+H
+Avena fatua L.
+메귀리
+○
+Th
+귀
+Beckmannia syzigachne (Steud.) Fernald
+개피
+○
+○
+Th
+Bromus japonicus Thunb.
+참새귀리
+○
+○
+○
+○
+Th
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Bromus pauciflorus (Thunb.) Hack.
+꼬리새
+○
+H
+Bromus tectorum L.
+털빕새귀리
+○
+Th
+귀
+Calamagrostis arundinacea (L.) Roth
+실새풀
+○
+○
+○
+○
+○
+○
+H
+Capillipedium parviflora (R.Br.) Stapf.
+나도기름새
+○
+H
+Cleistogenes hackelii (Honda) Honda
+대새풀
+○
+○
+H
+Cymbopogon tortilis var. goeringii (Steud.) Hand.-Mazz.
+개솔새
+○
+H
+Dactylis glomerata L.
+오리새
+○
+○
+○
+○
+○
+H
+귀
+Diarrhena fauriei (Hack.) Ohwi
+광릉용수염
+○
+H
+Ⅲ
+Digitaria ciliaris (Retz.) Koel.
+바랭이
+○
+○
+○
+○
+○
+○
+Th
+Digitaria radicosa (C.Presl) Miq.
+좀바랭이
+○
+Th
+Digitaria violascens Link
+민바랭이
+○
+Th
+Echinochloa crusgalli (L.) P.Beauv.
+돌피
+○
+○
+○
+○
+○
+○
+Th
+Echinochloa crusgalli var. echinata Honda
+물피
+○
+○
+Th
+Eleusine indica (L.) Gaertn.
+왕바랭이
+○
+○
+○
+○
+○
+○
+Th
+Eragrostis ferruginea (Thunb.) P.Beauv.
+그령
+○
+○
+○
+○
+H
+Eragrostis multicaulis Steud.
+비노리
+○
+○
+Th
+Eriochloa villosa (Thunb.) Kunth
+나도개피
+○
+○
+○
+Th
+Festuca arundinacea Schreb.
+큰김의털
+○
+○
+○
+○
+○
+○
+H
+귀
+Festuca ovina L.
+김의털
+○
+○
+○
+H
+Festuca heterophylla
+사방김의털
+○
+H
+Festuca parvigluma Steud.
+김의털아재비
+○
+○
+Th
+Festuca subulata var. japonica Hack.
+왕김의털아재비
+○
+H
+Hemarthria sibirica (Gand.) Ohwi
+쇠치기풀
+○
+○
+○
+H
+Anthoxanthum glabrum (Trin.) Veldkamp
+애기향모
+○
+H
+Hierochloe odorata (L.) P.Beauv.
+향모
+○
+○
+H
+Imperata cylindrica var. koenigii (Retz.) Pilg.
+띠
+○
+H
+식
+Koeleria cristata Pers.
+도랭이피
+○
+H
+Leersia japonica Makino
+나도겨풀
+○
+HH
+정수
+Lolium multiflorum Lamarck
+쥐보리
+○
+○
+○
+Th
+귀
+Melica onoei Franch. & Sav.
+쌀새
+○
+H
+Microstegium vimineum (Trin.) A.Camus
+나도바랭이새
+○
+Th
+Microstegium vimineum var. imberbe (Nees ex Steud.) Honda
+큰듬성이삭새
+○
+Th
+Miscanthus sacchariflorus (Maxim.) Benth.
+물억새
+○
+○
+○
+HH
+정수
+Miscanthus sinensis var. purpurascens (Andersson) Rendle
+억새
+○
+○
+○
+○
+○
+○
+H
+Muhlenbergia japonica Steud.
+쥐꼬리새
+○
+H
+Oplismenus undulatifolius (Ard.) P.Beauv.
+주름조개풀
+○
+○
+○
+○
+○
+○
+H
+Panicum bisulcatum Thunb.
+개기장
+○
+○
+○
+○
+Th
+Panicum dichotomiflorum Michx.
+미국개기장
+○
+○
+Th
+귀
+Paspalum thunbergii Kunth ex Steud.
+참새피
+○
+○
+H
+Pennisetum alopecuroides (L.) Spreng.
+수크령
+○
+○
+○
+○
+H
+Phalaris arundinacea L.
+갈풀
+○
+○
+○
+○
+HH
+정수
+Phragmites communis Trin.
+갈대
+○
+○
+○
+HH
+정수
+Phragmites japonica Steud.
+달뿌리풀
+○
+○
+○
+○
+○
+HH
+정수
+Phyllostachys bambusoides Siebold & Zucc.
+왕대
+○
+M
+식
+Phyllostachys nigra var. henonis (Bean) Stapf ex Rendle
+솜대
+○
+○
+M
+식
+Poa acroleuca Steud.
+실포아풀
+○
+○
+○
+Th
+Poa annua L.
+새포아풀
+○
+○
+○
+○
+Th
+Poa compressa L.
+좀포아풀
+○
+○
+H
+귀
+Poa sphondylodes Trin.
+포아풀
+○
+○
+○
+H
+Poa trivialis L.
+큰새포아풀
+○
+H
+Pseudoraphis ukishiba Ohwi
+물잔디
+○
+H
+Ⅳ,VU
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Pseudosasa japonica (Siebold & Zucc. ex Steud.) Makino
+이대
+○
+N
+식
+Setaria faberii Herrm.
+가을강아지풀
+○
+○
+Th
+Setaria glauca (L.) P.Beauv.
+금강아지풀
+○
+○
+○
+○
+Th
+Setaria × pycnocoma (Steud.) Henrard ex Nakai
+수강아지풀
+○
+○
+Th
+Setaria viridis (L.) P.Beauv.
+강아지풀
+○
+○
+○
+○
+○
+○
+Th
+Sorghum nitidum var. majus (Hack.) Ohwi
+수수새
+○
+H
+Ⅰ,DD
+Spodiopogon cotulifer (Thunb.) Hack.
+기름새
+○
+H
+Spodiopogon sibiricus Trin.
+큰기름새
+○
+○
+○
+○
+○
+H
+Themeda triandra var. japonica (Willd.) Makino
+솔새
+○
+○
+○
+H
+Trisetum bifidum (Thunb.) Ohwi
+잠자리피
+○
+○
+H
+Zoysia japonica Steud.
+잔디
+○
+○
+○
+○
+○
+H
+Araceae
+천남성과
+Arisaema amurense Maxim.
+둥근잎천남성
+○
+G
+Pinellia ternata (Thunb.) Breitenb.
+반하
+○
+G
+Lemnaceae
+개구리밥과
+Lemna perpusilla Torr.
+좀개구리밥
+○
+HH
+부유
+Spirodela polyrhiza (L.) Sch.
+개구리밥
+○
+HH
+부유
+Cyperaceae
+사초과
+Carex miyabei Franch.
+융단사초
+○
+H
+Carex fusanensis
+부산사초
+○
+H
+Carex bostrychostigma Maxim.
+길뚝사초
+○
+○
+H
+Carex breviculmis R.Br.
+청사초
+○
+○
+H
+Carex ciliato-marginata Nakai
+털대사초
+○
+○
+○
+○
+H
+Carex dimorpholepis Steud.
+이삭사초
+○
+○
+H
+Carex dispalata Boott
+삿갓사초
+○
+○
+H
+정수
+Carex forficula Franch. & Sav.
+산뚝사초
+○
+H
+Carex gibba Wahlenb.
+나도별사초
+○
+○
+H
+Carex heterolepis Bunge
+산비늘사초
+○
+H
+Carex humilis var. nana (H.Lév. & Vaniot) Ohwi
+가는잎그늘사초
+○
+○
+○
+○
+○
+H
+Carex japonica Thunb.
+개찌버리사초
+○
+○
+H
+Carex lanceolata Boott
+그늘사초
+○
+○
+○
+○
+○
+H
+Carex leiorhyncha C.A.Mey.
+산괭이사초
+○
+○
+○
+H
+Carex maackii Maxim.
+타래사초
+○
+H
+Ⅰ
+Carex mitrata Franch.
+겨사초
+○
+H
+Ⅰ
+Carex nervata Franch. & Sav.
+양지사초
+○
+H
+Ⅰ
+Carex neurocarpa Maxim.
+괭이사초
+○
+○
+○
+H
+Carex okamotoi Ohwi
+지리대사초
+○
+H
+Ⅱ,고
+Carex parciflora var. macroglossa (Franch. & Sav.) Ohwi
+애기염주사초
+○
+H
+Carex pediformis var. pedunculata Maxim.
+왕그늘사초
+○
+H
+Carex polyschoena H.Lév. & Vaniot
+가지청사초
+○
+○
+○
+H
+Carex sabynensis Less. ex Kunth
+실청사초
+○
+H
+Carex siderosticta Hance
+대사초
+○
+○
+○
+○
+H
+Cyperus amuricus Maxim.
+방동사니
+○
+○
+Th
+정수
+Cyperus difformis L.
+알방동사니
+○
+Th
+정수
+Cyperus hakonensis Franch. & Sav.
+병아리방동사니
+○
+Th
+정수
+Cyperus iria L.
+참방동사니
+○
+Th
+정수
+Cyperus microiria Steud.
+금방동사니
+○
+○
+○
+○
+○
+Th
+정수
+Fimbristylis squarrosa Vahl
+민하늘지기
+○
+H
+Kyllinga brevifolia Rottb.
+파대가리
+○
+H
+Zingiberaceae
+생강과
+Zingiber mioga (Thunb.) Roscoe
+양하
+○
+H
+식
+<표 계속> 조사지역 관속식물 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+생
+활
+형
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Orchidaceae
+난초과
+Cephalanthera longibracteata Blume
+은대난초
+○
+○
+G
+Goodyera schlechtendaliana Rchb.f.
+사철란
+○
+○
+H
+LC
+Oreorchis patens (Lindl.) Lindl.
+감자난초
+○
+G
+Spiranthes sinensis (Pers.) Ames
+타래난초
+○
+G
+출현종수 (NO.)
+164
+463
+413
+423
+286
+183
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+주) 1. 생활형(lifeform) : M;대형지상식물(Megaphanerophytes), N;소형지상식물(Nanophanerophytes), E;착생식물(Epiphytes),
+주) 1. Ch;지표식물(Chamaephytes), H;반지중식물(Hemicryptophytes), G;지중식물(Geophytes), HH;근생‧수생식
+주) 1. (Hydrophytes), Th;일년생식물(Therophytes)
+주) 2. 고 : 한반도고유종, 귀 : 귀화식물, 식 : 식재종(재배종,원예종포함), 부엽 : 부엽식물, 하 : 하변식물
+주) 3. 교 : “생물다양성보전‧이용에 관한 법률”제23조(환경부고시 제2023-228호)의 생태계교란생물
+주) 4. 희귀식물(총571분류군)의 구분은 “수목원‧정원의 조성‧진흥에 관한 법률” 시행규칙(농림축산식품부령 제25호, 20
+주) 2.17.04.28,일부개정)에 따라 정리된 “한국희귀식물목록집(산림청,국립수목원,2010)”을 반영하였음. 즉, “야생멸종
+주) 2.(Extinct in the Wild, EW)”은 4종, “멸종위기종(Critically Endangered, CR)”은 144종, “위기종(Endangered
+주) 2.species, EN)”은 122종, “취약종(Vulnerable, VU)”은 119종, “약관심종(Least Voncerned, LC)”은 70종, “자료부
+주) 2.족종(Data Deficient, DD)”은 112종으로 각각 구분, 정리되었음.
+주) 5. 한반도고유종(총328분류군)의 구분은 “한반도특산관속식물(산림청,국립수목원,2005)”을 참조하였음.
+주) 6. 식물구계학적특정식물(Ⅰ,Ⅱ,Ⅲ,Ⅳ,Ⅴ등급)은“제4차전국자연환경조사지침-식물상(환경부,국립환경과학원,2012)”을 반영
+주) 2.하였고, 그 분포지역이 범위에 따라 5등급(Ⅰ∼Ⅴ)으로 구분하여 총 1,258분류군이 구분되어 있음. 즉, “Ⅴ등급”은 국
+주) 2.내에서 고립되어 분포하거나 불연속적으로 분포하는 분류군, “Ⅳ등급”은 북방계 또는 남방계 식물로서 일반적으로 1개
+주) 2.의 아구(亞區)에 분포하는 분류군, “Ⅲ등급”은 북방계 또는 남방계 식물로서 일반적으로 2개의 아구(亞區)에 분포하는
+주) 2.분류군, “Ⅱ등급”은 비교적 전국적으로 분포하나 일반적으로 1,000m 이상 지역에 분포하는 분류군, 그리고 “Ⅰ등급”은
+주) 2.북방계 또는 남방계 식물로서 일반적으로 3개 아구(亞區)에 분포하는 분류군으로 각각 구분되었음.
+주) 7. 귀화식물(총 321분류군)은 2010년까지 새롭게 정리된 “한국내 귀화식물의 현황과 고찰(한국식물분류학회,이
+주) 2.등,2011)”을 반영하였음.
+② 특정 야생식물 분포현황
+보호수 및 노거수, 한반도 고유종, 희귀식물, 식물구계학적 특정식물, 법정보호종 등의 분포 현황을 분석하여 아래와 같이 정리하였다.
+조사지역 특정 야생식물 구분
+구   분
+내     용
+보호수 및 노거수
+- 현지조사 결과, 본 조사지역에는 보호수 및 노거수가 분포하지 않았음.
+한반도고유종
+- 현지조사 결과, 조사지역의 한반도고유종은 아래의 표와 같이 보고되었음.
+분류군
+오동나무
+- 문헌조사 결과, 아래의 표와 같이 보고되었음.
+문헌구분
+분류군
+Ⅰ
+은사시나무, 키버들, 능수버들, 은꿩의다리, 민땅비싸리, 오동나무, 병꽃나무
+Ⅱ
+은사시나무, 은꿩의다리, 민땅비싸리, 서울제비꽃, 개나리, 오동나무, 병꽃나무, 지리대사초
+Ⅲ
+은꿩의다리, 고광나무, 개나리, 광릉골무꽃, 오동나무, 병꽃나무
+Ⅳ
+은사시나무, 고광나무, 개나리, 오동나무, 병꽃나무, 솜분취
+Ⅴ
+은사시나무, 개나리
+식물구계학적
+특정식물
+- 현지조사 결과, 조사지역의 식물구계학적 특정식물은 아래의 표와 같이 보고되었음.
+등급
+분류군
+Ⅰ
+잣나무
+Ⅱ
+이팝나무
+Ⅲ
+단풍나무
+Ⅴ
+목련, 왕벚나무
+- 문헌조사 결과, 아래의 표와 같이 보고되었음.
+?? 문헌Ⅰ - “대전”의 자연환경
+등급
+분류군
+Ⅰ
+쇠고비, 홍지네고사리, 곰비늘고사리, 왕버들, 물박달나무, 참느릅나무, 투구꽃, 피나물, 큰괭이밥, 백선, 대팻집나무, 오갈피나무, 올괴불나무, 일월비비추, 흰여로, 타래사초, 양지사초
+Ⅱ
+새박, 앵초, 연복초
+Ⅲ
+단풍나무
+Ⅳ
+등, 백운산원추리, 물잔디
+Ⅴ
+삼백초, 왕벚나무
+?? 문헌Ⅱ - “옥천”의 자연환경
+등급
+분류군
+Ⅰ
+쇠고비, 잣나무, 왕버들, 물박달나무, 참느릅나무, 투구꽃, 오갈피나무, 물쑥, 일월비비추, 흰여로
+Ⅱ
+각시고사리, 노랑제비꽃
+Ⅳ
+백운산원추리
+<표 계속> 조사지역 특정 야생식물 구분
+구   분
+내     용
+식물구계학적
+특정식물
+?? 문헌Ⅲ - “마전”의 자연환경
+등급
+분류군
+Ⅰ
+관중, 전나무, 개비자나무, 왕버들, 박달나무, 홀아비꽃대, 피나물, 산돌배, 큰괭이밥, 대팻집나무, 회양목, 돌외, 쇠털이슬, 오갈피나무, 참골무꽃, 올괴불나무, 덤불쑥, 일월비비추, 흰여로, 수수새, 겨사초
+Ⅱ
+돌단풍, 복자기, 이팝나무, 말나리
+Ⅲ
+흰진범, 큰여우콩, 긴병꽃풀, 광릉골무꽃, 털머위, 광릉용수염
+Ⅳ
+개대황, 등, 백운산원추리
+Ⅴ
+왕벚나무
+?? 문헌Ⅳ - “이원”의 자연환경
+등급
+분류군
+Ⅰ
+관중, 잣나무, 물박달나무, 참느릅나무, 투구꽃, 산조팝나무, 백선, 올괴불나무, 일월비비추
+Ⅲ
+꼬리조팝나무, 단풍나무, 솜분취
+Ⅳ
+백운산원추리
+Ⅴ
+가시오갈피
+?? 문헌Ⅴ - “옥천군 군서면 사양리 농어촌도로 확포장공사”의 자연환경
+등급
+분류군
+Ⅰ
+잣나무, 회양목
+Ⅱ
+복자기
+단풍나무
+희귀식물
+- 현지조사결과, 조사지역에는 취약종(Vulnerable, VU)이 확인되지 않았음.
+- 문헌조사 결과, 취약종(Vulnerable, VU)은 아래 표와 같이 보고되었음.
+문헌구분
+분류군
+Ⅰ
+물잔디
+Ⅳ
+가시오갈피
+법정보호종
+- 현지조사 결과, 조사지역의 법정보호종은 발견되지 않았음.
+- 문헌조사 결과, 조사지역의 법정보호종은 문헌Ⅰ에서 삼백초, 문헌Ⅳ에서 가시오갈피가 보고되었음.
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+㉰ 귀화식물 및 생태계교란야생생물의 분포 현황
+ⓐ 귀화식물
+현지조사 결과, 사업계획지구 및 주변지역에서 확인된 귀화식물은 총 15과 29분류군으로 조사⸱집계되었다.
+현지조사를 통해 확인된 귀화식물은 사업계획지구 및 주변지역의 도로 및 나지, 경작지, 이차초원 등에서 주로 확인되었으며, 남한 전역에서 조사⸱보고된 총 321분류군(한국식물분류학회지, 2011), 귀화율(PN)은 약 17.68%, 도시화지수(UI)는 약 9.03으로 산정되었다.
+조사지역 귀화식물 목록(현지조사)
+학   명
+(Scientific Name)
+국   명
+(Korean Name)
+현지조사
+생활형
+비고
+Rumex crispus L.
+소리쟁이
+○
+H
+귀
+Phytolacca americana L.
+미국자리공
+○
+H
+귀
+Cerastium glomeratum Thuill.
+유럽점나도나물
+○
+Th
+귀
+Chenopodium album L.
+흰명아주
+○
+Th
+귀
+Chenopodium ficifolium Smith
+좀명아주
+○
+Th
+귀
+Amaranthus blitum L.
+개비름
+○
+Th
+귀
+Lepidium apetalum Willd.
+다닥냉이
+○
+Th
+귀
+Robinia pseudoacacia L.
+아까시나무
+○
+M
+귀,식
+Trifolium pratense L.
+붉은토끼풀
+○
+Ch
+귀
+Trifolium repens L.
+토끼풀
+○
+H
+귀
+Euphorbia supina Raf.
+애기땅빈대
+○
+Th
+귀
+Ailanthus altissima (Mill.) Swingle
+가죽나무
+○
+M
+귀
+Sicyos angulatus L.
+가시박
+○
+Th
+귀,교란
+Oenothera biennis L.
+달맞이꽃
+○
+Th
+귀
+Ipomoea hederacea Jacq.
+미국나팔꽃
+○
+Th
+귀
+Ipomoea purpurea Roth
+둥근잎나팔꽃
+○
+Th
+귀
+Quamoclit coccinea Moench
+둥근잎유홍초
+Th
+귀
+Veronica persica Poir.
+큰개불알풀
+○
+Th
+귀
+Aster pilosus Willd.
+미국쑥부쟁이
+○
+H
+귀,교란
+Bidens frondosa  L.
+미국가막사리
+○
+Th
+귀
+Conyza canadensis  (L.) Cronquist
+망초
+○
+Th
+귀
+Coreopsis lanceolata L.
+큰금계국
+○
+H
+귀,식
+Erigeron annuus  (L.) Pers.
+개망초
+○
+Th
+귀
+Galinsoga ciliata (Raf.) S.F.Blake
+털별꽃아재비
+○
+Th
+귀
+Taraxacum officinale Weber
+서양민들레
+○
+H
+귀
+Avena fatua L.
+메귀리
+○
+Th
+귀
+Dactylis glomerata L.
+오리새
+○
+H
+귀
+Festuca arundinacea Schreb.
+큰김의털
+○
+H
+귀
+Lolium multiflorum Lamarck
+쥐보리
+○
+Th
+귀
+총 분류군(No.)
+29
+-
+-
+주) 1. 교 : “생물다양성보전‧이용에 관한 법률”제23조(환경부고시 제2023-228호)의 생태계교란생물
+주) 2. 귀 : 귀화식물(총 321분류군)은 2010년까지 새롭게 정리된 “한국내 귀화식물의 현황과 고찰(한국식물분류학회,이
+주) 1. 등,2011)”을 반영하였음.
+ⓑ 생태계교란 야생생물
+현지조사 결과, 사업계획지구 및 주변지역에서 확인된 생태계교란 야생생물은 환삼덩굴, 가시박, 미국쑥부쟁이 3분류군이 분포하는 것으로 확인되었다.
+조사지역 생태계교란 야생생물(식물) 목록(현지조사)
+학   명
+(Scientific Name)
+국   명
+(Korean Name)
+현지조사
+생활형
+비고
+Humulus japonicus Siebold & Zucc.
+환삼덩굴
+○
+Th
+교
+Sicyos angulatus L.
+가시박
+○
+Th
+귀,교
+Aster pilosus Willd.
+미국쑥부쟁이
+○
+h
+귀,교
+총 분류군(No.)
+3
+-
+-
+주) 1. 교 : “생물다양성보전‧이용에 관한 법률”제23조(환경부고시 제2023-228호)의 생태계교란생물
+사업계획지구 및 조사지역의 생태교란야생식물 분포현황
+③ 주요 식생의 현황
+㉮ 현황
+사업계획지구는 도로 및 나지, 묘목장으로 구분되어있으며, 사업계획지구로 내·외부 메타세콰이아, 이팝나무, 느티나무 등 식재를 진행한 것으로 확인되었다.
+㉯ 식물군락의 유형
+ⓐ 사업계획지구(중점조사지역)
+주요 식생은 도로 및 나지, 묘목장의 해당 식생형이 구분되었다.
+ⓑ 주변지역(광역조사지역)
+주요 식생은 도로 및 나지, 경작지, 묘목장, 이차초원, 잣나무, 일본잎갈나무, 소나무, 기타활엽수 등의 해당 식생형이 구분되었다.
+조사지역 주요 식생 및 식생보전등급의 면적분포 현황
+식생
+보전등급
+해 당 식 생 형
+광역조사지역
+중점조사지역
+(사업계획지구)
+비 고
+면적(㎡)
+비율(%)
+면적(㎡)
+비율(%)
+Ⅴ(5)
+도로 및 나지
+4,775
+5.14
+1,018
+10.31
+-
+Ⅴ(4)
+경작지
+34,367
+36.95
+-
+-
+-
+Ⅴ(3)
+묘목장
+24,949
+26.82
+8,858
+89.69
+Ⅴ(2)
+이차초원
+6,781
+7.29
+-
+-
+-
+Ⅳ
+잣나무
+10,282
+11.05
+-
+-
+-
+일본잎갈나무
+514
+0.55
+-
+-
+-
+Ⅲ
+소나무
+4,203
+4.52
+-
+-
+-
+기타활엽수
+7,142
+7.68
+-
+-
+-
+합              계
+93,013浵ࡦ
+100.00
+9,876浵ࡦ
+100.00
+-
+식생보전Ⅳ등급이상 면적 소계
+22,141
+23.80
+-
+-
+-
+주) 1. 주요 식생의 면적분포는 현존식생도(1/5,000)의 해당식생형 분포역을 구적계로 산출하였음. 따라서 정확한 실측과
+주) 1. 는 다소 상이할 수도 있음을 밝혀둔다.
+㉰ 주요 식생의 면적분포 현황
+ⓐ 사업계획지구(중점조사지역)
+사업계획지구는 도로 및 나지(10.31%), 묘목장(89.69%)이 분포하고 있는 것으로 조사⸱분석되었다.
+ⓑ 주변지역(광역조사지역)
+사업계획지구 및 주변지역은 도로 및 나지(5.14%), 경작지(36.95%), 묘목장(26.82%), 이차초원(7.29%), 잣나무(11.05%), 일본잎갈나무(0.55%), 소나무(4.52%), 기타활엽수(7.68%)가 분포하고 있는 것으로 조사⸱분석되었다.
+㉰ 식생보전등급별 면적 분포 현황
+ⓐ 사업계획지구(중점조사지역)
+사업계획지구는 식생보전 Ⅴ(5)등급(10.31%), 식생보전 Ⅴ(3)등급(89.69%)이 분포하고 있는 것으로 조사⸱분석되었다.
+ⓑ 주변지역(광역조사지역)
+사업계획지구 및 주변지역은 식생보전 Ⅴ(5)등급(5.14%), 식생보전 Ⅴ(4)등급(36.95%), 식생보전 Ⅴ(3)등급(26.82%), 식생보전 Ⅴ(2)등급(7.29%), 식생보전 Ⅳ등급(11.60%), 식생보전 Ⅲ등급(12.20%)이 분포하고 있는 것으로 조사⸱분석되었다.
+사업계획지구 및 조사지역의 현존식생도
+④ 특정식물군락
+㉮ 식생보전등급의 평가
+ⓐ 식생보전등급 평가의 배경
+식생‧생태자원(植生‧生態資源)의 자연성평가(自然性評價, naturalness)는 1984년 일본(日本)에서 도입된 녹지자연도(綠地自然度) 사정기준(査定基準) 즉, 植生自然度區分槪要および全國集計(日本環境廳, 1976)를 반영한 자료이며, 일본에서의 토지이용은 Ⅰ∼Ⅵ으로 구분되어 있다.
+녹지자연도등급의 사정기준(1980년 최초 시도, 1984년 예시, 1986년 고시) 중 DGN 7,8,9등급은 해당식생의 자연성(自然性)과 종조성(種組成)적 특징(特徵)을 고려하지 않고, 단순히 수령(樹齡)에 의존하였던 바, 현재까지 약 30여년이 경과되었음에도 불구하고 어떤 입지에 대한 녹지의 자연성과 식생평가기준으로써의 가치부여는 의미가 없다고 판단된다.
+1970년대부터 추진해온 치산치수정책(治山治水政策)은 해당입지의 잠재자연식생(潛在自然植生)과 해당입지식생의 동태(動態) 등이 전혀 반영되지 않은 산림녹화계획(山林綠化計劃)이어서 현재에 이르러서야 합성(合成)의 오류(誤謬)였음을 인지하게 되었으며, 1986년 당시 도입된 녹지자연도등급사정기준(환경청, 1986)은 현재까지도 전적으로 이용되고 있으므로 식생과 녹지의 자연성평가를 왜곡(歪曲)하기에 이르렀다.
+따라서 어떤 입지(立地)에 성립하는 현존식생(現存植生)의 식생보전등급(VCC : Vegetation Conservation Classification) 부여는 해당입지식생자원의 자연성평가와 성립식생의 정적(靜的)이고 동적(動的)인 진단(診斷)을 할 수 있는 주요한 척도(尺度)라고 판단되며, 대부분의 식생전문가들은 현행 녹지자연도(綠地自然度)의 등급사정(等級査定)이 현재 우리나라의 식생환경과 그 평가에 절대적으로 부합되지 않음을 인지하고 있을 뿐만 아니라, 특히 현행 녹지자연도(DGN)가 폐기되거나 대폭 수정되는 것이 바람직하다고 여기고 있다.
+ⓑ 식생보전등급 평가결과
+식생보전등급의 평가기준은 “자연환경조사방법 및 등급분류기준 등에 관한 규정(환경부훈령 제1008호, 2010)”에 따랐다.
+평가결과, 조사지역 주요 식생의 배분현황과 종조성적 특징을 비교, 검토한 바, 전형적인 인위식생(artificial vegetation)이며, 자연식생(natural vegetation)은 성립하지 않았다. 주요 식생은 식생보전등급 Ⅴ등급으로 구분되었다.
+특히, 주요습원의 진단종군(species group of diagnostics)을 이루는 특이식물(eg., 물이끼류, 진퍼리새, 통발류, 끈끈이주걱, 이삭귀개, 땅귀개 등), 그리고 주요습원임을 진단하는데 핵심요소로 널리 알려진 이탄층(泥炭層, peat layer)과 사초기둥(tussock)이 자생하거나 발달하는 특수한 입지는 분포하지 않았다.
+한편, 생태적 최적성의 분포특성을 갖는 특이식생(암벽지식생, 석회암지식생, 전석지식생 등)은 성립하거나 분포하지 않았다.
+따라서 조사지역의 세부적인 식생보전등급 평가내용은 다음과 같이 정리되었다.
+식생보전등급의 평가결과
+등 급
+식생보전등급 기준(2013년)
+조사지역의 적용식생
+Ⅰ등급
+⑴식생천이의 종국적인 단계에 이른 극상림 또는 그와 유사한 자연림
+㈎평균수령이 50년 이상된 삼림식생(난온대상록활엽수림, 낙엽활엽수림)
+㈏아고산대 침엽수림(분비나무군락, 구상나무군락, 주목군락 등)
+㈐산지계곡림(고로쇠나무군락,층층나무군락 등),하반림(오리나무군락,비술나무군락 등), 너도밤나무군락 등의 낙엽활엽수림
+⑵삼림식생 이외의 특수한 입지에 형성된 자연성이 우수한 식생이나 특이식생
+㈎해안사구, 단애지, 자연호소, 하천습지, 습원, 염습지, 고산황원, 석회암지대, 아고산초원, 자연암벽 등에 형성된 식생. 다만, 이와 같은 식생유형은 조사자에 의해 규모가 크고 절대보전가치가 있을 경우에만 지형도에 표시하고, 보고서에 기재사유를 상세히 기술하여야 함
+◦평가결과, 분포하지 않았다.
+◦특히, 생태적 최적성의 분포특성을 갖는 특이식생(암벽지식생, 석회암지식생, 전석지식생 등)과 주요습원은 성립하거나 분포하지 않았다.
+Ⅱ등급
+⑴자연식생이 교란된 후 2차 천이에 의해 다시 자연식생에 가까울 정도로 거의 회복된 상태의 삼림식생
+㈎군락의 계층구조가 안정되어 있고, 종조성의 대부분이 해당지역의 잠재 자연식생을 반영하고 있음
+㈏난‧온대 상록활엽수림(동백나무군락, 구실잣밤나무-당단풍군락, 졸참나무군락, 서어나무군락 등의 낙엽활엽수림)
+◦평가결과, 분포하지 않았다.
+Ⅲ등급
+⑴자연식생이 교란된 후 2차 천이의 진행에 의하여 회복단계에 들어섰거나 인간에 의한 교란이 지속되고 있는 삼림식생
+㈎군락의 계층구조가 불안정하고, 종조성의 대부분이 해당지역의 잠재자연식생을 충분히 반영하지 못함
+㈏조림기원 식생이지만 방치되어 자연림과 구별이 어려울 정도로 회복된 경우
+⑵산지대에 형성된 2차 관목림이나 2차 초원
+◦평가결과, 분포하지 않았다.
+Ⅳ등급
+◦인위적으로 조림된 식재림
+◦평가결과, 분포하지 않았다.
+Ⅴ등급
+⑴2차적으로 형성된 키가 큰 초원식생(묵밭이나 훼손지 등의 억새군락이나 기타 잡초군락 등)
+⑵2차적으로 형성된 키가 낮은 초원식생(골프장, 공원묘지, 목장 등)
+⑶과수원이나 유실수 재배지역 및 묘포장
+⑷논‧밭 등의 경작지
+⑸비교적 녹지가 많은 주택지(녹피율 60%이상)
+◦평가결과, 도로 및 나지, 묘목장이 분포하였다.
+-토지의 이용현황 및 초원형성에 따라 평가하였다.
+사업계획지구 및 조사지역의 식생보전등급도
+2) 육상동물상
+조사지역은 도로 및 나지, 경작지, 묘목장, 이차초원, 산림 등이 분포하고 있으며, 사업계획지구는 도로 및 나지, 묘목장으로 확인되었다.
+조사결과, 조사지역의 육상동물상은 아래와 같이 정리되었고, 각 분류군별 출현종은 본문과 부록에 반영하였다.
+한편, 문헌조사는 조사지역과 가장 근접하는 지역의 「제5차 전국자연환경조사 대전 2021」, 「제5차 전국자연환경조사 옥천 2021」, 「제5차 전국자연환경조사 마전 2022」, 「제5차 전국자연환경조사 이원 2022」,  「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」의 문헌자료를 선정, 분석하였다.
+조사지역의 육상동물 목록 집계표
+구   분
+분 류 군
+현지조사
+문  헌  조  사
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+포유류
+5과 5종
+8과 15종
+8과 15종
+5과 7종
+-
+8과 9종
+양서류
+2과 2종
+5과 9종
+5과 9종
+3과 7종
+4과 7종
+3과 5종
+파충류
+1과 2종
+2과 4종
+2과 6종
+1과 2종
+3과 6종
+4과 4종
+조류
+12과 16종
+28과 54종
+29과 61종
+-
+-
+12과 19종
+육상곤충류
+25과 51종
+61과 157종
+61과209종
+122과 424종
+115과 428종
+36과 63종
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+가) 포유류
+① 문헌조사
+문헌조사 결과, 문헌Ⅰ「제5차 전국자연환경조사 대전 2021」에서 삵, 담비 등 총 8과 15종이 확인되었으며, 문헌Ⅱ「제5차 전국자연환경조사 옥천 2021」에서 삵, 수달 등 총 8과 15종, 문헌Ⅲ「제5차 전국자연환경조사 마전 2022」에서 삵, 담비 등 총 5과 7종, 문헌Ⅴ「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」에서 삵, 수달 등 총 8과 9종이 확인되었다.
+문헌조사 시 법정보호종은 문헌Ⅰ,Ⅱ에서 삵, 수달, 담비 각각 3종, 문헌Ⅲ에서 삵, 담비 2종, 문헌Ⅴ에서 삵, 수달 2종이 확인되어 총 3종이 서식하는 것으로 집계되었다.
+② 현지조사
+국내 서식하는 포유류의 대부분은 중⸱소형의 분류군이고, 대부분 야행성인 바, 현장 조사기간에 성체를 목측하기는 상당히 어렵기 때문에 족흔, 배설물, 집흔적, 굴흔적 등의 서식흔적(Field sings)과 지역주민에 대한 탐문조사로 서식여부를 확인하였다.
+현지조사 결과, 조사지역에서는 고양이, 고라니 등 총 5과 5종이 조사, 탐문‧집계되었으며, 도로 및 나지, 경작지, 묘목장, 이차초원, 산림 등지에 분포하는 것으로 조사되었다.
+또한, 현지조사에서 법정보호종은 조사되지 않았다.
+조사지역의 포유류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅴ
+Order Artiodactyla
+우제목
+Family Cervidae
+사슴과
+Capeolus pygargus (Pallas)
+노루
+○
+○
+○
+Hydropotes inermis Swinhoe
+고라니
+F,D
+○
+○
+○
+○
+Family Suidae
+멧돼지과
+Sus scrofa Linnaeus
+멧돼지
+Q
+○
+○
+○
+○
+Order Carnivora
+식육목
+Family Canidae
+개과
+Nyctereutes procyonoides (Gray)
+너구리
+Q
+○
+○
+○
+Canis familialis
+개
+○
+○
+야
+Family Felidae
+고양이과
+Prionailurus bengalensis (Kerr)
+삵
+○
+○
+○
+○
+멸Ⅱ
+Felis catus
+고양이
+V
+○
+○
+○
+야
+Family Mustelidae
+족제비과
+Lutra lutra (Linnaeus)
+수달
+○
+○
+○
+천,멸Ⅰ
+Martes flavigula (Boddaert)
+담비
+○
+○
+○
+멸Ⅱ
+Meles leucurus (Hodgson)
+오소리
+○
+○
+○
+Mustela sibirica Pallas
+족제비
+○
+○
+Order Lagomorpha
+토끼목
+Family Leporidae
+토끼과
+Lepus coreanus Thomas
+멧토끼
+○
+Order Rodentia
+설치목
+Family Muridae
+쥐과
+Micromys minutus (Pallas)
+멧밭쥐
+○
+Rattus norvegicus (Berkenhout)
+집쥐
+○
+Family Sciuridae
+청설모과
+Sciurus vulgaris Linnaeus
+청설모
+○
+○
+EuTamias sibiricus (Laxmann)
+다람쥐
+○
+○
+○
+Order Soricomorpha
+첨서목
+Family Talpidae
+두더지과
+Mogera robusta Nehring
+두더지
+T
+○
+○
+○
+○
+출현종수 (NO.)
+5
+15
+15
+7
+9
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+주) 1. F : 발자국, D : 배설물, V : 목견, T : 터널, 기타, Q : 탐문
+2. 천 : 천연기념물, 멸Ⅰ,Ⅱ : 멸종위기 야생생물Ⅰ,Ⅱ급, 야 : 야생화
+나) 양서․파충류
+① 문헌조사
+문헌조사 결과, 문헌Ⅰ「제5차 전국자연환경조사 대전 2021」에서 무당개구리, 청개구리 등 양서류 5과 9종, 살모사, 누룩뱀 등 파충류 2과 4종, 문헌Ⅱ「제5차 전국자연환경조사 옥천 2021」에서 큰산개구리, 한국산개구리 등 양서류 5과 9종, 구렁이, 무자치 등 파충류 2과 6종, 문헌Ⅲ「제5차 전국자연환경조사 마전 2022」에서 계곡산개구리, 참개구리 등 양서류 3과 7종, 누룩뱀, 유혈목이 등 파충류 1과 2종, 문헌Ⅳ「제5차 전국자연환경조사 이원 2022」에서 도롱뇽, 무당개구리 등 양서류 4과 7종, 능구렁이, 줄장지뱀 등 파충류 3과 6종, 문헌Ⅴ「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」에서 두꺼비, 옴개구리 등 양서류 3과 5종, 도마뱀, 줄장지뱀 등 파충류 4과 4종이 확인되었다.
+문헌조사에서 법정보호종은 문헌Ⅱ에서 구렁이 1종이 확인되었으며, 총 1종이 집계되었다.
+② 현지조사
+조사지역은 도로 및 나지, 경작지, 묘목장, 이차초원, 산림 등이 분포하였다.
+현지조사 결과, 양서류는 참개구리, 청개구리 2과 2종이 조사되었으며, 파충류는 유혈목이, 누룩뱀 등 1과 2종이 조사되었다.
+또한 현지조사에서 법정보호종은 조사되지 않았다.
+조사지역 양서․파충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Class Amphibia
+양서강
+Order Caudata
+도롱뇽목
+Family Hynobiidae Cope
+도롱뇽과
+Hynobius leechii Boulenger
+도롱뇽
+○
+○
+○
+○
+Order Salientia
+개구리목(무미목)
+Family Bombinatoridae Gray
+무당개구리과
+Bombina orientalis (Boulenger)
+무당개구리
+○
+○
+○
+Family Bufonidae Gray
+두꺼비과
+Bufo gargarizans Cantor
+두꺼비
+○
+○
+○
+Family Hylidae Rafinesque
+청개구리과
+Hyla japonica Günther
+청개구리
+Q
+○
+○
+○
+○
+○
+Family Ranidae
+개구리과
+Rana coreana (Okada)
+한국산개구리
+○
+○
+○
+○
+Rana dybowskii Günther
+북방산개구리
+○
+Rana huanrenensis Fei, Ye and Huang
+계곡산개구리
+○
+○
+○
+Pelophylax nigromaculatus (Hallowell)
+참개구리
+Q
+○
+○
+○
+○
+○
+Glandirana rugosa (Temminck and Schlegel)
+옴개구리
+○
+○
+○
+○
+○
+Rana uenoi Matsui
+큰산개구리
+○
+○
+○
+○
+출현종수(No.)
+2
+9
+9
+7
+7
+5
+CLASS Reptilia
+파충강
+Order Sjuamata
+뱀목(유린목)
+Family Scincidae
+도마뱀과
+Scincella vandenburghi Schmidt
+도마뱀
+○
+<표 계속> 조사지역 양서․파충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Family Lacertidae
+장지뱀과
+Takydromus wolteri Fischer
+줄장지뱀
+○
+○
+Family Colubridae
+뱀과
+Elaphe dione Pallas
+누룩뱀
+Q
+○
+○
+○
+○
+Elaphe schrenckii Strauch
+구렁이
+○
+멸Ⅱ
+Oocatochus rufodorsatus Canter
+무자치
+○
+○
+Rhabdophis tigrinus Boie
+유혈목이
+Q
+○
+○
+○
+○
+○
+Dinodon rufozonatum Cantor
+능구렁이
+○
+○
+○
+Family Viperidae
+살모사과
+Gloydius ussuriensis Emelianov
+쇠살모사
+○
+○
+○
+Gloydius brevicaudus Stejneger
+살모사
+○
+출현종수(No.)
+2
+4
+6
+2
+6
+4
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+주) 1. Q : 탐문
+주) 2. 멸Ⅱ : 멸종위기 야생생물Ⅱ급
+다) 조류
+① 문헌조사
+문헌조사 결과, 문헌Ⅰ「제5차 전국자연환경조사 대전 2021」에서는 원앙, 소쩍새 등 총 28과 54종, 문헌Ⅱ「제5차 전국자연환경조사 옥천 2021」에서는 황조롱이, 새호리기 등 총 29과 61종, 문헌Ⅴ「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」에서는 활조롱이, 꿩 등 총 12과 19종이 서식⸱도래하는 것으로 집계되었다.
+법정보호종은 문헌Ⅰ에서 원앙(천연기념물 제327호), 황조롱이(천연기념물 제323-8호), 붉은배새매(천연기념물 제323-2호, 멸종위기야생생물Ⅱ급), 소쩍새(천연기념물 제324-6호), 솔부엉이(천연기념물 제324-3호) 5종, 문헌Ⅱ에서 황조롱이(천연기념물 제323-8호), 새호리기(멸종위기야생생물Ⅱ급), 붉은배새매(천연기념물 제323-2호, 멸종위기야생생물Ⅱ급), 소쩍새(천연기념물 제324-6호) 4종, 문헌Ⅴ에서 황조롱이(천연기념물 제323-8호) 1종이 조사되어 총 6종이 조사되었다.
+② 현지조사
+국내에 서식하는 조류는 대부분 경작지와 인접한 지역에서 먹이활동과 번식을 하는 분류군, 산림지대에서 활동하는 분류군, 계절별로 산림과 경작지를 이동하는 분류군, 그리고 여름철새와 겨울철새는 산림성 조류, 하천과 경작지에 도래하는 조류로 구별되고 있다. 또한, 조류는 이동성이 가장 뛰어난 동물로 먹이공급지, 휴식지 및 번식지 등의 다양한 서식환경을 요구하는 분류군이고, 서식처와 도래시기를 근거로 수조류, 산림 의존성 조류, 여름철새, 겨울철새, 텃새, 나그네새 등으로 구분하고 있다.
+현지조사 결과, 도로 및 나지, 경작지, 묘목장, 이차초원, 산림 등에서 참새, 물까치 등 총 12과 16종의 조류가 서식‧도래하는 것으로 조사되었다.
+또한 현지조사에서 법정보호종은 조사되지 않았다.
+③ 조사지역 종분포 현황
+사업계획지구와 주변지역에서 조사된 16종의 생활형은 텃새(Res) 14종(87.50%), 여름철새(Sv) 2종(12.50%)으로 텃새의 출현비율이 높게 조사되었다.
+분류군(Order)별 현황을 분석한 결과, 참새목(Passeriformes)이 14종(87.50%)으로 나타났으며, 딱따구리목(Piciformes), 비둘기목(Columbiformes)이 각각 1종(6.25%)으로 분석되었다.
+조사된 조류상의 군집분석 결과, 총 179개체의 조류가 조사되었으며, 참새(Passermont anus (Linnaeus))가 67개체(37.43%)로 가장 많은 개체수가 발견되어 우점종으로 확인되었다. 아우점종은 붉은머리오목눈이(Paradoxornis webbianus)로 51체(28.49%)로 나타났고, 다양도지수 1.88, 균등도지수 0.68, 풍부도지수 2.89으로 분석되었다.
+이동유형(life form)별 조류의 생활형 현황
+이동유형
+종수
+비율(%)
+텃새
+Res
+14
+87.50
+여름철새
+Sv
+2
+12.50
+합계
+16
+100.00
+조류의 분류군(Order)별 현황
+분류군(Order)
+종수
+비율(%)
+참새목
+(Passeriformes)
+14
+71.43
+딱따구리목
+(Piciformes)
+1
+9.52
+비둘기목
+(Columbiformes)
+1
+4.76
+합계
+16
+100.00
+조사지역 조류군집의 우점종 및 군집지수
+순위
+우점종
+우점율
+다양도지수
+균등도지수
+풍부도지수
+1
+참새(Passer montanus (Linnaeus))
+37.43
+1.88
+0.68
+2.89
+2
+붉은머리오목눈이(Paradoxornis webbianus)
+28.49
+각 분류군의 우점종군 순위도
+조사지역의 조류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지조사
+문헌조사
+보호종
+비고
+Ⅰ
+Ⅱ
+Ⅴ
+Order Galliformes
+닭목
+Family Phasianidae
+꿩과
+Phasianus colchicus Linnaeus
+꿩
+○
+○
+○
+Res
+Order Anseriformes
+기러기목
+Family Anatidae
+오리과
+Aix galericulata (Linnaeus)
+원앙
+○
+천
+Res
+Anas platyrhynchos Linnaeus
+청둥오리
+○
+○
+Wv
+Anas poecilorhyncha Forster
+흰뺨검둥오리
+○
+○
+Res
+Anas acuta Linnaeus
+고방오리
+○
+Wv
+Anas crecca Linnaeus
+쇠오리
+○
+Wv
+Aythya fuligula (Linnaeus)
+댕기흰죽지
+○
+Wv
+Order Ciconiformes
+황새목
+Family Ardeidae
+백로과
+Butorides striata (Linnaeus)
+검은댕기해오라기
+○
+Sv
+Ardea cinerea Linnaeus
+왜가리
+○
+○
+Sv
+Ardea alba Linnaeus
+중대백로
+○
+Sv
+Egretta garzetta (Linnaeus)
+쇠백로
+○
+○
+Sv
+Order Pelecaniformes
+사다새목
+Family Phalaorocoracidae
+가마우지과
+Phalacrocorax carbo (Linnaeus)
+민물가마우지
+○
+Res
+Order Falconiformes
+매목
+Family Falconidae
+매과
+Falco tinnunculus Linnaeus
+황조롱이
+○
+○
+○
+천
+Res
+Falco subbuteo Linnaeus
+새호리기
+○
+Ⅱ
+Sv
+Family Accipitridae
+수리과
+Accipiter soloensis (Horsfield)
+붉은배새매
+○
+○
+천,Ⅱ
+Sv
+Buteo buteo (Linnaeus)
+말똥가리
+○
+Wv
+Order Charadriiformes
+도요목
+Family Scolopacidae
+도요과
+Actitis hypoleucos (Linnaeus)
+깝작도요
+○
+Pm
+Order Columbiformes
+비둘기목
+Family Columbidae
+비둘기과
+Streptopelia orietalis (Latham)
+멧비둘기
+7
+○
+○
+○
+Res
+Order Cuculiformes
+두견이목
+Family Cuculidae
+두견이과
+Cuculus canorus Linnaeus
+뻐꾸기
+○
+○
+Sv
+Cuculus saturatus Blyth
+벙어리뻐꾸기
+○
+○
+Sv
+Order Strigiformes
+올빼미목
+Family Strigidae
+올빼미과
+Otus sunia (Hodgson)
+소쩍새
+○
+○
+천
+Sv
+Ninox scutulata (Raffles)
+솔부엉이
+○
+천
+Sv
+Order Coraciiformes
+파랑새목
+Family coraciidae
+파랑새과
+Eurystomus orientalis (Linnaeus)
+파랑새
+○
+○
+Sv
+Family Alcedinidae
+물총새과
+Alcedo atthis (Linnaeus)
+물총새
+○
+○
+Sv
+Order Piciformes
+딱다구리목
+Family Picidae
+딱다구리과
+Dendrocopos kizuki (Temminck)
+쇠딱다구리
+1
+○
+○
+Res
+Dendrocopos leucotos (Bechstein)
+큰오색딱다구리
+○
+○
+Res
+Dendrocopos major (Linnaeus)
+오색딱다구리
+○
+○
+Res
+Picus canus Gmelin
+청딱다구리
+○
+○
+Res
+<표 계속> 조사지역의 조류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지조사
+문헌조사
+보호종
+비고
+Ⅰ
+Ⅱ
+Ⅴ
+Order Passeriformes
+참새목
+Family Laniidae
+때까치과
+Lanius tigrinus Drapiez
+칡때까치
+○
+Pm
+Lanius bucephalus Temminck & Schlegel
+때까치
+○
+○
+Res
+Family Oriolidae
+꾀꼬리과
+Oriolus chinensis Linnaeus
+꾀꼬리
+○
+○
+Sv
+Family corvidae
+까마귀과
+Garrulus glandarius (Linnaeus)
+어치
+○
+○
+○
+Res
+Cyanopica cyanus (Pallas)
+물까치
+16
+○
+○
+○
+Res
+Pica pica (Linnaeus)
+까치
+4
+○
+○
+○
+Res
+Corvus corone Linnaeus
+까마귀
+○
+○
+Res
+Corvus macrorhynchos Wagler
+큰부리까마귀
+8
+○
+○
+○
+Res
+Family Paridae
+박새과
+Parus major Linnaeus
+박새
+3
+○
+○
+○
+Res
+Parus ater Linnaeus
+진박새
+1
+○
+○
+Res
+Parus varius Temminck & Schlegel
+곤줄박이
+○
+○
+○
+Res
+Parus palustris Linnaeus
+쇠박새
+1
+○
+○
+○
+Res
+Family Hirundinidae
+제비과
+Hirundo rustica Linnaeus
+제비
+○
+Sv
+Family Aegithalidae
+오목눈이과
+Aegithalos caudatus (Linnaeus)
+오목눈이
+○
+○
+Res
+Family Pycnonotidae
+직박구리과
+Microscelis amaurotis (Temminck)
+직박구리
+5
+○
+○
+○
+Res
+Family Sylviidae
+휘파람새과
+Urosphena squameiceps (Swinhoe)
+숲새
+○
+Sv
+Phylloscopus inornatus (Blyth)
+노랑눈썹솔새
+○
+Pm
+Phylloscopus coronatus (Temminck & Schlegel)
+산솔새
+○
+Sv
+Family Timaliidae
+붉은머리오목눈이과
+Paradoxornis webbianus (Gould)
+붉은머리오목눈이
+51
+○
+○
+○
+Res
+Family Reguliidae
+상모솔새과
+Regulus regulus (Linnaeus)
+상모솔새
+○
+○
+Wv
+Family Sittidae
+동고비과
+Sitta europaea (Linnaeus)
+동고비
+2
+○
+○
+Res
+Family Sturnidae
+찌르레기과
+Sturnus cineraceus Temminck
+찌르레기
+1
+○
+○
+Sv
+Family Turdidae
+지빠귀과
+Zoothera aurea (Holandre)
+호랑지빠귀
+○
+Sv
+Turdus hortulorum Sclater
+되지빠귀
+○
+○
+Sv
+Turdus pallidus Gmelin
+흰배지빠귀
+○
+○
+Sv
+Turdus eunomus Temminck
+개똥지빠귀
+○
+Wv
+Family Muscicapidae
+솔딱새과
+Phoenicurus auroreus (Pallas)
+딱새
+4
+○
+○
+○
+Res
+Cyanoptila cyanomelana (Temminck)
+큰유리새
+○
+○
+Sv
+Family Passeridae
+참새과
+Passer montanus (Linnaeus)
+참새
+67
+○
+○
+○
+Res
+Family Motacllidae
+할미새과
+Motacilla cinerea Tunstall
+노랑할미새
+○
+○
+Sv
+Motacilla alba Linnaeus
+알락할미새
+2
+○
+○
+Sv
+Motacilla lugens Gloger
+백할미새
+○
+Wv
+Motacilla grandis Sharpe
+검은등할미새
+○
+Res
+Anthus hodgsoni Richmond
+힝둥새
+○
+Pm
+<표 계속> 조사지역의 조류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지조사
+문헌조사
+보호종
+비고
+Ⅰ
+Ⅱ
+Ⅴ
+Family Fringillidae
+되새과
+Fringilla montifringilla Linnaeus
+되새
+○
+○
+○
+Wv
+Carduelis sinica (Linnaeus)
+방울새
+○
+○
+Res
+Carduelis spinus (Linnaeus)
+검은머리방울새
+○
+Wv
+Eophona migratoria Hartert
+밀화부리
+○
+○
+Sv
+Family Emberizidae
+멧새과
+Emberiza cioides Brandt
+멧새
+○
+Res
+Emberiza tristrami Swinhoe
+흰배멧새
+○
+○
+Pm
+Emberiza rustica Pallas
+쑥새
+○
+○
+○
+Wv
+Emberiza elegans Temminck
+노랑턱멧새
+6
+○
+○
+○
+Res
+출현종수 (NO.)
+16
+54
+61
+19
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+주) Res : 텃새, SV : 여름철새, WV : 겨울철새, Pm : 나그네새, 천 : 천연기념물, 멸 Ⅰ,Ⅱ멸종위기 야생생물 Ⅰ,Ⅱ급
+라) 육상곤충류
+① 문헌조사
+문헌조사 결과, 문헌Ⅰ「제5차 전국자연환경조사 대전 2021」에서 땅노린재, 땅벌 등 총 61과 157종, 문헌Ⅱ「제5차 전국자연환경조사 옥천 2021」에서 산바퀴, 베짱이 등 총 61과 209종, 문헌Ⅲ「제5차 전국자연환경조사 마전 2022」에서 물결나비, 무당벌레 등 총 122과 424종, 문헌Ⅳ「제5차 전국자연환경조사 이원 2022」에서 제비나비, 긴꼬리 등 총 115과 428종, 문헌Ⅴ「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」에서 콩중이, 양봉꿀벌 등 총 36과 63종이 조사되었다.
+법정보호종은 문헌조사에서 확인되지 않았다.
+② 현지조사
+사업계획지구 주변에 위치한 산림은 인위적으로 형성된 산림으로 단순한 식생을 형성함에 따라 일반적으로 저지대의 도로 및 나지, 이차초원, 경작지, 산림 등에서 흔히 관찰되는 종이 주로 서식, 분포할 것으로 예상된다.
+현지조사 결과, 네발나비, 칠성무당벌레 등 총 25과 51종이 조사되었다.
+조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Order Ephemeroptera
+하루살이목
+Family Ephemeridae
+하루살이과
+Ephemera orientalis
+동양하루살이
+○
+Family Ephemerellidae
+알락하루살이과
+Teloganopsis punctisetae
+등줄하루살이
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Order Odonata
+잠자리목
+Family Calopterygidae
+물잠자리과
+Calopteryx atrata
+검은물잠자리
+○
+○
+Calopteryx japonica
+물잠자리
+○
+Family Coenagrionidae
+실잠자리과
+Paracercion melanotum
+작은등줄실잠자리
+○
+Ischnura asiatica
+아시아실잠자리
+○
+Family Platycnemididae
+방울실잠자리과
+Platycnemis phyllopoda
+방울실잠자리
+○
+Family Gomphidae
+측범잠자리과
+Anisogomphus maacki
+마아키측범잠자리
+○
+Davidius lunatus
+쇠측범잠자리
+○
+Family Libellulidae
+잠자리과
+Lyriothemis pachygastra
+배치레잠자리
+○
+Orthetrum albistylum
+밀잠자리
+○
+○
+Orthetrum lineostigma
+홀쭉밀잠자리
+○
+Orthetrum melania
+큰밀잠자리
+○
+○
+Crocothemis servilia
+고추잠자리
+○
+Sympetrum darwinianum
+여름좀잠자리
+○
+Sympetrum depressiusculum
+고추좀잠자리
+○
+○
+○
+Sympetrum eroticum
+두점박이좀잠자리
+○
+○
+Sympetrum infuscatum
+깃동잠자리
+○
+○
+○
+○
+Sympetrum pedemontanum elatum
+날개띠좀잠자리
+○
+○
+○
+○
+Pantala flavescens
+된장잠자리
+○
+○
+Order Dictyoptera
+바퀴목
+Family Ectobiidae
+Ectobiidae과
+Blattella nipponica
+산바퀴
+○
+○
+○
+○
+○
+○
+Order Mantodea
+사마귀목
+Family Mantidae
+사마귀과
+Statilia maculata
+좀사마귀
+○
+○
+○
+Hierodula patellifera
+넓적배사마귀
+○
+Tenodera angustipennis
+사마귀
+○
+○
+○
+Tenodera sinensis
+왕사마귀
+○
+○
+○
+Order Dermaptera
+집게벌레목
+Family Anisolabididae
+민집게벌레과
+Euborellia annulipes
+애흰수염집게벌레
+○
+Gonolabis marginalis
+끝마디통통집게벌레
+○
+Family Labiduridae
+집게벌레과
+Anechura japonica
+좀집게벌레
+○
+○
+Timomenus komarowi
+고마로브집게벌레
+○
+○
+○
+Order Orthoptera
+메뚜기목
+Family Rhaphidophoridae
+꼽등이과
+Diestrammena (Diestrammena) unicolor
+장수꼽등이
+○
+○
+Diestrammena (Tachycines) asynamora
+알락꼽등이
+○
+○
+Diestrammena (Tachycines) coreana
+꼽등이
+○
+Paratachycines (Paratachycines) ussuriensis
+검정꼽등이
+○
+○
+○
+○
+Family Gryllacrididae
+어리여치과
+Eugryllacris japonica
+어리여치
+○
+Nippancistroger testaceus
+민어리여치
+○
+Family Tettigoniidae
+여치과
+Conocephalus (Amurocephalus) chinensis
+쌕쌔기
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Conocephalus (Anisoptera) exemptus
+긴꼬리쌕쌔기
+○
+○
+○
+Sinochlora longifissa
+날베짱이
+○
+Hexacentrus japonicus japonicus
+베짱이
+○
+○
+Ducetia japonica
+줄베짱이
+○
+○
+Chizuella bonneti
+잔날개여치
+○
+○
+Gampsocleis sedakovii obscura
+여치
+○
+○
+Gampsocleis ussuriensis
+긴날개여치
+○
+○
+Paratlanticus ussuriensis
+갈색여치
+○
+○
+○
+Phaneroptera falcata
+실베짱이
+○
+○
+Phaneroptera nigroantennata
+검은다리실베짱이
+○
+○
+○
+Family Gryllidae
+귀뚜라미과
+Loxoblemmus campestris
+알락귀뚜라미
+○
+Loxoblemmus equestris
+야산알락귀뚜라미
+○
+○
+Teleogryllus (Brachyteleogryllus) emma
+왕귀뚜라미
+○
+○
+○
+Velarifictorus (Velarifictorus) aspersus borealis
+탈귀뚜라미
+○
+○
+Velarifictorus (Velarifictorus) micado
+극동귀뚜라미
+○
+Gryllus (Gryllus) sibiricus
+먹귀뚜라미
+○
+Polionemobius mikado
+좀방울벌레
+○
+Oecanthus longicauda
+긴꼬리
+○
+○
+Metioche japonica
+먹종다리
+○
+Family Gryllotalpidae
+땅강아지과
+Gryllotalpa orientalis
+땅강아지
+○
+Family Tridactylidae
+좁쌀메뚜기과
+Xya japonica
+좁쌀메뚜기
+○
+○
+Family Tetrigidae
+모메뚜기과
+Tetrix japonica
+모메뚜기
+○
+○
+○
+○
+Family Pyrgomorphidae
+섬서구메뚜기과
+Atractomorpha lata
+섬서구메뚜기
+○
+○
+Family Acrididae
+메뚜기과
+Acrida cinerea cinerea
+방아깨비
+○
+○
+○
+Shirakiacris shirakii
+등검은메뚜기
+○
+○
+○
+○
+Chorthippus brunneus
+애메뚜기
+Mongolotettix japonicus japonicus
+삽사리
+○
+○
+Gonista bicolor
+딱따기
+○
+Anapodisma beybienkoi
+팔공산밑들이메뚜기
+○
+Ognevia longipennis
+긴날개밑들이메뚜기
+○
+Gastrimargus marmoratus
+콩중이
+○
+○
+Locusta migratoria migratoria
+풀무치
+○
+○
+Oedaleus infernalis
+팥중이
+○
+○
+○
+○
+Trilophidia annulata
+두꺼비메뚜기
+○
+○
+Oxya chinensis sinuosa
+우리벼메뚜기
+○
+○
+○
+○
+Order Coleoptera
+딱정벌레목
+Family Carabidae
+딱정벌레과
+Amara chalcites
+둥글먼지벌레
+○
+Bembidion semilunium muchei
+미륵강변먼지벌레
+Brachinus (Brachinidius) stenoderus
+꼬마목가는먼지벌레
+○
+Pheropsophus (Stenaptinus) jessoensis
+폭탄먼지벌레
+○
+Chlaenius (Achlaenius) variicornis
+미륵무늬먼지벌레
+○
+Chlaenius (Chlaenius) pallipes
+풀색먼지벌레
+○
+Chlaenius (Haplochlarnius) costiger
+줄먼지벌레
+○
+Chlaenius (Lissauchenius) naeviger
+쌍무늬먼지벌레
+○
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Chlaenius (Lissauchenius) posticalis
+노랑무늬먼지벌레
+○
+Coptolabrus jankowskii jankowskii
+멋쟁이딱정벌레
+○
+○
+○
+Coptolabrus smaragdinus branickii
+진홍단딱정벌레
+○
+○
+○
+○
+Drypta japonica
+청띠호리먼지벌레
+○
+Anisodactylus (Pseudanisodactyhis) punctatipennis
+점박이먼지벌레
+○
+○
+Acupalpus (Palcuapus) inornatus
+꼬마노랑먼지벌레
+○
+Parena cavipennis
+납작선두리먼지벌레
+○
+○
+Parena monostigma
+한점선두리먼지벌레
+○
+○
+Dicranoncus femoralis
+남색납작먼지벌레
+○
+Colpodes (Loxocrepis) rubriolus
+붉은머리줄납작먼지벌레
+○
+Pristosia vigil
+만주애납작먼지벌레
+○
+○
+Synuchus (Crepidactyla) nitidus
+윤납작먼지벌레
+○
+Synuchus (Synuchus) arcuaticollis
+둥근칠납작먼지벌레
+○
+Synuchus (Synuchus) cycloderus
+붉은칠납작먼지벌레
+○
+○
+○
+Synuchus (Synuchus) melantho
+검정칠납작먼지벌레
+○
+○
+Galerita (Galerita) orientalis
+목가는먼지벌레
+○
+Planetes (Planetes) puncticeps
+두점박이먼지벌레
+○
+Family Hydrophilidae
+물땡땡이과
+Berosus (Enoplurus) spinosus
+가시점박이물땡땡이
+○
+Hydrochara affinis
+잔물땡땡이
+○
+Family Histeridae
+풍뎅이붙이과
+Margarinotus (Grammostethus) niponicus
+좀풍뎅이붙이
+○
+Family Silphidae
+송장벌레과
+Nicrophorus concolor
+검정송장벌레
+○
+○
+Nicrophorus quadripunctatus
+넉점박이송장벌레
+○
+○
+○
+○
+Ptomascopus morio
+꼬마검정송장벌레
+○
+○
+○
+Necrodes littoralis
+큰수중다리송장벌레
+○
+Necrophila (Calosilpha) brunneicollis brunneicollis
+대모송장벌레
+○
+Necrophila (Eusilpha) jakowlewi jakowlewi
+큰넓적송장벌레
+○
+○
+Family Staphylinidae
+반날개과
+Isocheilus staphylinoides
+큰개미반날개
+○
+Cyparium mikado
+주름밑빠진버섯벌레
+○
+Tympanophorus sauteri sauteri
+점박이반날개
+○
+○
+Ocypus (Ocypus) weisei
+노랑털검정반날개
+○
+Ocypus (Pseudocypus) nigroaeneus
+검정반날개
+○
+Ontholestes gracilis
+녹슬은반날개
+○
+○
+Philonthus (Philonthus) cyanipennis
+남색좀반날개
+○
+Philonthus (Philonthus) ohizumi
+소똥좀반날개
+○
+Platydracus (Platydracus) brevicornis
+홍딱지반날개
+○
+○
+○
+○
+Oxyporus germanus
+극동입치레반날개
+○
+Family Lucanidae
+사슴벌레과
+Dorcus rectus rectus
+애사슴벌레
+○
+Dorcus titanus castanicolor
+넓적사슴벌레
+○
+Family Geotrupidae
+금풍뎅이과
+Phelotrupes (Chromogeotrupes) auratus auratus
+보라금풍뎅이
+○
+Family Scarabaeidae
+소똥구리과
+Onthophagus atripennis Waterhouse
+검정혹가슴소똥풍뎅이
+○
+○
+○
+○
+Liatongus phanaeoides
+창뿔소똥구리
+○
+Onthophagus (Parentius) punctator
+꼬마곰보소똥풍뎅이
+○
+Onthophagus (Phanaeomorphus) fodiens
+모가슴소똥풍뎅이
+○
+○
+○
+Onthophagus (Strandius) japonicus
+소요산소똥풍뎅이
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Onthophagus (Strandius) lenzii lenzii
+렌지소똥풍뎅이
+○
+○
+Popillia mutans
+콩풍뎅이
+○
+○
+○
+Family Ochodaeidae
+붙이금풍뎅이과
+Ochodaeus maculatus koreanus
+극동붙이금풍뎅이
+○
+Family Melolonthidae
+검정풍뎅이과
+Heptophylla picea
+긴다색풍뎅이
+○
+○
+Gastroserica herzi
+줄우단풍뎅이
+○
+Maladera aureola
+금색우단풍뎅이
+○
+Maladera cariniceps
+알모양우단풍뎅이
+○
+○
+Maladera verticalis
+빨간색우단풍뎅이
+○
+Holotrichia parallela
+큰검정풍뎅이
+○
+Family Rutelidae
+풍뎅이과
+Adoretus hirsutus
+쇠털차색풍뎅이
+○
+Adoretus tenuimaculatus
+주둥무늬차색풍뎅이
+○
+○
+Proagopertha lucidula
+참나무장발풍뎅이
+○
+Anomala chamaeleon
+카멜레온줄풍뎅이
+○
+Blitopertha orientalis
+등얼룩풍뎅이
+○
+○
+Blitopertha pallidipennis
+연노랑풍뎅이
+○
+Callistethus plagiicollis
+등노랑풍뎅이
+○
+○
+Family Cetoniidae
+꽃무지과
+Gametis jucunda
+풀색꽃무지
+○
+○
+○
+Protaetia brevitarsis seulensis
+흰점박이꽃무지
+○
+Clinterocera obsoleta
+홀쭉꽃무지
+○
+Lasiotrichius succinctus
+호랑꽃무지
+○
+○
+○
+○
+Nipponovalgus angusticollis
+넓적꽃무지
+○
+Pseudotorynorrhina japonica
+풍이
+○
+Family Psephenidae
+물삿갓벌레과
+Eubrianax ramicornis
+둥근물삿갓벌레
+○
+Family Buprestidae
+비단벌레과
+Agrilus chujoi
+황녹색호리비단벌레
+○
+○
+Agrilus plasoni plasoni
+멋쟁이호리비단벌레
+○
+Family Elateridae
+방아벌레과
+Agrypnus binodulus coreanus
+녹슬은방아벌레
+○
+○
+○
+Ludioschema vittiger vittiger
+검정테광방아벌레
+○
+○
+Orthostethus sieboldi sieboldi
+시이볼드방아벌레
+○
+Melanotus (Spheniscosomus) cete cete
+붉은다리빗살방아벌레
+○
+○
+Family Cantharidae
+병대벌레과
+Cantharis (Cantharis) soeulensis
+서울병대벌레
+○
+Cantharis (Cyrtomoptila) plagiata
+붉은가슴병대벌레
+○
+○
+Family Cleridae
+개미붙이과
+Opilo mollis
+긴개미붙이
+○
+Family Malachiidae
+무늬의병벌레과
+Malachius (Malachius) prolongatus
+노랑무늬의병벌레
+○
+○
+Family Nitidulidae
+밑빠진벌레과
+Glischrochilus (Librodor) japonicus
+네눈박이밑빠진벌레
+○
+Aethina (Aethina) inconspicua
+애밑빠진벌레
+○
+Omosita colon
+점박이송장밑빠진벌레
+○
+Family Endomychidae
+무당벌레붙이과
+Ancylopus pictus asiaticus
+무당벌레붙이
+○
+Family Coccinellidae
+무당벌레과
+Calvia muiri
+네점가슴무당벌레
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Coccinella (Coccinella) septempunctata
+칠성무당벌레
+○
+○
+○
+○
+○
+Harmonia axyridis
+무당벌레
+○
+○
+○
+○
+○
+Harmonia yedoensis
+소나무무당벌레
+○
+Propylea japonica
+꼬마남생이무당벌레
+○
+○
+○
+Chilocorus kuwanae
+애홍점박이무당벌레
+○
+Family Mordellidae
+꽃벼룩과
+Mordella brachyura brachyura
+꽃벼룩
+○
+○
+Family Oedemeridae
+하늘소붙이과
+Oedemeronia testaceithorax
+큰알통다리하늘소붙이
+○
+Oedemera (Oedemera) lucidicollis flaviventris
+시베르스하늘소붙이
+○
+○
+Oedemera (Oedemera) lucidicollis lucidicollis
+알통다리하늘소붙이
+○
+Family Tenebrionidae
+거저리과
+Cteniopinus hypocrita
+노랑썩덩벌레
+○
+Cerogria janthinipennis
+큰남색잎벌레붙이
+○
+Blindus strigosus
+제주거저리
+○
+Heterotarsus carinula
+강변거저리
+○
+Misolampidius tentyrioides
+호리병거저리
+○
+Family Cerambycidae
+하늘소과
+Polyzonus (Polyzonus) fasciatus
+노랑띠하늘소
+○
+Rhaphuma diminuta diminuta
+꼬마긴다리범하늘소
+○
+○
+Xylotrechus (Xylotrechus) cuneipennis
+세줄호랑하늘소
+○
+Distenia gracilis gracilis
+깔따구하늘소
+○
+Agapanthia (Epoptes) amurensis
+남색초원하늘소
+○
+○
+Moechotypa diphysis
+털두꺼비하늘소
+○
+Acalolepta sejuncta sejuncta
+작은우단하늘소
+○
+○
+Nupserha marginella marginella
+선두리하늘소
+○
+Phytoecia (Phytoecia) rufiventris
+국화하늘소
+○
+Leptura aethiops
+꽃하늘소
+○
+Leptura annularis annularis
+긴알락꽃하늘소
+○
+Stictoleptura (Aredolpona) rubra
+붉은산꽃하늘소
+○
+○
+○
+Strangalomorpha tenuis tenuis
+깔따구꽃하늘소
+○
+Pidonia (Omphalodera) puziloi
+넉점각시하늘소
+○
+Spondylis buprestoides
+검정하늘소
+○
+Family Chrysomelidae
+잎벌레과
+Nonarthra cyanea
+점날개잎벌레
+○
+○
+○
+Phygasia fulvipennis
+황갈색잎벌레
+○
+○
+Sphaeroderma apicale
+끝빨강공벼룩잎벌레
+○
+○
+Glyphocassis spilota spilota
+남생이잎벌레붙이
+○
+Chrysolina (Anopachys) aurichalcea
+쑥잎벌레
+○
+○
+Lema (Lema) concinnipennis
+배노랑긴가슴잎벌레
+○
+Lema (Lema) decempunctata
+열점박이잎벌레
+○
+Lema (Lema) diversa
+적갈색긴가슴잎벌레
+○
+Lema (Petauristes) adamsii
+점박이큰벼잎벌레
+○
+○
+Physosmaragdina nigrifrons
+밤나무잎벌레
+○
+○
+Basilepta fulvipes
+금록색잎벌레
+○
+○
+Pagria signata (Motschulsky)
+콩잎벌레
+○
+○
+Ophraella communa
+돼지풀잎벌레
+○
+○
+○
+○
+Agelasa nigriceps
+노랑가슴녹색잎벌레
+○
+○
+Agelastica coerulea
+오리나무잎벌레
+○
+Gallerucida bifasciata
+상아잎벌레
+○
+○
+○
+Aulacophora indica
+오이잎벌레
+○
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Aulacophora nigripennis nigripennis
+검정오이잎벌레
+○
+Paridea (Paridea) angulicollis
+세점박이잎벌레
+○
+Monolepta shirozui
+어리발톱잎벌레
+○
+○
+Taphinellina flaviventris
+노랑배잎벌레
+○
+Aspidomorpha (Aspidomorpha) transparipennis
+모시금자라남생이잎벌레
+○
+Chrysochus chinensis
+중국청람색잎벌레
+○
+Cryptocephalus (Cryptocephalus) hyacinthinus
+소요산잎벌레
+○
+Family Rhynchitidae
+주둥이거위벌레과
+Cyllorhynchites ursulus quercuphillus
+도토리거위벌레
+○
+○
+Family Attelabidae
+거위벌레과
+Apoderus jekeli
+거위벌레
+○
+Paracycnotrachelus chinensis
+왕거위벌레
+○
+○
+Euops (Parasynaptopsis) lespedezae koreanus
+싸리남색거위벌레
+○
+Family Anthribidae
+소바구미과
+Exechesops leucopis
+소바구미
+○
+Family Curculionidae
+바구미과
+Anthinobaris dispilota dispilota
+흰점박이꽃바구미
+○
+Eugnathus distinctus
+쌍무늬바구미
+○
+Lepidepistomodes fumosus
+주둥이바구미
+○
+○
+Nothomyllocerus illitus
+칠주둥이바구미
+○
+○
+Hylobius (Callirus) harodi
+솔곰보바구미
+○
+Sternuchopsis (Mesalcidodes) trifidus
+배자바구미
+○
+Tomicus piniperda
+소나무좀
+○
+Ambrosiodmus rubricollis
+붉은목나무좀
+○
+Curculio dentipes
+도토리밤바구미
+○
+○
+Enaptorhinus granulatus
+털보바구미
+○
+Order Hymenoptera
+벌목
+Family Argidae
+등에잎벌과
+Arge pagana
+장미등에잎벌
+○
+Arge similis
+극동등에잎벌
+○
+Family Cimbicidae
+수중다리잎벌과
+Abia formosa
+구리수중다리잎벌
+○
+Family Tenthredinidae
+잎벌과
+Athalia rosae ruficornis
+무잎벌
+○
+○
+Tenthredo mortivaga
+황호리병잎벌
+○
+○
+Dolerus ephippiatus
+등빨간잎벌
+○
+Family Braconidae
+고치벌과
+Phanerotoma flava
+황고치벌
+○
+Family Ichneumonidae
+맵시벌과
+Dusona matsumurae
+두소자루맵시벌
+○
+Hemigaster taiwanus
+대만세마디뾰족맵시벌
+○
+Coelichneumon deliratorius deliratorius
+린네맵시벌
+○
+Eupalamus sinensis
+당홍맵시벌
+○
+Metopius (Ceratopius) citratus citratus
+줄뭉툭맵시벌
+○
+Metopius (Ceratopius) citratus trifasciatus
+세줄뭉툭맵시벌
+○
+Ophion ainoicus
+등줄왕자루맵시벌
+○
+○
+Family Mutillidae
+개미벌과
+Cystomutilla teranishii
+쌍혹개미벌
+○
+Mutilla mikado
+구주개미벌
+○
+○
+Family Scoliidae
+배벌과
+Scolia nobilis
+어리줄배벌
+○
+Scolia oculata
+황띠배벌
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Family Formicidae
+개미과
+Camponotus japonicus
+일본왕개미
+○
+○
+○
+○
+Formica japonica
+곰개미
+○
+○
+○
+Lasius alienus
+누운털개미
+○
+Lasius japonicus
+고동털개미
+○
+Nylanderia flavipes
+스미드개미
+○
+○
+Aphaenogaster japonica
+일본장다리개미
+○
+Crematogaster matsumurai
+마쓰무라밑드리개미
+○
+Crematogaster vagula
+등굽은꼬리치레개미
+○
+Crematogaster osakensis
+노랑밑드리개미
+○
+○
+○
+Crematogaster teranishii
+검정밑드리개미
+○
+Pheidole fervida
+극동혹개미
+○
+○
+Pristomyrmex punctatus
+그물등개미
+○
+○
+Tetramorium tsushimae
+주름개미
+○
+Ectomomyrmex javana
+일본침개미
+○
+○
+○
+○
+Family Pompilidae
+대모벌과
+Auplopus takachihoi
+거미다잡이대모벌
+○
+Clistoderes (Paraclistoderes) futabae
+블록이마대모벌
+○
+Cyphononyx fulvognathus
+대모벌
+○
+Eopompilus minor
+애빌로오드대모벌
+○
+Anospilus carbonicolor
+검정대모벌
+○
+Episyron arrogans
+허리무늬대모벌
+○
+○
+Parabatozonus annulatus
+황띠대모벌
+○
+Ceropales (Ceropales) maculata maculata
+무늬대모벌
+○
+Family Vespidae
+말벌과
+Oreumenes decoratus
+큰호리병벌
+○
+○
+Parapolybia indica
+큰뱀허물쌍살벌
+○
+○
+○
+Parapolybia varia
+뱀허물쌍살벌
+○
+○
+Polistes chinensis antennalis
+두눈박이쌍살벌
+○
+Polistes mandarinus
+어리별쌍살벌
+○
+○
+Polistes yokahamae
+등검정쌍살벌
+○
+○
+Vespa analis parallela
+좀말벌
+○
+○
+Vespa crabro flabofasciata
+말벌
+○
+○
+○
+Vespa mandarinia
+장수말벌
+○
+Vespa velutina nigrithorax
+등검은말벌
+○
+○
+Vespula flaviceps flaviceps
+땅벌
+○
+Vespula koreensis koreensis
+참땅벌
+○
+○
+○
+Family Sphecidae
+구멍벌과
+Ammophila infesta
+나나니
+○
+○
+Hoplammophila aemulans
+왕나나니
+○
+Family Crabronidae
+은주둥이벌과
+Lestica eiteri
+이와타목대장은주둥이벌
+○
+Family Halictidae
+꼬마꽃벌과
+Lasioglossum (Lophalictus) proximatum
+흰발목줄애꽃벌
+○
+Seladonia (Seladonia) aeraria
+구리꼬마꽃벌
+○
+○
+Family Megachilidae
+가위벌과
+Coelioxys yanonis
+야노뾰족벌
+○
+Family Apidae
+꿀벌과
+Bombus (Bombus) ignitus
+호박벌
+○
+Bombus (Pyrobombus) ardens ardens
+좀뒤영벌
+○
+○
+Eucera (Synhalonia) nipponensis
+일본애수염줄벌
+○
+Ceratina (Ceratinida) japonica
+일본광채꽃벌
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Xylocopa appendiculata circumvolacs
+어리호박벌
+○
+Apis cerana
+재래꿀벌
+○
+Apis mellifera
+양봉꿀벌
+○
+○
+○
+○
+○
+Nomada japonica
+왜알락꽃벌
+○
+○
+Order Phasmida
+대벌레목
+Family Phasmatidae
+대벌레과
+Phraortes illepidus
+긴수염대벌레
+○
+Order Hemiptera
+노린재목
+Family Nepidae
+장구애비과
+Nepa hoffmanni
+메추리장구애비
+○
+Family Nabidae
+쐐기노린재과
+Gorpis (Oronabis) brevilineatus
+빨간긴쐐기노린재
+○
+○
+Nabis (Nabis) stenoferus
+긴날개쐐기노린재
+○
+Family Miridae
+장님노린재과
+Deraeocoris (Deraeocoris) ater
+밀감무늬검정장님노린재
+○
+○
+Deraeocoris (Deraeocoris) castaneae
+밤무늬장님노린재
+○
+Adelphocoris demissus
+목도리장님노린재
+○
+Adelphocoris suturalis
+변색장님노린재
+○
+○
+Adelphocoris triannulatus
+설상무늬장님노린재
+○
+○
+○
+Apolygus spinolae
+애무늬고리장님노린재
+○
+Charagochilus (Charagochilus) angusticollis
+흰솜털검정장님노린재
+○
+Eurystylus coelestialium
+탈장님노린재
+○
+Ectmetopterus micantulus
+큰검정뛰어장님노린재
+○
+Orthotylus (Melanotrichus) flavosparsus
+명아주장님노린재
+○
+Family Tingidae
+방패벌레과
+Corythucha marmorata
+국화방패벌레
+○
+Family Reduviidae
+침노린재과
+Sphedanolestes (Sphedanolestes) impressicollis
+다리무늬침노린재
+○
+○
+○
+Family Berytidae
+실노린재과
+Yemma exilis
+실노린재
+○
+Family Malcidae
+뽕나무노린재과
+Chauliops fallax
+게눈노린재
+○
+Malcus japonicus
+뽕나무노린재
+○
+Family Lygaeidae
+긴노린재과
+Geocoris (Piocoris) varius
+큰딱부리긴노린재
+○
+○
+Tropidothorax cruciger
+십자무늬긴노린재
+○
+○
+○
+○
+Nysius plebejus
+애긴노린재
+○
+○
+○
+Pachygrontha antennata antennata
+더듬이긴노린재
+○
+○
+○
+Paraparomius lateralis
+측무늬표주박긴노린재
+○
+○
+Panaorus albomaculatus
+흰무늬긴노린재
+○
+○
+Panaorus csikii
+어리흰무늬긴노린재
+○
+○
+Remaudiereana flavipes
+노란털긴노린재
+○
+○
+Family Pyrrhocoridae
+별노린재과
+Pyrrhocoris sibiricus
+땅별노린재
+○
+Family Coreidae
+허리노린재과
+Acanthocoris sordidus
+꽈리허리노린재
+○
+○
+○
+Hygia (Colpura) lativentris
+떼허리노린재
+○
+○
+Cletus punctiger
+시골가시허리노린재
+○
+○
+Cletus schmidti
+우리가시허리노린재
+○
+○
+○
+○
+○
+Plinachtus bicoloripes
+노랑배허리노린재
+○
+Homoeocerus (Tliponius) dilatatus
+넓적배허리노린재
+○
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Homoeocerus (Tliponius) unipunctatus
+두점배허리노린재
+○
+○
+Anoplocnemis dallasi
+장수허리노린재
+○
+○
+Molipteryx fuliginosa
+큰허리노린재
+○
+○
+Family Alydidae
+호리허리노린재과
+Riptortus clavatus
+톱다리개미허리노린재
+○
+○
+○
+○
+○
+Family Rhopalidae
+잡초노린재과
+Liorhyssus hyalinus
+투명잡초노린재
+○
+○
+Rhopalus (Aeschyntelus) maculatus
+붉은잡초노린재
+○
+○
+Rhopalus (Aeschyntelus) sapporensis
+삿포로잡초노린재
+○
+○
+○
+○
+Stictopleurus minutus
+점흑다리잡초노린재
+○
+○
+Family Urostylididae
+참나무노린재과
+Urochela (Urochela) quadrinotata
+두쌍무늬노린재
+○
+Urostylis annulicornis
+작은주걱참나무노린재
+○
+Family Plataspididae
+알노린재과
+Coptosoma biguttulumm
+눈박이알노린재
+○
+Megacopta punctatissima
+무당알노린재
+○
+○
+Family Acanthosomatidae
+뿔노린재과
+Acanthosoma denticaudum
+등빨간뿔노린재
+○
+Acanthosoma labiduroides
+긴가위뿔노린재
+○
+○
+Elasmostethus humeralis
+얼룩뿔노린재
+○
+Elasmucha putoni
+푸토니뿔노린재
+○
+Sastragala esakii
+에사키뿔노린재
+○
+Family Cydnidae
+땅노린재과
+Adrisa magna
+장수땅노린재
+○
+Geotomus pygmaeus
+애땅노린재
+○
+Macroscytus japonensis
+땅노린재
+○
+○
+○
+○
+Family Scutelleridae
+광대노린재과
+Eurygaster testudinaria testudinaria
+도토리노린재
+○
+Poecilocoris lewisi
+광대노린재
+○
+Family Pentatomidae
+노린재과
+Aelia fieberi
+메추리노린재
+○
+○
+Plautia stali
+갈색날개노린재
+○
+○
+Homalogonia obtusa obtusa
+네점박이노린재
+○
+Carbula putoni
+가시노린재
+○
+○
+○
+Menida violacea
+깜보라노린재
+○
+○
+Nezara antennata
+풀색노린재
+○
+○
+○
+Eurydema gebleri gebleri
+북쪽비단노린재
+○
+Gonopsis affinis
+억새노린재
+○
+Dybowskyia reticulata
+빈대붙이
+○
+Dalpada cinctipes
+다리무늬두흰점노린재
+○
+Dolycoris baccarum
+알락수염노린재
+○
+○
+○
+Eysarcoris aeneus
+가시점둥글노린재
+○
+○
+Eysarcoris guttigerus
+점박이둥글노린재
+○
+Eysarcoris ventralis
+배둥글노린재
+○
+Halyomorha halys
+썩덩나무노린재
+○
+○
+○
+Scotinophara horváthi
+갈색큰먹노린재
+○
+Family Cicadellidae
+매미충과
+Bothrogonia ferruginea
+끝검은말매미충
+○
+○
+○
+○
+Nephotettix cincticeps
+끝동매미충
+○
+Drabescus conspicuus
+둥근머리각시매미충
+○
+Macrosteles brunnescens
+꼬마매미충
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Psammotettix striata
+알락매미충
+○
+○
+Amimenus mojiensis
+소백알락매미충
+○
+Batracomorphus allioni
+상제머리매미충
+○
+○
+Ledra auditura
+귀매미
+○
+○
+Neotituria kongosana
+금강산귀매미
+○
+Austroasca vittata
+노랑줄애매미충
+○
+Cicadella viridis
+말매미충
+○
+○
+Scaphoideus festivus
+흰점박이황나매미충
+○
+Scaphoideus varius
+홍도황나매미충
+○
+Family Ricaniidae
+큰날개매미충과
+Ricania sublimata Jacobi
+갈색날개매미충
+○
+○
+○
+Orosanga japonica
+일본날개매미충
+○
+Family Issidae
+알멸구과
+Orthopagus lunulifer
+깃동상투벌레
+○
+○
+Family Derbidae
+긴날개멸구과
+Diostrombus politus
+주홍긴날개멸구
+○
+○
+Losbanosia hirarensis
+동해긴날개멸구
+○
+Zoraida albicans
+무늬긴날개멸구
+○
+Zoraida horishana
+끝빨간긴날개멸구
+○
+○
+Family Flatidae
+선녀벌레과
+Metcalfa pruinosa
+미국선녀벌레
+○
+○
+Family Fulgoridae
+꽃매미과
+Lycorma delicatula
+주홍날개꽃매미
+○
+Limois emelianovi
+꽃매미
+○
+○
+○
+교란
+Family Delphacidae
+멸구과
+Stenocranus matsumurai
+일본멸구
+○
+○
+Family Cicadidae
+매미과
+Leptosemia takanonis
+소요산매미
+○
+○
+Cryptotympana atrata
+말매미
+○
+○
+Meimuna opalifera
+애매미
+○
+○
+Platypleura kaempferi
+털매미
+○
+○
+Suisha coreana
+늦털매미
+○
+○
+Graptopsaltria nigrofuscata
+유지매미
+○
+Oncotympana fuscata
+참매미
+○
+○
+Order Neuroptera
+풀잠자리목
+Family Chrysopidae
+풀잠자리과
+Cunctochrysa albolineata
+흰띠풀잠자리
+○
+○
+Pseudomallada cognatellus
+애풀잠자리
+○
+Family Mantispidae
+사마귀붙이과
+Mantispa japonica
+애사마귀붙이
+○
+○
+Family Ascalaphidae
+뿔잠자리과
+Ascalohybris subjacens
+뿔잠자리
+○
+Order Diptera
+파리목
+Family Tipulidae
+각다귀과
+Dictenidia pictipennis fasciata
+대모각다귀
+○
+Nephrotoma cornicina cornicina
+황나각다귀
+○
+Tipula (Pterelachisus) taikun
+줄각다귀
+○
+Tipula (Yamatotipula) nova
+애잠자리각다귀
+○
+Family Culicidae
+모기과
+Hulecoeteomyia koreica
+한국숲모기
+○
+Ochlerotatus dorsalis
+등줄숲모기
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Family Bibionidae
+털파리과
+Bibio pomonae iwasugensis
+황다리털파리
+○
+○
+Bibio tenebrosus
+검털파리
+○
+Mycomya (Mycomya) occultans
+숲가시버섯파리
+○
+Family Sciaridae
+검정날개버섯파리과
+Phytosciara (Dolichosciara) flavipes
+검정날개버섯파리
+○
+Family Tabanidae
+등에과
+Tabanus chrysurus
+왕소등에
+○
+○
+Family Stratiomyidae
+동애등에과
+Hermetia illucens
+아메리카동애등에
+○
+○
+○
+Ptecticus tenebrifer
+동애등에
+○
+○
+○
+Family Asilidae
+파리매과
+Promachus yesonicus
+파리매
+○
+○
+○
+Eutolmus koreanus
+우리파리매
+○
+Neoitamus angusticornis
+광대파리매
+○
+○
+○
+Trichomachimus scutellaris
+검정파리매
+○
+○
+○
+Choerades caudatus
+주둥이파리매
+○
+Laphria mitsukurii
+뒤영벌파리매
+○
+Cophinopoda chinensis
+왕파리매
+○
+○
+Family Bombyliidae
+재니등에과
+Bombylius major
+빌로오드재니등에
+○
+○
+Systropus nitobei
+나나니등에
+○
+○
+Family Dolichopodidae
+장다리파리과
+Dolichopus nitidus
+장다리파리
+○
+○
+Condylostylus nebulosus
+얼룩장다리파리
+○
+○
+○
+○
+Family Syrphidae
+꽃등에과
+Microdon simplex
+애개미꽃등에
+○
+Eristalis (Eoseristalis) cerealis
+배짧은꽃등에
+○
+○
+Eristalis kyokoae
+큰무늬배짧은꽃등에
+○
+Eristalis tenax
+꽃등에
+○
+○
+○
+Helophilus virgatus
+수중다리꽃등에
+○
+○
+Allobaccha apicalis
+끝검정알락꽃등에
+○
+Melanostoma mellinum
+광붙이꽃등에
+○
+○
+Paragus haemorrhous
+고려꽃등에
+○
+○
+Allograpta javana
+쟈바꽃등에
+○
+○
+Dasysyrphus bilineatus
+두줄꽃등에
+○
+○
+Episyrphus balteatus
+호리꽃등에
+○
+○
+○
+Metasyrphus corollae
+별넓적꽃등에
+○
+Metasyrphus nitens
+물결넓적꽃등에
+○
+○
+Scaeva komabensis
+육점박이꽃등에
+○
+Sphaerophoria menthastri
+꼬마꽃등에
+○
+○
+○
+○
+Syrphus ribesii
+좀넓적꽃등에
+○
+Volucella linearis
+니토베대모꽃등에
+○
+Xylota frontalis
+알락허리꽃등에
+○
+○
+○
+Family Tephritidae
+과실파리과
+Acanthonevra formosana
+줄과실파리
+○
+Tephritis majuscula
+꽃과실파리
+○
+Anomoia vulgaris
+세줄부채과실파리
+○
+Family Platystomatidae
+알락파리과
+Euprosopia grahami
+알락파리
+○
+Rivellia apicalis
+민무늬콩알락파리
+○
+○
+Rivellia nigroapicalis
+끝검정콩알락파리
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Family Sciomyzidae
+들파리과
+Sepedon aenescens
+뿔들파리
+○
+Family Dryomyzidae
+대모파리과
+Dryomyza formosa
+대모파리
+○
+○
+Family Lauxaniidae
+큰날개파리과
+Minettia longipennis
+검정큰날개파리
+○
+○
+○
+Family Drosophilidae
+초파리과
+Drosophila melanogaster
+노랑초파리
+○
+Family Scathophagidae
+똥파리과
+Scathophaga stercoraria
+똥파리
+○
+Family Calliphoridae
+검정파리과
+Calliphora lata
+큰검정파리
+○
+Calliphora vicina
+붉은뺨검정파리
+○
+Lucilia caesar
+금파리
+○
+○
+Lucilia illustris
+연두금파리
+○
+○
+○
+Lucilia sericata
+구리금파리
+○
+○
+Family Rhiniidae
+초록파리과
+Stomorhina obsoleta
+점박이초록파리
+○
+Family Sarcophagidae
+쉬파리과
+Boettcherisca peregrina
+떠돌이쉬파리
+○
+○
+○
+Sarcophaga melanura
+검정볼기쉬파리
+○
+○
+Family Muscidae
+집파리과
+Musca domestica
+집파리
+○
+Family Tachinidae
+기생파리과
+Cylindromyia brassicaria
+표주박기생파리
+○
+Ectophasia rotundiventris
+중국별뚱보기생파리
+○
+Gymnosoma rotundata
+뚱보기생파리
+○
+○
+Tachina nupta
+등줄기생파리
+○
+○
+Order Trichoptera
+날도래목
+Family Goeridae
+가시날도래과
+Goera japonica
+일본가시날도래
+○
+Family Molannidae
+날개날도래과
+Molanna moesta
+날개날도래
+○
+Family Leptoceridae
+나비날도래과
+Mystacides azureus
+청나비날도래
+○
+○
+Triaenodes unanimis
+연나비날도래
+○
+Order Lepidoptera
+나비목
+Family Tortricidae
+잎말이나방과
+Ancylis mandarinana
+싸리애기잎말이나방
+○
+Ancylis partitana
+신갈애기잎말이나방
+○
+○
+Antichlidas holocnista
+홀로애기잎말이나방
+○
+Epiblema foenella
+흰갈퀴애기잎말이나방
+○
+○
+○
+Gravitarmata margarotana
+백송애기잎말이나방
+○
+Rhopalovalva grapholitana
+줄무늬애기잎말이나방
+○
+Rhopalovalva pulchra
+봄애기잎말이나방
+○
+○
+Hedya auricristana
+괴불왕애기잎말이나방
+○
+Olethreutes obovata
+꼬리애기잎말이나방
+○
+○
+Adoxophyes orana
+애모무늬잎말이나방
+○
+Archips crataegana
+뿔무늬잎말이나방
+○
+Choristoneura diversana
+오리나무잎말이나방
+○
+Clepsis rurinana
+반백잎말이나방
+○
+Diplocalyptis congruentana
+반달무늬잎말이나방
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Neocalyptis liratana
+애기사과잎말이나방
+○
+Pandemis corylana
+치악잎말이나방
+○
+Gynnidomorpha minimana
+꼬마가는잎말이나방
+○
+Acleris affinatana
+상수리잎말이나방
+○
+○
+Acleris japonica
+흰색잎말이나방
+○
+Acleris takeuchii
+세모무늬잎말이나방
+○
+○
+Grapholita delineana
+네줄애기잎말이나방
+○
+○
+Family Gracillariidae
+가는나방과
+Caloptilia aceris
+단풍잎가는나방
+○
+Plutella xylostella
+배추좀나방
+○
+Family Oecophoridae
+원뿔나방과
+Promalactis odaiensis
+솔피원뿔나방
+○
+○
+Stathmopoda auriferella
+열매꼭지나방
+○
+○
+○
+Cryptolechia malacobyrsa
+갈색띠원뿔나방
+○
+○
+Family Lecithoceridae
+Lecithoceridae과
+Odites leucostola
+점붙이뿔나방
+○
+Family Cosmopterigidae
+창날개뿔나방과
+Labdia antennella
+그늘창날개뿔나방
+○
+Family Gelechiidae
+뿔나방과
+Aroga mesostrepta
+물결무늬뿔나방
+○
+○
+Carpatolechia quercicola
+참나무비늘뿔나방
+○
+Nuntia incognitella
+흰띠비늘뿔나방
+○
+○
+Family Blastobasidae
+밑두리뿔나방과
+Neoblastobasis biceratala
+쌍돌기밑두리뿔나방
+○
+○
+Family Crambidae
+풀명나방과
+Elophila turbata
+얼룩애기물명나방
+○
+○
+○
+Nymphicula saigusai
+뒷무늬노랑물명나방
+○
+Potamomusa midas
+네점노랑물명나방
+○
+Ancylolomia japonica
+벼포충나방
+○
+Chilo suppressalis
+이화명나방
+○
+Glaucocharis exsectella
+무늬꼬마풀명나방
+○
+Pseudargyria interruptella
+줄은빛포충나방
+○
+Agrotera nemoralis
+연보라들명나방
+○
+○
+○
+Anania verbascalis
+각시뾰족들명나방
+○
+Bradina geminalis
+외줄들명나방
+○
+○
+○
+Camptomastix hisbonalis
+흰가슴들명나방
+○
+○
+Eurrhyparodes accessalis
+애기무늬들명나방
+○
+Eurrhyparodes contortalis
+말굽무늬들명나방
+○
+Glyphodes pryeri
+닥나무들명나방
+○
+Nacoleia commixta
+얼룩애기들명나방
+○
+Nomophila noctuella
+등심무늬들명나방
+○
+Omiodes noctescens
+노랑다리들명나방
+○
+Ostrinia zaguliaevi
+큰섬들명나방
+○
+Pagyda quinquelineata
+네줄들명나방
+○
+Pleuroptya chlorophanta
+몸노랑들명나방
+○
+○
+Pleuroptya quadrimaculalis
+네눈들명나방
+○
+○
+Pycnarmon pantherata
+끝무늬들명나방
+○
+○
+Pycnarmon tylostegalis
+구름무늬들명나방
+○
+Spoladea recurvalis
+흰띠명나방
+○
+○
+○
+Tabidia strigiferalis
+점붙이들명나방
+○
+Scoparia isochroalis
+애기산명나방
+○
+○
+Syllepte pallidinotalis
+연무늬들명나방
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Herpetogramma luctuosalis
+포도들명나방
+○
+○
+○
+Herpetogramma rudis
+앞노랑무늬들명나방
+○
+○
+Family Pyralidae
+명나방과
+Lepidogma melanobasis
+네점집명나방
+○
+○
+Orthaga achatina
+갈색집명나방
+○
+Orthaga onerata
+밑검은집명나방
+○
+○
+Glytoteles leucacrinella
+쌍무늬알락명나방
+○
+○
+Acrobasis rufizonella
+녹슨빛알락명나방
+○
+Calguia defiguralis
+통마디알락명나방
+○
+Conobathra bellulella
+배무늬알락명나방
+○
+○
+Etielloides bipartitellus
+흰수염알락명나방
+○
+Etielloides kogii
+흰띠갈색알락명나방
+○
+Oncocera semirubella
+앞붉은명나방
+○
+○
+Phycitodes subcretacella
+앞흰줄알락명나방
+○
+○
+Orybina regalis
+노랑눈비단명나방
+○
+○
+Endotricha flavofascialis
+노랑꼬리뾰족명나방
+○
+Endotricha olivacealis
+검은점뾰족명나방
+○
+○
+Family Thyrididae
+창나방과
+Striglina cancellata
+창나방
+○
+Thyris fenestrella seoulensis
+깜둥이창나방
+○
+Family Limacodidae
+쐐기나방과
+Latoia hilarata
+검은푸른쐐기나방
+○
+Latoia sinica
+뒷검은푸른쐐기나방
+○
+Microleon longipalpis
+꼬마쐐기나방
+○
+○
+○
+Narosa fulgens
+꼬마얼룩무늬쐐기나방
+○
+○
+○
+Narosoideus flavidorsalis
+배나무쐐기나방
+○
+Phlossa conjuncta
+남방쐐기나방
+○
+Rhamnosa angulata
+참쐐기나방
+○
+Thosea sinensis
+극동쐐기나방
+○
+○
+Family Drepanidae
+갈고리나방과
+Agnidra scabiosa fixseni
+참나무갈고리나방
+○
+○
+Auzata nigrata
+얼룩갈고리나방
+○
+○
+Deroca inconclusa coreana
+남방흰갈고리나방
+○
+○
+Ditrigona komarovi
+만주흰갈고리나방
+○
+Ditrigona virgo
+쌍점줄갈고리나방
+○
+Drepana curvatula koreula
+밤색갈고리나방
+○
+Nordstromia japonica
+황줄점갈고리나방
+○
+○
+Pseudalbara parvula
+세줄꼬마갈고리나방
+○
+Habrosyne aurorina
+애기담홍뾰족날개나방
+○
+○
+Tethea (Tethea) ampliata
+넓은뾰족날개나방
+○
+Family Geometridae
+자나방과
+Heterothera postalbida (Wileman)
+밑무늬물결자나방
+Abraxas niphonibia
+각시얼룩가지나방
+○
+○
+Aethalura ignobilis
+아지랑이물결가지나방
+○
+Alcis angulifera
+털뿔가지나방
+○
+Antipercnia albinigrata
+알락흰가지나방
+○
+○
+Arichanna melanaria
+뒷노랑점가지나방
+○
+Biston panterinaria
+노랑띠알락가지나방
+○
+Chariaspilates formosaria
+은줄가지나방
+○
+Cleora insolita
+그늘가지나방
+○
+Deileptenia ribeata
+솔검은가지나방
+○
+Devenilia corearia
+흑갈색가지나방
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Ectropis crepuscularia
+날개물결가지나방
+○
+Ectropis excellens
+줄고운가지나방
+○
+○
+Ectropis obliqua
+갈색가지나방
+○
+Heterostegane hyriaria
+네무늬가지나방
+○
+Lomographa bimaculata
+쌍점흰가지나방
+○
+○
+Microcalicha seolagensis
+구름가지나방
+○
+Ninodes albarius
+밑검은각시가지나방
+○
+Ophthalmitis irrorataria
+네눈푸른가지나방
+○
+Ourapteryx subpunctaria
+제비가지나방
+○
+Parabapta clarissa
+연푸른가지나방
+○
+○
+Parapercnia giraffata
+큰알락흰가지나방
+○
+Phthonosema tendinosaria
+뿔무늬큰가지나방
+○
+○
+Plagodis dolabraria
+줄고운노랑가지나방
+○
+○
+Plagodis pulveraria
+띠넓은가지나방
+○
+○
+○
+Polymixinia appositaria
+담흑가지나방
+○
+Protoboarmia simpliciaria
+팽나무가지나방
+○
+○
+○
+Pseuderannis lomozemia
+흰띠가지나방
+○
+Problepsis diazoma
+네눈은빛애기자나방
+Rhynchobapta cervinaria
+두줄갈고리가지나방
+○
+Rikiosatoa grisea
+두줄가지나방
+○
+Satoblephara parvularia
+배털가지나방
+○
+○
+Xerodes albonotaria
+점짤룩가지나방
+○
+○
+Chlorissa amphitritaria
+배붉은푸른자나방
+○
+Dindica virescens
+각시자나방
+○
+○
+Hemithea tritonaria
+녹색푸른자나방
+○
+Maxates albistrigata
+실무늬제비푸른자나방
+○
+Asthena nymphaeata
+흰애기물결자나방
+○
+○
+Chloroclystis v-ata
+먹줄초록물결자나방
+○
+○
+Eupithecia subbreviata
+맵시꼬리물결자나방
+○
+Evecliptopera illitata
+흰그물물결자나방
+○
+Laciniodes unistirpis
+토막무늬물결자나방
+○
+Leptostegna tenerata
+푸른물결자나방
+○
+Nycterosea obstipata
+갈색각시물결자나방
+○
+Venusia cambrica
+산물결자나방
+○
+Xanthorhoe biriviata
+흰줄물결자나방
+○
+Cyclophora albipunctata
+네눈애기자나방
+○
+Idaea auricruda
+줄굵은애기자나방
+○
+○
+Idaea biselata
+연노랑물결애기자나방
+○
+○
+Scopula floslactata
+물결큰애기자나방
+○
+Scopula superciliata
+물결애기자나방
+○
+Timandra apicirosea
+넓은홍띠애기자나방
+○
+Callabraxas compositata
+배노랑물결자나방
+○
+Chiasmia hebesata
+세줄점가지나방
+○
+Geometra dieckmanni
+흰줄푸른자나방
+○
+○
+Hypomecis punctinalis
+네눈가지나방
+○
+○
+Hypomecis roboraria
+세줄날개가지나방
+○
+○
+Petrophora chlorosata
+고사리가지나방
+○
+Spilopera debilis
+끝갈색흰가지나방
+○
+○
+Family Lasiocampidae
+솔나방과
+Gastropacha populifolia angustipennis
+버들나방
+○
+Odonestis pruni rufescens
+사과나무나방
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Family Bombycidae
+누에나방과
+Bombyx mandarina
+멧누에나방
+○
+○
+Family Brahmaeidae
+왕물결나방과
+Brahmaea certhia
+왕물결나방
+○
+Family Saturniidae
+산누에나방과
+Actias artemis
+긴꼬리산누에나방
+○
+○
+Actias gnoma mandsahurica
+옥색긴꼬리산누에나방
+○
+Family Sphingidae
+박각시과
+Sphinx morio arestus
+솔박각시
+○
+Acosmeryx naga
+포도박각시
+○
+○
+Aspledon himachala sangaica
+애벌꼬리박각시
+○
+Deilephila elpenor
+주홍박각시
+○
+Hemaris affinis
+검정황나꼬리박각시
+○
+Macroglossum bombylans
+작은검은꼬리박각시
+○
+Rhagastis mongoliana
+우단박각시
+○
+Callambulyx tatarinovii
+녹색박각시
+○
+○
+Dolbina tancrei
+물결박각시
+○
+Kentrochrysalis sieversi
+점박각시
+○
+Marumba sperchius
+등줄박각시
+○
+○
+Parum colligata
+닥나무박각시
+○
+Family Notodontidae
+재주나방과
+Cerura erminea menciana
+큰나무결재주나방
+○
+○
+Cnethodonta grisescens
+뒷검은재주나방
+○
+Fentonia ocypete
+밤나무재주나방
+○
+Euhampsonia splendida
+푸른곱추재주나방
+○
+○
+○
+Tarsolepis japonica
+왕재주나방
+○
+Hupodonta corticalis
+벚나무재주나방
+○
+Pterostoma gigantina
+주름재주나방
+○
+○
+○
+Semidonta biloba
+겹날개재주나방
+○
+Togepteryx velutina
+세로줄재주나방
+○
+Gonoclostera timoniorum
+팔자머리재주나방
+○
+Harpyia umbrosa
+은재주나방
+○
+Micromelalopha sieversi
+작은점재주나방
+○
+○
+Peridea elzet
+노고지리재주나방
+○
+Peridea gigantea monetaria
+곧은줄재주나방
+○
+○
+Peridea jankowskii
+양코스키재주나방
+○
+Phalera assimilis
+참나무재주나방
+○
+Phalera flavescens
+먹무늬재주나방
+○
+○
+Phalera grotei
+배얼룩재주나방
+○
+Family Erebidae
+Erebidae과
+Hydrillodes pacifica
+담흑수염나방
+○
+○
+○
+Spilarctia seriatopunctata
+줄점불나방
+○
+Spilarctia subcarnea
+배붉은흰불나방
+○
+Spilosoma lubricipeda
+배점무늬불나방
+○
+○
+Agrisius fuliginosus
+점박이불나방
+○
+Barsine striata
+홍줄불나방
+○
+○
+○
+Chionarctia nivea
+흰제비불나방
+○
+Cyana hamata
+붉은줄불나방
+○
+○
+Macrobrochis staudingeri
+목도리불나방
+○
+○
+Araeopteron amoena
+멧꼬마짤름나방
+○
+Aventiola pusilla
+꽃무늬꼬마짤름나방
+○
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Corgatha pygmaea
+검은줄애기짤름나방
+○
+Gonepatica opalina
+붉은띠수염나방
+○
+○
+Hyposada brunnea
+줄무늬꼬마짤름나방
+○
+Leiostola mollis
+쌍줄짤름나방
+○
+○
+Lophoruza pulcherrima
+꽃꼬마짤름나방
+○
+Catocala koreana
+작은광대노랑뒷날개나방
+○
+Dysgonia stuposa
+수중다리나방
+○
+Ercheia niveostrigata
+청백무늬나방
+○
+○
+Mocis ancilla
+꼬마구름무늬나방
+○
+○
+○
+Mocis annetta
+구름무늬나방
+○
+Mocis undata
+큰구름무늬나방
+○
+Spirama retorta
+태극나방
+○
+○
+Thyas juno
+무궁화무늬나방
+○
+Cidariplura bilineata
+멧수염나방
+○
+Cidariplura gladiata
+흰점멧수염나방
+○
+Edessena hamada
+쌍복판눈수염나방
+○
+Herminia arenosa
+세줄무늬수염나방
+○
+Herminia tarcicrinalis
+갈색줄수염나방
+○
+○
+Hydrillodes morosa
+넓은띠담흑수염나방
+○
+Mosopia sordidum
+총채수염나방
+○
+○
+Paracolax contigua
+노랑무늬수염나방
+○
+Paracolax pryeri
+흰점보라수염나방
+○
+Paracolax trilinealis
+줄수염나방
+○
+○
+Polypogon gryphalis
+날개수염나방
+○
+Zanclognatha griselda
+줄회색수염나방
+○
+Zanclognatha helva
+노랑수염나방
+○
+Zanclognatha lunalis
+혹수염나방
+○
+Hypena (Bomolocha) melanica
+먹구름수염나방
+○
+○
+Hypena (Hypena) amica
+뒷노랑수염나방
+○
+Hypena (Hypena) trigonalis
+대만수염나방
+○
+Schrankia costaestigalis
+검은끝꼬마짤름나방
+○
+Cifuna locuples
+콩독나방
+○
+Euproctis piperita
+무늬독나방
+○
+Euproctis similis
+흰독나방
+○
+Pangrapta lunulata
+별박이짤름나방
+○
+Pangrapta obscurata
+검은끝짤름나방
+○
+Pangrapta vasava
+점박이짤름나방
+○
+Rivula inconspicua
+두점짤름나방
+○
+Lygephila vulcanea
+갈색목검은나방
+○
+Lithosia quadra
+넉점박이불나방
+○
+○
+Nodaria tristis
+굵은수염나방
+○
+Family Arctiidae
+불나방과
+Eilema cribrata
+앞날개무늬불나방
+○
+Eilema degenerella
+흰불나방
+○
+Eilema deplana
+노랑배불나방
+○
+Eilema sorocrula
+금빛노랑불나방
+○
+○
+Family Nolidae
+혹나방과
+Pseudoips prasinanus
+쌍줄푸른나방
+○
+○
+Mimerastria mandschuriana
+사과혹나방
+○
+Roeselia fumosa
+쌍줄혹나방
+○
+○
+Roeselia mediofascia
+속검은혹나방
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Family Noctuidae
+밤나방과
+Acronicta (Hyboma) adaucta
+벚나무저녁나방
+○
+○
+Acronicta (Viminia) rumicis
+배저녁나방
+○
+Gerbathodes paupera
+흰무늬애저녁나방
+○
+Sarbanissa venusta
+기생얼룩나방
+○
+Brevipecten consanguis
+남방쌍무늬밤나방
+○
+Sphragifera biplagiata
+꼬마봉인밤나방
+○
+Sphragifera sigillata
+봉인밤나방
+○
+Eucarta fasciata
+밑검은밤나방
+○
+Eucarta virgo
+연보라밤나방
+○
+Hadjina chinensis
+중국두점박이밤나방
+○
+Niphonyx segregata
+엉겅퀴밤나방
+○
+○
+○
+Ozarba brunnea
+줄무늬꼬마밤나방
+○
+Callopistria juventina
+어린밤나방
+○
+Koyaga virescens
+귤빛쌍무늬꼬마밤나방
+○
+Maliattha signifera
+넓은띠흰꼬마밤나방
+○
+○
+○
+Naranga aenescens
+벼애나방
+○
+○
+Ozarba punctigera
+곧은띠꼬마밤나방
+○
+Protodeltote distinguenda
+극락꼬마밤나방
+○
+Clavipalpula aurariae
+얼룩무늬밤나방
+○
+○
+○
+Melanchra persicariae
+흰점도둑나방
+○
+Mythimna (Anapoma) postica
+갈색점밤나방
+○
+Orthosia (Euchoristea) limbata
+가흰밤나방
+○
+Sarcopolia illoba
+뒤흰도둑나방
+○
+Agrotis ipsilon
+검거세미밤나방
+○
+Agrotis tokionis
+숫검은밤나방
+○
+Diarsia canescens
+물결밤나방
+○
+○
+○
+Hermonassa cecilia
+점박이밤나방
+○
+Sineugraphe exusta
+쌍검은밤나방
+○
+Xestia (Megasema) c-nigrum
+씨자무늬거세미밤나방
+○
+Xestia (Megasema) stupenda
+앞노랑점밤나방
+○
+Athetis cinerascens
+흑점밤나방
+○
+○
+Athetis dissimilis
+뒷흰날개담색밤나방
+○
+Athetis gluteosa
+각시띠담색밤나방
+○
+Auchmis (Euscotia) saga
+곱추나무결밤나방
+○
+Cosmia camptostigma
+회색쌍줄밤나방
+○
+Mormo muscivirens
+모진무늬밤나방
+○
+Spodoptera depravata
+잔디밤나방
+○
+Acontia bicolora
+노랑무늬꼬마밤나방
+○
+Axylia putris
+썩은밤나방
+○
+Blasticorhinus ussuriensis
+우수리무늬나방
+○
+Moma kolthoffi
+노랑목저녁나방
+○
+Oligia fodinae
+사각무늬밤나방
+○
+Family Hesperiidae
+팔랑나비과
+Parnara guttata
+줄점팔랑나비
+○
+○
+○
+Ochlodes subhyalinus
+유리창떠들썩팔랑나비
+○
+Lobocla bifasciata
+왕팔랑나비
+○
+Erynnis montana
+멧팔랑나비
+○
+○
+Daimio tethys
+왕자팔랑나비
+○
+○
+○
+Family Papilionidae
+호랑나비과
+Atrophaneura alcinous
+사향제비나비
+○
+<표 계속> 조사지역의 육상곤충류 목록
+학 명
+(Scientific Name)
+국 명
+(Korean Name)
+현지
+조사
+문헌조사
+비고
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+Sericinus montela
+꼬리명주나비
+○
+Papilio bianor
+제비나비
+○
+○
+○
+Papilio macilentus
+긴꼬리제비나비
+○
+○
+○
+Papilio xuthus
+호랑나비
+○
+○
+○
+○
+Family Pieridae
+흰나비과
+Colias erate
+노랑나비
+○
+○
+○
+○
+○
+Eurema mandarina
+남방노랑나비
+○
+○
+○
+○
+Anthocharis scolymus
+갈고리흰나비
+○
+Pieris canidia
+대만흰나비
+○
+○
+○
+○
+○
+○
+Pieris melete
+큰줄흰나비
+○
+○
+○
+○
+Pieris rapae
+배추흰나비
+○
+○
+○
+○
+○
+○
+Family Lycaenidae
+부전나비과
+Celastrina argiolus
+푸른부전나비
+○
+○
+○
+○
+○
+Cupido argiades
+암먹부전나비
+○
+○
+○
+○
+Tongeia fischeri
+먹부전나비
+○
+○
+Zizeeria maha
+남방부전나비
+○
+○
+○
+Rapala caerulea
+범부전나비
+○
+○
+○
+Lycaena phlaeas
+작은주홍부전나비
+○
+Family Nymphalidae
+네발나비과
+Ypthima motschulskyi
+석물결나비
+○
+○
+Apatura ilia
+오색나비
+○
+Hestina assimilis
+홍점알락나비
+○
+○
+Hestina japonica
+흑백알락나비
+○
+Argyronome laodice
+흰줄표범나비
+○
+○
+Libythea lepita
+뿔나비
+○
+○
+○
+Limenitis camilla
+줄나비
+○
+○
+Limenitis doerriesi
+제이줄나비
+○
+○
+Aldania themis
+산황세줄나비
+○
+Araschnia burejana
+거꾸로여덟팔나비
+○
+○
+Nymphalis canace
+청띠신선나비
+○
+○
+○
+○
+Mycalesis francisca
+부처사촌나비
+○
+○
+Mycalesis gotama
+부처나비
+○
+○
+Ypthima baldus
+애물결나비
+○
+○
+○
+Ypthima multistriata
+물결나비
+○
+○
+○
+○
+Minois dryas
+굴뚝나비
+○
+○
+Neptis pryeri
+별박이세줄나비
+○
+○
+○
+Neptis sappho
+애기세줄나비
+○
+○
+○
+○
+Polygonia c-aureum
+네발나비
+○
+○
+○
+○
+○
+Vanessa cardui
+작은멋쟁이나비
+○
+Vanessa indica
+큰멋쟁이나비
+○
+○
+출현종수 (NO.)
+51
+157
+209
+424
+428
+63
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+고라니(배설물)
+노랑턱멧새
+딱새
+물까치
+직박구리
+큰부리까마귀
+먹부전나비
+네발나비
+사업계획지구의 주요 동물상 현황(현지조사)
+마) 특정육상동물(천연기념물, 멸종위기야생생물)
+① 문헌조사
+문헌Ⅰ「제5차 전국자연환경조사 대전 2021」, 문헌Ⅱ「제5차 전국자연환경조사 옥천 2021」, 문헌Ⅲ「제5차 전국자연환경조사 마전 2022」, 문헌Ⅳ「제5차 전국자연환경조사 이원 2022」, 문헌Ⅴ「옥천군 군서면 사양리 농어촌도로 확포장공사 2019 옥천군」 육상동물상을 검토한 바, 주요 종은 삵, 수달, 담비, 원앙, 소쩍새, 황조롱이, 새호리기, 구렁이 등으로 총 10종이 조사⸱집계되었다.
+조사지역의 특정동물 현황
+구 분
+분류군
+대상종
+천연
+기념물
+멸종위기종
+현지
+조사
+문헌조사
+비고
+Ⅰ급
+Ⅱ급
+Ⅰ
+Ⅱ
+Ⅲ
+Ⅳ
+Ⅴ
+포유류
+▷삵
+-
+-
+✔
+-
+○
+○
+○
+-
+○
+-
+▷수달
+✔
+✔
+-
+-
+○
+○
+-
+-
+○
+-
+▷담비
+-
+-
+✔
+-
+○
+○
+○
+-
+-
+-
+조류
+▷원앙
+✔
+-
+-
+-
+○
+-
+-
+-
+-
+-
+▷황조롱이
+✔
+-
+-
+-
+○
+○
+-
+-
+○
+-
+▷새호리기
+-
+✔
+-
+-
+○
+-
+-
+-
+-
+▷붉은배새매
+✔
+-
+✔
+-
+○
+○
+-
+-
+-
+-
+▷소쩍새
+✔
+-
+-
+-
+○
+○
+-
+-
+-
+-
+▷솔부엉이
+✔
+-
+-
+-
+○
+-
+-
+-
+-
+-
+양서파충류
+▷구렁이
+-
+-
+✔
+-
+-
+○
+-
+-
+-
+-
+자) 문헌조사Ⅰ : 환경부. 2021. ‘제5차 전국자연환경조사 - “대전의 자연환경”
+자) 문헌조사Ⅱ : 환경부. 2021. ‘제5차 전국자연환경조사 - “옥천의 자연환경”
+자) 문헌조사Ⅲ : 환경부. 2022. ‘제5차 전국자연환경조사 - “마전의 자연환경”
+자) 문헌조사Ⅳ : 환경부. 2022. ‘제5차 전국자연환경조사 - “이원의 자연환경”
+자) 문헌조사Ⅴ : 옥천군. 2019 “옥천군 군서면 사양리 농어촌도로 확포장공사”
+주) 천연기념물 : “문화재보호법” 제25조“의 문화재청지정 천연기념물, 멸종위기야생생물 : “야생생물보호‧관리에 관한
+주) 법률 시행규칙” 제2조의 환경부지정 멸종위기야생생물
+② 현지조사
+현지조사 결과, 사업계획지구 및 주변지역에서 법정보호종은 확인되지 않았다.
+사업계획지구의 법정보호종 현황(문헌조사)
+(나) 생태자연도
+1) 자료조사
+환경부 환경지리정보(http://egis.me.go.kr/egis)의 자연환경현황도(생태자연도 도엽명‧번호 :대전·367104 1/25,000 지형도)를 검색하였다.
+2) 생태자연지도 작성
+환경부(1/25,000) 생태자연지도에 사업계획지구를 overlapping하였다.
+3) 조사결과
+본 사업계획지구는 대부분 생태자연도 3등급으로 이루어져 있는 것으로 나타났으며, 보전 가치가 높은 생태자연도 1등급은 확인되지 않았다.
+사업계획지구의 생태자연도
+나. 사업변경으로 인한 영향예측
+(1) 예측항목 및 방법
+현황자료를 근거하여 사업시행 시 직․간접적인 영향이 예측될 것으로 판단되는 항목을 중점적으로 예측하였고, 공간적인 범위는 현황조사와 동일하게 설정하였으며, 시간적 범위는 공사시와 운영시로 구분하였다.
+(2) 예측결과
+(가) 공사시
+1) 육상 동․식물상
+가) 육상식물
+① 직접변화지역(1차 영향지역)
+㉮ 식물상 및 식생의 변화
+본 사업계획지구는 식생보전 Ⅴ(5)등급인 도로 및 나지, 식생보전 Ⅴ(3)등급인 묘목장로 식생이 구성되어 있으며, 공사가 진행됨에 따라 식생보전등급 V(5)등급 도로 및 나지로 변화할 것으로 예측되었다.
+사업계획지구의 사업 전·후 식생보전등급 변화
+식생
+보전등급
+해 당 식 생 형
+사 업 시 행 전
+사 업 시 행 후
+비 고
+면적(㎡)
+비율(%)
+면적(㎡)
+비율(%)
+Ⅴ(5)
+도로 및 나지
+1,018
+10.31
+9,876
+100.00
+-
+Ⅴ(3)
+묘목장
+8,858
+89.69
+-
+-
+-
+합              계
+9,876
+100.00
+9,876
+100.00
+-
+사업시행 전․후 식생보전등급 변화
+㉯ 훼손수목 현황
+본 사업이 시행되면 훼손수목산정은 사업계획지구 내에 교목을 대상으로 산정되며, 보전가치가 낮은 식재수종, 관목 등은 제외하여 훼손수목을 산정하였다.
+조사결과, 사업계획지구 내부에 위치한 식생은 위에 제시한 사업시행 전·후의 식생보전등급과 같으며, 식생은 도로 및 나지, 묘목장은 보전가치가 높은 수목이 존재하지 않아 훼손되는 수목은 없을 것으로 예측된다. 따라서 훼손수목을 산정하지 않았다.
+② 간접영향지역
+㉮ 식물상 및 식생
+사업시행 시 공사차량운행 등에 따른 인위적 교란이 발생할 수 있으므로 주변 식생과 식물상이 일시적이나마 영향을 미칠 것으로 예측되지만 사업계획지구는 도로 및 나지, 경작지, 이차초원, 산림으로 주변 지역에 흔하게 자생하는 종들이 분포할 것으로 보이며, 그 영향은 크지 않을 것으로 예측된다.
+㉯ 특정식물
+ⓐ 보호수와 노거수
+조사지역에는 보호를 요하는 보호수 및 노거수가 분포하지 않아 사업시행으로 인해 미치는 영향은 없을 것으로 예측된다.
+ⓑ 환경부지정 멸종위기등급종
+식물상 조사결과, 본 조사지역에는 멸종위기등급의 보호야생식물이 자생하지 않았다.
+나) 육상동물상
+① 일반적인 분류군
+㉮ 직접적인 영향
+일반적으로 육상동물은 입지의 식생유형에 따라 그 분포역과 서식지를 달리하며, 생물서식공간(biotope)을 이루는 식생의 자연성, 종조성적 특징, 생물량 등에 따라 복잡한 영양단계의 먹이사슬을 형성한다. 따라서 해당입지의 물리적 환경은 특정 분류군의 서식여부와 매우 밀접한 관계가 있다.
+본 사업이 시행되면 공사 차량의 출입 등 교란이 발생함에 따라 사업계획지구에 서식, 이동하는 분류군은 불가피하게 활동영역이 감소되거나 주변의 안정된 생태환경으로 회피할 것으로 예측된다.
+양서⸱파충류는 봄철과 가을철에 산란지와 동면지가 상이하여 산림과 습한 입지(폐경작지, 경작지, 물웅덩이, 하천, 산간계곡 등)에 생태축(eco-apices)을 형성, 이용하는 생태특성이 있다. 따라서 본 사업계획지구는 도로 및 나지, 묘목장에 위치하고 있어 양서‧파충류가 사업지 주변으로 회피할 것으로 사료되며, 주변 산림, 수역 등 양호한 환경에서 자생할 것으로 예측된다.
+조류의 경우, 본 사업계획지구 및 주변에 도로 및 나지, 경작지, 묘목장, 이차초원, 산림 등이 분포해있어 서식환경에 대한 적응도가 높은 텃새류가 우점하여 서식⸱도래하였다. 따라서 사업이 시행되면, 사업계획지구 내⸱외부의 인위적 교란이 수반되기 때문에 텃새 등의 서식지가 교란될 것으로 예측된다. 그러나 자연생태계에서 고차소비자의 영양단계에 위치하는 조류는 주변의 유사입지로 이동, 분산, 서식할 것으로 예측되며, 사업시행 후 사업계획지구의 생태환경이 안정화됨에 따라 멧비둘기, 까치, 참새 등의 텃새류는 다시 회귀하여 서식할 것으로 예상된다.
+㉯ 간접적인 영향
+사업계획지구를 이동하면서 먹이활동이나 생리대사의 활동을 하였던 일부 동적 분류군은 불가피하게 이동로의 단절이 수반되어 교란의 영향이 적은 사업계획지구의 외곽지역을 우회하여 이동할 것으로 예측되며, 활동영역은 사업계획지구를 회피할 것으로 예상된다.
+(나) 운영시
+1) 육상동 ․ 식물상
+가) 육상식물
+① 식물상(flora) 및 식생(vegetation)
+본 사업시행 후 공사차량의 출입 등으로 인해 봄맞이꽃, 쑥류, 냉이류, 달맞이꽃, 싸리류, 박주가리, 씀바귀, 망초, 댕댕이덩굴 및 지칭개 등 양지성 초본식물류와 관목류의 유입증가가 예상된다.
+나) 육상동물
+본 공사기간동안 육상동물상에 미치는 영향은 서식처와 먹이를 찾기 위한 이동로 회피현상이 발생하며, 사업시행 후 주변지역이 안정화가 진행될 때까지 야생동물의 생태환경은 완전히 회복되지 않겠지만, 육상동물상에 미치는 영향은 시간에 따라 서서히 감소할 것으로 예측되었다.
+또한, 회피 작용과 주변 유사입지로 서식지를 선택하였던 육상동물은 사업계획지구 주변의 생태환경이 서서히 안정화됨에 따라 초기단계에는 소형 조류와 설치류 등 시간이 흐름에 따라 먹이공급원을 식초로 이용하는 육상곤충의 종 다양성이 증가하거나 회귀할 것으로 예측되었다.
+다. 저감방안
+(1) 일반적인 저감방안 수립
+사업시행 시 사업계획지구 이외의 주변식생과 생물상에 미치는 영향을 최소화하도록 공사의 관리‧감독을 철저히 실시할 계획이다.
+특히, 자연자원을 갖는 양면성의 특징을 살릴 수 있는 보전전략을 세우기 위해서는 무조건적인 생태보전만을 목적으로 하거나 이용측면만을 강조하는 계획이 아니라 자연자원의 다목적 이용체계를 수립하는 현실적이고 합리적인 접근이 필요할 것으로 사료된다. 그러므로 사업시행 시 발생하는 교란, 주변생태계에 미치는 영향을 최소화할 수 있는 현실적인 세부저감 방안을 수립‧시행할 계획이다.
+(2) 세부적인 저감방안 수립
+(가) 육상동·식물상
+1) 육상식물
+가) 식물상(flora)
+① 주변식물상의 훼손 방지
+본 사업의 특성상 편입식생은 불가피하게 인위적 교란을 받는 것은 자명한 사실이므로 사업시행기간에 관계자, 현장근로자 등에 대한 자연환경보전 교육을 실시하여 야생식물의 무분별한 훼손을 방지할 계획이며, 현실적인 저감대안을 수립하였다.
+② 귀화식물에 대한 대책
+귀화식물은 한일합방 전후에 외국으로부터 유입된 식물이며, 일부 수종은 1960년대부터 시작된 치산치수정책의 산림녹화사업과 사방공사의 주요 식수종으로 이용되어 왔다. 우리나라에 유입‧정착한 귀화식물은 약 300종을 상회하며(국립환경연구원 1997, 박 2002), 지금도 계속 유입되고 있는 것이 오늘의 현실이다.
+대부분 귀화식물은 종생태학(species ecology)적 측면에서 나름대로의 재생 전략과 생존전략에 따라 그 분포역을 확대하고 있으며, 대부분 영양번식보다는 종자번식의 재생전략을 구사하고 있다.
+실례를 들면, 과거 주요 사방 식수종이고 천근성의 아까시나무는 제1세대가 약 50여년으로 추정되며, 재생전략의 특성상 인위적인 벌근⸱벌목에 따른 2차 교란이 수반되지 않도록 현존식생의 구성종으로 존치하는 것이 현실적인 대안이라고 사료된다. 특히, 물리적 교란지역에서의 식생조사경험을 고려하면, 아까시나무는 수세가 강력하여 제거하려고 하면할수록 그 분포역이 확장되거나 군생하는 경향이 높았다. 또한, 귀화식물류는 타 식물이 정착‧성장하기 어려운 나대지, 노변 등의 입지, 그리고 수위변화가 심한 기수역 호안에 주로 정착하고 있다.
+그러나 귀화식물은 양호한 산림식생지역에 침입‧정착하는 경우는 거의 없는 바, 대부분 식생의 발달이 불량하거나 천이초기단계의 입지에 유입하는 경향을 보이고 있다.
+귀화식물 관리방안
+구분
+관리방안
+비고
+생물학적 방법
+○ 생육을 억제하는 환경조성(경쟁종이나 천적 이용)
+○ 건전한 천이가 일어날 수 있는 환경의 조성에는 많은 시간이 소요
+화학적 방법
+○ 약품을 이용하여 특정 종을 제거
+○ 약제사용으로 제거목적 이외의 종의 피해, 토양오염 등 2차 오염 예상
+물리적 방법
+○ 특정 종을 손이나 기계를 이용하여 직접 제거하는 방법
+○ 돼지풀 등 결실기 이전에 절단 제거: 유해성 홍보로 주민들의 참여유도
+제도적 방안
+○ 철저한 검역제도를 통하여 도입 단계에서 차단
+○ 침입전 관리
+기타
+○ 도입 전 국내 생태계에 대한 영향 연구 실시
+자) 귀화생물에 의한 생태계 영향조사(1), 1995, 국립환경연구원
+③ 생태계교란 야생생물(식물) 관리방안
+사업계획지구 및 주변지역에서 조사된 귀화식물 중 “생물다양성 보전 및 이용에 관한 법률” 제23조의 환경부지정 생태계교란생물인 환삼덩굴, 단풍잎돼지풀 2분류군이 사업계획지구 및 주변지역에서 발견되었으며, 사업시행 시 생태계교란식물의 확산을 배제할 수 없을 것으로 예상된다. 따라서 아래와 같이 관리방안을 제시하였다.
+환삼덩굴의 발달단계와 관리방안
+발달단계
+관리
+1월
+2월
+3월
+4월
+5월
+6월
+7월
+8월
+9월
+10월
+11월
+12월
+싹(유묘)
+뿌리째 뽑기, 줄기자르기, 제초제사용
+영양생장
+뿌리째 뽑기, 줄기자르기
+집중적인 제거
+꽃
+뿌리째 뽑기, 줄기자르기
+추가 제거
+열매
+뿌리째 뽑기, 줄기자르기
+추가 제거
+자) 생태계교란생물 현장관리 가이드, 2021, 환경부, 국립생태원
+가시박의 발달단계와 관리방안
+발달단계
+관리
+1월
+2월
+3월
+4월
+5월
+6월
+7월
+8월
+9월
+10월
+11월
+12월
+싹(유묘)
+뿌리째 뽑기
+영양생장
+뿌리째 뽑기, 줄기자르기
+집중 제거
+꽃
+뿌리째 뽑기, 줄기자르기
+지속 제거
+열매
+종자제거
+자) 생태계교란생물 현장관리 가이드, 2021, 환경부, 국립생태원
+미국쑥부쟁이의 발달단계와 관리방안
+발달단계
+관리
+1월
+2월
+3월
+4월
+5월
+6월
+7월
+8월
+9월
+10월
+11월
+12월
+싹(유묘)
+뿌리째 뽑기
+영양생장
+뿌리째 뽑기, 줄기자르기
+집중적인 제거
+꽃
+뿌리째 뽑기, 줄기자르기
+추가 제거
+로제트
+뿌리째 뽑기
+자) 생태계교란생물 현장관리 가이드, 2021, 환경부, 국립생태원
+나) 식생(vegetation)
+① 식생자원의 활용방안 수립
+㉮ 훼손예상산림식생 현황
+훼손수목산정은 사업계획지구 내에 교목을 대상으로 산정되며, 보전가치가 낮은 식재수종, 관목 등은 제외하여 훼손수목을 산정하였다.
+조사결과, 사업계획지구 내부에 위치한 도로 및 나지, 묘목장은 보전가치가 높은 수목이 존재하지 않아 훼손되는 수목은 없을 것으로 예측된다. 따라서 훼손수목을 산정하지 않았다.
+사업계획지구 내 묘목장의 수목은 경계의 차폐림으로 최대한 이용할 계획이다.
+사업계획지구 차폐림 식재계획(안)
+2) 육상동물상
+가) 일반적인 분류군
+식생과 동⸱식물상 조사자료, 그리고 조사지역 토지의 다양한 물리적 환경과 서식지 미소환경을 고려한 결과, 본 사업시행 시 육상동물상에 미치는 영향은 크지 않을 것으로 예측되었으나, 서식하거나 서식 가능성을 배제할 수 없는 육상동물의 출현 가능성을 고려하여 미치는 영향에 대한 현실적인 저감 대책을 다음과 같이 기술하였다.
+야생동물의 주요 서식지가 발견될 경우는 주요 번식기(03~06월)를 가급적 피하여 공사를 실시하며, 현장근로자들의 야생동물 포획을 방지하기 위한 야생동물보호교육 등을 실시하여 미치는 영향을 최대한 저감할 계획이다.
+한편, 조사지역의 육상곤충류의 현실적인 저감 대책은 사업시행 시 주요 식초가 되는 식생자원의 훼손을 최대한 줄이고 사업시행 시 부지경계지역의 식생자원을 최대한 보존할 계획이다.
+나) 소형동물 이동을 위한 생태탈출로 설치(안)
+① 생태측구 설치
+설치류, 양서⸱파충류 등이 로드킬 이외에 배수지나 저류지 등에 추락하여 고사되는 경우를 최소화하기 위해 소형동물의 생태축을 확보하고 이동이 용이하도록 생태측구를 설치하여 소형야생동물들이 스스로 탈출할 수 있도록 완만한 경사의 탈출용 경사로(측구)를 설치할 계획이다.
+생태측구 설치계획 도면(안)
+구분
+내용
+경사로 폭
+300mm
+경사도
+20°
+30°
+경사로 요철간격
+100mm
+50mm
+단면도
+자) 생태통로 설치 및 관리지침. 2023.11. 환경부
+생태측구
+설치
+사례
+모식도
+(→)
+자) 생태통로 설치 및 관리지침. 2023.11. 환경부
+생태측구 설치계획<예시>
+사업계획지구 내 생태측구 설치(안)
+다) 야간조명 저감방안
+사업계획지구 주변으로 경작지와 산림이 위치하고 있어, 곤충 등 빛 공해 우려가 있을것으로 판단된다. 빛 공해를 최소화하기 위해 야간 조명시설 사용시간제한, 조명시설의 빛이 외부로 나가지 않는 조명이나 곤충류의 유인이 적은 조명장치 등 야간 조명 시설에 따른 빛 공해 영향을 최소화 할 계획이다.
+동식물에 대한 빛공해 저감방안Ⅰ
+구분
+주요내용
+비고
+조명기구 변경
+곤충을 배려하는 조명기구 사용
+주변 식물을 고려한 조명기구 형태, 색채, 모양을 권장
+유인특성이 작은 파장의 광원 사용
+-
+상향광 억제
+(차광장치)
+옥탑조명, 상향조명등 상향되는 빛을 방지
+가로등의 누출 광을 최소화하기 위한 다양한 전등갓 이용, 조사각도 조정 등이 필요
+-
+조명기구 설치방법변경
+청소 및 램프관리가 용이하게 조명기구 설치
+-
+편배광 사용
+생식지 방향으로의 빛 억제
+서식지인 하천과 호소방향에 대한 조사각도 조정
+-
+<표 계속> 동식물에 대한 빛공해 저감방안Ⅰ
+구분
+주요내용
+비고
+조명기구 사용자제
+광원을 심하게 움직이는 부분 자제
+근처 인공조명의 점등시간 관리
+야간 조명 특수시설에 사용되는 조명을 1시간 이내에 소등
+철탑 등 고가의 인공 조명 사용 자제
+식물의 종류에 따라 인공조명의 파장과 강도 조절
+-
+자) 빛 공해 환경영향평가 기법개발연구 보고서. 2013. 환경부
+동식물에 대한 빛공해 저감방안Ⅱ
+관리방법
+방지효과
+야간소등 혹은 10시 이후 소등
+먹이터 이동 원활, 야간 수면 가능
+점등 숫자를 겨울철새가 많은 시기에 1/2이하로 줄임
+방해 요인 감소, 불안 요인 감소
+갓을 이용하여 불빛을 하향 조정
+곤충 유인 저감, 눈부심 감소
+가로등 키를 낮춤
+곤충 유인 저감, 투광 거리 감소
+갓모양 등 설치 예시
+광공해(조명시설) 저감방향
+구분
+내용
+조명시설
+저감방향
+①
+옥외조명설치 최소화
+옥외조명시설의 설치를 최소화 하며, 불가피하게 설치되더라도, 조사각(照射角)을 조정하여, 사업지구 방향으로 불빛이 향하지 않도록 설치함
+②
+cut-off 조명 갓 설치
+시설지구 주병의 가로등에는 조명범위를 최소화할 수 있는 cut-off 조명갓 등을 사용함.
+③
+UV발생이 적은 광원을 사용
+조명시설로 인한 영향이 큰 야간곤충류의 경우 유인특성이 낮은 파장을 가진 광원을 채택하는 것이 바람직할 것임, 특히 광원으로는 곤충류 유인이 적은 단일 파장의 광원을 사용하고, Metalhalide와 같이 UV필터를 부착한 후 사용방안 강구함.
+3) 법정보호종(천연기념물, 멸종위기등급종)
+가) 현황
+현지조사 결과, 사업계획지구 및 주변지역에서 확인된 법정보호종은 없는 것으로 조사되었다.
+나) 법정보호종 보호대책
+현지조사 시 법정보호종은 확인되지 않았으며, 문헌조사 결과에 의하면 사업계획지구 일원에서의 법정보호종 서식을 완전히 배제할 수는 없으므로 법정보호종의 중요성을 현장인부들에게 교육하여 공사 시 법정보호종의 서식지가 계획지구 인접지역에서 발견될 경우 공사를 즉시 중단하고 관련법에 따라 적절한 조치를 취한 후 현장여건에 맞는 적절한 보호방안을 강구할 계획이다.
+법정보호종 관찰시 조치계획 및 절차
+ྠĀ
+법정보호종 발견(시공관계자, 작업인부)
+선조치 후 보고
+⇩ ⇧
+임시 보호대책 강구
+사업자
+보고
+⇩ ⇧
+보호대책 강구
+승인기관 및 협의기관
+← 발견 즉시 조치
+← 24시간 ~ 3일이내 보호대책 강구
