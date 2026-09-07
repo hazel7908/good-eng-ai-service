@@ -271,9 +271,16 @@ def build_tables(hwp, v):
     rivers = hd.get("하천일람") or [[None] * 9, [None] * 9]
     if find_in_table(hwp, "기점 ~ 종점"):
         fit_rows(hwp, "기점 ~ 종점", 2, len(rivers))
+        # 🚨 **행마다 앵커에서 다시 찾아 절대 오프셋으로 간다** (CLAUDE.md §6).
+        #    여기 있던 코드는 두 군데서 밀렸다 — 0726 에서 셀 주소로 실측한 것과 같은 결함:
+        #      ① 앵커 셀(머리행)에서 첫 행을 써서 머리 라벨을 덮고 한 칸씩 밀렸다
+        #      ② `right()` 는 마지막 열에서 **이미 다음 행 첫 칸**으로 넘어간다.
+        #         거기서 또 `down()` 하면 한 행씩 건너뛰어 기준 사업(원주) 행이 살아남는다.
         for i, row in enumerate(rivers):
-            if i:
-                down(hwp); col_begin(hwp)
+            find_in_table(hwp, "기점 ~ 종점")
+            for _ in range(i + 1):
+                down(hwp)
+            col_begin(hwp)
             for val in row:                                # 하천명~유역면적 8칸
                 cell(val); right(hwp)
 
