@@ -22,6 +22,7 @@ import shutil
 import importlib.util
 import json
 import sys
+import tempfile
 import time
 import re
 import zipfile
@@ -130,9 +131,19 @@ def main():
     #    베이스가 **생성물로 덮여** 토큰 19종이 0이 됐고 평창 값이 박힌 채 한 달을 갔다
     #    (09-08 적발). 같은 일이 이번 세션에도 재해 3장 베이스에서 재현됐다.
     #    → **사본을 열고 사본을 저장한다.** 베이스는 읽기만 한다.
-    work = output.with_suffix(".work.hwpx")
-    if work.exists():
-        work.unlink()
+    #    🚨 그 사본을 **임시 폴더에 둔다** (2026-09-08). 한글은 자기 임시 폴더 밖의 파일을
+    #    열 때 사용자에게 접근 허용을 묻고, **그 창이 떠 있는 동안 `Open()` 이 멈춘다.**
+    #    화면을 안 보고 있으면 몇 분이고 멈춘 채라 "문서가 커서 느린 것"처럼 보인다.
+    #    보안모듈을 등록하는 정석 경로는 한글 2024 에서 `RegisterModule` 이 False 만
+    #    돌려줘 막혔고(한컴 포럼 스레드도 미해결), **임시 폴더는 한글이 스스로 허용한다**
+    #    — 실측 0.1초 · 팝업 없음. 결과만 원래 자리로 옮긴다.
+    tmpdir = Path(tempfile.gettempdir())
+    tag = f"hwpgen_{a.category}_{a.part}"
+    work = tmpdir / f"{tag}.work.hwpx"
+    out_tmp = tmpdir / f"{tag}.out.hwpx"
+    for p in (work, out_tmp):
+        if p.exists():
+            p.unlink()
     shutil.copy(template, work)
 
     print("[1/4] 한글 시작...")
@@ -172,13 +183,14 @@ def main():
         color_markers(hwp, [MISSING, MODELING])
 
         print("\n[4/4] 저장...")
-        hwp.SaveAs(str(output), "HWPX")
+        hwp.SaveAs(str(out_tmp), "HWPX")     # 임시 폴더에 저장하고 (같은 이유)
         saved = True
     finally:
         quit_hwp(hwp)       # 프로세스가 실제로 죽을 때까지 대기 (다음 실행의 읽기 전용 방지)
     if not saved:
         sys.exit("ERROR: 생성이 중단됐다 — 위 오류를 먼저 고칠 것 "
                  f"(옛 산출물은 {prev.name} 로 치워 뒀다 — 게이트가 빨개지는 것이 정상)")
+    shutil.move(str(out_tmp), str(output))   # 한글이 손 뗀 뒤 제자리로 (파이썬 파일 이동)
     if prev.exists():
         prev.unlink()          # 성공 — 옛 판은 버린다
     if work.exists():

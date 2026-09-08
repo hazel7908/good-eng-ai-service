@@ -365,11 +365,18 @@ rm -rf "$LOCALAPPDATA/Temp/gen_py"
   겉보기 증상이 고약하다 — HWP CPU 1~2% · python 완전 정지 · 문서가 커서 느린 것 같다.
   이걸 몰라서 하루에 다섯 파트를 날리고 **재부팅까지 두 번** 했다. 배제 실험(COM 파손 ·
   잔여 프로세스 · 갓 복사한 사본)은 전부 헛다리였다.
-  → **`python engine/setup_hwp_security.py` 를 최초 1회 돌린다.** 한컴 공식 배포본
-  (`github.com/hancom-io/devcenter-archive`)의 `FilePathCheckerModuleExample.dll` 을
-  받아 레지스트리 두 곳에 등록한다. `open_hwp` 가 미등록을 감지하면 경고한다.
-  ⚠️ **`RegisterModule` 의 두 번째 인자는 레지스트리 값 이름과 글자까지 같아야 한다.**
-  우리는 `"SecurityModule"` 로 부르고 있었는데 물릴 모듈이 없어 조용히 팝업으로 떨어졌다.
+  → ★ **해법은 임시 폴더다.** 한글은 **자기 임시 폴더(`%TEMP%`) 안의 파일은 묻지 않고 연다**
+  (실측: `%TEMP%` 0.1초 · 프로젝트 폴더 = 팝업 대기). `generate.py` 는 베이스를
+  `%TEMP%` 로 복사해 거기서 열고 거기에 저장한 뒤, **한글이 손 뗀 다음** 파이썬으로
+  제자리에 옮긴다. 설치할 것도 권한도 필요 없다.
+  ⚠️ **정석(보안모듈 등록)은 한글 2024 에서 막혔다.** 한컴 공식 배포본 DLL 을 받아
+  `HKCU\Software\HNC\{HwpCtrl,HwpAutomation}\Modules` 에 이름 4가지·위치 4곳으로
+  등록해 봤지만 `RegisterModule` 이 **전부 False** 였다(한컴 포럼의 같은 스레드도 미해결).
+  절차는 `engine/setup_hwp_security.py` 에 남겨 뒀다 — 다음 사람이 같은 실험을
+  반복하지 않도록. ⚠️ 그 예제 모듈은 `IsAccessiblePath` 가 무조건 TRUE 라
+  **물렸다면 접근 확인이 통째로 꺼진다** — 안 물려서 다행이었고, 레지스트리는 되돌렸다.
+  ⚠️ 곁가지 사실 하나: `RegisterModule` 의 두 번째 인자는 레지스트리 값 이름과 글자까지
+  같아야 한다. 우리는 `"SecurityModule"` 로 부르고 있었다(그것도 틀렸지만 원인은 아니었다).
 - 부수 사실: 한 프로세스 안에서는 **두 번째 문서부터 `Open` 이 0.0초**다(첫 개봉만
   2.5~49초). 배치가 파트마다 프로세스를 새로 띄우면 그 기동 비용을 파트 수만큼 다시 문다.
 - 🚨 **python 은 절대 강제 종료하지 않는다.** COM 등록이 깨져 그 뒤 모든 `Open()` 이
