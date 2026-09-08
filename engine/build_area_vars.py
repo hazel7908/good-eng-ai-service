@@ -21,6 +21,23 @@ def load(vdir, name):
 
 
 def save(vdir, name, data):
+    """스켈레톤 저장 — 기존 파일의 **손 승격값을 지우지 않는다** (2026-09-08 실측 결함).
+
+    f61eb34 재실행이 site-suitability 의 인풋 승격(평균경사도 3.3·_원값 7종)을 스켈레톤으로
+    덮었다. 병합 규칙: 새 값이 None 인데 기존이 값이면 기존 유지 · 빌더가 모르는 키(_원값 등)
+    유지 · _meta.인풋승격 있으면 _확인필요 도 기존 유지(승격 반영판이 더 정확하다)."""
+    old = load(vdir, name)
+    if old:
+        def merge(n, o):
+            if isinstance(n, dict) and isinstance(o, dict):
+                out = dict(o)
+                out.update({k: merge(v, o.get(k)) for k, v in n.items()})
+                return out
+            return o if n is None and o is not None else n
+        data = merge(data, old)
+        if (old.get("_meta") or {}).get("인풋승격"):
+            data["_확인필요"] = old.get("_확인필요", data.get("_확인필요"))
+            print(f"  ⚠️ {name}: 인풋 승격판 감지 — 기존 값·확인필요 보존 병합")
     (vdir / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1),
                                        encoding="utf-8")
 
