@@ -184,10 +184,15 @@ def self_test():
     rows = fetch_daily("114", "20230101", "20231231")
     got = monthly(rows, 2023)
     ok = True
+    # ⚠️ 일조는 재현 불가로 강등(09-08) — 원주 2023 검증에서 3/12월이 어긋난다
+    #    (+0.2·+0.2·−6.0h — 기상연보 쪽 결측 보정·장비 이력 개입 의심). ASOS 합산으로는
+    #    못 만드니 **소싱 대상에서 제외**한다: monthly/yearly 결과에서 일조를 지워
+    #    [확인 필요] 로 남긴다. 강수일·강수량 등 나머지는 12/12 재현.
     for k, want in SELF.items():
         hit = sum(1 for a, b in zip(got[k], want) if a == b)
-        print(f"  {k:5s} {hit}/12 " + ("✅" if hit == 12 else "❌"))
-        if hit != 12:
+        ref = k == "일조"
+        print(f"  {k:5s} {hit}/12 " + ("✅" if hit == 12 else ("⚠️ 참고(소싱 제외)" if ref else "❌")))
+        if hit != 12 and not ref:
             ok = False
             print(f"    받은 값 {got[k]}")
             print(f"    기대값 {want}")
@@ -212,11 +217,20 @@ def main():
     y0, y1 = (a.years if a.years else (a.year, a.year))
     rows = fetch_daily(a.stn, f"{y0}0101", f"{y1}1231")
     print(f"{STATIONS.get(a.stn, a.stn)}({a.stn}) {y0}~{y1} · 일자료 {len(rows)}행")
+    def drop_ilsjo(d):
+        if isinstance(d, dict):
+            d.pop("일조", None)
+            for v in d.values():
+                drop_ilsjo(v)
+        elif isinstance(d, list):
+            for v in d:
+                drop_ilsjo(v)
+        return d
     res = {"관측소": {"지점": a.stn, "이름": STATIONS.get(a.stn, "")},
            "기간": [str(y0), str(y1)],
-           "연도별": yearly(rows, y0, y1)}
+           "연도별": drop_ilsjo(yearly(rows, y0, y1))}
     if a.year:
-        res["월별"] = monthly(rows, a.year)
+        res["월별"] = drop_ilsjo(monthly(rows, a.year))
     print(json.dumps(res, ensure_ascii=False, indent=1)[:1200])
     if a.out:
         Path(a.out).write_text(json.dumps(res, ensure_ascii=False, indent=1),
