@@ -55,10 +55,11 @@ for cat, parts in PARTS.items():
         if rows:
             w = sum(1 for m, _ in rows if m == "⚠️")
             lines.append(f"\n## {cat}/{part} — {len(rows)}표 (⚠️ {w})")
-            for m, c in [r for r in rows if r[0] == "⚠️"][:12]:
+            LIM = 10 ** 6 if "--all" in sys.argv else 12
+            for m, c in [r for r in rows if r[0] == "⚠️"][:LIM]:
                 lines.append(f"- {m} {c}")
              # 나머지는 수만 적는다
-            etc = len(rows) - min(w, 12)
+            etc = len(rows) - min(w, LIM)
             if etc:
                 lines.append(f"- (그 외 {etc}표 — 🔒/? 포함)")
 print("\n".join(lines))
