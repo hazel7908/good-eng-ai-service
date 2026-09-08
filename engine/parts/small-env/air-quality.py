@@ -3,7 +3,7 @@
 
 규약: build_slots(v) / build_tables(hwp, v). 지식 출처: rules/small-env/air-quality.md
 """
-from hwp_util import (MODELING, _fmt, _pp_label, append_rows, col_begin, down,
+from hwp_util import (MISSING, MODELING, _fmt, _pp_label, append_rows, col_begin, down,
                       fill_row, find_in_table, left, right, set_cell)
 
 def slots_air_quality(v):
