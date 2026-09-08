@@ -3,7 +3,10 @@
 """env-impact `public-opinion` 핸들러 — C 틀 (2026-09-04 Mac). 규약: vars `slots`. 의견수렴 — 기관·공고·공람·설명회 값 토큰(일자·장소 일부 마스킹) · 현수막 위치 표·의견↔반영 표 8 비움(검토의견 문서 인풋). 6.1 절차 서술은 법령 반고정. BLANK 앵커는 Windows 실측 전 추정."""
 from hwp_util import MISSING, blank_table_here, blank_tables, find_in_table
 
-BLANK = [("옥계1리마을 초입", 0, 1), ("반영여부", 2, 8)]
+BLANK = [("옥계1리마을 초입", 0, 1),   # 현수막 게시 지점 표(8칸) — 전 칸 사업 고유(지점명 4·주소 4).
+                                        #   데이터 앵커라 비우면 소멸하지만 limit 1 이라 소멸=완료.
+                                        #   표 안 {{시군}} 3칸은 전역 치환 부수 효과 — 비워도 expect 무손실(표 밖 6 ✓)
+         ("반영여부", 2, 8)]
 
 
 def build_slots(v):
