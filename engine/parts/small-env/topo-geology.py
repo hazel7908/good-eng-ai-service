@@ -19,12 +19,16 @@ def _n(x):
 
 
 def compute(v):
-    """토공 총량 = 절토 + 성토 · 발생 토량 검산(성토 − 절토) · 표고/경사 구성비 보완."""
+    """토공 총량 = 절토 + 성토 · 발생 토량 = |성토 − 절토| (2/2 — 원주 8,942−1,119=7,823 ·
+    천안 2,016.83−188.02=1,828.81, 어느 쪽이 우세하든 **양수 표기**) · 표고/경사 구성비 보완.
+    표기 자릿수는 입력을 따른다 — 정수 입력이면 정수(원주), 소수면 2자리(천안 골든 실측 09-08)."""
     r = {}
     t = (v.get("영향") or {}).get("토공") or {}
     a, b = _n(t.get("절토")), _n(t.get("성토"))
-    r["토공_총량"] = f"{a + b:,.0f}" if a is not None and b is not None else None
-    r["토공_발생"] = t.get("발생") or (f"{b - a:,.0f}" if a is not None and b is not None else None)
+    dec = any("." in str(t.get(k) or "") for k in ("절토", "성토"))
+    fmt = (lambda x: f"{x:,.2f}") if dec else (lambda x: f"{x:,.0f}")
+    r["토공_총량"] = fmt(a + b) if a is not None and b is not None else None
+    r["토공_발생"] = t.get("발생") or (fmt(abs(b - a)) if a is not None and b is not None else None)
     for key in ("표고", "경사"):
         rows = ((v.get("현황") or {}).get(key) or {}).get("표") or []
         tot = sum(_n(x[1]) or 0 for x in rows)
