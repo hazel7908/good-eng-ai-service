@@ -7,10 +7,10 @@
 발견·복원 — 수정은 .work.hwpx 사본 방식). 어떤 게이트도 못 잡았다 — 토큰이 없으면
 `빈칸 잔여 0` 이 항상 초록이다.
 
-⚠️ **spec expect 대조는 주 검사로 못 쓴다** (첫 판 오탐 24건 실측): expect 에는 있지만
-베이스 리터럴 {{토큰}} 이 아닌 자리가 규약상 존재한다 — 계산 필드(빌더 값 처리)·paras
-치환·핸들러 write_at 셀(6장 maintenance 는 커밋 메시지부터 "토큰 0개"). 규약 차이가
-오염으로 오인된다.
+⚠️ 첫 판 오탐 24건의 진짜 원인은 **추출 축소**였다 (09-08 Windows 교차 검증으로 확정):
+hp:t 만 이어붙이면 계산 필드 안 토큰(hp:t 밖 텍스트 노드)을 못 세서 expect 와 어긋났다.
+태그 전체 제거 방식으로 고쳐 Windows template_audit 과 같은 수를 센다. 단 expect 0 인
+파트(6장 maintenance — 본체 고정)는 대조 자체가 무의미하니 이력 대조가 여전히 주 검사다.
 
 주 검사 = **자기 이력 대조** (규약 차이에 면역 — 자기가 자기 과거와 다른가만 본다):
   ① 이력상 토큰 수 감소 — 어떤 커밋에서 토큰이 줄었으면 그 커밋이 오염을 실었다.
@@ -46,7 +46,10 @@ def _text_tokens(blob):
     txt = ""
     for n in sorted(x for x in z.namelist()
                     if re.match(r"Contents/(section\d+|header\d*)\.xml$", x)):
-        txt += "".join(re.findall(r"<hp:t[^>]*>([^<]*)</hp:t>", z.read(n).decode("utf-8", "ignore")))
+        # ⚠️ hp:t 만 이어붙이면 **계산 필드 안 토큰을 못 센다** (hp:t 밖 텍스트 노드 —
+        #    수질 30 을 25 로 세서 오탐 5건, 09-08 실측. Windows 방식과 대조로 확정).
+        #    태그 전체 제거로 모든 텍스트 노드를 본다.
+        txt += re.sub(r"<[^>]+>", "", z.read(n).decode("utf-8", "ignore"))
     return txt, set(TOKEN.findall(txt))
 
 
