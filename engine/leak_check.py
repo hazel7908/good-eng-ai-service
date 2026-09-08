@@ -51,6 +51,25 @@ def narrative(ls):
     return [x for x in ls if len(x) > 40 and re.search(r"(조사|확인|나타났|예측)되었다", x)]
 
 
+def headers(path):
+    """머리말·꼬리말 블록 안 텍스트 — 어미 필터 없이 전수.
+
+    🚨 fr() 은 머리말에 닿는데 검사기들이 머리말을 지우거나(표 파싱) 어미 필터로
+    걸러서(서술 검사) **머리말 리터럴 유출이 게이트를 통과**했다
+    (2026-09-08 Windows 실측 — 전략 natural-assets `{{계획명}}` 규약 누락 리터럴).
+    검사와 수정은 다른 근거 — 여기서는 블록을 직접 떠서 본다."""
+    z = zipfile.ZipFile(path)
+    xml = "".join(z.read(n).decode("utf-8") for n in sorted(z.namelist())
+                  if re.match(r"Contents/section\d+\.xml$", n))
+    out = []
+    for blk in re.findall(r"<hp:(?:header|footer)[ >].*?</hp:(?:header|footer)>", xml, re.S):
+        for p in re.findall(r"<hp:p[ >].*?</hp:p>", blk, re.S):
+            t = re.sub(r"<[^>]+>", "", "".join(re.findall(r"<hp:t[^>]*>(.*?)</hp:t>", p, re.S)))
+            if t.strip():
+                out.append(t.strip())
+    return out
+
+
 def main():
     base, gen = sys.argv[1], sys.argv[2]
     tn, on = narrative(paras(base)), narrative(paras(gen))
@@ -63,11 +82,21 @@ def main():
         common = sorted({m for m in NUM.findall(strip_cite(x)) if m in tnums})
         if common:
             hits.append((common, x))
-    print(f"베이스 서술 {len(tn)}개 · 생성 서술 {len(on)}개 · 의심 {len(hits)}개\n")
+    # 머리말·꼬리말 — 실패 판정은 **치환 실패({{…}} 잔존)만**. 베이스의 비토큰 머리말은
+    #  고정 문구일 수 있어 자동 판정하지 않고 목록으로 보여준다(리터럴 사업명이면
+    #  베이스 규약 위반 — natural-assets 사고 부류를 사람이 한눈에 잡게).
+    hleaks = [x for x in headers(gen) if "{{" in x]
+    hb = sorted({x for x in headers(base) if "{{" not in x})
+    print(f"베이스 서술 {len(tn)}개 · 생성 서술 {len(on)}개 · 의심 {len(hits)}개"
+          + (f" · 머리말 치환실패 {len(hleaks)}건" if hleaks else "") + "\n")
+    if hb:
+        print("  [머리말 비토큰 — 리터럴 사업명 여부 확인] " + " | ".join(x[:40] for x in hb[:5]))
+    for x in hleaks:
+        print(f"  ⚠️ [머리말 치환실패] {x[:100]}")
     for common, x in hits:
         print(f"  ⚠️ {common}")
         print(f"     {x[:116]}")
-    return 1 if hits else 0
+    return 1 if hits or hleaks else 0
 
 
 if __name__ == "__main__":
