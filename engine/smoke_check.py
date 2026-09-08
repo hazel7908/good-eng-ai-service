@@ -66,6 +66,20 @@ def main():
     else:
         print("⓪ 산출물 신선도 ✅")
 
+    # ⓪-2 **베이스가 되쓰이지 않았는가** (2026-09-08 — caef5f7 사고: generate 가 베이스를
+    #     직접 열어 한글이 되썼고, 토큰이 사라지면 ①빈칸 잔여가 영원히 초록이라 못 잡는다.
+    #     .work.hwpx 사본 방식이 1차 방어, 이건 git 근거의 2차다. 의도한 베이스 재빌드
+    #     중이면 이 경고는 무시하고 커밋하면 된다 — 그 외의 templates/ 변경은 전부 사고다.
+    import subprocess as _sp
+    dirty = _sp.run(["git", "status", "--porcelain", "--", "templates/"],
+                    capture_output=True, text=True, cwd=ROOT).stdout.strip()
+    if dirty:
+        print("⓪-2 templates/ 가 변경돼 있다 ❌ — 베이스 되쓰기 의심 (의도한 재빌드가 아니면"
+              " git checkout 으로 복원):\n     " + dirty.replace("\n", "\n     "))
+        fails += 1
+    else:
+        print("⓪-2 베이스 무변경 ✅")
+
     # ① 빈칸 잔여
     tokens = sorted(set(TOKEN.findall(xml)))
     if tokens:
