@@ -6,7 +6,7 @@
 **자체 값이 없다** — 근거 불릿 전부 다른 파트 vars 의 승계(`승계` 노드). 판정 열(◦ 미해당 등)은
 기준 패턴 유지 — 뒤집기는 실무자(`_확인필요` 1건). 표 6.1-2 는 태양광 전용(rule §5).
 """
-from hwp_util import MISSING, josa
+from hwp_util import MISSING, delete_para, josa
 
 
 def build_slots(v):
@@ -25,3 +25,12 @@ def build_slots(v):
 
 def build_tables(hwp, v):
     print("  0600 — 표 편집 없음 (검토결과 열은 빈칸 치환으로 채워진다 · 판정은 기준 패턴 유지)")
+
+    # 슬롯이 **전부** 비면 근거 줄을 지운다 (Mac 처방 2026-09-07).
+    # ⚠️ 비우는 것과 지우는 것은 다르다 — 천안엔 그 자리 근거가 **없는 것이 정답**이라
+    #    `- 철새도래지([확인 필요])[확인 필요] 약 [확인 필요]m 이격` 이 남으면 오답이다.
+    #    지워야 채점이 '없음' 으로 정직하게 떨어진다.
+    s = v.get("slots") or {}
+    if not any(s.get(k) for k in ("철새도래지", "철새도래지_이격")):
+        n = delete_para(hwp, "철새도래지(")
+        print(f"    철새도래지 근거 줄 {n}개 삭제 (슬롯 전부 없음)")

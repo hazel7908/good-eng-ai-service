@@ -904,3 +904,25 @@ def blank_tables(hwp, anchor, header_rows, limit=6, max_rows=24):
         if survives:
             skip += 1
     return k
+
+def delete_para(hwp, anchor, limit=6):
+    """앵커가 든 문단을 **줄째로** 지운다 (문단 표시까지). 지운 개수를 돌려준다.
+
+    자료가 없어 근거 줄이 통째로 빠지는 자리가 있다 — 0600 철새도래지처럼
+    슬롯이 전부 `[확인 필요]` 면 그 줄이 있는 것이 오히려 오답이다(천안엔 그 자리
+    근거가 없는 것이 정답). 비우는 것과 지우는 것은 다르다.
+
+    ⚠️ 선택을 지우면 **빈 문단이 남는다.** 한 번 더 지워 문단 표시를 먹어야
+    줄이 사라진다 — 안 그러면 빈 줄이 쌓여 쪽 나눔이 밀린다.
+    """
+    n = 0
+    while n < limit:
+        hwp.MovePos(2)
+        if not find_fwd(hwp, anchor):
+            break
+        hwp.HAction.Run("MoveParaBegin")
+        hwp.HAction.Run("MoveSelParaEnd")
+        hwp.HAction.Run("Delete")
+        hwp.HAction.Run("Delete")      # 빈 문단(문단 표시)까지
+        n += 1
+    return n

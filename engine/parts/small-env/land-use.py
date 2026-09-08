@@ -12,7 +12,7 @@ compute 는 0400(surrounding-land-use)의 것을 그대로 쓴다 — 세 파트
 import importlib.util
 import pathlib
 
-from hwp_util import MISSING, find_in_table, fit_rows, write_at
+from hwp_util import MISSING, find_in_table, fit_rows, fr, write_at
 
 _p = pathlib.Path(__file__).with_name("surrounding-land-use.py")
 _s = importlib.util.spec_from_file_location("part_small_env_surrounding_land_use", _p)
@@ -114,6 +114,17 @@ def build_tables(hwp, v):
             W("지적면적", 1 + i, 1, list(row)[-7:] if len(row) >= 7 else row)
         W("지적면적", 1 + len(rows), 1, joseo_total(js) + ["-"])   # 합계 행 (=SUM 필드 덮기)
 
+
+    # 🚨 **표 행 라벨에도 기준 사업 지명이 산다** (2026-09-07 실측 · Mac 판단으로 핸들러 채움).
+    #    spec 의 `fr()` 은 전역 치환이라 맨 `원주시` 를 넣으면 **주소 안까지** 바꿔
+    #    `강원도 천안시 호저면` 같은 뒤섞인 값을 만든다 — 남의 값이 남는 것보다 나쁘다.
+    사 = v.get("사업", {})
+    시군, 읍면, 리 = 사.get("시군"), 사.get("읍면"), 사.get("리")
+    W("면  적(㎢)", 0, 0, [시군])       # 지목표 — 시군 행
+    W("면  적(㎢)", 2, 0, [읍면])       # 지목표 — 읍면 행 (2행 아래)
+    W("비도시지역", 2, 0, [시군])       # 용도지역표
+    W("지적면적", 1, 0, ["".join(x for x in (시군, 읍면, 리) if x) or None])   # 조서 A=병합 라벨
+
     print("  토지이용계획 (0100 공유 — 비율 유도)")
     tu = v.get("토지이용") or []
     BASE_TU = 4
@@ -151,5 +162,14 @@ def build_tables(hwp, v):
         fit_rows(hwp, "수 량", BASE_PH, len(rows))
         for i, row in enumerate(rows):
             W("수 량", 1 + i, 1, list(row)[-4:] if len(row) >= 4 else row)
+
+
+    # 🚨 **자동 번호가 붙은 소제목** — `(1) 원주시` 처럼 번호는 필드라 spec 이 문자열로 못 잡는다
+    #    (`(1) 원주시` 를 넣으면 `MISS txt 0` 로 빌드가 멈춘다 — 두 번 데었다).
+    #    ⚠️ 그래서 **표 라벨을 다 채운 뒤 맨 마지막에** 남은 것만 바꾼다. 이 시점엔 문서에
+    #    기준 사업 지명이 그 소제목 하나뿐이라 전역 치환이 안전하다 (2026-09-07 실측: 1건).
+    #    여기 남아 있는 `원주시` 는 무엇이든 유출이므로 바꾸는 것이 맞다.
+    if 시군 and 시군 != "원주시":
+        fr(hwp, "원주시", 시군)
 
     print("  0724 표 편집 종료")

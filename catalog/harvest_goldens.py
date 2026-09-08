@@ -159,6 +159,26 @@ def main():
             if 거른것:
                 print(f"     (앞 후보 거름: {' · '.join(거른것)[:64]})")
             dst = gdir / f"{slug}.txt"
+            # 🚨 **로컬 원본이 권위다.** `golden/{사업}/원본.hwpx` 가 있으면 베이스가 그것으로
+            #    빌드됐다는 뜻이라, NAS 파일이 **다른 판**이면 골든을 퇴보시킨다.
+            #    원주 noise-vib 실측(2026-09-07): NAS `(완)` 판은 원본 겹침 93%에 `46.9` 가
+            #    없었고, ㉒ 재추출본은 100%였다. A급 기준 파트를 덮을 뻔했다.
+            원본 = gdir / "원본.hwpx"
+            if 원본.exists() and dst.exists():
+                try:
+                    ot = extract(str(원본))
+                except Exception:                            # noqa: BLE001
+                    ot = None
+                if ot:
+                    def _ov(a, b):
+                        A = [l.strip() for l in a.splitlines() if len(l.strip()) > 12]
+                        B = set(l.strip() for l in b.splitlines())
+                        return sum(1 for l in A if l in B) / len(A) if A else 0
+                    if _ov(dst.read_text(encoding="utf-8"), ot) > _ov(t, ot):
+                        print(f"  ⛔ {slug:20} 로컬 원본과 옛 골든이 더 맞는다 "
+                              f"(새 {_ov(t, ot):.0%} < 옛 {_ov(dst.read_text(encoding='utf-8'), ot):.0%}) — 유지")
+                        skip += 1
+                        continue
             ov = None
             if dst.exists():
                 ov = overlap(dst.read_text(encoding="utf-8"), t)
