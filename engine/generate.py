@@ -18,6 +18,7 @@
 """
 
 import argparse
+import shutil
 import importlib.util
 import json
 import sys
@@ -125,9 +126,18 @@ def main():
     except ImportError:
         sys.exit("ERROR: pywin32 미설치 (Windows 전용). 계산 확인은 engine/calc.py")
 
+    # 🚨 **베이스를 직접 열면 한글이 거기에 되쓴다.** 2026-08-06 커밋에서 소환 대기질
+    #    베이스가 **생성물로 덮여** 토큰 19종이 0이 됐고 평창 값이 박힌 채 한 달을 갔다
+    #    (09-08 적발). 같은 일이 이번 세션에도 재해 3장 베이스에서 재현됐다.
+    #    → **사본을 열고 사본을 저장한다.** 베이스는 읽기만 한다.
+    work = output.with_suffix(".work.hwpx")
+    if work.exists():
+        work.unlink()
+    shutil.copy(template, work)
+
     print("[1/4] 한글 시작...")
     # 🚨 읽기 전용으로 열리면 표 편집이 **조용히 전부 무시된다** — open_hwp 주석 참조
-    hwp = open_hwp(template)
+    hwp = open_hwp(work)
 
     # ⚠️ try/finally 가 방어의 나머지 절반이다. 도중에 예외가 나면 Quit() 이 안 불려
     #    한글이 템플릿을 붙든 채 살아남고, **다음 실행이 읽기 전용으로 열려** 표가
@@ -171,6 +181,8 @@ def main():
                  f"(옛 산출물은 {prev.name} 로 치워 뒀다 — 게이트가 빨개지는 것이 정상)")
     if prev.exists():
         prev.unlink()          # 성공 — 옛 판은 버린다
+    if work.exists():
+        work.unlink()          # 작업 사본도 버린다 (베이스는 손대지 않았다)
     time.sleep(2)
 
     if a.raw_dir:
