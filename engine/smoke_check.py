@@ -52,6 +52,20 @@ def main():
     xml = doc_text(output)
     fails = 0
 
+    # ⓪ **산출물이 지금 코드로 만들어진 것인가** (2026-09-08 신설)
+    # 🚨 생성이 도중에 죽어도 옛 산출물이 남아 있으면 아래 검사가 전부 초록을 낸다 —
+    #    실제로 그렇게 통과했다. generate 가 `.prev` 로 치우는 것이 1차 방어이고,
+    #    이건 **다른 근거**로 거는 2차다 (검사와 수정은 근거를 나눈다 — rules/hwpx.md).
+    #    판정: 산출물이 **핸들러·베이스·vars 중 무엇보다도 오래되었으면** 낡은 것이다.
+    src = [template, vars_path,
+           ROOT / "engine" / "parts" / category / f"{part}.py"]
+    older = [s.name for s in src if s.exists() and s.stat().st_mtime > output.stat().st_mtime]
+    if older:
+        print(f"⓪ 산출물이 낡았다 ❌ — {', '.join(older)} 보다 오래됐다 (재생성할 것)")
+        fails += 1
+    else:
+        print("⓪ 산출물 신선도 ✅")
+
     # ① 빈칸 잔여
     tokens = sorted(set(TOKEN.findall(xml)))
     if tokens:

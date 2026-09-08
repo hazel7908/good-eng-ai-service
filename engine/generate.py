@@ -109,6 +109,17 @@ def main():
     output = ROOT / "cases" / a.category / a.case / a.part / "output.hwpx"
     output.parent.mkdir(parents=True, exist_ok=True)
 
+    # 🚨 **생성 실패와 게이트 통과가 동시에 성립했다** (2026-09-08 실측).
+    #    핸들러가 ImportError 로 죽어 생성이 중단됐는데 **옛 산출물이 그대로 남아 있어**
+    #    `smoke_check` 이 그걸 보고 초록을 냈다. 로그의 `비움 0` 이 아니었으면 못 봤다.
+    #    → 시작할 때 치워 두고, **끝까지 성공했을 때만** 되돌린다. 도중에 죽으면
+    #      산출물이 없어서 게이트가 자연히 빨개진다 (제일 값싸고 빈틈없다).
+    prev = output.with_suffix(".hwpx.prev")
+    if output.exists():
+        if prev.exists():
+            prev.unlink()
+        output.rename(prev)
+
     try:
         import win32com.client
     except ImportError:
@@ -156,7 +167,10 @@ def main():
     finally:
         quit_hwp(hwp)       # 프로세스가 실제로 죽을 때까지 대기 (다음 실행의 읽기 전용 방지)
     if not saved:
-        sys.exit("ERROR: 생성이 중단됐다 — 위 오류를 먼저 고칠 것")
+        sys.exit("ERROR: 생성이 중단됐다 — 위 오류를 먼저 고칠 것 "
+                 f"(옛 산출물은 {prev.name} 로 치워 뒀다 — 게이트가 빨개지는 것이 정상)")
+    if prev.exists():
+        prev.unlink()          # 성공 — 옛 판은 버린다
     time.sleep(2)
 
     if a.raw_dir:
