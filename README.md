@@ -129,7 +129,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── generate.py                한글 API 생성 드라이버 (Windows) — parts/ 자동 등록·폴백
 │   ├── parts/{카테고리}/{파트}.py   파트 핸들러 (build_slots·build_tables) — 파일 존재 = 등록
 │   ├── hwp_util.py                한글 API 공용 유틸 + 표 유틸 (generate·parts 공용)
-│   ├── smoke_check.py             러프 게이트 4종 한 명령 (빈칸0·유출·미확정·PDF 안내)
+│   ├── smoke_check.py             러프 게이트 (신선도·베이스무변경·**앵커생존**·빈칸0·유출·미확정·PDF)
 │   ├── calc.py · calc_air.py      계산 (플랫폼 무관, 골든셋 자체검증 내장)
 │   │  ▸ 지역개황 통계 소싱 — 자료 19종을 네 층으로 나눠 읽는다
 │   ├── xlsx_grid.py              공용 격자 — 머리글 인식·병합 끌어채우기·**이름으로 열 찾기**

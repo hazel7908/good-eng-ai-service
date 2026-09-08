@@ -80,6 +80,30 @@ def main():
     else:
         print("⓪-2 베이스 무변경 ✅")
 
+    # ⓪-3 **비우기 앵커가 베이스에서 실제로 잡히는가** (2026-09-08 신설)
+    #     앵커가 표 밖 캡션이거나 문단 경계로 쪼개져 있으면 `blank_tables` 가 0을 돌려주고
+    #     **그 표는 기준 사업 값 그대로 나간다.** 생성은 성공으로 끝나고 ①②③ 어디에도
+    #     안 걸린다 — 로그의 WARNING 한 줄이 유일한 흔적인데 배치에서는 묻힌다.
+    try:
+        import anchor_check as _ac
+        _base = ROOT / "templates" / category / f"{part}.hwpx"
+        _hd = ROOT / "engine" / "parts" / category / f"{part}.py"
+        if _base.exists() and _hd.exists():
+            _blank, _err = _ac.load_blank(_hd)
+            _paras = _ac.paragraphs(_base) if _blank else []
+            _dead = [a for a, *_ in (_blank or [])
+                     if not any(a in t and intbl for t, intbl in _paras)]
+            if _err:
+                print(f"⓪-3 핸들러 로드 실패 ❌ — {_err}")
+                fails += 1
+            elif _dead:
+                print(f"⓪-3 못 찾는 앵커 {len(_dead)}개 ❌ — 그 표는 기준 사업 값이 남는다: {_dead}")
+                fails += 1
+            else:
+                print(f"⓪-3 앵커 {len(_blank or [])}개 전부 잡힘 ✅")
+    except Exception as e:                     # 검사기 탓에 게이트가 죽으면 안 된다
+        print(f"⓪-3 앵커 검사 건너뜀 — {type(e).__name__}: {e}")
+
     # ① 빈칸 잔여
     tokens = sorted(set(TOKEN.findall(xml)))
     if tokens:
