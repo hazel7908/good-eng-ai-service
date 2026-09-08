@@ -9,6 +9,12 @@
    따로 찾아야 한다. spec 의 기대 토큰과 베이스 실물을 대조한다.
 
 사용: python engine/template_audit.py [카테고리]
+
+⚠️ **expect 대조는 오탐 부류가 있다** (Mac 실측 09-08 — 첫 판 24건): 계산 필드(빌더 값
+처리)·paras 치환·핸들러 write_at 셀은 expect 에 있어도 베이스 리터럴 {{토큰}} 이 아니다
+(수질 25/30=정상 · 6장 maintenance 0=정상, 커밋 메시지로 확인). 여기 결과가 빨갛면
+**`engine/base_integrity.py`(자기 이력 대조 — 규약 면역)로 확정**할 것. 역할 분담:
+이 도구 = 빠른 1차(새 spec 배치 직후) · base_integrity = 확정 판정 + 게이트(--worktree-only).
 """
 import re
 import sys
