@@ -29,9 +29,14 @@ def build_tables(hwp, v):
     # 🚨 지구별 축제·보축계획 14표는 **라벨-값 격자**다 — 머리행이 따로 없고 한 행에
     #    `계획홍수위 | El. | 150.27~156.39 | m` 처럼 라벨과 값이 섞여 있다.
     #    blank_tables 로 자르면 값이 살아남고 다 지우면 라벨이 사라진다 → 칸 단위로 간다.
-    k = blank_value_cells(hwp, "계획홍수위", hdr=1, limit=16)
+    rep = ([], [])          # (비운 칸, 남긴 칸) — 첫 적용 캘리브레이션용
+    k = blank_value_cells(hwp, "계획홍수위", hdr=1, limit=16, report=rep)
     if k == 0:
         print("    WARNING: 앵커 '계획홍수위' 못 찾음 — 지구별 계획 표 유출 위험")
+    else:
+        print(f"    [값비움 내역] 비움 {len(rep[0])} · 유지 {len(rep[1])}")
+        print(f"      비움: {sorted(set(rep[0]))[:24]}")
+        print(f"      유지: {sorted(set(rep[1]))[:24]}")
 
 
 EXPECT = ['법정리_서술', '서술_19', '서술_527', '서술_18', '서술_268', '서술_961', '서술_656', '계획명', '시군', '읍면', '하천1_명', '하천2_명']

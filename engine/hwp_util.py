@@ -841,20 +841,24 @@ DIGIT = re.compile(r"\d")
 def is_value_cell(t: str, keep=None) -> bool:
     """이 칸이 **값**인가 (라벨이 아니라).
 
-    맥이 정한 판별 (2026-09-08): **한글이 한 글자도 없고 + 숫자를 품은** 칸만 값이다.
+    맥이 실물로 캘리브레이션한 판별 (2026-09-08) — **셋의 AND**로 충분하다:
+      ①한글 없음 ②숫자 포함 ③`{{` 없음
       `150.27~156.39` → 값 ✅      `계획홍수위` → 한글이라 라벨 ❌
       `El.` · `m`     → 숫자가 없어 라벨 ❌   `1지구` → 한글이라 라벨 ❌
-    라벨-값 격자(한 행에 라벨과 값이 섞인 표)에서 값만 떨어뜨리기 위한 규칙이다.
+      `{{하천1_명}}`  → 토큰이라 라벨 ❌ (spec 이 채우는 자리다)
+    전략 사회경제 지구별 계획 표 48칸 시뮬레이션에서 비움 11 / 유지 29 로 완전 분리됐다.
+    ⚠️ **한글 낀 값은 못 잡는다** — `좌안,` · `제내 1:2.0` · `호우(7.11~16)`.
+       의도된 보수성이다(라벨 오폭파 방지가 우선). 잔존은 `table_leak` 값 대조가 잡는다.
     """
     t = (t or "").strip()
-    if not t or HANGUL.search(t) or not DIGIT.search(t):
+    if not t or HANGUL.search(t) or not DIGIT.search(t) or "{{" in t:
         return False
     if keep and re.search(keep, t):
         return False
     return True
 
 
-def blank_value_cells_here(hwp, keep=None, max_rows=48, max_cols=16):
+def blank_value_cells_here(hwp, keep=None, max_rows=48, max_cols=16, report=None):
     """캐럿이 든 표에서 **값 칸만** 비운다. 라벨은 그대로 둔다. 반환: 비운 칸 수."""
     for _ in range(max_rows):                 # 첫 행으로 올라간다
         a = cell_addr(hwp)
@@ -874,9 +878,14 @@ def blank_value_cells_here(hwp, keep=None, max_rows=48, max_cols=16):
             if here is not None and here == prev:   # 제자리 = 표 끝 (blank_table_here 와 같은 방어)
                 return n
             prev = here
-            if is_value_cell(cell_text(hwp), keep):
+            txt = cell_text(hwp)
+            if is_value_cell(txt, keep):
                 set_cell(hwp, MISSING)
                 n += 1
+                if report is not None:
+                    report[0].append(txt[:28])
+            elif txt and report is not None:
+                report[1].append(txt[:28])
             if not hwp.HAction.Run("TableRightCell"):
                 return n
             if cell_addr(hwp)[1] != row:
@@ -887,7 +896,7 @@ def blank_value_cells_here(hwp, keep=None, max_rows=48, max_cols=16):
 
 
 def blank_value_cells(hwp, anchor, hdr=1, limit=1, keep=None,
-                      max_rows=48, max_cols=16):
+                      max_rows=48, max_cols=16, report=None):
     """라벨-값 격자를 비운다 — `blank_tables` 의 자매 (2026-09-08, 맥 설계).
 
     🚨 `blank_tables` 로 못 푸는 표가 있다. 머리행이 따로 없고 한 행 안에
@@ -903,7 +912,8 @@ def blank_value_cells(hwp, anchor, hdr=1, limit=1, keep=None,
     while k < limit and find_in_table(hwp, anchor, skip=skip):
         a = cell_addr(hwp)
         survives = bool(a) and a[1] <= hdr and not is_value_cell(anchor, keep)
-        n = blank_value_cells_here(hwp, keep=keep, max_rows=max_rows, max_cols=max_cols)
+        n = blank_value_cells_here(hwp, keep=keep, max_rows=max_rows,
+                                   max_cols=max_cols, report=report)
         print(f"    값비움 `{anchor}` #{k + 1} — {n}칸 "
               f"(앵커 {'유지' if survives else '소멸'})")
         k += 1
