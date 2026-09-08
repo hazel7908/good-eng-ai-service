@@ -1,5 +1,5 @@
 {
- "생성일": "2026-09-07",
+ "생성일": "2026-09-08",
  "원칙": "길이 내림차순 적용·전체 문자열만",
  "치환": [
   {
@@ -157,15 +157,6 @@
    ]
   },
   {
-   "old": "중권역별 물환경 목표기준, 환경부고시 제2018-6호",
-   "new": "중권역별 물환경 목표기준, 기후에너지환경부고시 제2026-121호",
-   "근거": "STALE 2018-6→2026-121",
-   "현행명": "중권역별 물환경 목표기준 고시",
-   "parts": [
-    "env-impact/water-quality"
-   ]
-  },
-  {
    "old": "「수목원 조성 및 진흥에 관한 법률 시행규칙」",
    "new": "「수목원·정원의 조성 및 진흥에 관한 법률 시행규칙」",
    "근거": "법령 개명",
@@ -195,21 +186,21 @@
    ]
   },
   {
-   "old": "국립환경과학원고시 제2018-53호",
-   "new": "국립환경과학원고시 제2022-38호",
-   "근거": "STALE 2018-53→2022-38",
-   "현행명": "토양오염공정시험기준",
-   "parts": [
-    "env-impact/soil"
-   ]
-  },
-  {
    "old": "국립환경과학원고시 제2022-79호",
    "new": "국립환경과학원고시 제2026-30호",
    "근거": "STALE 2022-79→2026-30",
    "현행명": "소음·진동공정시험기준",
    "parts": [
     "env-impact/noise-vib"
+   ]
+  },
+  {
+   "old": "국립환경과학원고시 제2018-53호",
+   "new": "국립환경과학원고시 제2022-38호",
+   "근거": "STALE 2018-53→2022-38",
+   "현행명": "토양오염공정시험기준",
+   "parts": [
+    "env-impact/soil"
    ]
   },
   {
@@ -412,29 +403,6 @@
    ]
   },
   {
-   "old": "환경부고시 제2018-23호",
-   "new": "기후에너지환경부고시 제2025-165호",
-   "근거": "STALE 2018-23→2025-165",
-   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
-   "parts": [
-    "env-impact/regional-overview",
-    "small-env/appendix",
-    "small-env/regional-overview",
-    "strategic-env/appendix",
-    "strategic-env/regional-overview",
-    "strategic-env/summary"
-   ]
-  },
-  {
-   "old": "경부 고시 제2018-23호",
-   "new": "경부 고시 제2025-165호",
-   "근거": "STALE 2018-23→2025-165",
-   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
-   "parts": [
-    "small-env/site-suitability"
-   ]
-  },
-  {
    "old": "환경부고시 제2023-72호",
    "new": "환경부고시 제2025-10호",
    "근거": "STALE 2023-72→2025-10",
@@ -446,6 +414,27 @@
     "small-env/appendix",
     "small-env/site-suitability",
     "small-env/target-area"
+   ]
+  },
+  {
+   "old": "환경부고시 제2018-23호",
+   "new": "기후에너지환경부고시 제2025-165호",
+   "근거": "STALE 2018-23→2025-165",
+   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
+   "parts": [
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "strategic-env/appendix",
+    "strategic-env/summary"
+   ]
+  },
+  {
+   "old": "경부 고시 제2018-23호",
+   "new": "경부 고시 제2025-165호",
+   "근거": "STALE 2018-23→2025-165",
+   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
+   "parts": [
+    "small-env/site-suitability"
    ]
   },
   {
@@ -498,7 +487,6 @@
     "small-env/site-suitability",
     "strategic-env/appendix",
     "strategic-env/hydrology",
-    "strategic-env/regional-overview",
     "strategic-env/summary",
     "strategic-env/water-quality"
    ]

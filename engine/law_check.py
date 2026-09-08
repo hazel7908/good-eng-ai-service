@@ -35,6 +35,9 @@ TAIL = re.compile(r"[,.]?\s*(\d{4}\.\s*\d{1,2}\.?.*|(?:행정안전부|환경부
 # None = 문서에도 명칭이 없어 질의 불가(확인 필요) · "사업고유" = 사업별 지자체 고시(감시 제외)
 NOTICE_ALIAS = {
     "2019-75": "백두대간보호지역 지정",
+    # 09-08 — 베이스 출처 주석이 이름을 같이 적어 둔 것을 확인하고 옮겼다:
+    #   `자) 중권역별 물환경 목표기준, 환경부고시 제2018-6호` (env-impact/water-quality)
+    "2018-6": "중권역별 물환경 목표기준",
     "2007-107": "배출허용기준(폐수)적용을 위한 지역지정",
     "2018-23": "대기보전특별대책지역지정 및 동지역내 대기오염저감을 위한 종합대책",
     "2015-201": "연료용 유류 등의 황함유기준",
@@ -201,10 +204,36 @@ def check_admrules(oc, laws, fresh):
                 out.append(r)
                 continue
             names = [alias]
-        q = sorted(names, key=len)[-1]
-        data = api_search(oc, "admrul", q, fresh)
-        hits = rows(data, "AdmRulSearch", "admrul")
-        exact = [h for h in hits if norm_name(h.get("행정규칙명", "")) == norm_name(q)]
+        # ⚠️ 가장 긴 표기를 질의어로 쓰면 안 된다 — 출처 주석에서 딸려 온 문장 조각이
+        #    제일 길어서 검색을 통째로 죽인다(09-08: STALE 26 → 17 로 떨어졌다).
+        #    짧은 쪽부터 물어보고 **정확 일치가 나오는 것**을 채택한다.
+        #    고르는 기준은 **다수결**이다. 길이로 고르면 둘 다 틀린다:
+        #    긴 쪽은 문장 조각이 이기고, 짧은 쪽은 **인용 오기**가 이긴다 — 실제로
+        #    `자연재해위험개선지구 관리지침(제2023-63호)`(1건, 골든 오기)이 짧다는 이유로
+        #    `재해영향평가등의 협의 실무지침`(4건, 10파트가 쓰는 진짜)을 밀어냈다.
+        #    표기 변이는 앞머리가 같다 — `재해영향평가등의 (협의) 실무지침` 셋은 한 집안이고
+        #    `자연재해위험개선지구 관리지침` 하나만 딴 집이다. **앞 6글자로 묶어 세면**
+        #    3 : 1 이라 다수가 이긴다(정확 일치만 보면 오기 쪽이 먼저 걸려 이겨 버린다).
+        fam = {}
+        for n in names:
+            k = norm_name(n)[:6]
+            f = fam.setdefault(k, {"n": 0, "names": []})
+            f["n"] += 1
+            f["names"].append(n)
+        cands = []
+        for f in sorted(fam.values(), key=lambda f: -f["n"]):
+            for n in sorted(set(f["names"]), key=len, reverse=True):
+                if n not in cands:
+                    cands.append(n)
+        q, hits, exact = cands[-1], [], []
+        for c in cands:
+            h2 = rows(api_search(oc, "admrul", c, fresh), "AdmRulSearch", "admrul")
+            e2 = [h for h in h2 if norm_name(h.get("행정규칙명", "")) == norm_name(c)]
+            if h2 and not hits:
+                q, hits = c, h2
+            if e2:
+                q, hits, exact = c, h2, e2
+                break
         pick = exact or hits[:1]
         if pick:
             h = pick[0]

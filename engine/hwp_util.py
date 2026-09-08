@@ -98,13 +98,19 @@ def open_hwp(path, visible=False):
     #    강제 종료 직후엔 tasklist 에서 사라지는 데 몇 초 걸린다(2026-09-08: taskkill 뒤
     #    3초 sleep 으로 부족해 세 파트가 연달아 매달렸다). 기다리고, 그래도 남으면
     #    **매달리는 대신 즉시 실패한다** — 17분 뒤에 아는 것보다 낫다.
-    for _ in range(30):
+    for _ in range(15):
         if not _hwp_running():
             break
         time.sleep(1)
-    else:
-        sys.exit("ERROR: 한글 프로세스가 30초를 기다려도 남아 있다 — 정리 후 다시 실행할 것 "
-                 "(taskkill /F /IM Hwp.exe). 이대로 열면 Open() 이 십수 분 멈춘다")
+    if _hwp_running():
+        # 스스로 안 닫히면 정리한다. 남겨 두면 `Open()` 이 십수 분 멈추는데, 그건
+        # 예외가 아니라 **정지**라 try/except 로도 못 잡는다 — 미리 없애는 수밖에 없다.
+        print("  ⚠️ 앞선 한글 프로세스가 안 닫혔다 — 정리한다")
+        subprocess.run(["taskkill", "/F", "/IM", "Hwp.exe"], capture_output=True)
+        for _ in range(20):
+            if not _hwp_running():
+                break
+            time.sleep(1)
     hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
     hwp.XHwpWindows.Item(0).Visible = visible
     hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")

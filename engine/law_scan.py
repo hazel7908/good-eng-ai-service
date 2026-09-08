@@ -151,6 +151,11 @@ def scan():
             hits = [norm(m) for m in BRACKET.findall(line)]
             for m in NOTICE.finditer(line):
                 hits.append(norm(f"{m.group(1)} 제{m.group(2).replace(' ', '')}호"))
+                # ⚠️ 번호 앞의 이름을 같이 따려다 되레 망가뜨렸다 (09-08 실측):
+                #    `자연재해위험개선지구 관리지침(제2023-63호)` 은 **골든의 인용 오기**라
+                #    그 이름을 믿으면 10파트가 쓰는 실무지침 번호가 엉뚱한 고시로 치환된다.
+                #    번호만 있고 이름을 모르는 고시는 `law_check.NOTICE_ALIAS` 에
+                #    **근거를 확인한 것만** 손으로 적는다.
             bare = set()
             for m in BARE.finditer(re.sub(r"「[^」]*」", " ", line)):
                 t = trim_bare(norm(m.group(1)))
