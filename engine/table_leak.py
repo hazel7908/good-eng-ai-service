@@ -218,6 +218,21 @@ def _case_numbers(category, case):
             walk(json.loads(vp.read_text(encoding="utf-8")))
         except Exception:                                # noqa: BLE001
             pass
+
+    # 🔬 **그 사업 골든의 숫자도 자기 값이다** (2026-09-08, Mac 승인).
+    #    vars 에 없고 **계산으로 나오는** 값이 있다 — 평창 대기질 예측치
+    #    `21.00·11.00·21.99·21.26` 이 그 사업 골든에 9·9·2·2회 나오는 자기 값인데
+    #    vars 엔 없어 원주 베이스와 겹치자 거짓 유출로 떴다.
+    #    골든 참조 금지는 **생성 과정**의 원칙이고, table_leak 은 채점기와 같은 검증 도구다.
+    #    ⚠️ 트레이드오프 — 잔존값이 우연히 그 사업 골든에도 있으면 가려진다(위치 무관 매칭).
+    #       정밀 검증은 채점기 골든 대조가 덮고, `RESIDUE_FAIL_MIN=2` 가 완충한다.
+    #    ⚠️ 실전 신규 사업엔 골든이 없다 — 그때는 vars 만 남는 안전 폴백이 된다.
+    gd = ROOT / "golden" / category / case
+    for gp in gd.glob("*.txt"):
+        try:
+            out.update(NUM.findall(gp.read_text(encoding="utf-8")))
+        except Exception:                                # noqa: BLE001
+            pass
     return out
 
 
