@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """strategic-env `socioeconomic` 핸들러 — C 틀 (2026-09-04 Mac). 규약: vars `slots`. 사회경제 — 지목·용도·인구·산업 서술 수확(소환 0724 문형) + 하천명 · 통계 표 비움(B: 통계 소싱). BLANK 앵커는 Windows 실측 전 추정."""
-from hwp_util import MISSING, blank_tables
+from hwp_util import MISSING, blank_tables, blank_value_cells
 
 BLANK = [("구성비", 2, 4), ("수립연장", 2, 2), ("세대", 2, 3), ("행정구역", 1, 2),
          # ⚠️ 09-08 anchor_suggest — 되먹임 사각 25표 중 사업 고유 8개. 머리행 셀을
@@ -25,6 +25,13 @@ def build_tables(hwp, v):
         k = blank_tables(hwp, anchor, hdr, limit)
         if k == 0:
             print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 기준 사업 값 잔존 위험")
+
+    # 🚨 지구별 축제·보축계획 14표는 **라벨-값 격자**다 — 머리행이 따로 없고 한 행에
+    #    `계획홍수위 | El. | 150.27~156.39 | m` 처럼 라벨과 값이 섞여 있다.
+    #    blank_tables 로 자르면 값이 살아남고 다 지우면 라벨이 사라진다 → 칸 단위로 간다.
+    k = blank_value_cells(hwp, "계획홍수위", hdr=1, limit=16)
+    if k == 0:
+        print("    WARNING: 앵커 '계획홍수위' 못 찾음 — 지구별 계획 표 유출 위험")
 
 
 EXPECT = ['법정리_서술', '서술_19', '서술_527', '서술_18', '서술_268', '서술_961', '서술_656', '계획명', '시군', '읍면', '하천1_명', '하천2_명']

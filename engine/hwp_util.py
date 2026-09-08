@@ -823,6 +823,95 @@ def clear_cell_paras(hwp, skip_paras=(), limit=12):
     return n
 
 
+def cell_text(hwp) -> str:
+    """캐럿이 든 칸의 글자를 읽는다 (선택 → 블록 저장 → 선택 해제)."""
+    hwp.HAction.Run("SelectAll")
+    try:
+        t = hwp.GetTextFile("TEXT", "saveblock")
+    except Exception:
+        t = ""
+    hwp.HAction.Run("Cancel")
+    return (t or "").replace("\r", " ").replace("\n", " ").strip()
+
+
+HANGUL = re.compile(r"[가-힣ㄱ-ㅎㅏ-ㅣ]")
+DIGIT = re.compile(r"\d")
+
+
+def is_value_cell(t: str, keep=None) -> bool:
+    """이 칸이 **값**인가 (라벨이 아니라).
+
+    맥이 정한 판별 (2026-09-08): **한글이 한 글자도 없고 + 숫자를 품은** 칸만 값이다.
+      `150.27~156.39` → 값 ✅      `계획홍수위` → 한글이라 라벨 ❌
+      `El.` · `m`     → 숫자가 없어 라벨 ❌   `1지구` → 한글이라 라벨 ❌
+    라벨-값 격자(한 행에 라벨과 값이 섞인 표)에서 값만 떨어뜨리기 위한 규칙이다.
+    """
+    t = (t or "").strip()
+    if not t or HANGUL.search(t) or not DIGIT.search(t):
+        return False
+    if keep and re.search(keep, t):
+        return False
+    return True
+
+
+def blank_value_cells_here(hwp, keep=None, max_rows=48, max_cols=16):
+    """캐럿이 든 표에서 **값 칸만** 비운다. 라벨은 그대로 둔다. 반환: 비운 칸 수."""
+    for _ in range(max_rows):                 # 첫 행으로 올라간다
+        a = cell_addr(hwp)
+        if not a or a[1] == 0:
+            break
+        if not hwp.HAction.Run("TableUpperCell"):
+            break
+    col_begin(hwp)
+    n, prev = 0, None
+    for _ in range(max_rows):
+        a = cell_addr(hwp)
+        if not a:
+            break
+        row = a[1]
+        for _ in range(max_cols):
+            here = cell_addr(hwp)
+            if here is not None and here == prev:   # 제자리 = 표 끝 (blank_table_here 와 같은 방어)
+                return n
+            prev = here
+            if is_value_cell(cell_text(hwp), keep):
+                set_cell(hwp, MISSING)
+                n += 1
+            if not hwp.HAction.Run("TableRightCell"):
+                return n
+            if cell_addr(hwp)[1] != row:
+                break
+        else:
+            return n
+    return n
+
+
+def blank_value_cells(hwp, anchor, hdr=1, limit=1, keep=None,
+                      max_rows=48, max_cols=16):
+    """라벨-값 격자를 비운다 — `blank_tables` 의 자매 (2026-09-08, 맥 설계).
+
+    🚨 `blank_tables` 로 못 푸는 표가 있다. 머리행이 따로 없고 한 행 안에
+    `계획홍수위 | El. | 150.27~156.39 | m` 처럼 **라벨과 값이 섞인** 격자다 —
+    `header_rows` 로 자르면 값이 살아남고, 다 지우면 라벨까지 사라진다.
+    → 행이 아니라 **칸마다 값인지 보고** 값만 비운다 (`is_value_cell`).
+
+    skip 자동 결정은 `blank_tables` 와 같은 논리를 쓴다: 앵커 행 ≤ hdr 이면
+    앵커가 살아남으므로 다음 표는 skip+1.
+    ⚠️ 앵커 자체가 값 칸이면 비우며 사라진다 — 그때는 skip 을 올리지 않는다.
+    """
+    k = skip = 0
+    while k < limit and find_in_table(hwp, anchor, skip=skip):
+        a = cell_addr(hwp)
+        survives = bool(a) and a[1] <= hdr and not is_value_cell(anchor, keep)
+        n = blank_value_cells_here(hwp, keep=keep, max_rows=max_rows, max_cols=max_cols)
+        print(f"    값비움 `{anchor}` #{k + 1} — {n}칸 "
+              f"(앵커 {'유지' if survives else '소멸'})")
+        k += 1
+        if survives:
+            skip += 1
+    return k
+
+
 def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12):
     """캐럿이 든 표(중첩표 포함)의 **머리행 아래**를 전부 `[확인 필요]` 로 비운다.
 
