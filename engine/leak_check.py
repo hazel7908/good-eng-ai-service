@@ -86,7 +86,10 @@ def main():
     #  고정 문구일 수 있어 자동 판정하지 않고 목록으로 보여준다(리터럴 사업명이면
     #  베이스 규약 위반 — natural-assets 사고 부류를 사람이 한눈에 잡게).
     hleaks = [x for x in headers(gen) if "{{" in x]
-    hb = sorted({x for x in headers(base) if "{{" not in x})
+    # 쪽번호 접두(`3-`·`부록-`·`5-` 등 숫자·짧은 라벨+하이픈)는 사업명일 수 없다 —
+    # 충주 3장에서 `3-` 이 사업명 후보로 떠 오탐 (2026-09-08 Windows 실측).
+    page_prefix = re.compile(r"^[\d\s]*[-–]?$|^[가-힣]{1,2}[\d\s]*[-–]$")
+    hb = sorted({x for x in headers(base) if "{{" not in x and not page_prefix.match(x)})
     print(f"베이스 서술 {len(tn)}개 · 생성 서술 {len(on)}개 · 의심 {len(hits)}개"
           + (f" · 머리말 치환실패 {len(hleaks)}건" if hleaks else "") + "\n")
     if hb:
