@@ -68,6 +68,18 @@ def main():
             if r < ratio:
                 continue
             flat = " ".join(filled)
+            # ⚠️ **전역 지명 토큰이 표를 스쳐간 것**은 위험이 아니다 (맥 판정 09-08).
+            #    `{{시군}}`·`{{하천1_명}}` 은 문서 곳곳에 있는 치환이라, 그 표를 비워도
+            #    spec 이 잃는 것이 없다. 그 표 **밖에도 나오는 토큰**은 세지 않는다 —
+            #    이 표에서만 쓰이는 토큰(`{{NV1_주소}}`·`{{서술_591}}`)이 진짜 위험이다.
+            outside = xml[:tm.start()] + xml[tm.end():]
+            names = {t for t in TOK.findall(flat) if t not in outside}
+            if not names:
+                continue
+            tok = [c for c in tok if any(n in c for n in names)]
+            r = len(tok) / len(filled)
+            if r < ratio:
+                continue
             hit = [a for a, *_ in blank if a in flat]
             if not hit:
                 continue
@@ -75,7 +87,7 @@ def main():
             print(f"  🚨 {cat}/{part}  앵커 {hit}")
             print(f"      칸 {len(filled)}개 중 토큰 {len(tok)}개 ({r:.0%}) — "
                   f"비우면 spec 이 채운 값을 지운다")
-            print(f"      {sorted(set(TOK.findall(flat)))[:5]}")
+            print(f"      이 표 전용 토큰 {sorted(names)[:5]}")
     print(f"\n  경고 {warn}건 (임계 {ratio:.0%})")
     return 1 if warn else 0
 
