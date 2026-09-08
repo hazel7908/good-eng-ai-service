@@ -3,7 +3,8 @@
 """strategic-env `natural-assets` 핸들러 — C (2026-09-03 Mac). 규약: vars `slots` 평면 사전. 보호지역 확인 문장 9·현지조사·영향예측·저감 서술 ≈55 통문장 · 문헌·출현 표 비움 · ○× 조사항목 표 유지. BLANK 앵커는 Windows 실측 전 추정."""
 from hwp_util import MISSING, blank_table_here, find_in_table
 
-BLANK = [("문헌조사(격자번호)", 2, 1), ("대상종", 3, 1)]
+BLANK = [("문헌조사(격자번호)", 2, 1), ("대상종", 3, 1),
+         ("계획하천", 1, 1)]   # 09-08 — 조사지역의 자연환경자산 현황
 
 
 def build_slots(v):

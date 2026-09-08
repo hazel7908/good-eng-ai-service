@@ -3,7 +3,9 @@
 """strategic-env `load-allocation-deferral` 핸들러 — C (2026-09-03 Mac). 규약: vars `slots` 평면 사전. 별첨 — 개요·경위 13·계획 범위 표·시설물 표·연기 사유·서식 셀 ≈75 통문장 + 값 12 (2장 vars 승계 자리). BLANK 앵커는 Windows 실측 전 추정."""
 from hwp_util import MISSING, blank_table_here, find_in_table
 
-BLANK = []
+BLANK = [("(㎞)", 1, 1)]   # 09-08 — 계획의 범위(연장)
+# ⚠️ 나머지 미처리 4표는 손대지 않는다: 계획의 시행근거·전략환경영향평가 실시근거는
+#    **법령표**이고, `{{유보_NNN}}` 표들은 spec 이 채우는 자리다(비우면 값을 지운다).
 
 
 def build_slots(v):
