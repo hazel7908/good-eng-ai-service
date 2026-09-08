@@ -108,9 +108,14 @@ def main():
         for r in rows[:2]:
             for _, ps in sorted(cells[r]):
                 for t in ps:
-                    if (2 <= len(t) <= 26 and freq.get(t, 9) <= 2
+                    # ⚠️ 희소성 기준을 2 로 두면 **큰 표를 통째로 놓친다** (09-08 실측).
+                    #    표가 크면 `(계속)` 으로 쪼개져 같은 머리행이 4~8번 반복되는데,
+                    #    그걸 "흔한 셀"로 보고 후보에서 떨어뜨렸다 — 본환 수질 강우자료
+                    #    4표(약 3,000칸)·전략 하도수리량 8표가 그렇게 빠져 있었다.
+                    #    반복 머리행은 오히려 **limit 으로 한 번에 잡을 수 있는 좋은 앵커**다.
+                    if (2 <= len(t) <= 26 and freq.get(t, 99) <= 8
                             and not re.fullmatch(r"[\d.,~\-()%㎜㎥㎡\s]+", t)):
-                        cand.append((freq.get(t, 9), r, t))
+                        cand.append((freq.get(t, 99), r, t))
         pick = sorted(cand)[0] if cand else None
         a = f"({pick[2]!r}, {max(1, pick[1] + 1)}, {freq.get(pick[2], 1)})" if pick else "(앵커 후보 없음)"
         print(f"{verdict:8s} | {cap[:44]:46s} | 행{len(rows):3d} | {a}")
