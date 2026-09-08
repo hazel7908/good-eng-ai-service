@@ -94,9 +94,17 @@ def open_hwp(path, visible=False):
     #    멈췄다가, 프로세스를 정리하고 다시 열자 **8.9초**에 끝났다.
     #    ⚠️ 끊을 때 **파이썬만 죽이면 안 된다** — 셸이 다음 명령으로 넘어가 한글을 또 띄운다.
     import win32com.client
-    if _hwp_running():
-        print("  ⚠️ 앞선 한글 프로세스가 남아 있다 — `Open()` 이 멈출 수 있다 "
-              "(taskkill /F /IM Hwp.exe 로 정리할 것)")
+    # 🚨 경고만으로는 안 된다 — 남은 프로세스가 있으면 `Open()` 이 조용히 십수 분 멈춘다.
+    #    강제 종료 직후엔 tasklist 에서 사라지는 데 몇 초 걸린다(2026-09-08: taskkill 뒤
+    #    3초 sleep 으로 부족해 세 파트가 연달아 매달렸다). 기다리고, 그래도 남으면
+    #    **매달리는 대신 즉시 실패한다** — 17분 뒤에 아는 것보다 낫다.
+    for _ in range(30):
+        if not _hwp_running():
+            break
+        time.sleep(1)
+    else:
+        sys.exit("ERROR: 한글 프로세스가 30초를 기다려도 남아 있다 — 정리 후 다시 실행할 것 "
+                 "(taskkill /F /IM Hwp.exe). 이대로 열면 Open() 이 십수 분 멈춘다")
     hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
     hwp.XHwpWindows.Item(0).Visible = visible
     hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")

@@ -1,6 +1,36 @@
 {
- "생성일": "2026-09-07",
+ "생성일": "2026-09-08",
  "법령": [
+  {
+   "인용": "환경영향평가법",
+   "class": "법률",
+   "파트수": 18,
+   "parts": [
+    "env-impact/air-quality",
+    "env-impact/mitigation-postmonitoring",
+    "env-impact/noise-vib",
+    "env-impact/project-overview",
+    "env-impact/public-opinion",
+    "env-impact/scoping",
+    "env-impact/summary",
+    "env-impact/water-total-load",
+    "small-env/appendix",
+    "small-env/project-overview",
+    "small-env/target-area",
+    "small-env/water-total-load",
+    "strategic-env/appendix",
+    "strategic-env/load-allocation-deferral",
+    "strategic-env/plan-overview",
+    "strategic-env/public-opinion",
+    "strategic-env/scoping",
+    "strategic-env/water-quality"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251023",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
   {
    "인용": "국토의 계획 및 이용에 관한 법률",
    "class": "법률",
@@ -30,6 +60,85 @@
    "소관부처": "국토교통부"
   },
   {
+   "인용": "환경정책기본법",
+   "class": "법률",
+   "파트수": 15,
+   "parts": [
+    "env-impact/air-quality",
+    "env-impact/alternatives",
+    "env-impact/conservation-goal",
+    "env-impact/land-use",
+    "env-impact/noise-vib",
+    "env-impact/regional-overview",
+    "env-impact/water-quality",
+    "small-env/air-quality",
+    "small-env/appendix",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
+    "small-env/water-quality",
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview",
+    "strategic-env/water-quality"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260102",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "자연환경보전법",
+   "class": "법률",
+   "파트수": 15,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/conservation-goal",
+    "env-impact/flora-fauna",
+    "env-impact/landscape",
+    "env-impact/project-overview",
+    "env-impact/regional-overview",
+    "env-impact/summary",
+    "small-env/appendix",
+    "small-env/flora-fauna",
+    "small-env/landscape",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/flora-fauna",
+    "strategic-env/public-opinion",
+    "strategic-env/regional-overview"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260701",
+   "공포번호": "21447",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "자연재해대책법",
+   "class": "법률",
+   "파트수": 13,
+   "parts": [
+    "disaster-impact/baseline-survey",
+    "disaster-impact/conclusion",
+    "disaster-impact/maintenance",
+    "disaster-impact/project-overview",
+    "disaster-impact/target-area",
+    "disaster-review/baseline-survey",
+    "disaster-review/project-overview",
+    "small-disaster/baseline-survey",
+    "small-disaster/conclusion",
+    "small-disaster/maintenance",
+    "small-disaster/project-overview",
+    "small-disaster/target-area",
+    "strategic-env/plan-adequacy"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260102",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "행정안전부"
+  },
+  {
    "인용": "체육시설의 설치·이용에 관한 법률",
    "class": "법률",
    "파트수": 11,
@@ -53,70 +162,50 @@
    "소관부처": "문화체육관광부"
   },
   {
-   "인용": "자연환경보전법",
+   "인용": "대기환경보전법",
    "class": "법률",
    "파트수": 11,
    "parts": [
-    "env-impact/alternatives",
-    "env-impact/project-overview",
+    "env-impact/air-quality",
+    "env-impact/greenhouse-gas",
     "env-impact/regional-overview",
-    "env-impact/summary",
+    "small-env/air-quality",
     "small-env/appendix",
-    "small-env/flora-fauna",
-    "small-env/landscape",
+    "small-env/regional-overview",
     "small-env/site-suitability",
+    "strategic-env/air-quality",
     "strategic-env/appendix",
-    "strategic-env/flora-fauna",
-    "strategic-env/public-opinion"
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
    ],
    "판정": "현행확인",
-   "현행시행일": "20260701",
-   "공포번호": "21447",
-   "제개정": "타법개정",
+   "현행시행일": "20260707",
+   "공포번호": "21843",
+   "제개정": "일부개정",
    "소관부처": "기후에너지환경부"
   },
   {
-   "인용": "환경영향평가법",
+   "인용": "하수도법",
    "class": "법률",
-   "파트수": 10,
+   "파트수": 11,
    "parts": [
-    "env-impact/mitigation-postmonitoring",
+    "disaster-impact/baseline-survey",
+    "disaster-review/baseline-survey",
+    "env-impact/conservation-goal",
     "env-impact/public-opinion",
-    "env-impact/scoping",
+    "env-impact/resource-cycle",
+    "env-impact/summary",
+    "env-impact/water-quality",
     "env-impact/water-total-load",
-    "small-env/target-area",
+    "small-disaster/baseline-survey",
     "strategic-env/appendix",
-    "strategic-env/load-allocation-deferral",
-    "strategic-env/plan-overview",
-    "strategic-env/public-opinion",
     "strategic-env/water-quality"
    ],
    "판정": "현행확인",
-   "현행시행일": "20251023",
+   "현행시행일": "20251001",
    "공포번호": "21065",
    "제개정": "타법개정",
    "소관부처": "기후에너지환경부"
-  },
-  {
-   "인용": "자연재해대책법",
-   "class": "법률",
-   "파트수": 9,
-   "parts": [
-    "disaster-impact/baseline-survey",
-    "disaster-impact/maintenance",
-    "disaster-impact/project-overview",
-    "disaster-impact/target-area",
-    "disaster-review/project-overview",
-    "small-disaster/baseline-survey",
-    "small-disaster/maintenance",
-    "small-disaster/project-overview",
-    "small-disaster/target-area"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260102",
-   "공포번호": "21065",
-   "제개정": "타법개정",
-   "소관부처": "행정안전부"
   },
   {
    "인용": "하천법",
@@ -139,18 +228,17 @@
    "소관부처": "기후에너지환경부"
   },
   {
-   "인용": "하수도법",
+   "인용": "소음진동관리법",
    "class": "법률",
-   "파트수": 8,
+   "파트수": 7,
    "parts": [
-    "disaster-impact/baseline-survey",
-    "disaster-review/baseline-survey",
-    "env-impact/public-opinion",
-    "env-impact/summary",
-    "env-impact/water-quality",
-    "small-disaster/baseline-survey",
+    "env-impact/noise-vib",
+    "small-env/appendix",
+    "small-env/noise-vib",
+    "small-env/regional-overview",
     "strategic-env/appendix",
-    "strategic-env/water-quality"
+    "strategic-env/noise-vib",
+    "strategic-env/regional-overview"
    ],
    "판정": "현행확인",
    "현행시행일": "20251001",
@@ -190,9 +278,9 @@
     "strategic-env/regional-overview"
    ],
    "판정": "현행확인",
-   "현행시행일": "20260701",
-   "공포번호": "36424",
-   "제개정": "타법개정",
+   "현행시행일": "20260908",
+   "공포번호": "36656",
+   "제개정": "일부개정",
    "소관부처": "국토교통부"
   },
   {
@@ -286,6 +374,24 @@
    "소관부처": "기후에너지환경부"
   },
   {
+   "인용": "소음·진동관리법",
+   "class": "법률",
+   "파트수": 6,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/noise-vib",
+    "small-env/appendix",
+    "small-env/noise-vib",
+    "strategic-env/appendix",
+    "strategic-env/noise-vib"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
    "인용": "건축법",
    "class": "법률",
    "파트수": 6,
@@ -302,6 +408,24 @@
    "공포번호": "21035",
    "제개정": "일부개정",
    "소관부처": "국토교통부"
+  },
+  {
+   "인용": "대기관리권역의 대기환경개선에 관한 특별법",
+   "class": "법률",
+   "파트수": 6,
+   "parts": [
+    "small-env/appendix",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/appendix",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
   },
   {
    "인용": "학원의 설립·운영 및 과외교습에 관한 법률",
@@ -375,6 +499,23 @@
    ]
   },
   {
+   "인용": "폐기물 관리법",
+   "class": "법률",
+   "파트수": 5,
+   "parts": [
+    "env-impact/resource-cycle",
+    "small-env/appendix",
+    "small-env/resource-cycle",
+    "strategic-env/appendix",
+    "strategic-env/resource-cycle"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260820",
+   "공포번호": "21371",
+   "제개정": "일부개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
    "인용": "소하천정비법",
    "class": "법률",
    "파트수": 4,
@@ -407,51 +548,50 @@
    "소관부처": "국토교통부"
   },
   {
-   "인용": "대기환경보전법",
+   "인용": "야생생물 보호 및 관리에 관한 법률",
    "class": "법률",
    "파트수": 4,
    "parts": [
-    "env-impact/air-quality",
-    "env-impact/greenhouse-gas",
-    "small-env/air-quality",
-    "strategic-env/air-quality"
+    "env-impact/flora-fauna",
+    "env-impact/regional-overview",
+    "small-env/site-suitability",
+    "strategic-env/regional-overview"
    ],
    "판정": "현행확인",
-   "현행시행일": "20260707",
-   "공포번호": "21843",
+   "현행시행일": "20260512",
+   "공포번호": "21126",
    "제개정": "일부개정",
    "소관부처": "기후에너지환경부"
   },
   {
-   "인용": "환경정책기본법",
-   "class": "법률",
-   "파트수": 4,
-   "parts": [
-    "env-impact/air-quality",
-    "env-impact/land-use",
-    "env-impact/noise-vib",
-    "strategic-env/water-quality"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260102",
-   "공포번호": "21065",
-   "제개정": "타법개정",
-   "소관부처": "기후에너지환경부"
-  },
-  {
-   "인용": "소음·진동관리법",
+   "인용": "자연공원법",
    "class": "법률",
    "파트수": 3,
    "parts": [
-    "env-impact/noise-vib",
-    "small-env/noise-vib",
-    "strategic-env/noise-vib"
+    "small-env/flora-fauna",
+    "small-env/site-suitability",
+    "strategic-env/regional-overview"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260707",
+   "공포번호": "21848",
+   "제개정": "일부개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "습지보전법",
+   "class": "법률",
+   "파트수": 3,
+   "parts": [
+    "small-env/flora-fauna",
+    "small-env/site-suitability",
+    "strategic-env/regional-overview"
    ],
    "판정": "현행확인",
    "현행시행일": "20251001",
    "공포번호": "21065",
    "제개정": "타법개정",
-   "소관부처": "기후에너지환경부"
+   "소관부처": "기후에너지환경부,해양수산부"
   },
   {
    "인용": "농어촌정비법",
@@ -530,21 +670,6 @@
    "소관부처": "해양수산부"
   },
   {
-   "인용": "산업집적활성화 및 공장설립에 관한 법률",
-   "class": "법률",
-   "파트수": 3,
-   "parts": [
-    "env-impact/project-overview",
-    "env-impact/summary",
-    "env-impact/water-total-load"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260701",
-   "공포번호": "21447",
-   "제개정": "타법개정",
-   "소관부처": "산업통상부"
-  },
-  {
    "인용": "생물다양성 보전 및 이용에 관한 법률",
    "class": "법률",
    "파트수": 3,
@@ -560,17 +685,76 @@
    "소관부처": "기후에너지환경부"
   },
   {
-   "인용": "자연공원법",
+   "인용": "산림보호법",
+   "class": "법률",
+   "파트수": 3,
+   "parts": [
+    "env-impact/flora-fauna",
+    "strategic-env/flora-fauna",
+    "strategic-env/regional-overview"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260201",
+   "공포번호": "20751",
+   "제개정": "타법개정",
+   "소관부처": "산림청"
+  },
+  {
+   "인용": "산업집적활성화 및 공장설립에 관한 법률",
+   "class": "법률",
+   "파트수": 3,
+   "parts": [
+    "env-impact/project-overview",
+    "env-impact/summary",
+    "env-impact/water-total-load"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260701",
+   "공포번호": "21447",
+   "제개정": "타법개정",
+   "소관부처": "산업통상부"
+  },
+  {
+   "인용": "한강수계 상수원수질개선 및 주민지원 등에 관한 법률",
+   "class": "법률",
+   "파트수": 3,
+   "parts": [
+    "env-impact/public-opinion",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "토양환경보전법",
    "class": "법률",
    "파트수": 2,
    "parts": [
-    "small-env/flora-fauna",
-    "small-env/site-suitability"
+    "env-impact/conservation-goal",
+    "env-impact/soil"
    ],
    "판정": "현행확인",
-   "현행시행일": "20260707",
-   "공포번호": "21848",
-   "제개정": "일부개정",
+   "현행시행일": "20260331",
+   "공포번호": "21254",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "먹는물 수질기준 및 검사 등에 관한 규칙",
+   "class": "규칙",
+   "파트수": 2,
+   "parts": [
+    "env-impact/conservation-goal",
+    "env-impact/water-quality"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "00001",
+   "제개정": "타법개정",
    "소관부처": "기후에너지환경부"
   },
   {
@@ -587,34 +771,6 @@
     "야생생물 보호 및 관리에 관한 법률 시행령",
     "야생생물 보호 및 관리에 관한 법률 시행규칙"
    ]
-  },
-  {
-   "인용": "습지보전법",
-   "class": "법률",
-   "파트수": 2,
-   "parts": [
-    "small-env/flora-fauna",
-    "small-env/site-suitability"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20251001",
-   "공포번호": "21065",
-   "제개정": "타법개정",
-   "소관부처": "기후에너지환경부,해양수산부"
-  },
-  {
-   "인용": "야생생물 보호 및 관리에 관한 법률",
-   "class": "법률",
-   "파트수": 2,
-   "parts": [
-    "env-impact/regional-overview",
-    "small-env/site-suitability"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260512",
-   "공포번호": "21126",
-   "제개정": "일부개정",
-   "소관부처": "기후에너지환경부"
   },
   {
    "인용": "자연재해대책법시행령",
@@ -643,6 +799,36 @@
    "공포번호": "21313",
    "제개정": "일부개정",
    "소관부처": "소방청,해양경찰청,행정안전부"
+  },
+  {
+   "인용": "수급인은 해당 사업장의 근로자에 대하여 산업안전보건법",
+   "class": "법률",
+   "파트수": 2,
+   "parts": [
+    "disaster-impact/maintenance",
+    "small-disaster/maintenance"
+   ],
+   "조회명": "산업안전보건법",
+   "판정": "현행확인",
+   "현행시행일": "20260801",
+   "공포번호": "21374",
+   "제개정": "일부개정",
+   "소관부처": "고용노동부"
+  },
+  {
+   "인용": "채용할 때에는 그 근로자에 대하여 산업안전보건법",
+   "class": "법률",
+   "파트수": 2,
+   "parts": [
+    "disaster-impact/maintenance",
+    "small-disaster/maintenance"
+   ],
+   "조회명": "산업안전보건법",
+   "판정": "현행확인",
+   "현행시행일": "20260801",
+   "공포번호": "21374",
+   "제개정": "일부개정",
+   "소관부처": "고용노동부"
   },
   {
    "인용": "한강수계 상수원 수질개선 및 주민지원등에 관한 법률",
@@ -709,24 +895,10 @@
     "strategic-env/socioeconomic"
    ],
    "판정": "현행확인",
-   "현행시행일": "20260616",
-   "공포번호": "21798",
+   "현행시행일": "20260908",
+   "공포번호": "21901",
    "제개정": "타법개정",
    "소관부처": "국토교통부"
-  },
-  {
-   "인용": "산림보호법",
-   "class": "법률",
-   "파트수": 2,
-   "parts": [
-    "env-impact/flora-fauna",
-    "strategic-env/flora-fauna"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260201",
-   "공포번호": "20751",
-   "제개정": "타법개정",
-   "소관부처": "산림청"
   },
   {
    "인용": "문화재보호법 시행령",
@@ -755,6 +927,20 @@
    "소관부처": "국토교통부"
   },
   {
+   "인용": "에너지발열량의 경우 에너지법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "조회명": "에너지법",
+   "판정": "현행확인",
+   "현행시행일": "20260201",
+   "공포번호": "20727",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부,산업통상부"
+  },
+  {
    "인용": "건설폐기물의 재활용 촉진에 관한 법률",
    "class": "법률",
    "파트수": 1,
@@ -781,19 +967,6 @@
    "소관부처": "국토교통부"
   },
   {
-   "인용": "폐기물 관리법",
-   "class": "법률",
-   "파트수": 1,
-   "parts": [
-    "env-impact/resource-cycle"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260820",
-   "공포번호": "21371",
-   "제개정": "일부개정",
-   "소관부처": "기후에너지환경부"
-  },
-  {
    "인용": "국민기초생활 보장법",
    "class": "법률",
    "파트수": 1,
@@ -818,6 +991,20 @@
    "공포번호": "21065",
    "제개정": "타법개정",
    "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "식물보호법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "small-env/flora-fauna"
+   ],
+   "판정": "명칭불일치",
+   "후보": [
+    "식물신품종 보호법",
+    "식물신품종 보호법 시행령",
+    "식물신품종 보호법 시행규칙"
+   ]
   },
   {
    "인용": "산림법",
@@ -924,6 +1111,33 @@
    "소관부처": "산림청"
   },
   {
+   "인용": "자연재해위험개선지구는 자연재해대책법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "disaster-review/baseline-survey"
+   ],
+   "조회명": "자연재해대책법",
+   "판정": "현행확인",
+   "현행시행일": "20260102",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "행정안전부"
+  },
+  {
+   "인용": "도시·군계획시설의 결정·구조 및 설치기준에 관한 규칙",
+   "class": "규칙",
+   "파트수": 1,
+   "parts": [
+    "disaster-review/project-overview"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251031",
+   "공포번호": "01531",
+   "제개정": "타법개정",
+   "소관부처": "국토교통부"
+  },
+  {
    "인용": "자연재해대책법 시행령",
    "class": "시행령",
    "파트수": 1,
@@ -948,6 +1162,33 @@
    "공포번호": "20269",
    "제개정": "일부개정",
    "소관부처": "행정안전부"
+  },
+  {
+   "인용": "주변지역의 대기질 악화를 최소화하기 위하여 대기환경보전법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/air-quality"
+   ],
+   "조회명": "대기환경보전법",
+   "판정": "현행확인",
+   "현행시행일": "20260707",
+   "공포번호": "21843",
+   "제개정": "일부개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "미세먼지 저감 및 관리에 관한 특별법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/air-quality"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260127",
+   "공포번호": "21316",
+   "제개정": "일부개정",
+   "소관부처": "기후에너지환경부"
   },
   {
    "인용": "어린이놀이시설 안전관리법",
@@ -1002,81 +1243,16 @@
    "소관부처": "해양수산부"
   },
   {
-   "인용": "물의 재이용 촉진 및 지원에 관한 법률 시행규칙",
-   "class": "시행규칙",
-   "파트수": 1,
-   "parts": [
-    "env-impact/public-opinion"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20251111",
-   "공포번호": "00005",
-   "제개정": "일부개정",
-   "소관부처": "기후에너지환경부"
-  },
-  {
-   "인용": "한강수계 상수원수질개선 및 주민지원 등에 관한 법률",
+   "인용": "환경정책 기본법",
    "class": "법률",
    "파트수": 1,
    "parts": [
-    "env-impact/public-opinion"
+    "env-impact/conservation-goal"
    ],
    "판정": "현행확인",
-   "현행시행일": "20251001",
+   "현행시행일": "20260102",
    "공포번호": "21065",
    "제개정": "타법개정",
-   "소관부처": "기후에너지환경부"
-  },
-  {
-   "인용": "위험물안전관리법 시행령",
-   "class": "시행령",
-   "파트수": 1,
-   "parts": [
-    "env-impact/soil"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260701",
-   "공포번호": "36432",
-   "제개정": "타법개정",
-   "소관부처": "소방청"
-  },
-  {
-   "인용": "화학물질관리법",
-   "class": "법률",
-   "파트수": 1,
-   "parts": [
-    "env-impact/soil"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20251001",
-   "공포번호": "21065",
-   "제개정": "타법개정",
-   "소관부처": "기후에너지환경부"
-  },
-  {
-   "인용": "송유관 안전관리법",
-   "class": "법률",
-   "파트수": 1,
-   "parts": [
-    "env-impact/soil"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260310",
-   "공포번호": "21438",
-   "제개정": "타법개정",
-   "소관부처": "산업통상부"
-  },
-  {
-   "인용": "미세먼지 저감 및 관리에 관한 특별법",
-   "class": "법률",
-   "파트수": 1,
-   "parts": [
-    "env-impact/air-quality"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260127",
-   "공포번호": "21316",
-   "제개정": "일부개정",
    "소관부처": "기후에너지환경부"
   },
   {
@@ -1131,6 +1307,33 @@
    ]
   },
   {
+   "인용": "에너지법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260201",
+   "공포번호": "20727",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부,산업통상부"
+  },
+  {
+   "인용": "건물용도 분류는 건축법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/greenhouse-gas"
+   ],
+   "조회명": "건축법",
+   "판정": "현행확인",
+   "현행시행일": "20260227",
+   "공포번호": "21035",
+   "제개정": "일부개정",
+   "소관부처": "국토교통부"
+  },
+  {
    "인용": "자연환경보전법 시행령",
    "class": "시행령",
    "파트수": 1,
@@ -1141,6 +1344,75 @@
    "현행시행일": "20260701",
    "공포번호": "36424",
    "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "바와 같이 주민의견수렴을 하기 위해서는 환경영향평가법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "조회명": "환경영향평가법",
+   "판정": "현행확인",
+   "현행시행일": "20251023",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "영향평가법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "판정": "명칭불일치",
+   "후보": [
+    "성별영향평가법",
+    "성별영향평가법 시행령",
+    "해양이용영향평가법"
+   ]
+  },
+  {
+   "인용": "물의 재이용 촉진 및 지원에 관한 법률 시행규칙",
+   "class": "시행규칙",
+   "파트수": 1,
+   "parts": [
+    "env-impact/public-opinion"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251111",
+   "공포번호": "00005",
+   "제개정": "일부개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "이내의 지역에 위치하거나 환경정책기본법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/regional-overview"
+   ],
+   "조회명": "환경정책기본법",
+   "판정": "현행확인",
+   "현행시행일": "20260102",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "는 폐기물관리법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/resource-cycle"
+   ],
+   "조회명": "폐기물관리법",
+   "판정": "현행확인",
+   "현행시행일": "20260820",
+   "공포번호": "21371",
+   "제개정": "일부개정",
    "소관부처": "기후에너지환경부"
   },
   {
@@ -1157,11 +1429,51 @@
    "소관부처": "기후에너지환경부"
   },
   {
-   "인용": "유통산업발전법",
+   "인용": "운영시 조사기간은 환경영향평가법",
    "class": "법률",
    "파트수": 1,
    "parts": [
-    "strategic-env/load-allocation-deferral"
+    "env-impact/resource-cycle"
+   ],
+   "조회명": "환경영향평가법",
+   "판정": "현행확인",
+   "현행시행일": "20251023",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "위험물안전관리법 시행령",
+   "class": "시행령",
+   "파트수": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260701",
+   "공포번호": "36432",
+   "제개정": "타법개정",
+   "소관부처": "소방청"
+  },
+  {
+   "인용": "화학물질관리법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "송유관 안전관리법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/soil"
    ],
    "판정": "현행확인",
    "현행시행일": "20260310",
@@ -1170,31 +1482,70 @@
    "소관부처": "산업통상부"
   },
   {
-   "인용": "건설기술진흥법시행령",
-   "class": "시행령",
-   "파트수": 1,
-   "parts": [
-    "strategic-env/load-allocation-deferral"
-   ],
-   "판정": "현행확인",
-   "현행시행일": "20260609",
-   "공포번호": "36404",
-   "제개정": "일부개정",
-   "소관부처": "국토교통부"
-  },
-  {
-   "인용": "한강수계 상수원 수질개선 및 주민지원에 관한 법률",
+   "인용": "사후환경영향 조사기간은 환경영향평가법",
    "class": "법률",
    "파트수": 1,
    "parts": [
-    "strategic-env/public-opinion"
+    "env-impact/summary"
    ],
+   "조회명": "환경영향평가법",
+   "판정": "현행확인",
+   "현행시행일": "20251023",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "확률강우량의 적정성 여부를 검토하기 위해 자연재해대책법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "조회명": "자연재해대책법",
+   "판정": "현행확인",
+   "현행시행일": "20260102",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "행정안전부"
+  },
+  {
+   "인용": "골프장 운영시 수질환경보전법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "조회명": "수질환경보전법",
    "판정": "명칭불일치",
    "후보": [
-    "한강수계 상수원수질개선 및 주민지원 등에 관한 법률",
-    "한강수계 상수원수질개선 및 주민지원 등에 관한 법률 시행령",
-    "한강수계 상수원수질개선 및 주민지원 등에 관한 법률 시행규칙"
+    "물환경보전법",
+    "물환경보전법 시행령",
+    "물환경보전법 시행규칙"
    ]
+  },
+  {
+   "인용": "지하수 시설의 사후관리는 지하수법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "조회명": "지하수법",
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부"
+  },
+  {
+   "인용": "회씩 실시할 계획이며 지하수의 수질보전등에 관한 규칙",
+   "class": "규칙",
+   "파트수": 1,
+   "parts": [
+    "env-impact/water-quality"
+   ],
+   "판정": "검색0건"
   },
   {
    "인용": "하천법 시행령",
@@ -1235,6 +1586,73 @@
    ]
   },
   {
+   "인용": "유통산업발전법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/load-allocation-deferral"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260310",
+   "공포번호": "21438",
+   "제개정": "타법개정",
+   "소관부처": "산업통상부"
+  },
+  {
+   "인용": "건설기술진흥법시행령",
+   "class": "시행령",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/load-allocation-deferral"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20260609",
+   "공포번호": "36404",
+   "제개정": "일부개정",
+   "소관부처": "국토교통부"
+  },
+  {
+   "인용": "재해를 예방하고 생활환경을 개선하기 위하여 소하천정비법",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/plan-adequacy"
+   ],
+   "조회명": "소하천정비법",
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "행정안전부"
+  },
+  {
+   "인용": "한강수계 상수원 수질개선 및 주민지원에 관한 법률",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/public-opinion"
+   ],
+   "판정": "명칭불일치",
+   "후보": [
+    "한강수계 상수원수질개선 및 주민지원 등에 관한 법률",
+    "한강수계 상수원수질개선 및 주민지원 등에 관한 법률 시행령",
+    "한강수계 상수원수질개선 및 주민지원 등에 관한 법률 시행규칙"
+   ]
+  },
+  {
+   "인용": "백두대간 보호에 관한 법률",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/regional-overview"
+   ],
+   "판정": "현행확인",
+   "현행시행일": "20251001",
+   "공포번호": "21065",
+   "제개정": "타법개정",
+   "소관부처": "기후에너지환경부,산림청"
+  },
+  {
    "인용": "충청북도 청주시 설치 및 지원특례에 관한 법률",
    "class": "법률",
    "파트수": 1,
@@ -1259,6 +1677,20 @@
    "공포번호": "16001",
    "제개정": "일부개정",
    "소관부처": "국토교통부"
+  },
+  {
+   "인용": "토지 등의 취득 및 보상에 관한 법률",
+   "class": "법률",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/socioeconomic"
+   ],
+   "판정": "명칭불일치",
+   "후보": [
+    "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률",
+    "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행령",
+    "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙"
+   ]
   }
  ],
  "행정규칙": [
@@ -1288,50 +1720,6 @@
    "판정": "STALE"
   },
   {
-   "인용": "산림청 고시 제2019-75호",
-   "인용고시번호": "2019-75",
-   "파트수": 10,
-   "parts": [
-    "env-impact/regional-overview",
-    "small-env/appendix",
-    "small-env/landscape",
-    "small-env/regional-overview",
-    "small-env/site-suitability",
-    "small-env/topo-geology",
-    "strategic-env/appendix",
-    "strategic-env/landscape",
-    "strategic-env/regional-overview",
-    "strategic-env/summary"
-   ],
-   "샘플": "백두대간보호지역 지정현황(산림청 고시 제2019-75호. 2019.11.05.)",
-   "질의": "백두대간보호지역 지정",
-   "판정": "검색0건"
-  },
-  {
-   "인용": "중권역별 물환경 목표기준, 환경부고시 제2018-6호",
-   "인용고시번호": "2018-6",
-   "파트수": 9,
-   "parts": [
-    "env-impact/water-quality",
-    "small-env/appendix",
-    "small-env/regional-overview",
-    "small-env/site-suitability",
-    "strategic-env/appendix",
-    "strategic-env/hydrology",
-    "strategic-env/regional-overview",
-    "strategic-env/summary",
-    "strategic-env/water-quality"
-   ],
-   "샘플": "상수원호소 지정(환경부고시 제2018-6호, 2018. 01. 18, 일부개정)",
-   "질의": "중권역별 물환경 목표기준",
-   "현행명": "중권역별 물환경 목표기준 고시",
-   "현행발령번호": "2026-121",
-   "현행발령일": "20260519",
-   "소관부처": "기후에너지환경부",
-   "정확일치": false,
-   "판정": "STALE"
-  },
-  {
    "인용": "환경부고시 제2007-107호",
    "인용고시번호": "2007-107",
    "파트수": 9,
@@ -1356,25 +1744,60 @@
    "판정": "CURRENT"
   },
   {
-   "인용": "경부 고시 제2018-23호",
-   "인용고시번호": "2018-23",
-   "파트수": 7,
+   "인용": "산림청 고시 제2019-75호",
+   "인용고시번호": "2019-75",
+   "파트수": 9,
    "parts": [
-    "env-impact/regional-overview",
+    "small-env/appendix",
+    "small-env/landscape",
+    "small-env/regional-overview",
+    "small-env/site-suitability",
+    "small-env/topo-geology",
+    "strategic-env/appendix",
+    "strategic-env/landscape",
+    "strategic-env/regional-overview",
+    "strategic-env/summary"
+   ],
+   "샘플": "백두대간보호지역 지정현황(산림청 고시 제2019-75호. 2019.11.05.)",
+   "질의": "백두대간보호지역 지정",
+   "판정": "검색0건"
+  },
+  {
+   "인용": "환경부고시 제2018-6호",
+   "인용고시번호": "2018-6",
+   "파트수": 8,
+   "parts": [
+    "env-impact/water-quality",
     "small-env/appendix",
     "small-env/regional-overview",
     "small-env/site-suitability",
     "strategic-env/appendix",
-    "strategic-env/regional-overview",
-    "strategic-env/summary"
+    "strategic-env/hydrology",
+    "strategic-env/summary",
+    "strategic-env/water-quality"
    ],
-   "샘플": "대기보전특별대책지역지정 및 동지역내 대기오염저감을 위한 종합대책(환경부고시 제2018-23호, 2018.02.09.)",
-   "질의": "대기보전특별대책지역지정 및 동지역내 대기오염저감을 위한 종합대책",
-   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
-   "현행발령번호": "2025-165",
-   "현행발령일": "20251001",
-   "소관부처": "기후에너지환경부",
-   "정확일치": false,
+   "샘플": "상수원호소 지정(환경부고시 제2018-6호, 2018. 01. 18, 일부개정)",
+   "판정": "명칭미상"
+  },
+  {
+   "인용": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.4.13., 일부개정)",
+   "인용고시번호": "2023-72",
+   "파트수": 6,
+   "parts": [
+    "env-impact/alternatives",
+    "env-impact/scoping",
+    "env-impact/target-area",
+    "small-env/appendix",
+    "small-env/site-suitability",
+    "small-env/target-area"
+   ],
+   "샘플": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.04.13., 일부개정)",
+   "질의": "환경영향평가서등 작성 등에 관한 규정",
+   "현행명": "환경영향평가서등 작성 등에 관한 규정",
+   "현행발령번호": "2025-10",
+   "현행발령일": "20251023",
+   "소관부처": "환경부",
+   "정확일치": true,
    "판정": "STALE"
   },
   {
@@ -1399,24 +1822,23 @@
    "판정": "STALE"
   },
   {
-   "인용": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.4.13., 일부개정)",
-   "인용고시번호": "2023-72",
-   "파트수": 6,
+   "인용": "경부 고시 제2018-23호",
+   "인용고시번호": "2018-23",
+   "파트수": 5,
    "parts": [
-    "env-impact/alternatives",
-    "env-impact/scoping",
-    "env-impact/target-area",
     "small-env/appendix",
+    "small-env/regional-overview",
     "small-env/site-suitability",
-    "small-env/target-area"
+    "strategic-env/appendix",
+    "strategic-env/summary"
    ],
-   "샘플": "환경영향평가서등 작성 등에 관한 규정(환경부고시 제2023-72호, 2023.04.13., 일부개정)",
-   "질의": "환경영향평가서등 작성 등에 관한 규정",
-   "현행명": "환경영향평가서등 작성 등에 관한 규정",
-   "현행발령번호": "2025-10",
-   "현행발령일": "20251023",
-   "소관부처": "환경부",
-   "정확일치": true,
+   "샘플": "대기보전특별대책지역지정 및 동지역내 대기오염저감을 위한 종합대책(환경부고시 제2018-23호, 2018.02.09.)",
+   "질의": "대기보전특별대책지역지정 및 동지역내 대기오염저감을 위한 종합대책",
+   "현행명": "대기보전특별대책지역 지정 및 동지역내 대기오염저감을 위한 종합대책 고시",
+   "현행발령번호": "2025-165",
+   "현행발령일": "20251001",
+   "소관부처": "기후에너지환경부",
+   "정확일치": false,
    "판정": "STALE"
   },
   {
@@ -1503,18 +1925,6 @@
    "소관부처": "기후에너지환경부",
    "정확일치": true,
    "판정": "현행확인"
-  },
-  {
-   "인용": "환경부고시 제2019-105호",
-   "인용고시번호": "2019-105",
-   "파트수": 3,
-   "parts": [
-    "strategic-env/appendix",
-    "strategic-env/regional-overview",
-    "strategic-env/summary"
-   ],
-   "샘플": "(환경부고시 제2019-105호)",
-   "판정": "명칭미상"
   },
   {
    "인용": "수질오염총량관리 기술지침",
@@ -1612,6 +2022,17 @@
    "소관부처": "기후에너지환경부",
    "정확일치": true,
    "판정": "현행확인"
+  },
+  {
+   "인용": "환경부고시 제2019-105호",
+   "인용고시번호": "2019-105",
+   "파트수": 2,
+   "parts": [
+    "strategic-env/appendix",
+    "strategic-env/summary"
+   ],
+   "샘플": "팔당·대청호 상수원 수질보전 특별대책지역 지정 및 특별종합대책(환경부고시 제2019-105호, 2019.06.13., 일부개정)",
+   "판정": "명칭미상"
   },
   {
    "인용": "신·재생 에너지 설비의 지원 등에 관한 규정 [산업통상자원부고시 제2025-25호",
@@ -1761,38 +2182,6 @@
    "판정": "STALE"
   },
   {
-   "인용": "환경부 고시 제2023-135호",
-   "인용고시번호": "2023-135",
-   "파트수": 1,
-   "parts": [
-    "env-impact/scoping"
-   ],
-   "샘플": "* 골프장의 중점 환경영향평가항목 및 평가항목 등에 관한 규정(환경부 고시2023-135호)",
-   "질의": "골프장의 중점 환경영향평가항목",
-   "현행명": "골프장의 중점 환경영향평가항목 및 평가방법 등에 관한 규정",
-   "현행발령번호": "2025-165",
-   "현행발령일": "20251001",
-   "소관부처": "기후에너지환경부",
-   "정확일치": false,
-   "판정": "STALE"
-  },
-  {
-   "인용": "국립환경과학원고시 제2018-53호",
-   "인용고시번호": "2018-53",
-   "파트수": 1,
-   "parts": [
-    "env-impact/soil"
-   ],
-   "샘플": "▪ 토양 현황 : 토양오염공정시험기준, 국립환경과학원고시 제2018-53호",
-   "질의": "토양오염공정시험기준",
-   "현행명": "토양오염공정시험기준",
-   "현행발령번호": "2022-38",
-   "현행발령일": "20220725",
-   "소관부처": "국립환경과학원",
-   "정확일치": true,
-   "판정": "STALE"
-  },
-  {
    "인용": "건설공사장 공사시간 변경·조정 세부이행지침",
    "인용고시번호": "",
    "파트수": 1,
@@ -1921,6 +2310,38 @@
    "판정": "STALE"
   },
   {
+   "인용": "환경부 고시 제2023-135호",
+   "인용고시번호": "2023-135",
+   "파트수": 1,
+   "parts": [
+    "env-impact/scoping"
+   ],
+   "샘플": "* 골프장의 중점 환경영향평가항목 및 평가항목 등에 관한 규정(환경부 고시2023-135호)",
+   "질의": "골프장의 중점 환경영향평가항목",
+   "현행명": "골프장의 중점 환경영향평가항목 및 평가방법 등에 관한 규정",
+   "현행발령번호": "2025-165",
+   "현행발령일": "20251001",
+   "소관부처": "기후에너지환경부",
+   "정확일치": false,
+   "판정": "STALE"
+  },
+  {
+   "인용": "국립환경과학원고시 제2018-53호",
+   "인용고시번호": "2018-53",
+   "파트수": 1,
+   "parts": [
+    "env-impact/soil"
+   ],
+   "샘플": "▪ 토양 현황 : 토양오염공정시험기준, 국립환경과학원고시 제2018-53호",
+   "질의": "토양오염공정시험기준",
+   "현행명": "토양오염공정시험기준",
+   "현행발령번호": "2022-38",
+   "현행발령일": "20220725",
+   "소관부처": "국립환경과학원",
+   "정확일치": true,
+   "판정": "STALE"
+  },
+  {
    "인용": "급경사지 재해위험도 평가기준(행정안전부 고시 제2023-36호)",
    "인용고시번호": "2023-36",
    "파트수": 1,
@@ -1985,22 +2406,6 @@
    "판정": "현행확인"
   },
   {
-   "인용": "하천기본계획 수립지침",
-   "인용고시번호": "",
-   "파트수": 1,
-   "parts": [
-    "strategic-env/public-opinion"
-   ],
-   "샘플": "◯ 계획수립 하천구간의 수질을 유지·보전 또는 개선할 수 있도록 「하천기본계획 수립지침」(2018, 국토교통부)을 참조하여 계획적용 법정기간(향후 10년) 동안의 2개 계획 하천별 목표수질을 설정하고 이를 달성할 수 있도록 수질보전 방안을 제시하여야 ",
-   "질의": "하천기본계획 수립지침",
-   "현행명": "하천기본계획 수립 지침",
-   "현행발령번호": "2025-23",
-   "현행발령일": "20251114",
-   "소관부처": "기후에너지환경부",
-   "정확일치": true,
-   "판정": "현행확인"
-  },
-  {
    "인용": "국토지리정보원 고시 제2012- 1577호",
    "인용고시번호": "",
    "파트수": 1,
@@ -2060,7 +2465,7 @@
    "parts": [
     "strategic-env/flora-fauna"
    ],
-   "샘플": "5. 「생태계교란 생물 지정고시, 환경부고시 제2020-285호」에 의거 생태계교란 생물(식물)을 명기하였다.",
+   "샘플": "주) 1. 생활형 : M(대형지상식물), N(소형지상식물), Ch(지표식물), H(반지중식물), G(지중식물), HH(근생수생식물), Th(일년생식물)2. Ⅰ~Ⅲ : 식물구계학적 특정식물 Ⅰ~Ⅲ등급3. 특 : 특산식물4. 귀 : 귀화식물, 교 : 생태",
    "질의": "생태계교란 생물 지정고시",
    "현행명": "생태계교란 생물 지정 고시",
    "현행발령번호": "2025-165",
@@ -2078,6 +2483,22 @@
    ],
    "샘플": "주) 고시된 하천유지유량(한강홍수통제소 고시 제2015-191호)을 활용하여 비유량법으로 추정",
    "판정": "명칭미상"
+  },
+  {
+   "인용": "하천기본계획 수립지침",
+   "인용고시번호": "",
+   "파트수": 1,
+   "parts": [
+    "strategic-env/public-opinion"
+   ],
+   "샘플": "◯ 계획수립 하천구간의 수질을 유지·보전 또는 개선할 수 있도록 「하천기본계획 수립지침」(2018, 국토교통부)을 참조하여 계획적용 법정기간(향후 10년) 동안의 2개 계획 하천별 목표수질을 설정하고 이를 달성할 수 있도록 수질보전 방안을 제시하여야 ",
+   "질의": "하천기본계획 수립지침",
+   "현행명": "하천기본계획 수립 지침",
+   "현행발령번호": "2025-23",
+   "현행발령일": "20251114",
+   "소관부처": "기후에너지환경부",
+   "정확일치": true,
+   "판정": "현행확인"
   },
   {
    "인용": "개인하수처리시설의 방류수수질기준",

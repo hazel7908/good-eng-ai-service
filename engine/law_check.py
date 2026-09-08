@@ -100,8 +100,13 @@ def rows(data, root_key, item_key):
 
 
 def norm_name(s: str) -> str:
-    for d in "ㆍ‧∙･⸳․":
-        s = s.replace(d, "·")
+    """이름 비교용 정규화. **가운뎃점과 공백은 지운다** — 표기 변이지 다른 법이 아니다.
+
+    베이스가 `소음진동관리법` 으로 쓰는데 현행 정식 명칭은 `소음ㆍ진동관리법` 이다.
+    점 하나로 `명칭불일치` 가 뜨면 진짜 구명칭 인용(문화재보호법→문화유산법)이 묻힌다.
+    """
+    for d in "ㆍ‧∙･⸳․·":
+        s = s.replace(d, "")
     return re.sub(r"\s+", "", s)
 
 
@@ -113,14 +118,45 @@ def bare_rule_name(name: str) -> str:
     return s.strip(" ·,.-[]「」")
 
 
+def trim_candidates(name: str):
+    """맨이름 인용은 문장 꼬리를 달고 온다 — 왼쪽 토큰을 한 개씩 떼며 후보를 만든다.
+
+    `law_scan` 이 `수급인은 해당 사업장의 근로자에 대하여 산업안전보건법` 까지 잡아 온다.
+    어디까지가 이름인지는 사전이 아니라 **법제처 조회 성공 여부**로 가른다 —
+    회사 표준이 없는 자리를 규칙으로 굳히지 않는다.
+    """
+    tok = name.split()
+    conn = ("관한", "관련", "및", "등에", "대한", "위한", "따른", "등")
+    out = [name]                              # ⚠️ 원래 이름은 길이와 무관하게 항상 조회한다
+    for i in range(1, len(tok)):              #    (`하천법`·`건축법` 이 길이 필터에 걸려 죽었다)
+        c = " ".join(tok[i:])
+        if len(c) < 3 or tok[i] in conn:      # `관한 규칙` 은 이름이 아니다 — 꼬리 조각
+            continue
+        out.append(c)
+        # 법령명 띄어쓰기 관행 — `…수질보전등에 관한` 은 원문이 `… 등에 관한` 이다.
+        v = re.sub(r"(?<=[가-힣])등에\s*관한", " 등에 관한", c)
+        if v != c:
+            out.append(v)
+    return out
+
+
 def check_laws(oc, laws, fresh):
     out = []
-    targets = {k: v for k, v in laws.items() if v["class"] in ("법률", "시행령", "시행규칙")}
+    targets = {k: v for k, v in laws.items() if v["class"] in ("법률", "시행령", "시행규칙", "규칙")}
     for name, v in sorted(targets.items(), key=lambda x: -len(x[1]["parts"])):
-        data = api_search(oc, "law", name, fresh)
-        hits = rows(data, "LawSearch", "law")
-        exact = [h for h in hits if norm_name(h.get("법령명한글", "")) == norm_name(name)]
+        used, hits, exact = name, [], []
+        for cand in trim_candidates(name):
+            data = api_search(oc, "law", cand, fresh)
+            h2 = rows(data, "LawSearch", "law")
+            e2 = [h for h in h2 if norm_name(h.get("법령명한글", "")) == norm_name(cand)]
+            if h2 and not hits:          # 조회명은 **결과가 나온** 후보만 — 마지막 후보가 아니다
+                hits, used = h2, cand
+            if e2:
+                used, hits, exact = cand, h2, e2
+                break
         r = {"인용": name, "class": v["class"], "파트수": len(v["parts"]), "parts": v["parts"]}
+        if used != name:
+            r["조회명"] = used
         if exact:
             h = exact[0]
             r |= {"판정": "현행확인", "현행시행일": h.get("시행일자"), "공포번호": h.get("공포번호"),
