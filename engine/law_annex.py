@@ -33,6 +33,18 @@ ANNEXES = {
     "env": ("환경기준", "환경정책기본법 시행령", "환경기준"),
     "noise": ("생활소음", "소음ㆍ진동관리법 시행규칙", "생활소음ㆍ진동의 규제기준"),
 }
+
+# ── 본문 인용 별표 — 기준표 캡션이 아니라 절 본문에 통째 복사되는 별표 (09-08 확장).
+#   0100 실시근거의 [별표4] 가 협의 대상 **문턱 숫자**(보전관리 5,000·생산관리 7,500㎡ …)를
+#   담는다 — 문턱이 바뀌면 협의 대상 판정 자체가 틀리는 반려급 자리다.
+#   (재해 별표1 인용부는 유형 분류 텍스트라 숫자 대조 대상이 아니다 — law_check 판 감시로 충분)
+#   {키: (검색어, 관련법령명, 별표명 머리, 베이스 인용 앵커 정규식, 블록 끝 정규식)}
+BODY_ANNEXES = {
+    "sea4": ("소규모 환경영향평가 대상사업", "환경영향평가법 시행령",
+             "소규모 환경영향평가 대상사업의 종류",
+             re.compile(r"\[?별표\s*4\]?\s*소규모\s*환경영향평가\s*대상사업"),
+             re.compile(r"^\s*(사\s*업\s*규\s*모|협의요청시기)")),
+}
 # 기준표 제목 → (별표 키, 별표 안 절 이름)
 TITLE_MAP = {
     "대기환경기준": ("env", "대기"),
@@ -55,7 +67,7 @@ def fetch_annex(oc: str, key: str) -> str:
     txt_f = CACHE / f"annex_{key}.txt"
     if txt_f.exists():
         return txt_f.read_text(encoding="utf-8")
-    q, law, prefix = ANNEXES[key]
+    q, law, prefix = (ANNEXES.get(key) or BODY_ANNEXES[key][:3])
     url = ("http://www.law.go.kr/DRF/lawSearch.do?OC=" + oc
            + "&target=licbyl&type=JSON&display=100&query=" + urllib.parse.quote(q))
     d = json.load(urllib.request.urlopen(url, timeout=30))
@@ -158,9 +170,37 @@ def main():
     for r in results:
         del r["_base"]
 
+    # ── 본문 인용 별표 대조 — 인용 앵커 줄부터 블록 끝(사업 규모 행 전)까지의 숫자가
+    #    현행 별표 전문의 숫자 집합에 들어 있는지 본다 (베이스 ⊆ 현행 = 정상).
+    body_verdicts = []
+    for key, (_q, _law, _pfx, anchor, blk_end) in BODY_ANNEXES.items():
+        cur = numbers(fetch_annex(oc, key).splitlines())
+        for cat, part, txt, kind in scan_targets():
+            lines = txt.splitlines()
+            for i, ln in enumerate(lines):
+                if not anchor.search(ln):
+                    continue
+                blk = []
+                for x in lines[i: i + 40]:
+                    if blk and blk_end.match(x):
+                        break
+                    blk.append(x)
+                base = numbers(blk)
+                body_verdicts.append({"별표": key, "part": f"{cat}/{part}",
+                                      "베이스값": sorted(base),
+                                      "현행에없음": sorted(base - cur)})
+                break
+
     dst = ROOT / "catalog" / "review" / "law_annex_result.json"
-    dst.write_text(json.dumps({"별표": annex_meta, "판정": verdicts, "대조": results},
+    dst.write_text(json.dumps({"별표": annex_meta, "판정": verdicts, "대조": results,
+                               "본문별표": body_verdicts},
                               ensure_ascii=False, indent=1), encoding="utf-8")
+    if body_verdicts:
+        print(f"\n본문 인용 별표 {len(BODY_ANNEXES)}종 · 인용 {len(body_verdicts)}곳:")
+        for v in body_verdicts:
+            mark = "🚨" if v["현행에없음"] else "✅"
+            print(f"  {mark} {v['별표']} {v['part']} — 베이스 {len(v['베이스값'])}값, "
+                  f"현행에 없음: {v['현행에없음'] or '0'}")
     print(f"기준표 인스턴스 {len(results)}곳 → 기준표 {len(verdicts)}종 합의 판정:")
     for v in sorted(verdicts, key=lambda x: -len(x["현행별표에없음"])):
         mark = "🚨" if v["현행별표에없음"] else "✅"
