@@ -25,15 +25,11 @@ CASES = {"env-impact": "횡성_벨라스톤CC", "strategic-env": "충북_수산�
          # 09-08 — 나머지 네 유형도 같은 사각이 있다. 되먹임 산출물이 있는 파트 전부.
          "small-env": "원주_무장리", "small-disaster": "천안_삼성리",
          "disaster-impact": "횡성_조항리", "disaster-review": "원주_태장동"}
-PARTS = {"env-impact": ("landscape regional-overview resource-cycle greenhouse-gas flora-fauna "
-                        "water-quality scoping strategic-reflection appendix-1 appendix-2 "
-                        "topo-geology soil").split(),
-         "strategic-env": "topo-geology appendix flora-fauna scoping socioeconomic landscape "
-                          "regional-overview".split()}
+# ⚠️ 09-08 — 본환·전략도 골라 낸 목록을 쓰다가 **33파트를 한 번도 안 쟀다.**
+#    측정은 공짜다(한글 불필요). 산출물이 있는 파트는 전부 훑는다.
+PARTS = {}
 # 나머지 유형은 산출물이 있는 파트를 그대로 훑는다 (파트 수가 적어 골라 낼 이유가 없다)
 for _c, _case in CASES.items():
-    if _c in PARTS:
-        continue
     _d = os.path.join("cases", _c, _case)
     PARTS[_c] = sorted(p for p in os.listdir(_d)
                        if os.path.exists(os.path.join(_d, p, "output.hwpx"))) if os.path.isdir(_d) else []
