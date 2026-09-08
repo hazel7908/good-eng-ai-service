@@ -162,6 +162,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── anchor_check.py           BLANK 앵커 정적 검사 — 표 밖·문단 경계로 **못 찾는 앵커** (한글 없이)
 │   ├── anchor_suggest.py         〃 대체 앵커 후보 제안 (표 안·한 문단·희소한 셀)
 │   ├── run_parts.py              파트 재생성 배치 — **파트마다 Hwp.exe 선정리** (안 하면 Open 정지)
+│   ├── setup_hwp_security.py     🚨 **최초 1회 필수** — 한글 보안모듈 등록 (안 하면 파일마다 팝업이 뜨고 Open() 이 멈춘다)
 │   ├── coverage.py               6유형 커버리지 사다리 측정
 │   ├── law_scan.py               인용 법령 전수 스캔 — 개정 감시(할 일 7) ①
 │   ├── law_check.py              법제처 API 시행일자 대조 — 〃 ② (키 ~/.lawapi.env)

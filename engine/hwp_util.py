@@ -74,6 +74,24 @@ def quit_hwp(hwp, timeout=40):
     return False
 
 
+def _security_module_ok() -> bool:
+    """한글 자동화 보안모듈이 등록돼 있는가 (없으면 파일마다 팝업 → `Open()` 정지)."""
+    try:
+        import winreg
+    except ImportError:
+        return True                      # Windows 아니면 따질 일이 아니다
+    for key in (r"Software\HNC\HwpCtrl\Modules",
+                r"Software\HNC\HwpAutomation\Modules"):
+        try:
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, key) as h:
+                v = winreg.QueryValueEx(h, "FilePathCheckerModule")[0]
+            if v and os.path.exists(v):
+                return True
+        except OSError:
+            continue
+    return False
+
+
 def open_hwp(path, visible=False):
     """한글을 띄우고 문서를 연다 — **편집 가능 상태임을 확인하고** 넘긴다.
 
@@ -113,7 +131,16 @@ def open_hwp(path, visible=False):
             time.sleep(1)
     hwp = win32com.client.gencache.EnsureDispatch("HWPFrame.HwpObject")
     hwp.XHwpWindows.Item(0).Visible = visible
-    hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
+    # 🚨 두 번째 인자는 **레지스트리 값 이름과 글자까지 같아야** 한다 (2026-09-08).
+    #    `SecurityModule` 로 불렀더니 물릴 모듈이 없어 한글이 파일마다 사용자에게
+    #    직접 묻고, 그 창이 떠 있는 동안 `Open()` 이 그대로 멈췄다 — 하루치 정지가
+    #    전부 이것이었다(HWP CPU 1.8% · python 완전 정지).
+    #    설치·등록은 `engine/setup_hwp_security.py` 가 한다.
+    if not _security_module_ok():
+        print("  🚨 한글 보안모듈이 등록돼 있지 않다 — 파일마다 접근 허용 팝업이 뜨고")
+        print("     그 창이 떠 있는 동안 Open() 이 멈춘다(겉보기엔 문서가 커서 느린 것 같다).")
+        print("     python engine/setup_hwp_security.py 로 한 번만 설치할 것.")
+    hwp.RegisterModule("FilePathCheckDLL", "FilePathCheckerModule")
     hwp.Open(str(path))
     try:
         mode = hwp.EditMode
