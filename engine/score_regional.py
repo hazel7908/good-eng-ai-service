@@ -355,7 +355,10 @@ def score_tables(case, part, gold_lines):
                 #    "이 표의 라벨이 골든 블록 안에 있는가"로 판정이 유지된다.
                 wa = set(re.findall(r"[가-힣]{2,}", cells))
                 wb = set(re.findall(r"[가-힣]{2,}", g))
-                v = "OK" if not wa or len(wa & wb) / len(wa) >= 0.6 else "WRONG"
+                # 겹침이 낮아도 WRONG 이 아니라 **없음**이다 — 산출물에 숫자가 0인데 골든에만
+                # 값이 있으면(사업 고유 근거 수치·경계로 커진 골든 블록) 코드로 고칠 것이 없다.
+                # WRONG 은 값이 "다른" 것에만 쓴다 (0600 지침 표 거짓 WRONG, 2026-09-08 실측).
+                v = "OK" if not wa or len(wa & wb) / len(wa) >= 0.6 else "없음"
             elif b <= a and a:          # 정답 값을 다 담았다 — 더 있어도 감점 아니다
                 v = "OK"
             elif a & b:
