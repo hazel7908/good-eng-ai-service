@@ -13,12 +13,23 @@ NUM = re.compile(r"\d")
         "가중치", "원단위표", "환산", "계수표", "예시")
 고유 = ("현황", "조사", "측정", "발생", "계획", "예측", "결과", "일람", "내역", "명세",
         "지점", "저감", "투입", "산정", "분포", "목록", "이용")
-CASES = {"env-impact": "횡성_벨라스톤CC", "strategic-env": "충북_수산천고명천"}
+CASES = {"env-impact": "횡성_벨라스톤CC", "strategic-env": "충북_수산천고명천",
+         # 09-08 — 나머지 네 유형도 같은 사각이 있다. 되먹임 산출물이 있는 파트 전부.
+         "small-env": "원주_무장리", "small-disaster": "천안_삼성리",
+         "disaster-impact": "횡성_조항리", "disaster-review": "원주_태장동"}
 PARTS = {"env-impact": ("landscape regional-overview resource-cycle greenhouse-gas flora-fauna "
                         "water-quality scoping strategic-reflection appendix-1 appendix-2 "
                         "topo-geology soil").split(),
          "strategic-env": "topo-geology appendix flora-fauna scoping socioeconomic landscape "
                           "regional-overview".split()}
+# 나머지 유형은 산출물이 있는 파트를 그대로 훑는다 (파트 수가 적어 골라 낼 이유가 없다)
+for _c, _case in CASES.items():
+    if _c in PARTS:
+        continue
+    _d = os.path.join("cases", _c, _case)
+    PARTS[_c] = sorted(p for p in os.listdir(_d)
+                       if os.path.exists(os.path.join(_d, p, "output.hwpx"))) if os.path.isdir(_d) else []
+
 print("# 되먹임에서 손대지 않은 표 — 비우기 앵커 누락 후보 (2026-09-07)\n")
 print("`[확인 필요]` 가 한 칸도 없고 숫자를 든 표. 되먹임은 표 유출 검사를 건너뛰므로")
 print("**게이트 어디에도 안 걸린다** — 다른 사업 생성에서만 드러난다.\n")
