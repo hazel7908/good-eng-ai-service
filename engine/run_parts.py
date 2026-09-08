@@ -20,6 +20,10 @@ for part in parts:
         if not _hwp_running():
             break
         time.sleep(1)
+    # 🚨 사라진 직후 바로 붙으면 **죽어가는 인스턴스**에 붙어 `RPC 서버를 사용할 수
+    #    없습니다` 로 죽는다 (2026-09-08 실측 — 앞 파트가 막 끝난 뒤 이어 돌릴 때).
+    #    프로세스 목록에서 없어지는 것과 COM 등록이 풀리는 것 사이에 틈이 있다.
+    time.sleep(3)
     t = time.time()
     try:
         g = subprocess.run([PYX, "-u", "engine/generate.py", cat, part, case],
