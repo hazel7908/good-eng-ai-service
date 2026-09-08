@@ -574,7 +574,7 @@ def replace_para(hwp, para_anchor, text):
 
 def build(spec, src, dst):
     import win32com.client
-    from hwp_util import fr, find_fwd, find_in_table, set_cell, right
+    from hwp_util import fr, find_fwd, find_in_table, set_cell, right, left
 
     shutil.copy(src, dst)
     print(f"[1/4] 복사: {dst.name}")
@@ -600,9 +600,13 @@ def build(spec, src, dst):
             print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 스킵")
             continue
         for n, value in steps:
-            right(hwp, n)
+            # ⚠️ **음수는 왼쪽**이다 (2026-09-08 확장). 유일한 앵커가 행의 오른쪽 끝에만
+            #    있는 표가 있다 — 검토서 5장 총괄자 행은 이름·주민번호·자격·인증번호가
+            #    모두 위 명단 표와 **중복 문자열**이라 replace 로 못 뚫고, 유일한 것은
+            #    행 끝의 `연락처`(문서 전체 1회)뿐이었다.
+            (right if n >= 0 else left)(hwp, abs(n))
             set_cell(hwp, value)
-            print(f"    +{n}칸 = {value}")
+            print(f"    {'+' if n >= 0 else ''}{n}칸 = {value}")
 
     print(f"  [정리] 토큰 {len(spec['expect'])}종 단일 런으로 병합")
     normalize(hwp, spec["expect"])
