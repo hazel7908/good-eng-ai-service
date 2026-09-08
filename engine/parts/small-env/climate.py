@@ -61,7 +61,13 @@ def compute(v):
         # ⚠️ **천단위 콤마를 붙인다.** 원주 원본의 `=AVG` 캐시값이 `1,086.01`·`2,332.86`
         #    이다 — 콤마 없이 내면 강수량·일조 두 칸이 원본과 어긋난다 (2026-08-31 실측:
         #    8개 중 6개만 맞았다). 1,000 미만 값에는 영향이 없다.
-        avg = lambda k: f"{sum(_num(x[k]) for x in rows) / 10:,.2f}"
+        # ⚠️ 일조는 ASOS 소싱에서 제외돼 행에 없을 수 있다(kma.py 09-08 — 재현 불가 강등).
+        #    없는 항목은 None → MISSING (KeyError 로 죽으면 안 된다 — dry-run 실측).
+        def avg(k):
+            vals = [_num(x.get(k)) for x in rows]
+            if any(v is None for v in vals):
+                return None
+            return f"{sum(vals) / 10:,.2f}"
         r["평균행"] = {k: avg(k) for k in ("평균", "최고", "최저", "강수량",
                                            "강수일", "습도", "풍속", "일조")}
     else:
