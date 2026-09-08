@@ -9,6 +9,8 @@ import io
 import os
 import re
 import subprocess
+import tempfile
+import shutil
 import sys
 import time
 import zipfile
@@ -74,6 +76,58 @@ def quit_hwp(hwp, timeout=40):
     return False
 
 
+# ============================================================
+# 🚨 한글 접근 허용 팝업 회피 — **작업 파일은 임시 폴더에 둔다** (2026-09-08)
+#
+#    한글은 자기 임시 폴더 밖의 파일을 열 때 사용자에게 접근 허용을 묻고,
+#    그 창이 떠 있는 동안 `Open()` 이 멈춘다. 화면을 안 보고 있으면 몇 분이고
+#    멈춘 채라 "문서가 커서 느린 것"으로 오해하기 딱 좋다(실제로 하루를 잃었다).
+#    보안모듈 등록은 한글 2024 에서 막혔고(`setup_hwp_security.py` 참조),
+#    **임시 폴더는 한글이 스스로 허용한다** — 실측 0.1초 · 팝업 없음.
+#    → 열 파일은 `stage_in`, 저장은 `stage_out` → `unstage` 로 오간다.
+# ============================================================
+def _tmp(name: str) -> Path:
+    return Path(tempfile.gettempdir()) / f"hwpwork_{name}"
+
+
+def stage_in(src, tag: str) -> Path:
+    """한글이 열 파일을 임시 폴더로 옮겨 놓는다. 원본은 읽기만 한다."""
+    src = Path(src)
+    t = _tmp(f"{tag}_in{src.suffix}")
+    if t.exists():
+        t.unlink()
+    shutil.copy(src, t)
+    return t
+
+
+def stage_out(tag: str, suffix: str) -> Path:
+    """한글이 저장할 자리를 임시 폴더에 잡는다."""
+    t = _tmp(f"{tag}_out{suffix}")
+    if t.exists():
+        t.unlink()
+    return t
+
+
+def unstage(tmp, dest):
+    """한글이 손 뗀 뒤 결과를 제자리로 옮긴다 (파이썬 파일 이동 — 팝업 없음)."""
+    tmp, dest = Path(tmp), Path(dest)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if dest.exists():
+        dest.unlink()
+    shutil.move(str(tmp), str(dest))
+    return dest
+
+
+def _in_temp(path) -> bool:
+    """한글이 묻지 않고 여는 자리인가 — 자기 임시 폴더 안이면 그렇다."""
+    try:
+        t = os.path.normcase(os.path.abspath(tempfile.gettempdir()))
+        p = os.path.normcase(os.path.abspath(str(path)))
+        return p.startswith(t + os.sep)
+    except Exception:
+        return False
+
+
 def _security_module_ok() -> bool:
     """한글 자동화 보안모듈이 등록돼 있는가 (없으면 파일마다 팝업 → `Open()` 정지)."""
     try:
@@ -136,10 +190,14 @@ def open_hwp(path, visible=False):
     #    직접 묻고, 그 창이 떠 있는 동안 `Open()` 이 그대로 멈췄다 — 하루치 정지가
     #    전부 이것이었다(HWP CPU 1.8% · python 완전 정지).
     #    설치·등록은 `engine/setup_hwp_security.py` 가 한다.
-    if not _security_module_ok():
-        print("  🚨 한글 보안모듈이 등록돼 있지 않다 — 파일마다 접근 허용 팝업이 뜨고")
-        print("     그 창이 떠 있는 동안 Open() 이 멈춘다(겉보기엔 문서가 커서 느린 것 같다).")
-        print("     python engine/setup_hwp_security.py 로 한 번만 설치할 것.")
+    # 🚨 임시 폴더 **밖**의 파일을 열면 한글이 접근 허용을 묻고 `Open()` 이 멈춘다.
+    #    보안모듈이 등록돼 있으면 안 묻지만 한글 2024 에서는 그 길이 막혀 있다.
+    #    → 호출부가 `stage_in()` 으로 임시 폴더에 놓고 열어야 한다.
+    if not _in_temp(path) and not _security_module_ok():
+        print(f"  🚨 임시 폴더 밖의 파일을 연다 — 접근 허용 팝업이 뜨고 그동안 Open() 이 멈춘다")
+        print(f"     {path}")
+        print("     → 호출부에서 hwp_util.stage_in() 으로 %TEMP% 에 놓고 열 것 "
+              "(hwp_util 머리말 참조)")
     hwp.RegisterModule("FilePathCheckDLL", "FilePathCheckerModule")
     hwp.Open(str(path))
     try:

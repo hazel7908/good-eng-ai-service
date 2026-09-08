@@ -20,7 +20,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import console_utf8, open_hwp, quit_hwp   # noqa: E402
+from hwp_util import stage_in, stage_out, unstage, console_utf8, open_hwp, quit_hwp   # noqa: E402
 
 ROOT = Path(__file__).parent.parent
 
@@ -32,19 +32,26 @@ def to_pdf(src: Path, dst: Path):
     if dst.exists():
         dst.unlink()
 
-    hwp = open_hwp(src)
+    # 팝업 회피 — 한글은 임시 폴더 파일만 묻지 않고 연다 (hwp_util 머리말 참조)
+    tag = f"topdf_{src.stem}"
+    work = stage_in(src, tag)
+    out_tmp = stage_out(tag, ".pdf")
+    hwp = open_hwp(work)
 
     # 한글의 PDF 저장. 포맷 문자열이 버전마다 다를 수 있어 순서대로 시도한다.
     ok = False
     for fmt in ("PDF", "pdf"):
         try:
-            hwp.SaveAs(str(dst), fmt)
+            hwp.SaveAs(str(out_tmp), fmt)
             ok = True
             break
         except Exception as e:      # noqa: BLE001 — 어떤 예외든 다음 포맷으로 넘어간다
             print(f"  SaveAs('{fmt}') 실패: {e}")
 
     quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
+    work.unlink(missing_ok=True)
+    if ok and out_tmp.exists():
+        unstage(out_tmp, dst)      # 한글이 손 뗀 뒤 제자리로
 
     if not ok or not dst.exists():
         sys.exit("ERROR: PDF 저장 실패. 한글 버전이 PDF 내보내기를 지원하는지 확인할 것")

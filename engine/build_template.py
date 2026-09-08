@@ -31,7 +31,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from hwp_util import (console_utf8, find_fwd, open_hwp,   # noqa: E402
-                      quit_hwp)
+                      quit_hwp, stage_in, stage_out, unstage)
 
 ROOT = Path(__file__).parent.parent
 
@@ -534,7 +534,11 @@ def keep_captions_with_table(dst):
     idxs, tops = caption_paras(dst)
     print(f"  캡션 문단 {len(idxs)}개에 KeepWithNext 적용")
 
-    hwp = open_hwp(dst)
+    # 팝업 회피 — 임시 폴더에서 열고 저장한 뒤 제자리로 (hwp_util 머리말)
+    tag = f"tpl_{dst.stem}_caption"
+    work = stage_in(dst, tag)
+    out_tmp = stage_out(tag, ".hwpx")
+    hwp = open_hwp(work)
 
     for i in idxs:
         hwp.SetPos(0, i, 0)
@@ -544,8 +548,10 @@ def keep_captions_with_table(dst):
         hwp.HParameterSet.HParaShape.KeepWithNext = 1
         hwp.HAction.Execute("ParagraphShape", hwp.HParameterSet.HParaShape.HSet)
 
-    hwp.SaveAs(str(dst), "HWPX")
+    hwp.SaveAs(str(out_tmp), "HWPX")
     quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
+    unstage(out_tmp, dst)
+    work.unlink(missing_ok=True)
     return len(idxs)
 
 
@@ -576,10 +582,13 @@ def build(spec, src, dst):
     import win32com.client
     from hwp_util import fr, find_fwd, find_in_table, set_cell, right, left
 
-    shutil.copy(src, dst)
     print(f"[1/4] 복사: {dst.name}")
+    # 팝업 회피 — 원본을 임시 폴더로 복사해 거기서 열고 거기에 저장한다 (hwp_util 머리말)
+    tag = f"tpl_{dst.stem}"
+    work = stage_in(src, tag)
+    out_tmp = stage_out(tag, ".hwpx")
 
-    hwp = open_hwp(dst)
+    hwp = open_hwp(work)
     print("[2/4] 한글 열기 완료")
 
     print(f"[3/4] 찾기/바꾸기 {len(spec['replace'])}건...")
@@ -612,8 +621,10 @@ def build(spec, src, dst):
     normalize(hwp, spec["expect"])
 
     print("[4/4] 저장...")
-    hwp.SaveAs(str(dst), "HWPX")
+    hwp.SaveAs(str(out_tmp), "HWPX")
     quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
+    unstage(out_tmp, dst)  # 한글이 손 뗀 뒤 제자리로
+    work.unlink(missing_ok=True)
 
 
 def strip_figures(dst):

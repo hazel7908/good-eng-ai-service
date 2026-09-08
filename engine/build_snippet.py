@@ -26,7 +26,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import console_utf8, open_hwp, quit_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
+from hwp_util import stage_in, stage_out, unstage, console_utf8, open_hwp, quit_hwp   # noqa: E402  (경로 삽입 뒤라야 한다)
 
 ROOT = Path(__file__).parent.parent
 
@@ -88,8 +88,9 @@ def main():
 
     dst = ROOT / "templates" / a.category / f"{a.part}.snippets" / f"{a.name}.hwpx"
     dst.parent.mkdir(parents=True, exist_ok=True)
-    work = dst.with_suffix(".work" + src.suffix)
-    shutil.copy(src, work)
+    # 팝업 회피 — 한글이 열고 저장할 파일은 임시 폴더에 둔다 (hwp_util 머리말)
+    work = stage_in(src, f"snippet_{a.part}_{a.name}")
+    out_tmp = stage_out(f"snippet_{a.part}_{a.name}", ".hwpx")
 
     print(f"조건 : {a.name}\n설명 : {spec['설명']}")
     print(f"범위 : '{spec['start']}'  ~  '{spec['end']}' 직전")
@@ -101,10 +102,9 @@ def main():
     keep_only(hwp, spec["start"], spec["end"])
 
     print("[2/2] 저장...")
-    if dst.exists():
-        dst.unlink()
-    hwp.SaveAs(str(dst), "HWPX")
+    hwp.SaveAs(str(out_tmp), "HWPX")
     quit_hwp(hwp)          # 프로세스가 실제로 죽을 때까지 대기
+    unstage(out_tmp, dst)  # 한글이 손 뗀 뒤 제자리로
     work.unlink(missing_ok=True)
 
     print(f"\n완료: {dst} ({dst.stat().st_size:,} bytes)")
