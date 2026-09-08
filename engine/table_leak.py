@@ -221,9 +221,22 @@ def _case_numbers(category, case):
     return out
 
 
+# 전국 상수 **값** 화이트리스트 — 캡션 예외와 **다른 근거**의 이중화 (2026-09-08).
+# 0840 원단위 표가 캡션 오식별(앞 문단이 캡션으로 잡힘)로 allow 를 못 타 오탐이 났다 —
+# 캡션이 또 엇걸려도 값 자체로 거른다. 출처: 수질오염총량관리 기술지침 토지계 지목별
+# 연평균 발생부하원단위(kg/㎢/일, BOD·T-P — 전국 고정, 원주=천안 전행 동일 실측).
+# ⚠️ 핸들러 UNIT 에서 import 하지 않는다 — 검사와 수정이 같은 근거를 공유하면 같이 틀린다.
+CONSTANT_VALUES = frozenset([
+    "4.38", "1.400", "4.24", "0.467", "2.69", "0.630", "3.71", "0.295",
+    "1.49", "0.056", "0.96", "0.027", "10.28", "0.600", "33.10", "0.885",
+    "7.25", "0.447", "12.42", "0.391", "75.02", "1.385", "5.39", "0.738", "14.87", "0.609",
+])
+
+
 def numeric_residue(base_p, out_p, allow=(), own=frozenset()):
     """③ 숫자 잔존 — 베이스와 산출물의 **같은 표**(순서 짝)에서 고유 숫자 셀이 그대로면 유출.
-    반환 [(캡션, [잔존 셀…])]. 법령·참조표(allow 캡션)는 같아야 정상이라 제외."""
+    반환 [(캡션, [잔존 셀…])]. 법령·참조표(allow 캡션)와 전국 상수 값(CONSTANT_VALUES)은
+    같아야 정상이라 제외 — 캡션·값 두 근거의 이중화다."""
     bt, ot = _cells(base_p), _cells(out_p)
     pairs = list(zip(bt, ot)) if len(bt) == len(ot) else [
         ((bc, bs), (oc, os_)) for oc, os_ in ot for bc, bs in bt if bc and bc == oc]
@@ -237,7 +250,8 @@ def numeric_residue(base_p, out_p, allow=(), own=frozenset()):
                             # (폐유 표: 같은 표준 품셈 장비면 값이 같다 — 천안 실측 오탐 방지)
         # 🔬 **그 사업 vars 에 있는 값은 잔재가 아니다** — 우연히 기준 사업과 같을 수 있다.
         #    괴산 소음측정 1회차 `46.9` 가 원주 베이스에도 있어 거짓 유출로 떴다 (09-03).
-        shared = sorted(c for c in (bcells & ocells) if _specific(c) and c not in own)
+        shared = sorted(c for c in (bcells & ocells)
+                        if _specific(c) and c not in own and c not in CONSTANT_VALUES)
         if shared:
             found.append((cap[:30] or "(캡션 없음)", shared))
     return found

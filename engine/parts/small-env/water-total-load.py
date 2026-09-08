@@ -94,6 +94,10 @@ def build_tables(hwp, v):
     def tot(idx):
         vals = [_n(x[idx]) for x in rows if len(x) > idx and _n(x[idx]) is not None]
         return f"{sum(vals):,.0f}" if vals else None
+    # 🚨 합계 행 **첫 칸(지적면적 합)이 계산 필드**인데 재계산이 안 돌아 원주 203,155 가
+    #    잔존한다 (09-08 천안 산출물 실측 — `합계 | 203,155 | 21,986`). col 2 시작이라
+    #    그 칸을 계산 필드에 맡긴 구조가 원인. 시작 열을 당겨 값으로 덮을 것 —
+    #    단 열 오프셋은 Windows 셀 주소 실측으로 확정해야 한다 (어림 수정 금지).
     W("지적면적", 1 + max(len(rows), 1), 2, [tot(2), tot(3), tot(4), tot(5), "-"])
 
     print("  토지이용계획 표 — 앵커 `면 적(㎡)`(머리) · 4행 + 합계 ⚠️ 실측")
