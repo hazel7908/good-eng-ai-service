@@ -42,7 +42,8 @@ def build_slots(v):
         s[f"경위{i+1}"] = 경위[i] if i < len(경위) else MISSING
     for i in range(5):
         s[f"향후{i+1}"] = 향후[i] if i < len(향후) else MISSING
-    s["사업서술_조사"] = josa((v.get("사업") or {}).get("사업서술"), "으로로")
+    s["사업서술_조사"] = (josa(v["사업"]["사업서술"], "으로로")
+                if (v.get("사업") or {}).get("사업서술") else MISSING)   # josa(None) 가드
     return s
 
 
