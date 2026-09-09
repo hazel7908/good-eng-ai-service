@@ -310,8 +310,10 @@ def check(category, part, case, detail=False):
     #    (재해 첫 베이스 3장에서 14건. 2026-09-01 Windows 실측).
     #    `시군` 이 없으면 `위치`·`주소_일원` 에서 기준 시군을 찾아 되먹임을 판정한다.
     시군 = None
+    _사업값들 = []
     for vp in sorted((ROOT / "cases" / category / case / "vars").glob("*.json")):
         사업 = json.loads(vp.read_text(encoding="utf-8")).get("사업", {})
+        _사업값들 += [str(x) for x in 사업.values() if x]
         시군 = 사업.get("시군")
         if 시군:
             break
@@ -332,11 +334,15 @@ def check(category, part, case, detail=False):
 
     # ── ① 지명 유출 + 뒤섞인 값
     names, upper = base_cfg["이름들"], base_cfg["상위"]
+    # ⚠️ 새 사업이 기준 사업과 **같은 시도**면 `상위+새 시군` 은 옳은 주소다 — 옥계리
+    #    `강원도 횡성군 서원면 옥계9길 124번지` 3건이 전부 이 오탐(09-09 Windows 적발).
+    #    vars 사업 값 안에 상위+시군이 한 값으로 붙어 있으면(=사업 자신의 주소) 뒤섞임 검사를 끈다.
+    동일시도 = bool(시군) and any(any(u in s for u in upper) and 시군 in s for s in _사업값들)
     for ln in _lines(out_p):
         hits = [w for w in names if w in ln
                 and not all(ln[i + len(w):i + len(w) + 1] == SUBSTRING_TRAP.get(w)
                             for i in range(len(ln)) if ln.startswith(w, i))]
-        mixed = 시군 and any(u in ln for u in upper) and 시군 in ln
+        mixed = 시군 and not 동일시도 and any(u in ln for u in upper) and 시군 in ln
         if not hits and not mixed:
             continue
         soft = any(p.search(ln) for p in CONTEXT_OK)

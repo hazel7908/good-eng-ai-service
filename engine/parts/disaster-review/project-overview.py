@@ -24,7 +24,8 @@ def compute(v):
         # 면적 소수 보존 — 옥계리 체육용지 667,850.2 가 정수 절사로 훼손되던 것 정정 (09-09)
         fmt = lambda x: f"{x:,.1f}".rstrip("0").rstrip(".") if x is not None else None
         r[key] = {"필지": [str(np_)] + [x[1] for x in rows], "면적": [fmt(na)] + [fmt(_n(x[2])) for x in rows],
-                  "구성비": ["100.00"] + [f"{_n(x[2]) / na * 100:.2f}" if na and _n(x[2]) is not None else None for x in rows]}
+                  # 구성비 소수 1자리 — 골든 표기 실측(임 94.2 = 60,469/64,223). .2f 는 규약 위반이었다(09-09 Windows 적발 94.15↔94.2)
+                  "구성비": ["100.0"] + [f"{_n(x[2]) / na * 100:.1f}" if na and _n(x[2]) is not None else None for x in rows]}
     return r
 
 
@@ -32,6 +33,7 @@ def build_slots(v):
     g = lambda d, k: (d.get(k) if d.get(k) not in (None, "") else MISSING)
     s, n = v.get("계획", {}), v.get("서술", {})
     out = {k: g(s, k) for k in ("계획명", "위치", "조서_위치1", "조서_위치2", "시행자", "사업기간", "시군", "도시관리계획명")}
+    out["국공유_주체"] = g(v.get("토지이용", {}), "국공유_주체")
     # 면적 소수 보존 — 옥계리 1,239,132.2㎡ 가 정수 절사(,.0f)로 훼손되던 것 정정 (09-09)
     n_ = _n(s.get("면적_㎡"))
     out["면적"] = f"{n_:,.1f}".rstrip("0").rstrip(".") if n_ is not None else MISSING
