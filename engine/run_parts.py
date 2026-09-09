@@ -14,23 +14,42 @@ console_utf8()
 PYX = os.path.join(ROOT, ".venv", "Scripts", "python.exe")
 cat, case, parts = sys.argv[1], sys.argv[2], sys.argv[3:]
 
-for part in parts:
+# 🚨 `RPC 서버를 사용할 수 없습니다` — 프로세스가 목록에서 사라지는 시점과 COM 등록이
+#    풀리는 시점 사이에 틈이 있어, 그 틈에 붙으면 죽어가는 인스턴스를 잡는다.
+#    09-08 에 3초 유예를 넣었는데 **부족했다**(09-09 검토서 3장·1장에서 재발) → 보강:
+#    ① 기본 유예 3 → 6초  ② RPC 오류로 죽으면 **15·30초로 늘려 재시도**한다.
+#    재시도가 안전한 이유: 생성은 산출물을 마지막에 통째로 쓰므로 중도 사망이
+#    반쪽 산출물을 남기지 않는다. 실패는 로그에 ♻ 로 남겨 경합 빈도를 볼 수 있게 한다.
+RPC_ERR = ("RPC 서버를 사용할 수 없습니다", "-2147023174", "호출된 개체가 클라이언트로부터 연결을 끊었습니다")
+
+
+def _kill_and_wait(grace):
     subprocess.run(["taskkill", "/F", "/IM", "Hwp.exe"], capture_output=True)
     for _ in range(30):
         if not _hwp_running():
             break
         time.sleep(1)
-    # 🚨 사라진 직후 바로 붙으면 **죽어가는 인스턴스**에 붙어 `RPC 서버를 사용할 수
-    #    없습니다` 로 죽는다 (2026-09-08 실측 — 앞 파트가 막 끝난 뒤 이어 돌릴 때).
-    #    프로세스 목록에서 없어지는 것과 COM 등록이 풀리는 것 사이에 틈이 있다.
-    time.sleep(3)
+    time.sleep(grace)
+
+
+for part in parts:
     t = time.time()
-    try:
-        g = subprocess.run([PYX, "-u", "engine/generate.py", cat, part, case],
-                           capture_output=True, text=True, encoding="utf-8",
-                           errors="replace", cwd=ROOT, timeout=1500)
-        out = (g.stdout or "") + (g.stderr or "")
-    except subprocess.TimeoutExpired:
+    out, retried = "", 0
+    for grace in (6, 15, 30):
+        _kill_and_wait(grace)
+        try:
+            g = subprocess.run([PYX, "-u", "engine/generate.py", cat, part, case],
+                               capture_output=True, text=True, encoding="utf-8",
+                               errors="replace", cwd=ROOT, timeout=1500)
+            out = (g.stdout or "") + (g.stderr or "")
+        except subprocess.TimeoutExpired:
+            out = "__TIMEOUT__"
+            break
+        if not any(e in out for e in RPC_ERR):
+            break
+        retried += 1
+        print(f"  ♻ {part:20} RPC 경합 — 유예를 늘려 재시도 ({retried})", flush=True)
+    if out == "__TIMEOUT__":
         print(f"  ⏱ {part:20} 25분 초과", flush=True)
         continue
     warn = [l.strip()[:70] for l in out.splitlines() if "WARNING" in l]

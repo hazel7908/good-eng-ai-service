@@ -43,3 +43,6 @@ catalog/data/nas_index.json.gz
 # 새 세션 실사용 테스트용 임시 산출 자리
 tmp/
 scratch/
+
+# 배치 재생성 임시 로그 (run_parts > .rev*.log)
+.rev*.log

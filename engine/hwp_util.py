@@ -922,14 +922,30 @@ def blank_value_cells(hwp, anchor, hdr=1, limit=1, keep=None,
     return k
 
 
-def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12):
+def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12, from_top=True):
     """캐럿이 든 표(중첩표 포함)의 **머리행 아래**를 전부 `[확인 필요]` 로 비운다.
 
     ⚠️ 머리행은 `TableLowerCell` 횟수로 세면 안 된다 — 첫 열이 머리행 전체에 걸쳐
     세로 병합된 표(`유역`[2x1])에서는 한 번에 데이터 행을 지나쳐 **첫 행을 빠뜨린다.**
     **셀 주소의 행 번호**로 판정한다.
+
+    🚨 **앵커가 머리행 아래에 있으면 그 위는 손도 안 댔다** (2026-09-09 검토서 3장 실증).
+    아래로만 걸었기 때문에 시작점이 앵커 행이었다 — `검토 의견`(13행)을 앵커로 준
+    주민탐문 조사 3표에서 **면담자 인적사항·주소가 든 2행이 그대로 남았고**, 정작
+    앵커 라벨만 지워져 `비움 3표` 로 찍혔다(로그는 정상, 값은 기준 사업 그대로).
+    ⚠️ 이 함수의 계약은 "머리행 아래 **전부**" 다 — 계약을 어긴 쪽이 코드였다.
+    → **표 꼭대기로 먼저 올라간 뒤** 머리행만큼 내려온다. 앵커 위치와 무관해진다.
+    `from_top=False` 는 정말로 아래쪽만 비우고 싶을 때만 (현재 쓰는 곳 없음).
     """
     col_begin(hwp)
+    if from_top:
+        for _ in range(max_rows * 2):
+            a = cell_addr(hwp)
+            if not a or a[1] <= 1:        # 셀 주소는 1부터 — 1행이 표 꼭대기
+                break
+            if not hwp.HAction.Run("TableUpperCell"):
+                break
+        col_begin(hwp)
     for _ in range(max_rows):
         a = cell_addr(hwp)
         if not a or a[1] > header_rows:
@@ -960,6 +976,13 @@ def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12):
                 break                               # 줄바꿈 — 이미 다음 행 첫 칸
         else:
             return n
+    else:
+        # 🚨 **행 예산이 끝난 것은 표가 끝난 것이 아니다** — 여기 오면 남은 행에 기준 사업
+        #    값이 그대로 있다. 09-09 검토서 3장: 21행짜리 하천재해 위험지구 목록이
+        #    기본 24 로 **9행에서 잘려 원주 지구명 11행이 나갔는데 로그는 `비움 ×4`** 였다.
+        #    (세로 병합 칸을 행마다 다시 밟으므로 예산은 행 수의 두 배까지 든다.)
+        print(f"    ⚠️ blank_table_here: 행 예산 {max_rows} 소진 — 표가 더 길다. "
+              f"max_rows 를 올릴 것 (남은 행에 기준 사업 값 잔존)")
     return n
 
 

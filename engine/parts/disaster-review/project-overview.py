@@ -5,7 +5,7 @@
 표: 결정 조서 블록(~15표) **비움**(행정계획 문서 인풋) · 지목별/소유별 토지이용현황(전치 표 — 행 라벨 앵커) 채움 ·
 토지이용계획(안) 비움(골든이 남의 값). 앵커·오프셋은 Windows 실측 전 추정.
 """
-from hwp_util import MISSING, blank_table_here, blank_tables, find_in_table, write_at
+from hwp_util import blank_value_cells, MISSING, blank_table_here, blank_tables, find_in_table, write_at
 
 
 def _n(x):
@@ -74,3 +74,22 @@ def build_tables(hwp, v):
     # 런 분할(⑰) → `근생`(유일 1회). ⚠️ 둘 다 Windows 실측 대기.
     _blank_all(hwp, "자연녹지지역", 3, 1)
     _blank_all(hwp, "근생", 1, 1)
+
+    # 🚨 09-09 — **옥계리(첫 비되먹임) 생성에서 유출 26건이 실제로 터졌다.** 위 주석의
+    #    "지금은 비우지 못한다 = 다른 사업에 원주 값이 나간다"는 예측이 그대로 실현됐다.
+    #    되먹임(태장동)으로는 영원히 안 보이는 자리였다 — 값이 자기 것이라 같아 보인다.
+    #    앵커는 베이스에서 유일성 실측(전부 표안 1~3):
+    _blank_all(hwp, "시설명", 1, 3)          # 자동차정류장·완충녹지·유수지 결정 조서
+    _blank_all(hwp, "가 구", 1, 1)           # 가구 및 획지 규모·조성 결정 조서
+    _blank_all(hwp, "위      치", 1, 1)      # 건축물 용도·건폐율·용적률 결정 조서
+    _blank_all(hwp, "국공유지", 1, 1)         # 계획대상지 소유별 토지이용현황
+    _blank_all(hwp, "도로명", 1, 2)          # 도로 결정(변경) 조서 (변경전/후)
+
+    # 🚨 결정 조서 일부는 **라벨-값 격자**다 — 머리행에 값이 섞여 있어 `blank_tables` 로
+    #    자르면 값이 살아남는다 (09-09 옥계리 실측: `지구단위계획구역 결정(신설)` r0 가
+    #    `21,949 | 2,344 | 3,922 | 면 적(㎡) | 667,850.2`, 토지이용계획(안) r0 가
+    #    `구분 | 면적(㎡) | 구성비(%) | 100.00`). 칸 단위로 값만 비운다.
+    for anchor, lim in (("면  적(㎡)", 2), ("구성비(%)", 5), ("구     분", 2)):
+        rep = ([], [])
+        k = blank_value_cells(hwp, anchor, hdr=1, limit=lim, report=rep)
+        print(f"  값비움 `{anchor}` ×{k} — 비움 {len(rep[0])} · 유지 {len(rep[1])}")
