@@ -21,7 +21,9 @@ def compute(v):
     for key in ("지목별", "소유별"):
         rows = (v.get("토지이용") or {}).get(key) or []       # [[구분, 필지수, 면적], ...]
         np_, na = sum(int(_n(x[1]) or 0) for x in rows), sum(_n(x[2]) or 0 for x in rows)
-        r[key] = {"필지": [str(np_)] + [x[1] for x in rows], "면적": [f"{na:,.0f}"] + [f"{_n(x[2]):,.0f}" if _n(x[2]) is not None else None for x in rows],
+        # 면적 소수 보존 — 옥계리 체육용지 667,850.2 가 정수 절사로 훼손되던 것 정정 (09-09)
+        fmt = lambda x: f"{x:,.1f}".rstrip("0").rstrip(".") if x is not None else None
+        r[key] = {"필지": [str(np_)] + [x[1] for x in rows], "면적": [fmt(na)] + [fmt(_n(x[2])) for x in rows],
                   "구성비": ["100.00"] + [f"{_n(x[2]) / na * 100:.2f}" if na and _n(x[2]) is not None else None for x in rows]}
     return r
 
@@ -30,7 +32,9 @@ def build_slots(v):
     g = lambda d, k: (d.get(k) if d.get(k) not in (None, "") else MISSING)
     s, n = v.get("계획", {}), v.get("서술", {})
     out = {k: g(s, k) for k in ("계획명", "위치", "조서_위치1", "조서_위치2", "시행자", "사업기간", "시군", "도시관리계획명")}
-    out["면적"] = f"{_n(s.get('면적_㎡')):,.0f}" if _n(s.get("면적_㎡")) is not None else MISSING
+    # 면적 소수 보존 — 옥계리 1,239,132.2㎡ 가 정수 절사(,.0f)로 훼손되던 것 정정 (09-09)
+    n_ = _n(s.get("면적_㎡"))
+    out["면적"] = f"{n_:,.1f}".rstrip("0").rstrip(".") if n_ is not None else MISSING
     out.update({k: g(n, k) for k in ("배경_서술", "목적_서술", "실시근거_서술")})
     gw = v.get("경위") or []
     out.update({f"경위_{i}": (gw[i - 1] if i <= len(gw) else MISSING) for i in range(1, 17)})
