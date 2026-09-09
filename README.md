@@ -163,6 +163,7 @@ vars JSON 은 값의 나열이 아니라 **"사업에 대해 확정한 사실들
 │   ├── anchor_suggest.py         〃 대체 앵커 후보 제안 (표 안·한 문단·희소한 셀)
 │   ├── anchor_propose.py        〃 캡션으로 고정/사업고유 1차 분류 (사람 검토 전제)
 │   ├── token_table_check.py     🚨 거울상 — 비우기가 **spec 이 채운 표**를 겨누지 않는가
+│   ├── spec_para_check.py       빌드 전 MISS 예보 — spec `replace` 가 **한 문단 안**에 있는가
 │   ├── run_parts.py              파트 재생성 배치 — **파트마다 Hwp.exe 선정리** (안 하면 Open 정지)
 │   ├── setup_hwp_security.py     🚨 **최초 1회 필수** — 한글 보안모듈 등록 (안 하면 파일마다 팝업이 뜨고 Open() 이 멈춘다)
 │   ├── coverage.py               6유형 커버리지 사다리 측정
