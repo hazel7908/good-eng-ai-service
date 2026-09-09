@@ -30,7 +30,7 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import (blank_tables, console_utf8, find_fwd, open_hwp,   # noqa: E402
+from hwp_util import (blank_tables, blank_value_cells, console_utf8, find_fwd, open_hwp,   # noqa: E402
                       quit_hwp, stage_in, stage_out, unstage)
 
 ROOT = Path(__file__).parent.parent
@@ -623,10 +623,23 @@ def build(spec, src, dst):
     #    대상: 제3자 참여자 명단(측정대행업·자연생태조사업)·심의위원 명단처럼
     #    **사업 고유 + 개인정보**인 표. 자사 기술인력은 반고정이라 여기 넣지 않는다(L-1).
     for anchor, hdr, limit in spec.get("blank", []):
-        k = blank_tables(hwp, anchor, hdr, limit)
+        # ⚠️ 기본 max_rows(24) 로는 **27·17행 명단 표의 뒷부분이 남는다** —
+        #    실측으로 18명이 살아남았다(2026-09-09 맥 전수 대조). 개인정보는 다 지운다.
+        k = blank_tables(hwp, anchor, hdr, limit, max_rows=80)
         print(f"  [비움] {anchor} — 표 {k}개")
         if k == 0:
             print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — **개인정보가 남는다**")
+
+    # 🚨 **이름은 남기고 식별번호만 지워야 하는 표가 있다** (2026-09-09).
+    #    재해 3종 부록 `기술인력 인적사항` 은 자사 인력이라 이름은 반고정(L-1 대기)인데
+    #    `690323-*******` 는 **뒷자리만 가려져 앞 6자리(생년월일)가 실값**이다.
+    #    이름+생년월일+자격증번호면 특정이 된다 → 칸 단위로 값만 비운다.
+    for anchor, hdr, limit in spec.get("blank_values", []):
+        rep = ([], [])
+        k = blank_value_cells(hwp, anchor, hdr=hdr, limit=limit, report=rep)
+        print(f"  [값비움] {anchor} — 표 {k}개 · 비움 {len(rep[0])} · 유지 {len(rep[1])}")
+        if k == 0:
+            print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — **식별번호가 남는다**")
 
     print(f"  [정리] 토큰 {len(spec['expect'])}종 단일 런으로 병합")
     normalize(hwp, spec["expect"])
