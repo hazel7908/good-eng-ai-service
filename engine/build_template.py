@@ -30,7 +30,7 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from hwp_util import (console_utf8, find_fwd, open_hwp,   # noqa: E402
+from hwp_util import (blank_tables, console_utf8, find_fwd, open_hwp,   # noqa: E402
                       quit_hwp, stage_in, stage_out, unstage)
 
 ROOT = Path(__file__).parent.parent
@@ -616,6 +616,17 @@ def build(spec, src, dst):
             (right if n >= 0 else left)(hwp, abs(n))
             set_cell(hwp, value)
             print(f"    {'+' if n >= 0 else ''}{n}칸 = {value}")
+
+    # 🚨 **개인정보가 든 표는 이름이 아니라 구조로 비운다** (2026-09-09).
+    #    spec 에 실명을 적어 `replace` 로 지우면 **그 실명이 저장소에 평문으로 커밋된다** —
+    #    가리려던 것을 다른 파일에 옮겨 적는 꼴이다. 그래서 `(앵커, 머리행, limit)` 만 준다.
+    #    대상: 제3자 참여자 명단(측정대행업·자연생태조사업)·심의위원 명단처럼
+    #    **사업 고유 + 개인정보**인 표. 자사 기술인력은 반고정이라 여기 넣지 않는다(L-1).
+    for anchor, hdr, limit in spec.get("blank", []):
+        k = blank_tables(hwp, anchor, hdr, limit)
+        print(f"  [비움] {anchor} — 표 {k}개")
+        if k == 0:
+            print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — **개인정보가 남는다**")
 
     print(f"  [정리] 토큰 {len(spec['expect'])}종 단일 런으로 병합")
     normalize(hwp, spec["expect"])
