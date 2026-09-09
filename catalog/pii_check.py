@@ -37,14 +37,14 @@ JOSEO_HEAD = re.compile(r"(편입\s*)?토지\s*조서|소유자별|소유\s*자"
 BARE_NAME = re.compile(r"^[가-힣]{2,4}$")
 # 직책 — 바로 앞 줄이 이름이라는 가장 강한 신호
 JOB = re.compile(r"^(사\s*원|주\s*임|대\s*리|과\s*장|차\s*장|부\s*장|팀\s*장|이\s*사"
-                 r"|대표이사|소\s*장|연구원|기\s*사|사\s*장)$")
+                 r"|대표이사|소\s*장|연구원|기\s*사|사\s*장|대\s*표|감\s*사|상\s*무|전\s*무|교\s*수)$")
 # 조서 구역에 흔한 낱말 — 이름이 아니다
 NOTNAME = set(
     "옥계리 서원면 횡성군 합계 소유자 지번 지목 비고 번호 소재지 기정 변경 증감 구성비 "
     "필지수 면적 공부 편입 추가부지 관련도면 임야 도로 하천 구거 대지 잡종지 과수원 "
     "목장용지 학교용지 주차장 창고용지 종교용지 유원지 광천지 염전 공장용지 철도용지 "
     "제방 수도용지 공원 사적지 묘지 유지 체육용지 용적률 건폐율 생활권 업무용 시가화 "
-    "변경후 변경전 국유지 사유지 공유지 소계 총계".split())
+    "변경후 변경전 국유지 사유지 공유지 소계 총계 수질 대기 소음 진동 총괄 분석".split())
 # 사람 이름 후보: 2~4자 한글이 홀로 선 칸. 지명 접미사는 뺀다.
 NAME = re.compile(r"(?<![가-힣])[가-힣]{2,4}(?![가-힣])")
 지명끝 = ("시", "군", "구", "읍", "면", "리", "동", "로", "길", "천", "산", "km", "㎡")
@@ -110,6 +110,22 @@ def scan(text, label):
         nxt = lines[i + 1].strip() if i + 1 < len(lines) else ""
         if JOB.match(prev) or QUAL.search(nxt) or QUAL.search(prev):
             names.append((w, f"(직책 앞줄/자격 인접 {i}행 — 앞`{prev[:14]}` 뒤`{nxt[:16]}`)"))
+
+    # 🚨 **띄어쓴 이름** — `연 정 흠`·`백  엽` 꼴은 BARE_NAME 이 못 잡는다 (2026-09-09
+    #    Mac 실측 — 전략 부록 가람·FITI 명단 24명이 전부 이 꼴). 음절 사이 공백을
+    #    짜부라뜨려 같은 직책·자격 신호를 태운다. 띄어쓴 직책(`이  사`)은 JOB 이 거른다.
+    SPACED = re.compile(r"^[가-힣](?:\s+[가-힣]){1,3}$")
+    for i, l in enumerate(lines):
+        w = l.strip()
+        if not SPACED.match(w) or JOB.match(w):
+            continue
+        sq = w.replace(" ", "")
+        if not BARE_NAME.match(sq) or sq in NOTNAME or sq.endswith(지명끝):
+            continue
+        prev = lines[i - 1].strip() if i else ""
+        nxt = lines[i + 1].strip() if i + 1 < len(lines) else ""
+        if JOB.match(prev) or JOB.match(nxt) or QUAL.search(nxt) or QUAL.search(prev):
+            names.append((sq, f"(띄어쓴 이름 {i}행 — 앞`{prev[:14]}` 뒤`{nxt[:16]}`)"))
 
     # 🚨 `성 명` 같은 인적사항 라벨은 **한 줄이 아니라 블록을 연다** (2026-09-09 실측 —
     #    괴산 사업개요에 토지소유자 8명이 커밋된 채 남아 있었다). 라벨 다음 한 줄만 가리는
