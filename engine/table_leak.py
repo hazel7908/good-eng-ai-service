@@ -290,6 +290,18 @@ def _lines(hwpx):
     return out
 
 
+def _strings(x):
+    """중첩 dict/list 안의 문자열을 전부 뽑는다 (vars 훑기용)."""
+    if isinstance(x, dict):
+        for v in x.values():
+            yield from _strings(v)
+    elif isinstance(x, list):
+        for v in x:
+            yield from _strings(v)
+    elif isinstance(x, str) and x:
+        yield x
+
+
 def check(category, part, case, detail=False):
     out_p = ROOT / "cases" / category / case / part / "output.hwpx"
     base_p = ROOT / "templates" / category / f"{part}.hwpx"
@@ -310,10 +322,16 @@ def check(category, part, case, detail=False):
     #    (재해 첫 베이스 3장에서 14건. 2026-09-01 Windows 실측).
     #    `시군` 이 없으면 `위치`·`주소_일원` 에서 기준 시군을 찾아 되먹임을 판정한다.
     시군 = None
-    _사업값들 = []
+    # 🚨 `사업` 딕셔너리만 보면 놓친다 — 카테고리마다 최상위 키가 다르다(검토서 1장은
+    #    `계획`, 3장은 `사업`·`관련계획`). 옥계리 주소 `강원도 횡성군 …` 가 든 값은
+    #    **project-overview.json 의 `계획.위치`** 였고, `사업` 만 훑은 판정은 첫 파일에서
+    #    break 까지 겹쳐 그 값을 영영 못 봤다 (09-09 Windows 재검 — 오탐 3건 그대로 재현).
+    #    → vars 전 파일의 **모든 문자열 값**을 훑는다. 뜻은 그대로다: "우리가 vars 에 적은
+    #    사업 자신의 주소".
+    _사업값들 = [x for vp in sorted((ROOT / "cases" / category / case / "vars").glob("*.json"))
+               for x in _strings(json.loads(vp.read_text(encoding="utf-8")))]
     for vp in sorted((ROOT / "cases" / category / case / "vars").glob("*.json")):
         사업 = json.loads(vp.read_text(encoding="utf-8")).get("사업", {})
-        _사업값들 += [str(x) for x in 사업.values() if x]
         시군 = 사업.get("시군")
         if 시군:
             break

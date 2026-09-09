@@ -85,6 +85,17 @@ def main():
 
     build_slots, build_tables = load_part_handlers(a.category, a.part)
     vars_path = ROOT / "cases" / a.category / a.case / "vars" / f"{a.part}.json"
+    # 준용 카테고리의 **되먹임**은 원본 카테고리 vars 를 쓴다 (2026-09-09).
+    # 재평은 소재평 서식 파생이라 spec·핸들러·베이스가 전부 위임인데, 기준 사업(천안 삼성리)
+    # 케이스 폴더는 `cases/small-disaster/` 에만 있다. vars 를 복사해 두면 **두 벌이 갈라진다**
+    # (기준 사업 값이 바뀌면 한쪽만 고쳐진다) → 없을 때만 원본 카테고리에서 찾아 쓰고,
+    # **무엇을 썼는지 찍는다.** 실사업(횡성 조항리)은 자기 vars 가 있으므로 이 경로를 안 탄다.
+    if not vars_path.exists():
+        for alt in (ROOT / "cases").glob(f"*/{a.case}/vars/{a.part}.json"):
+            print(f"  ℹ️ vars 를 {alt.relative_to(ROOT)} 에서 읽는다 "
+                  f"(이 카테고리엔 기준 사업 케이스가 없다 — 준용 파생의 되먹임)")
+            vars_path = alt
+            break
     if not vars_path.exists():
         sys.exit(f"ERROR: {vars_path} 없음. /generate-report 3단계에서 만든다")
     v = json.loads(vars_path.read_text(encoding="utf-8"))
