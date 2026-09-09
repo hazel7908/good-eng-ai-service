@@ -35,6 +35,9 @@ JOSEO = re.compile(r"\d+-\d+.*?\d{1,3}(?:,\d{3})+|\d{1,3}(?:,\d{3})+.*?\d+-\d+")
 #    실명 `조형범` 8회가 그렇게 빠져나갔다 — 조서 구역을 잡아 **홀로 선 이름 줄**도 본다.
 JOSEO_HEAD = re.compile(r"(편입\s*)?토지\s*조서|소유자별|소유\s*자")
 BARE_NAME = re.compile(r"^[가-힣]{2,4}$")
+# 직책 — 바로 앞 줄이 이름이라는 가장 강한 신호
+JOB = re.compile(r"^(사\s*원|주\s*임|대\s*리|과\s*장|차\s*장|부\s*장|팀\s*장|이\s*사"
+                 r"|대표이사|소\s*장|연구원|기\s*사|사\s*장)$")
 # 조서 구역에 흔한 낱말 — 이름이 아니다
 NOTNAME = set(
     "옥계리 서원면 횡성군 합계 소유자 지번 지목 비고 번호 소재지 기정 변경 증감 구성비 "
@@ -86,6 +89,32 @@ def scan(text, label):
         near = [x.strip() for x in lines[max(0, i - 6):i + 7]]
         if any(JIBUN.match(x) for x in near) and any(AREA.match(x) for x in near):
             names.append((w, f"(조서 칸 단독 — {i}행)"))
+
+    # 🚨 **직책이 이름을 배신한다** (2026-09-09 실측 — 환경질측정 보고서 `참여자 명단`).
+    #    이름 다음 줄이 `과 장`·`주 임`·`부 장` 이면 그 줄은 사람이다. 지명·용어는 이렇게
+    #    안 붙는다. 괴산·원주·청양 세 파일에 직원 실명 10명 24회가 **커밋된 채** 있었다.
+    for i, l in enumerate(lines[:-1]):
+        w = l.strip()
+        if BARE_NAME.match(w) and JOB.match(lines[i + 1].strip()):
+            names.append((w, f"(직책 인접 {i}행 — 다음 줄 `{lines[i + 1].strip()}`)"))
+
+    # 🚨 `성 명` 같은 인적사항 라벨은 **한 줄이 아니라 블록을 연다** (2026-09-09 실측 —
+    #    괴산 사업개요에 토지소유자 8명이 커밋된 채 남아 있었다). 라벨 다음 한 줄만 가리는
+    #    규칙으로는 `지번 / 이름` 이 번갈아 나오는 명단을 못 잡는다.
+    #    → 라벨 뒤 **다음 소제목(`가.`·`나.`·`1.` 꼴)까지**를 블록으로 보고 전수 후보로 올린다.
+    HEAD = re.compile(r"^\s*(?:[가-힣]\.|\d+(?:\.\d+)*\s|[ⅠⅡⅢⅣⅤ])")
+    for i, l in enumerate(lines):
+        if l.strip() not in ("성 명", "성명", "소유자", "신청인", "토지소유자"):
+            continue
+        for j in range(i + 1, min(i + 40, len(lines))):
+            w = lines[j].strip()
+            if not w or HEAD.match(w):
+                break
+            for cand in re.split(r"[,·/]| ", w):
+                cand = cand.strip()
+                if (BARE_NAME.match(cand) and cand not in NOTNAME
+                        and not cand.endswith(지명끝)):
+                    names.append((cand, f"(인적사항 블록 {j}행 — `{l.strip()}` 아래)"))
     print(f"  {label[:44]:46} 확정 {hard} · 조서 이름 후보 {len(names)}")
     for k, v in bad.items():
         if v:
