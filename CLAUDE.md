@@ -17,7 +17,7 @@
 | `golden/` | **골든셋 = 완성된 정답 보고서** | ❌ **금지** |
 | `cases/{카테고리}/{사업}/` | 사업별 입력(`input/`) · 변수(`vars/`) · 생성물(`{파트}/`) | ✅ |
 
-`engine/` 생성 엔진 · `catalog/` NAS 카탈로그 · `_archive/poc-2026-03/` 옛 PoC(**참조 금지**)
+`engine/` 생성 엔진 · `catalog/` NAS 카탈로그 · 옛 PoC는 레포 밖 `raw_data/_archive-poc-2026-03/`(**참조 금지** — 재편 1단계 09-09)
 
 ---
 

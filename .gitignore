@@ -34,3 +34,12 @@ catalog/review/.law_api_cache/
 #    (신청서 본문은 pii_check --fix 로 가려서 쓴다 — 거긴 사업 정보가 섞여 있다.)
 *명단*.xlsx
 *명단*.xls
+
+# 재편 1단계 (2026-09-09 — docs/20260909_레포_구조재편안.md §2-A·B)
+# NAS 전수 인덱스 26MB — 맥 전용 카탈로그 도구만 사용, 재크롤로 재생성 가능, 직원명 경로 포함
+catalog/data/nas_index.json.gz
+# 레이어드 PSD — figures/ 옆 로컬 산출 (관행을 규칙으로)
+*.psd
+# 새 세션 실사용 테스트용 임시 산출 자리
+tmp/
+scratch/
