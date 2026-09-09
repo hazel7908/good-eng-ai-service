@@ -30,14 +30,30 @@ LAB = ("성명(법인명 및 대표자 성명)", "생년월일(법인등록번�
        "성명", "생년월일", "소유자", "신청인")
 # 조서 줄: 지번(숫자-숫자)과 면적(쉼표 숫자)이 같이 있는 줄
 JOSEO = re.compile(r"\d+-\d+.*?\d{1,3}(?:,\d{3})+|\d{1,3}(?:,\d{3})+.*?\d+-\d+")
+# 🚨 **칸마다 한 줄로 추출되는 문서가 있다** (2026-09-09 — 옥계리 입안신청서 hwp).
+#    그러면 위 한 줄 규칙이 통째로 헛돈다: `787-1` `2,927.0` `조형범` 이 **세 줄**로 나뉜다.
+#    실명 `조형범` 8회가 그렇게 빠져나갔다 — 조서 구역을 잡아 **홀로 선 이름 줄**도 본다.
+JOSEO_HEAD = re.compile(r"(편입\s*)?토지\s*조서|소유자별|소유\s*자")
+BARE_NAME = re.compile(r"^[가-힣]{2,4}$")
+# 조서 구역에 흔한 낱말 — 이름이 아니다
+NOTNAME = set(
+    "옥계리 서원면 횡성군 합계 소유자 지번 지목 비고 번호 소재지 기정 변경 증감 구성비 "
+    "필지수 면적 공부 편입 추가부지 관련도면 임야 도로 하천 구거 대지 잡종지 과수원 "
+    "목장용지 학교용지 주차장 창고용지 종교용지 유원지 광천지 염전 공장용지 철도용지 "
+    "제방 수도용지 공원 사적지 묘지 유지 체육용지 용적률 건폐율 생활권 업무용 시가화 "
+    "변경후 변경전 국유지 사유지 공유지 소계 총계".split())
 # 사람 이름 후보: 2~4자 한글이 홀로 선 칸. 지명 접미사는 뺀다.
 NAME = re.compile(r"(?<![가-힣])[가-힣]{2,4}(?![가-힣])")
 지명끝 = ("시", "군", "구", "읍", "면", "리", "동", "로", "길", "천", "산", "km", "㎡")
 
 
-def mask(lines):
+def mask(lines, names=()):
+    """개인정보를 가린다. `names` 는 **사람이 확인한** 실명 목록 (조서 칸 단독)."""
     out, n = [], 0
+    confirmed = set(names)
     for i, l in enumerate(lines):
+        if l.strip() in confirmed:
+            out.append("[개인정보]"); n += 1; continue
         if i and lines[i - 1].strip() in LAB and l.strip():
             out.append("[개인정보]"); n += 1; continue
         new = DONG.sub("[개인정보]", RRN.sub("[개인정보]", TEL.sub("[개인정보]", l)))
@@ -52,12 +68,24 @@ def scan(text, label):
            "동호수": DONG.findall(text)}
     hard = sum(len(v) for v in bad.values())
     names = []
-    for l in text.splitlines():
+    lines = text.splitlines()
+    for l in lines:
         if not JOSEO.search(l):
             continue
         for w in NAME.findall(l):
             if not w.endswith(지명끝) and w not in ("소유자", "지목", "면적", "구분", "비고"):
                 names.append((w, l.strip()[:60]))
+    # 칸마다 한 줄인 문서 — **이웃 줄에 지번·면적이 있는** 홀로 선 이름만 본다.
+    # 구역 전체를 훑으면 목차의 `토지조서` 부터 걸려 오탐이 수백 건이 된다(실측 344).
+    JIBUN = re.compile(r"^\d+(-\d+)?$")
+    AREA = re.compile(r"^\d{1,3}(,\d{3})*(\.\d+)?")
+    for i, l in enumerate(lines):
+        w = l.strip()
+        if not BARE_NAME.match(w) or w in NOTNAME or w.endswith(지명끝):
+            continue
+        near = [x.strip() for x in lines[max(0, i - 6):i + 7]]
+        if any(JIBUN.match(x) for x in near) and any(AREA.match(x) for x in near):
+            names.append((w, f"(조서 칸 단독 — {i}행)"))
     print(f"  {label[:44]:46} 확정 {hard} · 조서 이름 후보 {len(names)}")
     for k, v in bad.items():
         if v:
