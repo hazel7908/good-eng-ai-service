@@ -98,6 +98,19 @@ def scan(text, label):
         if BARE_NAME.match(w) and JOB.match(lines[i + 1].strip()):
             names.append((w, f"(직책 인접 {i}행 — 다음 줄 `{lines[i + 1].strip()}`)"))
 
+    # 🚨 **직책이 앞 줄에 오고 다음 줄이 자격·학위인 명단이 또 있다** (2026-09-09 Mac —
+    #    횡성 본환 부록 참여자 명단 ~46명이 `이 사` ↘ `(실명)` ↘ `이학박사` 배치라
+    #    "다음 줄이 직책" 규칙이 전부 빗나갔다. 자격증·학위는 직책만큼 강한 사람 신호다.
+    QUAL = re.compile(r"(기사|기능사|산업기사|분석사|기술인|박사|석사|학사|수료|과정|학과|학부)\)?$")
+    for i, l in enumerate(lines):
+        w = l.strip()
+        if not BARE_NAME.match(w) or w in NOTNAME or w.endswith(지명끝):
+            continue
+        prev = lines[i - 1].strip() if i else ""
+        nxt = lines[i + 1].strip() if i + 1 < len(lines) else ""
+        if JOB.match(prev) or QUAL.search(nxt) or QUAL.search(prev):
+            names.append((w, f"(직책 앞줄/자격 인접 {i}행 — 앞`{prev[:14]}` 뒤`{nxt[:16]}`)"))
+
     # 🚨 `성 명` 같은 인적사항 라벨은 **한 줄이 아니라 블록을 연다** (2026-09-09 실측 —
     #    괴산 사업개요에 토지소유자 8명이 커밋된 채 남아 있었다). 라벨 다음 한 줄만 가리는
     #    규칙으로는 `지번 / 이름` 이 번갈아 나오는 명단을 못 잡는다.
