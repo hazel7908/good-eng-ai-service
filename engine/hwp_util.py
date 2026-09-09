@@ -284,6 +284,10 @@ def right(hwp, n=1):
 
 
 def down(hwp, n=1):
+    # 음수는 위로 — 전치 표는 머리행이 앵커 **위**에 있다 (`write_at(anchor, -1, …)`).
+    if n < 0:
+        for _ in range(-n): hwp.HAction.Run("TableUpperCell")
+        return
     for _ in range(n): hwp.HAction.Run("TableLowerCell")
 
 
@@ -639,6 +643,61 @@ def fit_rows(hwp, anchor, base_rows, need, start=1, skip=0):
     return True
 
 
+def row_cols(hwp, anchor, skip=0, max_cols=24):
+    """앵커가 든 행을 걸으며 셀 주소를 모은다 → `[("A",2), ("B",2), …]`.
+
+    ⚠️ **`TableRowEnd` 는 행 끝으로 안 간다** (2026-09-09 실측 — 앵커 칸에 그대로
+    있었다). 열 수는 `cell_addr` 를 보며 한 칸씩 걸어서만 셀 수 있다.
+    """
+    if not find_in_table(hwp, anchor, skip=skip):
+        return []
+    a0 = cell_addr(hwp)
+    if not a0:
+        return []
+    out, prev = [a0], a0
+    for _ in range(max_cols):
+        if not hwp.HAction.Run("TableRightCell"):
+            break
+        a = cell_addr(hwp)
+        if a is None or a == prev or a[1] != a0[1]:
+            break                       # 제자리 = 표 끝 · 행이 바뀌면 줄바꿈
+        prev = a
+        out.append(a)
+    return out
+
+
+def fit_cols(hwp, anchor, need, skip=0, max_cols=24):
+    """앵커 행의 **데이터 칸 수**(앵커 라벨 칸 제외)를 need 로 맞춘다 — `fit_rows` 의 열 판.
+
+    전치 표(항목이 행이 아니라 **열**로 늘어나는 표)에 쓴다. 검토서 1장 지목별
+    토지이용현황이 그렇다 — 원주는 지목 2종(임·전)인데 옥계리는 9종이다.
+    🚨 **맞추지 않고 쓰면 값이 다음 행으로 넘쳐 행 라벨을 덮는다** (09-09 실측:
+    `면  적(㎡)`·`구성비(%)` 라벨이 숫자로 덮이고 표가 통째로 뒤섞였다 —
+    남의 값이 남는 것보다 나쁜 부류다).
+
+    실측한 액션 의미 (09-09):
+      · `TableInsertRightColumn` — **현재 칸 오른쪽에 빈 열 삽입**(오른쪽 값이 밀린다)
+      · `TableDeleteColumn`      — **현재 칸이 있는 열을 통째로 삭제**
+        ⚠️ 라벨 칸(A열)에서 부르면 라벨 열이 사라진다. 반드시 마지막 데이터 칸에서.
+    반환: 맞췄으면 True.
+    """
+    for _ in range(max_cols):
+        cols = row_cols(hwp, anchor, skip=skip, max_cols=max_cols)
+        if not cols:
+            print(f"    WARNING: 앵커 '{anchor}' 못 찾음 — 열 조정 스킵")
+            return False
+        cur = len(cols) - 1                       # 앵커(라벨) 칸을 뺀 데이터 칸 수
+        if cur == need:
+            return True
+        right(hwp, cur)                           # 마지막 데이터 칸 (앵커에서 cur 칸)
+        ok = hwp.HAction.Run("TableInsertRightColumn" if need > cur else "TableDeleteColumn")
+        if not ok:
+            print(f"    WARNING: 열 조정 실패 ({cur}→{need}) — 앵커 '{anchor}'")
+            return False
+    print(f"    WARNING: 열 조정이 {max_cols}회에 안 끝났다 — 앵커 '{anchor}'")
+    return False
+
+
 def cell_addr(hwp):
     """현재 셀 주소 → `("B", 3)`. 표 밖이면 None.
 
@@ -922,7 +981,7 @@ def blank_value_cells(hwp, anchor, hdr=1, limit=1, keep=None,
     return k
 
 
-def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12, from_top=True):
+def blank_table_here(hwp, header_rows, max_rows=24, max_cols=24, from_top=True):
     """캐럿이 든 표(중첩표 포함)의 **머리행 아래**를 전부 `[확인 필요]` 로 비운다.
 
     ⚠️ 머리행은 `TableLowerCell` 횟수로 세면 안 된다 — 첫 열이 머리행 전체에 걸쳐
@@ -975,6 +1034,11 @@ def blank_table_here(hwp, header_rows, max_rows=24, max_cols=12, from_top=True):
             if cell_addr(hwp)[1] != row:
                 break                               # 줄바꿈 — 이미 다음 행 첫 칸
         else:
+            # 🚨 **열 예산 소진도 표의 끝이 아니다.** 09-09 검토서 1장 도로 결정(변경)
+            #    조서는 **13열**인데 기본이 12라 첫 데이터 행만 비우고 멈췄다
+            #    (`비움 ×1` 로 찍혀 정상처럼 보였다). 행 예산과 똑같은 부류다.
+            print(f"    ⚠️ blank_table_here: 열 예산 {max_cols} 소진 — 표가 더 넓다. "
+                  f"max_cols 를 올릴 것 (남은 행에 기준 사업 값 잔존)")
             return n
     else:
         # 🚨 **행 예산이 끝난 것은 표가 끝난 것이 아니다** — 여기 오면 남은 행에 기준 사업
@@ -1104,7 +1168,7 @@ def _josa_self_test():
     return not bad
 
 
-def blank_tables(hwp, anchor, header_rows, limit=6, max_rows=24):
+def blank_tables(hwp, anchor, header_rows, limit=6, max_rows=24, max_cols=24):
     """같은 앵커를 가진 표를 차례로 비운다 — **skip 을 앵커 생존 여부로 자동 결정** (2026-09-03).
 
     🚨 비우기가 앵커를 **지우는 표**(데이터 행 라벨: `이재민`·`B등급`)와 **안 지우는 표**
@@ -1119,7 +1183,7 @@ def blank_tables(hwp, anchor, header_rows, limit=6, max_rows=24):
     while k < limit and find_in_table(hwp, anchor, skip=skip):
         a = cell_addr(hwp)
         survives = bool(a) and a[1] <= header_rows
-        n = blank_table_here(hwp, header_rows=header_rows, max_rows=max_rows)
+        n = blank_table_here(hwp, header_rows=header_rows, max_rows=max_rows, max_cols=max_cols)
         print(f"    비움 `{anchor}` #{k + 1} — {n}셀 (앵커 {'머리행' if survives else '데이터행→소멸'})")
         k += 1
         if survives:
