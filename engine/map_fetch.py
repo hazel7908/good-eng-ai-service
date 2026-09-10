@@ -110,19 +110,28 @@ def geocode(address, domain=VWORLD_DOMAIN):
     import json as _json
     import urllib.parse
     key = load_key(VWORLD_KEY_ENV)
-    last = address.strip().split()[-1] if address.strip() else ""
-    category = "road" if last and last[-1] in "로길" else "parcel"
-    q = urllib.parse.urlencode({
-        "service": "search", "version": "2.0", "request": "search",
-        "size": 5, "page": 1, "crs": "EPSG:3857", "format": "json",
-        "type": "address", "category": category,
-        "apiKey": key, "domain": domain, "query": address,
-    })
-    data = _json.loads(urllib.request.urlopen(f"{VWORLD_SEARCH}?{q}", timeout=30).read())
-    res = data.get("response", {})
-    if res.get("status") != "OK" or res.get("record", {}).get("total") in ("0", 0, None):
-        raise LookupError(f"주소를 찾지 못했습니다: {address} (category={category})")
-    it = res["result"]["items"][0]
+    # ⚠️ 도로명 판별을 **마지막 토큰**으로 하면 표준 꼴(`옥계9길 124`·`단구로 159` —
+    #    건물번호로 끝난다)을 전부 지번으로 오판한다 (2026-09-10 옥계리 실측).
+    #    → 아무 토큰이나 로/길로 끝나면 road, 그리고 실패 시 반대 카테고리 재시도.
+    toks = address.strip().split()
+    category = "road" if any(t and t[-1] in "로길" for t in toks) else "parcel"
+
+    def _search(cat):
+        q = urllib.parse.urlencode({
+            "service": "search", "version": "2.0", "request": "search",
+            "size": 5, "page": 1, "crs": "EPSG:3857", "format": "json",
+            "type": "address", "category": cat,
+            "apiKey": key, "domain": domain, "query": address,
+        })
+        data = _json.loads(urllib.request.urlopen(f"{VWORLD_SEARCH}?{q}", timeout=30).read())
+        res = data.get("response", {})
+        if res.get("status") != "OK" or res.get("record", {}).get("total") in ("0", 0, None):
+            return None
+        return res["result"]["items"][0]
+
+    it = _search(category) or _search("road" if category == "parcel" else "parcel")
+    if it is None:
+        raise LookupError(f"주소를 찾지 못했습니다: {address} (category={category}+반대 재시도)")
     return (float(it["point"]["x"]), float(it["point"]["y"]),
             it["address"].get("parcel") or it["address"].get("road") or address)
 
